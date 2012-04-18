@@ -5,6 +5,12 @@ package br.ss.core.model.entity;
  * @author Usuario
  *
  */
-public class Item {
+public class Item extends GenericEntity {
+
+	@Override
+	public Integer getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
