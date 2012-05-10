@@ -1,0 +1,531 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.0
+-- Dumped by pg_dump version 9.1.0
+-- Started on 2012-05-09 22:18:49
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 7 (class 2615 OID 16395)
+-- Name: authenticator; Type: SCHEMA; Schema: -; Owner: root
+--
+
+CREATE SCHEMA authenticator;
+
+
+ALTER SCHEMA authenticator OWNER TO root;
+
+--
+-- TOC entry 172 (class 3079 OID 11638)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1905 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = authenticator, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 165 (class 1259 OID 16414)
+-- Dependencies: 7
+-- Name: perfil; Type: TABLE; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE TABLE perfil (
+    id_perfil integer NOT NULL,
+    tx_perfil character varying(100),
+    id_sistema integer NOT NULL
+);
+
+
+ALTER TABLE authenticator.perfil OWNER TO root;
+
+--
+-- TOC entry 164 (class 1259 OID 16412)
+-- Dependencies: 165 7
+-- Name: perfil_id_perfil_seq; Type: SEQUENCE; Schema: authenticator; Owner: root
+--
+
+CREATE SEQUENCE perfil_id_perfil_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE authenticator.perfil_id_perfil_seq OWNER TO root;
+
+--
+-- TOC entry 1906 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: perfil_id_perfil_seq; Type: SEQUENCE OWNED BY; Schema: authenticator; Owner: root
+--
+
+ALTER SEQUENCE perfil_id_perfil_seq OWNED BY perfil.id_perfil;
+
+
+--
+-- TOC entry 1907 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: perfil_id_perfil_seq; Type: SEQUENCE SET; Schema: authenticator; Owner: root
+--
+
+SELECT pg_catalog.setval('perfil_id_perfil_seq', 1, false);
+
+
+--
+-- TOC entry 171 (class 1259 OID 16482)
+-- Dependencies: 7
+-- Name: perfil_rotina; Type: TABLE; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE TABLE perfil_rotina (
+    id_perfil integer NOT NULL,
+    id_rotina integer NOT NULL,
+    dt_cadastro date NOT NULL
+);
+
+
+ALTER TABLE authenticator.perfil_rotina OWNER TO root;
+
+--
+-- TOC entry 167 (class 1259 OID 16433)
+-- Dependencies: 7
+-- Name: rotina; Type: TABLE; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE TABLE rotina (
+    id_rotina integer NOT NULL,
+    id_sistema integer NOT NULL,
+    tx_rotina character varying(255) NOT NULL,
+    cs_status boolean NOT NULL
+);
+
+
+ALTER TABLE authenticator.rotina OWNER TO root;
+
+--
+-- TOC entry 166 (class 1259 OID 16431)
+-- Dependencies: 7 167
+-- Name: rotina_id_rotina_seq; Type: SEQUENCE; Schema: authenticator; Owner: root
+--
+
+CREATE SEQUENCE rotina_id_rotina_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE authenticator.rotina_id_rotina_seq OWNER TO root;
+
+--
+-- TOC entry 1908 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: rotina_id_rotina_seq; Type: SEQUENCE OWNED BY; Schema: authenticator; Owner: root
+--
+
+ALTER SEQUENCE rotina_id_rotina_seq OWNED BY rotina.id_rotina;
+
+
+--
+-- TOC entry 1909 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: rotina_id_rotina_seq; Type: SEQUENCE SET; Schema: authenticator; Owner: root
+--
+
+SELECT pg_catalog.setval('rotina_id_rotina_seq', 1, false);
+
+
+--
+-- TOC entry 163 (class 1259 OID 16406)
+-- Dependencies: 7
+-- Name: sistema; Type: TABLE; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE TABLE sistema (
+    id_sistema integer NOT NULL,
+    tx_sistema character varying(50) NOT NULL,
+    tx_descricao character varying(100),
+    tx_sigla character varying(10) NOT NULL
+);
+
+
+ALTER TABLE authenticator.sistema OWNER TO root;
+
+--
+-- TOC entry 162 (class 1259 OID 16404)
+-- Dependencies: 163 7
+-- Name: sistema_id_sistema_seq; Type: SEQUENCE; Schema: authenticator; Owner: root
+--
+
+CREATE SEQUENCE sistema_id_sistema_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE authenticator.sistema_id_sistema_seq OWNER TO root;
+
+--
+-- TOC entry 1910 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: sistema_id_sistema_seq; Type: SEQUENCE OWNED BY; Schema: authenticator; Owner: root
+--
+
+ALTER SEQUENCE sistema_id_sistema_seq OWNED BY sistema.id_sistema;
+
+
+--
+-- TOC entry 1911 (class 0 OID 0)
+-- Dependencies: 162
+-- Name: sistema_id_sistema_seq; Type: SEQUENCE SET; Schema: authenticator; Owner: root
+--
+
+SELECT pg_catalog.setval('sistema_id_sistema_seq', 1, false);
+
+
+--
+-- TOC entry 169 (class 1259 OID 16451)
+-- Dependencies: 7
+-- Name: usuario; Type: TABLE; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE TABLE usuario (
+    id_usuario integer NOT NULL,
+    tx_login character varying(11) NOT NULL,
+    dt_cadastro timestamp without time zone NOT NULL,
+    tx_email character varying(60),
+    tx_senha character varying(100) NOT NULL,
+    cs_status smallint NOT NULL
+);
+
+
+ALTER TABLE authenticator.usuario OWNER TO root;
+
+--
+-- TOC entry 168 (class 1259 OID 16449)
+-- Dependencies: 169 7
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE; Schema: authenticator; Owner: root
+--
+
+CREATE SEQUENCE usuario_id_usuario_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE authenticator.usuario_id_usuario_seq OWNER TO root;
+
+--
+-- TOC entry 1912 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE OWNED BY; Schema: authenticator; Owner: root
+--
+
+ALTER SEQUENCE usuario_id_usuario_seq OWNED BY usuario.id_usuario;
+
+
+--
+-- TOC entry 1913 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE SET; Schema: authenticator; Owner: root
+--
+
+SELECT pg_catalog.setval('usuario_id_usuario_seq', 1, false);
+
+
+--
+-- TOC entry 170 (class 1259 OID 16457)
+-- Dependencies: 7
+-- Name: usuario_perfil; Type: TABLE; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE TABLE usuario_perfil (
+    id_usuario integer NOT NULL,
+    id_perfil integer NOT NULL,
+    dt_criacao timestamp without time zone
+);
+
+
+ALTER TABLE authenticator.usuario_perfil OWNER TO root;
+
+--
+-- TOC entry 1870 (class 2604 OID 16417)
+-- Dependencies: 165 164 165
+-- Name: id_perfil; Type: DEFAULT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE perfil ALTER COLUMN id_perfil SET DEFAULT nextval('perfil_id_perfil_seq'::regclass);
+
+
+--
+-- TOC entry 1871 (class 2604 OID 16436)
+-- Dependencies: 166 167 167
+-- Name: id_rotina; Type: DEFAULT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE rotina ALTER COLUMN id_rotina SET DEFAULT nextval('rotina_id_rotina_seq'::regclass);
+
+
+--
+-- TOC entry 1869 (class 2604 OID 16409)
+-- Dependencies: 162 163 163
+-- Name: id_sistema; Type: DEFAULT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE sistema ALTER COLUMN id_sistema SET DEFAULT nextval('sistema_id_sistema_seq'::regclass);
+
+
+--
+-- TOC entry 1872 (class 2604 OID 16454)
+-- Dependencies: 169 168 169
+-- Name: id_usuario; Type: DEFAULT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE usuario ALTER COLUMN id_usuario SET DEFAULT nextval('usuario_id_usuario_seq'::regclass);
+
+
+--
+-- TOC entry 1895 (class 0 OID 16414)
+-- Dependencies: 165
+-- Data for Name: perfil; Type: TABLE DATA; Schema: authenticator; Owner: root
+--
+
+COPY perfil (id_perfil, tx_perfil, id_sistema) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1899 (class 0 OID 16482)
+-- Dependencies: 171
+-- Data for Name: perfil_rotina; Type: TABLE DATA; Schema: authenticator; Owner: root
+--
+
+COPY perfil_rotina (id_perfil, id_rotina, dt_cadastro) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1896 (class 0 OID 16433)
+-- Dependencies: 167
+-- Data for Name: rotina; Type: TABLE DATA; Schema: authenticator; Owner: root
+--
+
+COPY rotina (id_rotina, id_sistema, tx_rotina, cs_status) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1894 (class 0 OID 16406)
+-- Dependencies: 163
+-- Data for Name: sistema; Type: TABLE DATA; Schema: authenticator; Owner: root
+--
+
+COPY sistema (id_sistema, tx_sistema, tx_descricao, tx_sigla) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1897 (class 0 OID 16451)
+-- Dependencies: 169
+-- Data for Name: usuario; Type: TABLE DATA; Schema: authenticator; Owner: root
+--
+
+COPY usuario (id_usuario, tx_login, dt_cadastro, tx_email, tx_senha, cs_status) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1898 (class 0 OID 16457)
+-- Dependencies: 170
+-- Data for Name: usuario_perfil; Type: TABLE DATA; Schema: authenticator; Owner: root
+--
+
+COPY usuario_perfil (id_usuario, id_perfil, dt_criacao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1881 (class 2606 OID 24579)
+-- Dependencies: 169 169
+-- Name: ak_tx_login; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT ak_tx_login UNIQUE (tx_login);
+
+
+--
+-- TOC entry 1877 (class 2606 OID 16419)
+-- Dependencies: 165 165
+-- Name: perfil_pkey; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY perfil
+    ADD CONSTRAINT perfil_pkey PRIMARY KEY (id_perfil);
+
+
+--
+-- TOC entry 1887 (class 2606 OID 16486)
+-- Dependencies: 171 171 171
+-- Name: perfil_rotina_pkey; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY perfil_rotina
+    ADD CONSTRAINT perfil_rotina_pkey PRIMARY KEY (id_perfil, id_rotina);
+
+
+--
+-- TOC entry 1879 (class 2606 OID 16438)
+-- Dependencies: 167 167
+-- Name: rotina_pkey; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY rotina
+    ADD CONSTRAINT rotina_pkey PRIMARY KEY (id_rotina);
+
+
+--
+-- TOC entry 1874 (class 2606 OID 16411)
+-- Dependencies: 163 163
+-- Name: sistema_pkey; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY sistema
+    ADD CONSTRAINT sistema_pkey PRIMARY KEY (id_sistema);
+
+
+--
+-- TOC entry 1885 (class 2606 OID 16461)
+-- Dependencies: 170 170 170
+-- Name: usuario_perfil_pkey; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario_perfil
+    ADD CONSTRAINT usuario_perfil_pkey PRIMARY KEY (id_usuario, id_perfil);
+
+
+--
+-- TOC entry 1883 (class 2606 OID 16456)
+-- Dependencies: 169 169
+-- Name: usuario_pkey; Type: CONSTRAINT; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario);
+
+
+--
+-- TOC entry 1875 (class 1259 OID 16430)
+-- Dependencies: 165
+-- Name: ak_tx_perfil; Type: INDEX; Schema: authenticator; Owner: root; Tablespace: 
+--
+
+CREATE UNIQUE INDEX ak_tx_perfil ON perfil USING btree (tx_perfil);
+
+
+--
+-- TOC entry 1888 (class 2606 OID 16425)
+-- Dependencies: 1873 165 163
+-- Name: id_sistema_fk; Type: FK CONSTRAINT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE ONLY perfil
+    ADD CONSTRAINT id_sistema_fk FOREIGN KEY (id_sistema) REFERENCES sistema(id_sistema);
+
+
+--
+-- TOC entry 1892 (class 2606 OID 16497)
+-- Dependencies: 1876 171 165
+-- Name: perfil_rotina_id_perfil_fk; Type: FK CONSTRAINT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE ONLY perfil_rotina
+    ADD CONSTRAINT perfil_rotina_id_perfil_fk FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
+
+
+--
+-- TOC entry 1893 (class 2606 OID 16502)
+-- Dependencies: 171 167 1878
+-- Name: perfil_rotina_id_rotina_fk; Type: FK CONSTRAINT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE ONLY perfil_rotina
+    ADD CONSTRAINT perfil_rotina_id_rotina_fk FOREIGN KEY (id_rotina) REFERENCES rotina(id_rotina);
+
+
+--
+-- TOC entry 1889 (class 2606 OID 16444)
+-- Dependencies: 167 163 1873
+-- Name: rotina_id_sistema_fk; Type: FK CONSTRAINT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE ONLY rotina
+    ADD CONSTRAINT rotina_id_sistema_fk FOREIGN KEY (id_sistema) REFERENCES sistema(id_sistema);
+
+
+--
+-- TOC entry 1890 (class 2606 OID 16472)
+-- Dependencies: 1876 170 165
+-- Name: usuario_perfil_id_perfil_fk; Type: FK CONSTRAINT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE ONLY usuario_perfil
+    ADD CONSTRAINT usuario_perfil_id_perfil_fk FOREIGN KEY (id_perfil) REFERENCES perfil(id_perfil);
+
+
+--
+-- TOC entry 1891 (class 2606 OID 16477)
+-- Dependencies: 170 1882 169
+-- Name: usuario_perfil_id_usuario_fk; Type: FK CONSTRAINT; Schema: authenticator; Owner: root
+--
+
+ALTER TABLE ONLY usuario_perfil
+    ADD CONSTRAINT usuario_perfil_id_usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+
+
+--
+-- TOC entry 1904 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2012-05-09 22:18:50
+
+--
+-- PostgreSQL database dump complete
+--
+
