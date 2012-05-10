@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.ss.authenticator.model.Member;
+import br.ss.authenticator.model.entity.Member;
 
 /**
  * JAX-RS Example

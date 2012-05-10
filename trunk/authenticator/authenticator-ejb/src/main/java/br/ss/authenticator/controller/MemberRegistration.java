@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import br.ss.authenticator.model.Member;
+import br.ss.authenticator.model.entity.Member;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful
