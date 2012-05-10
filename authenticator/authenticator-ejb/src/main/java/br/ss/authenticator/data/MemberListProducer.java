@@ -1,6 +1,7 @@
 package br.ss.authenticator.data;
 
-import br.ss.authenticator.model.Member;
+import br.ss.authenticator.model.entity.Member;
+
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;

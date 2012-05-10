@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.ss.authenticator.controller.MemberRegistration;
-import br.ss.authenticator.model.Member;
+import br.ss.authenticator.model.entity.Member;
 import br.ss.authenticator.util.Resources;
 
 @RunWith(Arquillian.class)
