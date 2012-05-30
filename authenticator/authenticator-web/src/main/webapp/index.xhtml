@@ -3,6 +3,7 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
       <h1>Welcome to JBoss AS 7!</h1>
@@ -14,6 +15,11 @@
          <h2>Register (Bean Validation example)</h2>
          <p>Enforces annotation-based constraints defined on the
             model class.</p>
+            
+            
+            <hr />
+            
+            <p:commandButton value="Teste Button" onclick="alert('Button funcionando....');"></p:commandButton>
          
          <p>
             <h:commandButton id="register"
@@ -22,6 +28,8 @@
                rendered="#{facesContext.postback and empty facesContext.messageList}"
                style="color: green;" />
          </p>
+         
+         
       </h:form>
       
    </ui:define>
