@@ -4,7 +4,7 @@
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:p="http://primefaces.org/ui"
-   template="/WEB-INF/templates/default.xhtml">
+   template="/templates/default.xhtml">
    <ui:define name="content">
       <h1>Welcome to JBoss AS 7!</h1>
 
@@ -28,6 +28,20 @@
                rendered="#{facesContext.postback and empty facesContext.messageList}"
                style="color: green;" />
          </p>
+         
+         
+         
+         <hr />
+         
+          <table>
+              <tr>
+                  <td style="width:33%">
+                      <ul>
+                          <li><a href="#{request.contextPath}/view/sistema/pesquisa.jsf">Cadastro de Sistema</a></li>
+                       </ul>
+                    </td>
+                </tr>
+          	</table>
          
          
       </h:form>

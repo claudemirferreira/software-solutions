@@ -1,0 +1,5 @@
+#Fri Jun 08 09:06:00 BOT 2012
+eclipse.preferences.version=1
+org.eclipse.jdt.apt.aptEnabled=true
+org.eclipse.jdt.apt.genSrcDir=src/metamodel2
+org.eclipse.jdt.apt.reconcileEnabled=true

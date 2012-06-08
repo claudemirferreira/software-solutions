@@ -24,8 +24,8 @@ public class Member implements Serializable {
    /** Default value included to remove warning. Remove or modify at will. **/
    private static final long serialVersionUID = 1L;
 
-   @Id
-   @GeneratedValue
+//   @Id
+//   @GeneratedValue
    private Long id;
 
    @NotNull
