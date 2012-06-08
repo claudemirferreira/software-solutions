@@ -3,6 +3,7 @@
     <wb-module deploy-name="authenticator-ejb-0.0.1-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/src/main/resources" tag="defaultRootSource"/>
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/" source-path="/src/metamodel2"/>
         <property name="java-output-path" value="/authenticator-ejb/target/classes"/>
     </wb-module>
 </project-modules>
