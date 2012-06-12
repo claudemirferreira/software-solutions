@@ -33,7 +33,7 @@ import br.ss.core.entity.NaturalIdentifier;
 @Entity
 @Table(name = "usuario", schema="authenticator", uniqueConstraints = @UniqueConstraint(columnNames = "tx_login"))
 @SequenceGenerator( name="id_usuario_seq", sequenceName="authenticator.usuario_id_usuario_seq" )
-public class Usuario implements java.io.Serializable {// extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
+public class Usuario  extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
 
 	@Getter @Setter
 	@Id

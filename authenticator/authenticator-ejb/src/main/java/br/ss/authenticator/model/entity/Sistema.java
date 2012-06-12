@@ -29,7 +29,7 @@ import br.ss.core.entity.NaturalIdentifier;
 @Entity
 @Table(name = "sistema", schema="authenticator")
 @SequenceGenerator( name="id_sistema_seq", sequenceName="authenticator.sistema_id_sistema_seq" )
-public class Sistema implements java.io.Serializable {// extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
+public class Sistema extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
 
 
 	@Getter @Setter

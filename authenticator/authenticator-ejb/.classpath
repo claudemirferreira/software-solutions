@@ -19,7 +19,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src/metamodel2">
+	<classpathentry kind="src" path="src/metamodel">
 		<attributes>
 			<attribute name="optional" value="true"/>
 		</attributes>

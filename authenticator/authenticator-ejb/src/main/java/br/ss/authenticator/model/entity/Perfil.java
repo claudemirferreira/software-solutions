@@ -32,7 +32,7 @@ import br.ss.core.entity.NaturalIdentifier;
 @Entity
 @Table(name = "perfil", schema="authenticator", uniqueConstraints = @UniqueConstraint(columnNames = "tx_perfil"))
 @SequenceGenerator( name="id_perfil_seq", sequenceName="authenticator.perfil_id_perfil_seq" )
-public class Perfil implements java.io.Serializable {// extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
+public class Perfil extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
 
 	private static final long serialVersionUID = -6551667573438182659L;
 
