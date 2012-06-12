@@ -29,7 +29,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuario_perfil", schema="authenticator")
 @SequenceGenerator( name="id_usuario_perfil_seq", sequenceName="authenticator.usuario_perfil_id_usuario_perfil_seq" )
-public class UsuarioPerfil implements java.io.Serializable {// extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
+public class UsuarioPerfil  extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
 
 	@Id
     @Column( name = "id_usuario_perfil", unique = true, nullable = false )

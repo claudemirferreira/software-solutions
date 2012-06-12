@@ -29,7 +29,7 @@ import br.ss.core.entity.NaturalIdentifier;
 @Entity
 @Table(name = "rotina", schema="authenticator")
 @SequenceGenerator( name="id_rotina_seq", sequenceName="authenticator.rotina_id_rotina_seq" )
-public class Rotina implements java.io.Serializable {// extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
+public class Rotina extends AbstractEntity implements java.io.Serializable, NaturalIdentifier {
 	
 	@Id
 	@GeneratedValue( generator="id_rotina_seq", strategy = GenerationType.SEQUENCE )

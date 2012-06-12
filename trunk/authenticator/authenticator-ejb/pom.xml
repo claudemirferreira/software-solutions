@@ -13,6 +13,16 @@
 	<packaging>ejb</packaging>
 
 	<name>authenticator EJB module</name>
+	
+	
+	<distributionManagement>
+		<repository>
+            <id>authenticator-ejb</id>
+            <name>Authenticator-EJB SS Repository</name>
+            <url>file://${basedir}/target/deploy</url>
+        </repository>
+	</distributionManagement>
+	
 
 	<dependencies>
 	
