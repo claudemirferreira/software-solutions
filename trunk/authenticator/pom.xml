@@ -12,7 +12,7 @@
       <module>authenticator-ejb</module>
       <module>authenticator-web</module>
       <module>authenticator-ear</module>
-      <module>core</module>
+<!--       <module>core</module> -->
    </modules>
 
    <properties>
@@ -118,6 +118,7 @@
             <!-- Due to Maven's lack of intelligence with EARs we need to 
                configure the jboss-as maven plugin to skip deployment for all modules. We 
                then enable it specifically in the ear module. -->
+            
             <plugin>
                <groupId>org.jboss.as.plugins</groupId>
                <artifactId>jboss-as-maven-plugin</artifactId>
@@ -127,6 +128,17 @@
                   <skip>true</skip>
                </configuration>
             </plugin>
+            
+            <!-- 
+            
+             <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.1.1.Final</version>
+            </plugin>
+            
+            -->
+            
          </plugins>
       </pluginManagement>
    </build>
