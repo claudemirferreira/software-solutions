@@ -13,7 +13,17 @@
 	<packaging>war</packaging>
 
 	<name>authenticator Web module</name>
+	
 
+	<distributionManagement>
+		<repository>
+            <id>authenticator-web</id>
+            <name>Authenticator Web SS Repository</name>
+            <url>file://${basedir}/target/deploy</url>
+        </repository>
+	</distributionManagement>
+	
+	
 	<dependencies>
 
 		<!-- Dependency on the EJB module so we can use it's services if needed -->
@@ -21,7 +31,7 @@
 			<groupId>br.ss</groupId>
 			<artifactId>authenticator-ejb</artifactId>
 			<type>ejb</type>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		
          <dependency>
