@@ -12,7 +12,16 @@
    <packaging>ear</packaging>
 
    <name>authenticator EAR module</name>
-
+	
+	<distributionManagement>
+		<repository>
+            <id>authenticator-ear</id>
+            <name>Authenticator EAR SS Repository</name>
+            <url>file://${basedir}/target/deploy</url>
+        </repository>
+	</distributionManagement>
+	
+	
    <dependencies>
 
       <!-- Depend on the ejb module and war so that we can package them -->
