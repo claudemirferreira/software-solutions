@@ -10,6 +10,15 @@
 	<artifactId>core</artifactId>
 	<name>core</name>
 	<description>Core App</description>
+	
+	
+	<distributionManagement>
+		<repository>
+            <id>core</id>
+            <name>Core SS Repository</name>
+            <url>file://${basedir}/target/deploy</url>
+        </repository>
+	</distributionManagement>
 
 	<dependencies>
 
