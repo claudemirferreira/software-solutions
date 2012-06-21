@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"	
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{perfilBean.id}"/>
+		<f:event type="preRenderView" listener="#{perfilBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Perfil"/>
+
+	<ui:define name="header">
+		Perfil
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty perfilBean.id}">
+				Edit existing Perfil
+			</c:when>
+			<c:otherwise>
+				Create a new Perfil
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="perfilBeanPerfilSistema" value="Sistema:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{sistemaBean.converter}" id="perfilBeanPerfilSistema" value="#{perfilBean.perfil.sistema}">
+						<f:selectItem/>
+						<f:selectItems value="#{sistemaBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="perfilBeanPerfilSistema" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="perfilBeanPerfilTxPerfil" value="Tx Perfil:"/>
+				<h:panelGroup>
+					<h:inputText id="perfilBeanPerfilTxPerfil" maxLength="100" value="#{perfilBean.perfil.txPerfil}"/>
+					<h:message for="perfilBeanPerfilTxPerfil" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="perfilBeanPerfilPerfilRotinas" value="Perfil Rotinas:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{perfilBean.perfil.perfilRotinas}"/>
+					<h:dataTable id="perfilBeanPerfilPerfilRotinas" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Dt Cadastro"/>
+							</f:facet>
+							<h:link outcome="/view/perfilRotina/view">
+								<f:param name="id" value="#{_item.idPerfilRotina}"/>
+								<h:outputText id="itemDtCadastro" value="#{_item.dtCadastro}">
+									<f:convertDateTime type="date"/>
+								</h:outputText>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="perfilRotinaBeanAddDtCadastro" maxLength="13" value="#{perfilRotinaBean.add.dtCadastro}">
+									<f:convertDateTime type="date"/>
+								</h:inputText>
+								<h:message for="perfilRotinaBeanAddDtCadastro" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column footerClass="remove-column" headerClass="remove-column">
+							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<f:facet name="footer">
+								<h:commandLink action="#{_collection.add(perfilRotinaBean.added)}" id="perfilBeanPerfilPerfilRotinasAdd" styleClass="add-button">
+									<f:setPropertyActionListener target="#{perfilRotinaBean.add.perfil}" value="#{perfilBean.perfil}"/>
+								</h:commandLink>
+							</f:facet>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="perfilBeanPerfilUsuarioPerfils" value="Usuario Perfils:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{perfilBean.perfil.usuarioPerfils}"/>
+					<h:dataTable id="perfilBeanPerfilUsuarioPerfils" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Usuario"/>
+							</f:facet>
+							<h:link outcome="/view/usuarioPerfil/view">
+								<f:param name="id" value="#{_item.idUsuarioPerfil}"/>
+								<h:outputText id="itemUsuario" value="#{_item.usuario}"/>
+							</h:link>
+							<f:facet name="footer">
+								<h:selectOneMenu converter="#{usuarioBean.converter}" id="usuarioPerfilBeanAddUsuario" value="#{usuarioPerfilBean.add.usuario}">
+									<f:selectItem/>
+									<f:selectItems value="#{usuarioBean.all}"/>
+								</h:selectOneMenu>
+								<h:message for="usuarioPerfilBeanAddUsuario" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Dt Criacao"/>
+							</f:facet>
+							<h:link outcome="/view/usuarioPerfil/view">
+								<f:param name="id" value="#{_item.idUsuarioPerfil}"/>
+								<h:outputText id="itemDtCriacao" value="#{_item.dtCriacao}">
+									<f:convertDateTime type="both"/>
+								</h:outputText>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="usuarioPerfilBeanAddDtCriacao" maxLength="29" value="#{usuarioPerfilBean.add.dtCriacao}">
+									<f:convertDateTime type="both"/>
+								</h:inputText>
+								<h:message for="usuarioPerfilBeanAddDtCriacao" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column footerClass="remove-column" headerClass="remove-column">
+							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<f:facet name="footer">
+								<h:commandLink action="#{_collection.add(usuarioPerfilBean.added)}" id="perfilBeanPerfilUsuarioPerfilsAdd" styleClass="add-button">
+									<f:setPropertyActionListener target="#{usuarioPerfilBean.add.perfil}" value="#{perfilBean.perfil}"/>
+								</h:commandLink>
+							</f:facet>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{perfilBean.update}"/>
+				<c:choose>
+					<c:when test="#{!empty perfilBean.id}">
+						<h:link value="Cancel" outcome="view">
+							<f:param name="id" value="#{perfilBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{perfilBean.delete}"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

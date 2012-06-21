@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{rotinaBean.page}"/>
+		<f:event type="preRenderView" listener="#{rotinaBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Rotina entities"/>
+
+	<ui:define name="header">
+		Rotina
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Rotina entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<h:panelGroup styleClass="search">
+
+				<h:panelGrid columnClasses="label,component,required" columns="3">
+					<h:outputLabel for="rotinaBeanSearchSistema" value="Sistema:"/>
+					<h:panelGroup>
+						<h:selectOneMenu converter="#{sistemaBean.converter}" id="rotinaBeanSearchSistema" value="#{rotinaBean.search.sistema}">
+							<f:selectItem/>
+							<f:selectItems value="#{sistemaBean.all}"/>
+						</h:selectOneMenu>
+						<h:message for="rotinaBeanSearchSistema" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+					<h:outputLabel for="rotinaBeanSearchTxRotina" value="Tx Rotina:"/>
+					<h:panelGroup>
+						<h:inputText id="rotinaBeanSearchTxRotina" value="#{rotinaBean.search.txRotina}"/>
+						<h:message for="rotinaBeanSearchTxRotina" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+				</h:panelGrid>
+				<h:panelGroup styleClass="buttons">
+					<h:commandLink value="Search" action="#{rotinaBean.search}"/>
+					<h:commandLink value="Create New" action="#{rotinaBean.create}"/>
+				</h:panelGroup>
+			</h:panelGroup>
+			
+			<h:dataTable id="rotinaBeanPageItems" styleClass="data-table" value="#{rotinaBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Tx Rotina"/>
+					</f:facet>
+					<h:link outcome="/view/rotina/view">
+						<f:param name="id" value="#{_item.idRotina}"/>
+						<h:outputText id="itemTxRotina" value="#{_item.txRotina}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{rotinaBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

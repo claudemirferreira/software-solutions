@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{usuarioPerfilBean.id}"/>
+		<f:event type="preRenderView" listener="#{usuarioPerfilBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Usuario Perfil"/>
+
+	<ui:define name="header">
+		Usuario Perfil
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Usuario Perfil
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="usuarioPerfilBeanUsuarioPerfilUsuario" value="Usuario:"/>
+			<h:link id="usuarioPerfilBeanUsuarioPerfilUsuario" outcome="/view/usuario/view" value="#{usuarioPerfilBean.usuarioPerfil.usuario}">
+				<f:param name="id" value="#{usuarioPerfilBean.usuarioPerfil.usuario.idUsuario}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="usuarioPerfilBeanUsuarioPerfilPerfil" value="Perfil:"/>
+			<h:link id="usuarioPerfilBeanUsuarioPerfilPerfil" outcome="/view/perfil/view" value="#{usuarioPerfilBean.usuarioPerfil.perfil}">
+				<f:param name="id" value="#{usuarioPerfilBean.usuarioPerfil.perfil.idPerfil}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="usuarioPerfilBeanUsuarioPerfilDtCriacao" value="Dt Criacao:"/>
+			<h:outputText id="usuarioPerfilBeanUsuarioPerfilDtCriacao" value="#{usuarioPerfilBean.usuarioPerfil.dtCriacao}">
+				<f:convertDateTime type="both"/>
+			</h:outputText>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true"/>
+			<h:link value="Create New" outcome="create"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{rotinaBean.id}"/>
+		<f:event type="preRenderView" listener="#{rotinaBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Rotina"/>
+
+	<ui:define name="header">
+		Rotina
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Rotina
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="rotinaBeanRotinaSistema" value="Sistema:"/>
+			<h:link id="rotinaBeanRotinaSistema" outcome="/view/sistema/view" value="#{rotinaBean.rotina.sistema}">
+				<f:param name="id" value="#{rotinaBean.rotina.sistema.idSistema}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="rotinaBeanRotinaTxRotina" value="Tx Rotina:"/>
+			<h:outputText id="rotinaBeanRotinaTxRotina" value="#{rotinaBean.rotina.txRotina}"/>
+			<h:outputText/>
+			<h:outputLabel for="rotinaBeanRotinaPerfilRotinas" value="Perfil Rotinas:"/>
+			<h:dataTable id="rotinaBeanRotinaPerfilRotinas" styleClass="data-table" value="#{forgeview:asList(rotinaBean.rotina.perfilRotinas)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Dt Cadastro"/>
+					</f:facet>
+					<h:link outcome="/view/perfilRotina/view">
+						<f:param name="id" value="#{_item.idPerfilRotina}"/>
+						<h:outputText id="itemDtCadastro" value="#{_item.dtCadastro}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel value="Cs Status:"/>
+			<h:outputText styleClass="#{rotinaBean.rotina.csStatus ? 'boolean-true' : 'boolean-false'}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true"/>
+			<h:link value="Create New" outcome="create"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:forgeview="http://jboss.org/forge/view"	
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{rotinaBean.id}"/>
+		<f:event type="preRenderView" listener="#{rotinaBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Rotina"/>
+
+	<ui:define name="header">
+		Rotina
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test="#{!empty rotinaBean.id}">
+				Edit existing Rotina
+			</c:when>
+			<c:otherwise>
+				Create a new Rotina
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="rotinaBeanRotinaSistema" value="Sistema:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{sistemaBean.converter}" id="rotinaBeanRotinaSistema" value="#{rotinaBean.rotina.sistema}">
+						<f:selectItem/>
+						<f:selectItems value="#{sistemaBean.all}"/>
+					</h:selectOneMenu>
+					<h:message for="rotinaBeanRotinaSistema" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="rotinaBeanRotinaTxRotina" value="Tx Rotina:"/>
+				<h:panelGroup>
+					<h:inputText id="rotinaBeanRotinaTxRotina" required="true" value="#{rotinaBean.rotina.txRotina}"/>
+					<h:message for="rotinaBeanRotinaTxRotina" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+				<h:outputLabel for="rotinaBeanRotinaPerfilRotinas" value="Perfil Rotinas:"/>
+				<h:panelGroup>
+					<ui:param name="_collection" value="#{rotinaBean.rotina.perfilRotinas}"/>
+					<h:dataTable id="rotinaBeanRotinaPerfilRotinas" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Dt Cadastro"/>
+							</f:facet>
+							<h:link outcome="/view/perfilRotina/view">
+								<f:param name="id" value="#{_item.idPerfilRotina}"/>
+								<h:outputText id="itemDtCadastro" value="#{_item.dtCadastro}">
+									<f:convertDateTime type="date"/>
+								</h:outputText>
+							</h:link>
+							<f:facet name="footer">
+								<h:inputText id="perfilRotinaBeanAddDtCadastro" maxLength="13" value="#{perfilRotinaBean.add.dtCadastro}">
+									<f:convertDateTime type="date"/>
+								</h:inputText>
+								<h:message for="perfilRotinaBeanAddDtCadastro" styleClass="error"/>
+							</f:facet>
+						</h:column>
+						<h:column footerClass="remove-column" headerClass="remove-column">
+							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<f:facet name="footer">
+								<h:commandLink action="#{_collection.add(perfilRotinaBean.added)}" id="rotinaBeanRotinaPerfilRotinasAdd" styleClass="add-button">
+									<f:setPropertyActionListener target="#{perfilRotinaBean.add.rotina}" value="#{rotinaBean.rotina}"/>
+								</h:commandLink>
+							</f:facet>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="rotinaBeanRotinaCsStatus" value="Cs Status:"/>
+				<h:panelGroup>
+					<h:selectBooleanCheckbox id="rotinaBeanRotinaCsStatus" value="#{rotinaBean.rotina.csStatus}"/>
+					<h:message for="rotinaBeanRotinaCsStatus" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action="#{rotinaBean.update}"/>
+				<c:choose>
+					<c:when test="#{!empty rotinaBean.id}">
+						<h:link value="Cancel" outcome="view">
+							<f:param name="id" value="#{rotinaBean.id}"/>
+						</h:link>
+						<h:commandLink value="Delete" action="#{rotinaBean.delete}"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
