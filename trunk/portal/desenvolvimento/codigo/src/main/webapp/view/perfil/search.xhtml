@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{perfilBean.page}"/>
+		<f:event type="preRenderView" listener="#{perfilBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Perfil entities"/>
+
+	<ui:define name="header">
+		Perfil
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Perfil entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<h:panelGroup styleClass="search">
+
+				<h:panelGrid columnClasses="label,component,required" columns="3">
+					<h:outputLabel for="perfilBeanSearchSistema" value="Sistema:"/>
+					<h:panelGroup>
+						<h:selectOneMenu converter="#{sistemaBean.converter}" id="perfilBeanSearchSistema" value="#{perfilBean.search.sistema}">
+							<f:selectItem/>
+							<f:selectItems value="#{sistemaBean.all}"/>
+						</h:selectOneMenu>
+						<h:message for="perfilBeanSearchSistema" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+					<h:outputLabel for="perfilBeanSearchTxPerfil" value="Tx Perfil:"/>
+					<h:panelGroup>
+						<h:inputText id="perfilBeanSearchTxPerfil" maxLength="100" value="#{perfilBean.search.txPerfil}"/>
+						<h:message for="perfilBeanSearchTxPerfil" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+				</h:panelGrid>
+				<h:panelGroup styleClass="buttons">
+					<h:commandLink value="Search" action="#{perfilBean.search}"/>
+					<h:commandLink value="Create New" action="#{perfilBean.create}"/>
+				</h:panelGroup>
+			</h:panelGroup>
+			
+			<h:dataTable id="perfilBeanPageItems" styleClass="data-table" value="#{perfilBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Sistema"/>
+					</f:facet>
+					<h:link outcome="/view/perfil/view">
+						<f:param name="id" value="#{_item.idPerfil}"/>
+						<h:outputText id="itemSistema" value="#{_item.sistema}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Tx Perfil"/>
+					</f:facet>
+					<h:link outcome="/view/perfil/view">
+						<f:param name="id" value="#{_item.idPerfil}"/>
+						<h:outputText id="itemTxPerfil" value="#{_item.txPerfil}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{perfilBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>
