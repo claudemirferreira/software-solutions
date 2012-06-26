@@ -29,9 +29,15 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	public static final String ERRO = "erro";
 	
 	
+	/** Entity usado no cadastro. */
 	@Getter
 	protected T entity;
 
+	/** Entity usado na pesquisa. */
+	@Getter
+	protected T search;
+	
+	
 	@Getter
 	protected List<T> resultList;
 
@@ -59,9 +65,8 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	protected abstract IAbstractDAO<T> getDAO();
 	
 	
-	public List<T> search() {
+	public void search() {
 		this.resultList = getDAO().listAll();
-		return resultList;
 	}
 	
 	

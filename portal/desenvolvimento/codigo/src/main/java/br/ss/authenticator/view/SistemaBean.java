@@ -22,17 +22,23 @@ public class SistemaBean extends GenericBean<Sistema> {
 	@PostConstruct
 	public void init() {
 		this.search();
-		System.out.println(" XXXXXXXXXXXXXX ");
 	}
 
 	@Override
 	protected void initEntity() {
 		this.entity = new Sistema();
+		this.search = new Sistema();
+		this.search.setAtivo(true);
 	}
 
 	@Override
 	protected IAbstractDAO<Sistema> getDAO() {
 		return dao;
+	}
+	
+	@Override
+	public void search() {
+		this.resultList = dao.searchByEntity(search);
 	}
 
 }

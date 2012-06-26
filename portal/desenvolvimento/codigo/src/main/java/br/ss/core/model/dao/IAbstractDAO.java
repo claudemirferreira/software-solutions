@@ -3,13 +3,11 @@ package br.ss.core.model.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import br.ss.core.model.entity.AbstractEntity;
 
 public interface IAbstractDAO<T extends AbstractEntity> extends Serializable {
 
-	public abstract T getByPrimaryKey(AbstractEntity entity);
+	public abstract T getByPrimaryKey(T entity);
 
 	public abstract T getByPrimaryKey(Long id);
 
@@ -24,4 +22,7 @@ public interface IAbstractDAO<T extends AbstractEntity> extends Serializable {
 	public abstract void saveOrUpdate(T entity);
 
 	public abstract List<T> listAll();
+
+	public abstract List<T> searchByEntity( T entity );
+	
 }
