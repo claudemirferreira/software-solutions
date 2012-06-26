@@ -44,7 +44,7 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 
 	@Getter @Setter
 	@Column(name = "ativo", nullable = false)
-	private boolean ativo;
+	private Boolean ativo;
 
 	@Getter @Setter
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sistema")
@@ -56,7 +56,7 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 
 	public Sistema() { }
 
-	public Sistema(Long idSistema, String txSistema, String txSigla, boolean ativo) {
+	public Sistema(Long idSistema, String txSistema, String txSigla, Boolean ativo) {
 		this.idSistema = idSistema;
 		this.txSistema = txSistema;
 		this.txSigla = txSigla;
