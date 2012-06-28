@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{sistemaBean.id}"/>
+		<f:event type="preRenderView" listener="#{sistemaBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Sistema"/>
+
+	<ui:define name="header">
+		Sistema
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Sistema
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="sistemaBeanSistemaTxSistema" value="Tx Sistema:"/>
+			<h:outputText id="sistemaBeanSistemaTxSistema" value="#{sistemaBean.sistema.txSistema}"/>
+			<h:outputText/>
+			<h:outputLabel for="sistemaBeanSistemaTxDescricao" value="Tx Descricao:"/>
+			<h:outputText id="sistemaBeanSistemaTxDescricao" value="#{sistemaBean.sistema.txDescricao}"/>
+			<h:outputText/>
+			<h:outputLabel for="sistemaBeanSistemaTxSigla" value="Tx Sigla:"/>
+			<h:outputText id="sistemaBeanSistemaTxSigla" value="#{sistemaBean.sistema.txSigla}"/>
+			<h:outputText/>
+			<h:outputLabel for="sistemaBeanSistemaRotinas" value="Rotinas:"/>
+			<h:dataTable id="sistemaBeanSistemaRotinas" styleClass="data-table" value="#{forgeview:asList(sistemaBean.sistema.rotinas)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Tx Rotina"/>
+					</f:facet>
+					<h:link outcome="/view/rotina/view">
+						<f:param name="id" value="#{_item.idRotina}"/>
+						<h:outputText id="itemTxRotina" value="#{_item.txRotina}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel for="sistemaBeanSistemaPerfils" value="Perfils:"/>
+			<h:dataTable id="sistemaBeanSistemaPerfils" styleClass="data-table" value="#{forgeview:asList(sistemaBean.sistema.perfils)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Tx Perfil"/>
+					</f:facet>
+					<h:link outcome="/view/perfil/view">
+						<f:param name="id" value="#{_item.idPerfil}"/>
+						<h:outputText id="itemTxPerfil" value="#{_item.txPerfil}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel value="Ativo:"/>
+			<h:outputText styleClass="#{sistemaBean.sistema.ativo ? 'boolean-true' : 'boolean-false'}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true"/>
+			<h:link value="Create New" outcome="create"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

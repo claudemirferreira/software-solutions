@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/layout/template.xhtml">
+
+	<ui:param name="pageTitle" value="Cadastro de Sistema"/>
+
+	<ui:define name="content">
+		
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{testeBean.initConversation()}" />
+		</f:metadata>
+		
+		
+		<h:form id="formSearch" prependId="false">
+		
+			 <h1 class="title ui-widget-header ui-corner-all">Teste Page</h1>
+		
+			<!-- ===== Msg ============ -->
+			<p:growl id="msg" />
+		
+			<!-- ==== Filtro ===== -->
+			<p:accordionPanel>
+				<p:tab title="Filtro de Pesquisa:">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputText value="Nome" />
+						<p:inputText id="txSistema" value="#{testeBean.entity.nome}" size="50"/>
+	
+						<h:outputText value="Ativo" />
+						<p:selectBooleanCheckbox value="#{testeBean.entity.ativo}" />
+	                    
+						<p:commandButton id="btnSearh" value="Pesquisar" action="#{testeBean.search}">
+							<f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
+						</p:commandButton>
+		
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+   				
+   			
+			<!-- ==== Grid ======= -->
+			
+                             
+				<p:dataTable id="grid" 
+							 var="item" 
+							 value="#{testeBean.resultList}"
+							 rendered="#{not empty testeBean.resultList}"
+			                 paginator="true" 
+			                 rows="10" 
+			                 paginatorAlwaysVisible="false"
+			                 emptyMessage="Nenhum registro encontrado."
+			                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+			                 rowsPerPageTemplate="5,10,15, 20"
+			                 >  
+			  
+			        <p:column style="text-align:left">  
+			            <f:facet name="header">  
+			                <h:outputText value="Nome" />  
+			            </f:facet>  
+			            <h:outputText value="#{item.nome}" />  
+			        </p:column>  
+			  
+			        <p:column>  
+			            <f:facet name="header">  
+			                <h:outputText value="Situação" />  
+			            </f:facet>  
+			            <h:outputText value="#{item.ativo}" >
+			            	<f:converter converterId="ativoInativoConverter"/>
+			            </h:outputText>  
+			        </p:column>  
+			  
+			        <p:column>  
+			            <f:facet name="header" style="width:60px">  
+			                <h:outputText value="Ação" />  
+			            </f:facet>  
+						
+						TODO
+						
+			        </p:column>  
+			        
+			        <f:facet name="footer">
+				        	<h:outputText value="#{fn:length(testeBean.resultList)} Registro(s) encontrado(s)." />  
+                   </f:facet>
+			    </p:dataTable>
+			
+			<h:panelGrid columns="2" cellpadding="2">
+				<p:commandButton id="btnNew" value="Novo" action="#{testeBean.cadastrar}" >
+					<f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
+				</p:commandButton>
+				
+				<p:commandButton id="btnReload" value="Reload" action="#{testeBean.end}" />
+				
+			</h:panelGrid>
+			
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>
