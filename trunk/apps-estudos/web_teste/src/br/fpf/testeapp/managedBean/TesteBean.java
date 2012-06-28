@@ -44,11 +44,6 @@ public class TesteBean implements Serializable {
 	@Inject
 	private Conversation conversation;
 	
-	public TesteBean() {
-
-		
-		
-	}
 	
 	@PostConstruct
 	public void init() {
@@ -122,5 +117,15 @@ public class TesteBean implements Serializable {
     public void end() {
     	conversation.end();
     }
+    
+    /**
+     * Metodo utilizado para editar uma entidade.
+     * @return string.
+     */
+    public String cancelar() {
+    	end();
+    	return "search.seam?faces-redirect=true";
+    }
+    
 	
 }
