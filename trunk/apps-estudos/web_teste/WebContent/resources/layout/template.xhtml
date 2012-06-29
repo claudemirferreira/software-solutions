@@ -6,7 +6,7 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 	<h:head>
-		<title>#{empty pageTitle ? ':: Authenticator ::' : pageTitle}</title>
+		<title>:: Authenticator :: #{empty pageTitle ? '*' : pageTitle}</title>
 		<link rel="icon" href="#{resource['favicon.ico']}" />
 		
 		<h:outputStylesheet name="forge-style.css" />

@@ -6,27 +6,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	template="/resources/layout/template.xhtml">
+	template="/resources/layout/register_template.xhtml">
 
 	<ui:param name="pageTitle" value="Cadastro de Sistema"/>
+	<ui:param name="pageHeader" value="Cadastro de Sistema"/>
+	<ui:param name="managedBean" value="#{testeBean}"/>
 
-	<ui:define name="content">
+	
+	<ui:define name="register_region">
 		
-		<h:form id="formSearch" prependId="false">
+		TODO: conteudo
 		
-			 <h1 class="title ui-widget-header ui-corner-all">Insert Page</h1>
-		
-			<!-- ===== Msg ============ -->
-			<p:growl id="msg" />
-		
-   			Insert content..
-   			
-   			<br />
-			
-			<p:commandButton id="btnCancel" value="Cancelar" action="#{testeBean.cancelar}" />
-			
-		</h:form>
-			
 	</ui:define>
 
 </ui:composition>
