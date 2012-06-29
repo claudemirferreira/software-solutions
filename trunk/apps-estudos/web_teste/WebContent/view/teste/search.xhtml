@@ -6,6 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
 	<ui:param name="pageTitle" value="Cadastro de Sistema"/>
@@ -63,24 +64,22 @@
 				TODO
 				
 				<p:commandButton value="Excluir" onclick="confirmation.show()" type="button" >
-					<f:setPropertyActionListener value="#{item}" target="#{testeBean.itemToRemove}" /> 
+					
+					<fpf2:confirmDialog targetItem="#{testeBean.itemToRemove}" 
+										selectedItem="#{item}" 
+										update="@all"
+										actionMethod="#{testeBean.remove()}" />
+										<!-- update @all -->
+					
 				</p:commandButton>  
 				
 	        </p:column>  
 	        
 	        <f:facet name="footer">
-		        	<h:outputText value="#{fn:length(testeBean.resultList)} Registro(s) encontrado(s)." />  
-                 </f:facet>
+        		<h:outputText value="#{fn:length(testeBean.resultList)} Registro(s) encontrado(s)." />  
+            </f:facet>
 	    </p:dataTable>
 	    
-	    <p:confirmDialog id="confirmDialog" message="Tem certeza que deseja remover este registro?"  appendToBody="true"
-                		severity="alert" 
-                		widgetVar="confirmation">  
-                		
-	        <p:commandButton id="confirmBtn" value="Confirmar" update="msg" oncomplete="confirmation.hide()" actionListener="#{testeBean.remove}" />
-	        <p:commandButton id="declineBtn" value="Cancelar" onclick="confirmation.hide()" type="button" />   
-	                  
-	    </p:confirmDialog>  
 	    
 			
 	</ui:define>
