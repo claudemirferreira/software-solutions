@@ -6,98 +6,82 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	template="/resources/layout/template.xhtml">
+	template="/resources/layout/search_template.xhtml">
 
 	<ui:param name="pageTitle" value="Cadastro de Sistema"/>
-
-	<ui:define name="content">
-		
-		<f:metadata>
-			<f:event type="preRenderView" listener="#{testeBean.initConversation()}" />
-		</f:metadata>
-		
-		
-		<h:form id="formSearch" prependId="false">
-		
-			 <h1 class="title ui-widget-header ui-corner-all">Teste Page</h1>
-		
-			<!-- ===== Msg ============ -->
-			<p:growl id="msg" />
-		
-			<!-- ==== Filtro ===== -->
-			<p:accordionPanel>
-				<p:tab title="Filtro de Pesquisa:">
-					<h:panelGrid columns="2" cellpadding="5">
-						<h:outputText value="Nome" />
-						<p:inputText id="txSistema" value="#{testeBean.entity.nome}" size="50"/>
+	<ui:param name="pageHeader" value="Sistema"/>
+	<ui:param name="managedBean" value="#{testeBean}"/>
 	
-						<h:outputText value="Ativo" />
-						<p:selectBooleanCheckbox value="#{testeBean.entity.ativo}" />
-	                    
-						<p:commandButton id="btnSearh" value="Pesquisar" action="#{testeBean.search}">
-							<f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
-						</p:commandButton>
+
+	<ui:define name="search_filter">
 		
-					</h:panelGrid>
-				</p:tab>
-			</p:accordionPanel>
-   				
-   			
-			<!-- ==== Grid ======= -->
-			
-                             
-				<p:dataTable id="grid" 
-							 var="item" 
-							 value="#{testeBean.resultList}"
-							 rendered="#{not empty testeBean.resultList}"
-			                 paginator="true" 
-			                 rows="10" 
-			                 paginatorAlwaysVisible="false"
-			                 emptyMessage="Nenhum registro encontrado."
-			                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-			                 rowsPerPageTemplate="5,10,15, 20"
-			                 >  
-			  
-			        <p:column style="text-align:left">  
-			            <f:facet name="header">  
-			                <h:outputText value="Nome" />  
-			            </f:facet>  
-			            <h:outputText value="#{item.nome}" />  
-			        </p:column>  
-			  
-			        <p:column>  
-			            <f:facet name="header">  
-			                <h:outputText value="Situação" />  
-			            </f:facet>  
-			            <h:outputText value="#{item.ativo}" >
-			            	<f:converter converterId="ativoInativoConverter"/>
-			            </h:outputText>  
-			        </p:column>  
-			  
-			        <p:column>  
-			            <f:facet name="header" style="width:60px">  
-			                <h:outputText value="Ação" />  
-			            </f:facet>  
-						
-						TODO
-						
-			        </p:column>  
-			        
-			        <f:facet name="footer">
-				        	<h:outputText value="#{fn:length(testeBean.resultList)} Registro(s) encontrado(s)." />  
-                   </f:facet>
-			    </p:dataTable>
-			
-			<h:panelGrid columns="2" cellpadding="2">
-				<p:commandButton id="btnNew" value="Novo" action="#{testeBean.cadastrar}" >
-					<f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
-				</p:commandButton>
+		<h:outputText value="Nome" />
+		<p:inputText id="txSistema" value="#{testeBean.entity.nome}" size="50"/>
+	
+		<h:outputText value="Ativo" />
+		<p:selectBooleanCheckbox value="#{testeBean.entity.ativo}" />
+	                
+	</ui:define>
+	
+	
+	<!-- ==== Grid ======= -->
+	<ui:define name="grid_region">	
+ 			
+		<p:dataTable id="grid" 
+					 var="item" 
+					 value="#{testeBean.resultList}"
+					 rendered="#{not empty testeBean.resultList}"
+	                 paginator="true" 
+	                 rows="5" 
+	                 paginatorAlwaysVisible="false"
+	                 emptyMessage="Nenhum registro encontrado."
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 rowsPerPageTemplate="5,10,15,20"
+	                 >  
+	  
+	        <p:column style="text-align:left">  
+	            <f:facet name="header">  
+	                <h:outputText value="Nome" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.nome}" />  
+	        </p:column>  
+	  
+	        <p:column>  
+	            <f:facet name="header">  
+	                <h:outputText value="Situação" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.ativo}" >
+	            	<f:converter converterId="ativoInativoConverter"/>
+	            </h:outputText>  
+	        </p:column>  
+	  
+	        <p:column>  
+	            <f:facet name="header" style="width:60px">  
+	                <h:outputText value="Ação" />  
+	            </f:facet>  
 				
-				<p:commandButton id="btnReload" value="Reload" action="#{testeBean.end}" />
+				TODO
 				
-			</h:panelGrid>
-			
-		</h:form>
+				<p:commandButton value="Excluir" onclick="confirmation.show()" type="button" >
+					<f:setPropertyActionListener value="#{item}" target="#{testeBean.itemToRemove}" /> 
+				</p:commandButton>  
+				
+	        </p:column>  
+	        
+	        <f:facet name="footer">
+		        	<h:outputText value="#{fn:length(testeBean.resultList)} Registro(s) encontrado(s)." />  
+                 </f:facet>
+	    </p:dataTable>
+	    
+	    <p:confirmDialog id="confirmDialog" message="Tem certeza que deseja remover este registro?"  appendToBody="true"
+                		severity="alert" 
+                		widgetVar="confirmation">  
+                		
+	        <p:commandButton id="confirmBtn" value="Confirmar" update="msg" oncomplete="confirmation.hide()" actionListener="#{testeBean.remove}" />
+	        <p:commandButton id="declineBtn" value="Cancelar" onclick="confirmation.hide()" type="button" />   
+	                  
+	    </p:confirmDialog>  
+	    
 			
 	</ui:define>
 

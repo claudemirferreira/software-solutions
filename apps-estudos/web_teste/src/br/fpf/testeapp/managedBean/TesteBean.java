@@ -7,10 +7,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Getter;
+import lombok.Setter;
 import br.fpf.testeapp.entity.Detail;
 import br.fpf.testeapp.entity.Entity;
 
@@ -41,12 +44,18 @@ public class TesteBean implements Serializable {
 	@Getter
 	private Detail detail;
 	
+	@Getter @Setter
+	protected Entity itemToRemove;
+	
 	@Inject
 	private Conversation conversation;
 	
 	
 	@PostConstruct
 	public void init() {
+		
+		initConversation();
+
 		this.resultList = new ArrayList<Entity>();
 		this.detail = new  Detail();
 		this.entity = new Entity();
@@ -54,8 +63,6 @@ public class TesteBean implements Serializable {
 		entity.setAtivo(true);
 		
 		populateList();
-		
-		initConversation();
 	}
 
 	private void initConversation() {
@@ -67,27 +74,46 @@ public class TesteBean implements Serializable {
 	}
 
 	private void populateList() {
-		Entity e;
-		Detail d;
 		for ( int i = 0 ; i < 15 ; i++ ) {
-			e = new Entity( "Item " + ( i + 1 ), i % 2 == 0 );
-			for ( int j = 0 ; j < 3 ; j++ ) {
-				d = new Detail( "Detail " + j, ( short ) j );
-				e.getDetails().add(d);
-			}
-			System.out.println( " > Entity: " + e.getNome() );
-			resultList.add(e);
+			addItem(i);
 		}
 	}
+
+	/**
+	 * @param i
+	 * @return
+	 */
+	public Entity addItem(int i) {
+		Entity e;
+		Detail d;
+		e = new Entity( "Item " + ( i + 1 ), i % 2 == 0 );
+		for ( int j = 0 ; j < 3 ; j++ ) {
+			d = new Detail( "Detail " + j, ( short ) j );
+			e.getDetails().add(d);
+		}
+		resultList.add(e);
+		System.out.println( " > Entity: " + e.getNome() );
+		return e;
+	}
 	
-	public void remove( Entity itemRemove ) {
+	public void remove() {
+		resultList.remove(itemToRemove);
+		sendInfoMessageToUser( "Item removido: "  + itemToRemove.getNome() );
+		
 	}
 	
 	public void search() {
 		// TODO
 		System.out.println("search press ..");
-		System.out.println( " # Conversation is transient: " + conversation.isTransient() );
+		debug();
+	}
+
+	/**
+	 * 
+	 */
+	public void debug() {
 		System.out.println( " # Conversation Id: " + conversation.getId() );
+		System.out.println( " # Conversation is transient: " + conversation.isTransient() );
 	}
 	
 	
@@ -96,10 +122,7 @@ public class TesteBean implements Serializable {
      * @return string.
      */
     public String cadastrar() {
-//    	conversation.begin();
-    	
-		System.out.println( " # Conversation Id: " + conversation.getId() );
-		System.out.println( " # Conversation is transient: " + conversation.isTransient() );
+    	debug();
     	
     	return "create.seam?faces-redirect=true";
     }
@@ -122,10 +145,42 @@ public class TesteBean implements Serializable {
      * Metodo utilizado para editar uma entidade.
      * @return string.
      */
-    public String cancelar() {
+    public String cancel() {
     	end();
     	return "search.seam?faces-redirect=true";
     }
     
-	
+    
+    /**
+     * Metodo utilizado para editar uma entidade.
+     * @return string.
+     */
+    public String save() {
+    	debug();
+    	addItem(resultList.size());
+    	return "search.seam?faces-redirect=true";
+    }
+    
+    
+    /* ---- Others ------------- */
+
+    protected void sendInfoMessageToUser(String message){
+        FacesContext context = getContext();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+    }
+
+    protected void sendWarnMessageToUser(String message){
+        FacesContext context = getContext();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+    }
+ 
+    protected void sendErrorMessageToUser(String message){
+        FacesContext context = getContext();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+    }
+ 
+    protected FacesContext getContext() {
+        return FacesContext.getCurrentInstance();
+    }
+    
 }

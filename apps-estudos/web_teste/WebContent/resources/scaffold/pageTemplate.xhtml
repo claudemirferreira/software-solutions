@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:head>
-		<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
+		<title>:: Authenticator :: #{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
 		<link rel="icon" href="#{resource['favicon.ico']}" />
 		<h:outputStylesheet name="forge-style.css" />
 	</h:head>
@@ -16,16 +16,11 @@
 	
 			<div id="navigation">
 				<h:link id="homeLink" outcome="/index.xhtml">
-					<img src="#{resource['forge-logo.png']}" alt="Forge... get hammered" border="0"/>
+					<img src="#{resource['forge-logo.png']}" border="0"/>
 				</h:link>
 				<ul>
 					<li>
-						<a href="#{request.contextPath}/view/teste/search.seam">Teste .
-						<f:param name="cid" value="#{conversation.id}"/>
-						</a>
-						
 						<h:link outcome="/view/teste/search" value="Teste">
-							 <f:param name="cid" value="#{conversation.id}"/>
 						</h:link>
 					</li>
 				</ul>				
