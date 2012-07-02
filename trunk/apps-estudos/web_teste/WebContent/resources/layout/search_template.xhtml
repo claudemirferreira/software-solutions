@@ -6,6 +6,7 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 				xmlns:p="http://primefaces.org/ui"
+	  			xmlns:pe="http://primefaces.org/ui/extensions"
 				template="/resources/layout/template.xhtml">
 	  
 	  <ui:define name="content">
@@ -28,7 +29,11 @@
 			 <h1 class="title ui-widget-header ui-corner-all">#{pageHeader}</h1>
 		
 			<!-- ===== Msg ============ -->
-			<p:growl id="msg" />
+			<p:messages id="msg" showDetail="true" />
+			  
+			<p:growl id="msgGrowl" />
+			
+			
 		
 			<!-- ==== Filtro ===== -->
 			<p:accordionPanel>
@@ -40,7 +45,9 @@
 						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}">
 							
 						</p:commandButton>
-		
+						
+						<p:defaultCommand target="btnSearh" />
+						
 					</h:panelGrid>
 				</p:tab>
 			</p:accordionPanel>

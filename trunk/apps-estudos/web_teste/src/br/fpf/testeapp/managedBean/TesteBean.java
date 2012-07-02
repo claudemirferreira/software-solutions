@@ -2,7 +2,9 @@ package br.fpf.testeapp.managedBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -50,6 +52,8 @@ public class TesteBean implements Serializable {
 	@Inject
 	private Conversation conversation;
 	
+//	@Getter
+//	private Map<String, State> selectedOptionsTriStateConverted;
 	
 	@PostConstruct
 	public void init() {
@@ -61,6 +65,10 @@ public class TesteBean implements Serializable {
 		this.entity = new Entity();
 		detail.setStatus( ( short ) 0 );
 		entity.setAtivo(true);
+		
+//		selectedOptionsTriStateConverted = new HashMap<String, State>();
+//		selectedOptionsTriStateConverted.put("Item 1", new State("1"));
+//		selectedOptionsTriStateConverted.put("Item 2", new State("2"));
 		
 		populateList();
 	}
@@ -133,10 +141,10 @@ public class TesteBean implements Serializable {
      */
     public String editar( Entity entity ) {
     	this.entity = entity;
-    	conversation.begin();
-    	return CADASTRO;
+    	return "create.seam?faces-redirect=true";
     }
     
+
     public void end() {
     	conversation.end();
     }
@@ -147,6 +155,7 @@ public class TesteBean implements Serializable {
      */
     public String cancel() {
     	end();
+    	init();
     	return "search.seam?faces-redirect=true";
     }
     
@@ -181,6 +190,40 @@ public class TesteBean implements Serializable {
  
     protected FacesContext getContext() {
         return FacesContext.getCurrentInstance();
+    }
+    
+
+    /* ---- Inner Class ------------- */
+    public class State implements Serializable {
+
+    	private String stateDesc;
+    	private String state;
+
+    	public State(String state) {
+    		this.state = state;
+    		this.stateDesc = "State class value = " + state;
+    	}
+
+    	public String getState() {
+    		return state;
+    	}
+
+    	public void setState(String state) {
+    		this.state = state;
+    	}
+
+    	public String getStateDesc() {
+    		return stateDesc;
+    	}
+
+    	public void setStateDesc(String stateDesc) {
+    		this.stateDesc = stateDesc;
+    	}
+
+    	@Override
+    	public String toString() {
+    		return stateDesc;
+    	}
     }
     
 }
