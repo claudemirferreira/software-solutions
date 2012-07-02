@@ -248,3 +248,15 @@ img.right {
 .ui-widget {
     font-size: 12px !important;
 }
+
+
+
+/*  Novos */
+.btn_edit_grid {
+    background-image: url(../resources/images/add.png);
+}
+
+.btn_remove_grid {
+    background-image: url(../resources/images/delete.png);
+}
+

@@ -15,8 +15,16 @@
 	
 	<ui:define name="register_region">
 		
-		TODO: conteudo
-		
+		<p:panel header="Dados do sistema" footer="* Campos obrigatórios" >
+
+			<h:panelGrid columns="2" columnClasses="label, value">
+
+				<h:outputText value="Nome *" />
+				<p:inputText value="#{testeBean.entity.nome}" required="true" label="nome" />
+
+			</h:panelGrid>
+		</p:panel>
+
 	</ui:define>
 
 </ui:composition>

@@ -6,6 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
@@ -20,6 +21,7 @@
 		<p:inputText id="txSistema" value="#{testeBean.entity.nome}" size="50"/>
 	
 		<h:outputText value="Ativo" />
+		
 		<p:selectBooleanCheckbox value="#{testeBean.entity.ativo}" />
 	                
 	</ui:define>
@@ -61,16 +63,15 @@
 	                <h:outputText value="Ação" />  
 	            </f:facet>  
 				
-				TODO
+				<p:commandButton action="#{testeBean.editar(item)}" icon="btn_edit_grid" title="Editar" />
 				
-				<p:commandButton value="Excluir" onclick="confirmation.show()" type="button" >
+				<p:commandButton onclick="confirmation.show()" icon="btn_remove_grid" title="Excluir" >
 					
 					<fpf2:confirmDialog targetItem="#{testeBean.itemToRemove}" 
 										selectedItem="#{item}" 
 										update="@all"
 										actionMethod="#{testeBean.remove()}" />
 										<!-- update @all -->
-					
 				</p:commandButton>  
 				
 	        </p:column>  
