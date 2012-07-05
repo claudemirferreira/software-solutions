@@ -6,106 +6,106 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	template="/resources/layout/template.xhtml">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
 	<ui:param name="pageTitle" value="Cadastro de Sistema"/>
+	<ui:param name="pageHeader" value="Sistema"/>
+	<ui:param name="managedBean" value="#{sistemaBean}"/>
+	
 
-	<ui:define name="content">
+	<ui:define name="search_filter">
 		
-		<h:form id="formSearch" prependId="false">
+		<h:outputText value="Nome" />
+		<p:inputText id="txSistema" value="#{sistemaBean.search.txSistema}" size="50"/>
+
+		<h:outputText value="Descrição" />
+		<p:inputText id="txDescricao" value="#{sistemaBean.search.txDescricao}" size="50" />
+
+		<h:outputText value="Sigla" />
+		<p:inputText id="txSigla" value="#{sistemaBean.search.txSigla}" size="10" />
+
+		<h:outputText value="Ativo" />
+		<p:selectOneMenu value="#{sistemaBean.search.ativo}" effect="fade">
+            <f:selectItem itemLabel="-- Todos os registros --" itemValue="" />
+            <f:selectItems value="#{sistemaBean.ativoInativoList}" var="item" itemLabel="#{item}" itemValue="#{item}"/>
+        </p:selectOneMenu>
 		
-			 <h1 class="title ui-widget-header ui-corner-all">Sistema</h1>
-		
-			<!-- ===== Msg ============ -->
-			<p:growl id="msg" />
-		
-			<!-- ==== Filtro ===== -->
-			<p:accordionPanel>
-				<p:tab title="Filtro de Pesquisa:">
-					<h:panelGrid columns="2" cellpadding="5">
-						<h:outputText value="Nome" />
-						<p:inputText id="txSistema" value="#{sistemaBean.search.txSistema}" size="50"/>
+	</ui:define>
 	
-						<h:outputText value="Descrição" />
-						<p:inputText id="txDescricao" value="#{sistemaBean.search.txDescricao}" size="50" />
 	
-						<h:outputText value="Sigla" />
-						<p:inputText id="txSigla" value="#{sistemaBean.search.txSigla}" size="10" />
-	
-						<h:outputText value="Ativo" />
-						<p:selectBooleanCheckbox value="#{sistemaBean.search.ativo}" />
-	                    
-						<p:commandButton id="btnSearh" value="Pesquisar" action="#{sistemaBean.search()}" />
-		
-					</h:panelGrid>
-				</p:tab>
-			</p:accordionPanel>
-   				
-   			
-			<!-- ==== Grid ======= -->
-			<p:outputPanel autoUpdate="true">
-			
-				<!-- TODO css do grid para a linha : onmouseover -->
-                             
-				<p:dataTable id="grid" 
-							 var="item" 
-							 value="#{sistemaBean.resultList}"
-							 rendered="#{not empty sistemaBean.resultList}"
-			                 paginator="true" 
-			                 rows="10" 
-			                 paginatorAlwaysVisible="false"
-			                 emptyMessage="Nenhum registro encontrado."
-			                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-			                 rowsPerPageTemplate="5,10,15"
-			                 >  
-			  
-			        <p:column style="text-align:left">  
-			            <f:facet name="header">  
-			                <h:outputText value="Nome" />  
-			            </f:facet>  
-			            <h:outputText value="#{item.txSistema}" />  
-			        </p:column>  
-			  
-			        <p:column style="text-align:left">  
-			            <f:facet name="header">  
-			                <h:outputText value="Descrição" />  
-			            </f:facet>  
-			            <h:outputText value="#{item.txDescricao}" />  
-			        </p:column>  
-			  
-			        <p:column>  
-			            <f:facet name="header">  
-			                <h:outputText value="Sigla" />  
-			            </f:facet>  
-			            <h:outputText value="#{item.txSigla}" />  
-			        </p:column>  
-			  
-			        <p:column>  
-			            <f:facet name="header">  
-			                <h:outputText value="Situação" />  
-			            </f:facet>  
-			            <h:outputText value="#{item.ativo}" >
-			            	<f:converter converterId="ativoInativoConverter"/>
-			            </h:outputText>  
-			        </p:column>  
-			  
-			        <p:column>  
-			            <f:facet name="header" style="width:60px">  
-			                <h:outputText value="Ação" />  
-			            </f:facet>  
-						
-						TODO
-						
-			        </p:column>  
-			        
-			        <f:facet name="footer">
-			        	
-				        	<h:outputText value="#{fn:length(sistemaBean.resultList)} Registro(s) encontrado(s)." />  
-			        	
-                   </f:facet>
-			    </p:dataTable>
-			</p:outputPanel>
-		</h:form>
+	<!-- ==== Grid ======= -->
+	<ui:define name="grid_region">	
+ 		
+ 		<p:outputPanel autoUpdate="true">
+ 		
+		<p:dataTable id="grid" 
+					 var="item" 
+					 value="#{sistemaBean.resultList}"
+					 rendered="#{not empty sistemaBean.resultList}"
+	                 paginator="true"
+	                 rows="5"
+	                 paginatorAlwaysVisible="false"
+	                 emptyMessage="Nenhum registro encontrado."
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 rowsPerPageTemplate="5,10,15,20"
+	                 >
+	  
+	  		<p:column style="text-align:left">  
+	            <f:facet name="header">  
+	                <h:outputText value="Nome" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.txSistema}" />  
+	        </p:column>  
+	  
+	        <p:column style="text-align:left">  
+	            <f:facet name="header">  
+	                <h:outputText value="Descrição" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.txDescricao}" />  
+	        </p:column>  
+	  
+	        <p:column style="text-align:center">  
+	            <f:facet name="header">  
+	                <h:outputText value="Sigla" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.txSigla}" />  
+	        </p:column>  
+	  
+	        <p:column style="text-align:center">  
+	            <f:facet name="header">  
+	                <h:outputText value="Situação" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.ativo}" >
+	            	<f:converter converterId="ativoInativoConverter"/>
+	            </h:outputText>  
+	        </p:column>  
+	  
+	        <p:column style="text-align:center">  
+	            <f:facet name="header" style="width:60px">  
+	                <h:outputText value="Ação" />  
+	            </f:facet>  
+				
+				<p:commandButton action="#{sistemaBean.editar(item)}" icon="btn_edit_grid" title="Editar" />
+				
+				<p:commandButton onclick="confirmation.show()" icon="btn_remove_grid" title="Excluir" >
+															
+					<fpf2:confirmDialog targetItem="#{sistemaBean.itemToRemove}" 
+										selectedItem="#{item}" 
+										update="@all"
+										actionMethod="#{sistemaBean.remove()}" />
+										<!-- TODO update @all -->
+				</p:commandButton>  
+	        </p:column>  
+	        
+	        <f:facet name="footer">
+		        	<h:outputText value="#{fn:length(sistemaBean.resultList)} Registro(s) encontrado(s)." />  
+            </f:facet>
+                 
+	    </p:dataTable>
+	    
+	    </p:outputPanel>
 			
 	</ui:define>
 

@@ -37,21 +37,24 @@
 			<h:messages globalOnly="true" styleClass="error"/>
 
 			<h:panelGrid columnClasses="label,component,required" columns="3">
+			
 				<h:outputLabel for="perfilBeanPerfilSistema" value="Sistema:"/>
 				<h:panelGroup>
-					<h:selectOneMenu converter="#{sistemaBean.converter}" id="perfilBeanPerfilSistema" value="#{perfilBean.perfil.sistema}">
+					<h:selectOneMenu  id="perfilBeanPerfilSistema" value="#{perfilBean.perfil.sistema}">
 						<f:selectItem/>
 						<f:selectItems value="#{sistemaBean.all}"/>
 					</h:selectOneMenu>
 					<h:message for="perfilBeanPerfilSistema" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
+				
 				<h:outputLabel for="perfilBeanPerfilTxPerfil" value="Tx Perfil:"/>
 				<h:panelGroup>
 					<h:inputText id="perfilBeanPerfilTxPerfil" maxLength="100" value="#{perfilBean.perfil.txPerfil}"/>
 					<h:message for="perfilBeanPerfilTxPerfil" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
+				
 				<h:outputLabel for="perfilBeanPerfilPerfilRotinas" value="Perfil Rotinas:"/>
 				<h:panelGroup>
 					<ui:param name="_collection" value="#{perfilBean.perfil.perfilRotinas}"/>
