@@ -33,7 +33,6 @@
 			  
 			<p:growl id="msgGrowl" />
 			
-			
 		
 			<!-- ==== Filtro ===== -->
 			<p:accordionPanel>
@@ -42,9 +41,7 @@
 						
 						<ui:insert name="search_filter" />
 	                    
-						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}">
-							
-						</p:commandButton>
+						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}"	/>	<!--  update="pnlGrid"  -->
 						
 						<p:defaultCommand target="btnSearh" />
 						
@@ -54,7 +51,12 @@
    				
    			
 			<!-- ==== Grid ======= -->
-			<ui:insert name="grid_region" />
+			<p:panel id="pnlGrid">
+				
+				<ui:insert name="grid_region" />
+				
+			</p:panel>
+			
 			
 			<!-- ==== Button ======= -->
 			<h:panelGrid columns="2" cellpadding="2">

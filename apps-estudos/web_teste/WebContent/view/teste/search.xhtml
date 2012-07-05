@@ -69,9 +69,7 @@
 					
 					<fpf2:confirmDialog targetItem="#{testeBean.itemToRemove}" 
 										selectedItem="#{item}" 
-										update="@all"
 										actionMethod="#{testeBean.remove()}" />
-										<!-- update @all -->
 				</p:commandButton>  
 				
 	        </p:column>  
@@ -80,7 +78,6 @@
         		<h:outputText value="#{fn:length(testeBean.resultList)} Registro(s) encontrado(s)." />  
             </f:facet>
 	    </p:dataTable>
-	    
 	    
 			
 	</ui:define>
