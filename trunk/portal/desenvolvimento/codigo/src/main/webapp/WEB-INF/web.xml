@@ -11,8 +11,18 @@
 
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>start</param-value>
+		<param-value>sunny</param-value>
+		<!-- sunny start bluesky -->
 	</context-param>
+	
+	<context-param>   
+		<param-name>com.sun.faces.writeStateAtFormEnd</param-name>   
+		<param-value>false</param-value>   
+	</context-param> 
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 	
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>

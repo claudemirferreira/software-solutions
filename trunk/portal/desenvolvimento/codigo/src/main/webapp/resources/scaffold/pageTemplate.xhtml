@@ -2,10 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:head>
-		<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
+		<title>:: Authenticator :: #{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
 		<link rel="icon" href="#{resource['favicon.ico']}" />
 		<h:outputStylesheet name="forge-style.css" />
 	</h:head>
@@ -15,26 +16,12 @@
 	
 			<div id="navigation">
 				<h:link id="homeLink" outcome="/index.xhtml">
-					<img src="#{resource['forge-logo.png']}" alt="Forge... get hammered" border="0"/>
+					<img src="#{resource['forge-logo.png']}" border="0"/>
 				</h:link>
 				<ul>
 					<li>
-						<h:link outcome="/view/perfil/search" value="Perfil"/>
-					</li>
-					<li>
-						<h:link outcome="/view/perfilRotina/search" value="Perfil Rotina"/>
-					</li>
-					<li>
-						<h:link outcome="/view/rotina/search" value="Rotina"/>
-					</li>
-					<li>
-						<h:link outcome="/view/sistema/search" value="Sistema"/>
-					</li>
-					<li>
-						<h:link outcome="/view/usuario/search" value="Usuario"/>
-					</li>
-					<li>
-						<h:link outcome="/view/usuarioPerfil/search" value="Usuario Perfil"/>
+						<h:link outcome="/view/sistema/search" value="Sistema" />
+						<h:link outcome="/view/teste/search" value="Teste" />
 					</li>
 				</ul>				
 			</div>

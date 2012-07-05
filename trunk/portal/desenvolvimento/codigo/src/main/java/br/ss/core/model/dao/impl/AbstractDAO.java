@@ -62,34 +62,68 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements Serializa
 	
 	@Override
 	public T merge( T entity ) {
-		return entityManager.merge( entity );
+		return merge( entity, true );
+	}
+
+	@Override
+	public T merge( T entity, boolean flush ) {
+		T t = entityManager.merge( entity );
+		flush( flush );
+		return t;
 	}
 	
 	@Override
 	public void remove( T entity ) {
         entityManager.remove( entity );
+        flush();
     }
 	
 	@Override
 	public void remove( Long id ) {
 		getEntityManager().remove( getEntityManager().find( persistentClass, id ) );
+		flush();
 	}
-	
+
 	@Override
 	public void persist( T entity ) {
-        entityManager.persist( entity );
+        persist(entity, true);
     }
-	
+
+	@Override
+	public void persist( T entity, boolean flush ) {
+		entityManager.persist( entity );
+		flush( flush );
+	}
+		
 	
 	@Override
 	public void saveOrUpdate(T entity) {
+		saveOrUpdate(entity, true);
+	}
+
+	
+	@Override
+	public void saveOrUpdate(T entity, boolean flush) {
 		if ( !entity.isPersistent() ) {
 			 persist(entity);
 		} else {
 			merge(entity);
 		}
+		flush( flush );
 	}
+	
+	@Override
+	public void flush() {
+        entityManager.flush();
+    }
+	
 
+	public void flush( boolean flush ) {
+		if ( flush ) {
+			flush();
+		}
+    }
+	
 	@Override
 	public List<T> listAll() {
 		CriteriaQuery<Sistema> criteria = entityManager.getCriteriaBuilder().createQuery(Sistema.class);

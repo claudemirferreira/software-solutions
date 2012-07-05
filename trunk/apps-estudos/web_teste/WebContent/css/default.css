@@ -251,7 +251,7 @@ img.right {
 
 
 
-/*  Novos */
+/* ====== Novos ======================= */
 .btn_edit_grid {
     background-image: url(../resources/images/add.png);
 }
@@ -260,3 +260,40 @@ img.right {
     background-image: url(../resources/images/delete.png);
 }
 
+
+.required{
+	color: red;    
+}
+
+
+.input_required{
+	color: red; 
+	text-align: left;
+}
+
+.input_label {
+    width:70px;
+    padding:4px;
+}
+
+.input_value {
+/*    width:80%; */
+    padding:2px;
+}
+
+.grid {
+    width:100%;
+}
+
+.error {
+    color: red;
+}
+
+.outputLabel {
+    font-weight: bold;
+}
+
+.grid {
+    width:33%;
+    padding:4px;
+}

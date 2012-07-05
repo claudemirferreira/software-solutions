@@ -7,8 +7,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -21,12 +24,14 @@ import br.ss.core.model.entity.AbstractEntity;
  */
 @Entity
 @Table(name = "sistema", schema = "authenticator")
+@SequenceGenerator( name = "sistema_id_sistema_seq", sequenceName="authenticator.sistema_id_sistema_seq" )
 public class Sistema extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 469202678361230820L;
 
 	@Getter @Setter
 	@Id
+	@GeneratedValue( generator = "sistema_id_sistema_seq", strategy = GenerationType.SEQUENCE )
 	@Column(name = "id_sistema", unique = true, nullable = false)
 	private Long idSistema;
 	
