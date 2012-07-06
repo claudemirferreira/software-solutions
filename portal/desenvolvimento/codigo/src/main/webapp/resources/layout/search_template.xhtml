@@ -29,8 +29,9 @@
 			 <h1 class="title ui-widget-header ui-corner-all">#{pageHeader}</h1>
 		
 			<!-- ===== Msg ============ -->
-			<p:messages id="msg" showDetail="true" />
-			  
+			<h:panelGrid cellpadding="6">
+				<p:messages id="msg"  />
+			</h:panelGrid>
 			<p:growl id="msgGrowl" />
 			
 			
@@ -42,7 +43,7 @@
 						
 						<ui:insert name="search_filter" />
 	                    
-						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}"  />	<!-- update="panelGrid"  process="@this"  -->
+						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}"  />	<!-- update="msg panelGrid"  process="@this"  -->
 							
 						<p:defaultCommand target="btnSearh" />
 						

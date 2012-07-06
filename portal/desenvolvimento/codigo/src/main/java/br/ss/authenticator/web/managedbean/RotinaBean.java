@@ -1,4 +1,4 @@
-package br.ss.authenticator.view;
+package br.ss.authenticator.web.managedbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,14 +22,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import br.ss.authenticator.model.entity.UsuarioPerfil;
-import br.ss.authenticator.model.entity.Perfil;
-import br.ss.authenticator.model.entity.Usuario;
+import br.ss.authenticator.model.entity.Rotina;
+import br.ss.authenticator.model.entity.Sistema;
 
 /**
- * Backing bean for UsuarioPerfil entities.
+ * Backing bean for Rotina entities.
  * <p>
- * This class provides CRUD functionality for all UsuarioPerfil entities. It focuses
+ * This class provides CRUD functionality for all Rotina entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
  * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
@@ -39,13 +38,13 @@ import br.ss.authenticator.model.entity.Usuario;
 @Named
 @Stateful
 @ConversationScoped
-public class UsuarioPerfilBean implements Serializable
+public class RotinaBean implements Serializable
 {
 
    private static final long serialVersionUID = 1L;
 
    /*
-    * Support creating and retrieving UsuarioPerfil entities
+    * Support creating and retrieving Rotina entities
     */
 
    private Integer id;
@@ -60,11 +59,11 @@ public class UsuarioPerfilBean implements Serializable
       this.id = id;
    }
 
-   private UsuarioPerfil usuarioPerfil;
+   private Rotina rotina;
 
-   public UsuarioPerfil getUsuarioPerfil()
+   public Rotina getRotina()
    {
-      return this.usuarioPerfil;
+      return this.rotina;
    }
 
    @Inject
@@ -95,16 +94,16 @@ public class UsuarioPerfilBean implements Serializable
 
       if (this.id == null)
       {
-         this.usuarioPerfil = this.search;
+         this.rotina = this.search;
       }
       else
       {
-         this.usuarioPerfil = this.entityManager.find(UsuarioPerfil.class, getId());
+         this.rotina = this.entityManager.find(Rotina.class, getId());
       }
    }
 
    /*
-    * Support updating and deleting UsuarioPerfil entities
+    * Support updating and deleting Rotina entities
     */
 
    public String update()
@@ -115,13 +114,13 @@ public class UsuarioPerfilBean implements Serializable
       {
          if (this.id == null)
          {
-            this.entityManager.persist(this.usuarioPerfil);
+            this.entityManager.persist(this.rotina);
             return "search?faces-redirect=true";
          }
          else
          {
-            this.entityManager.merge(this.usuarioPerfil);
-            return "view?faces-redirect=true&id=" + this.usuarioPerfil.getIdUsuarioPerfil();
+            this.entityManager.merge(this.rotina);
+            return "view?faces-redirect=true&id=" + this.rotina.getIdRotina();
          }
       }
       catch (Exception e)
@@ -137,7 +136,7 @@ public class UsuarioPerfilBean implements Serializable
 
       try
       {
-         this.entityManager.remove(this.entityManager.find(UsuarioPerfil.class, getId()));
+         this.entityManager.remove(this.entityManager.find(Rotina.class, getId()));
          this.entityManager.flush();
          return "search?faces-redirect=true";
       }
@@ -149,14 +148,14 @@ public class UsuarioPerfilBean implements Serializable
    }
 
    /*
-    * Support searching UsuarioPerfil entities with pagination
+    * Support searching Rotina entities with pagination
     */
 
    private int page;
    private long count;
-   private List<UsuarioPerfil> pageItems;
+   private List<Rotina> pageItems;
 
-   private UsuarioPerfil search = new UsuarioPerfil();
+   private Rotina search = new Rotina();
 
    public int getPage()
    {
@@ -173,12 +172,12 @@ public class UsuarioPerfilBean implements Serializable
       return 10;
    }
 
-   public UsuarioPerfil getSearch()
+   public Rotina getSearch()
    {
       return this.search;
    }
 
-   public void setSearch(UsuarioPerfil search)
+   public void setSearch(Rotina search)
    {
       this.search = search;
    }
@@ -196,45 +195,45 @@ public class UsuarioPerfilBean implements Serializable
       // Populate this.count
 
       CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<UsuarioPerfil> root = countCriteria.from(UsuarioPerfil.class);
+      Root<Rotina> root = countCriteria.from(Rotina.class);
       countCriteria = countCriteria.select(builder.count(root)).where(getSearchPredicates(root));
       this.count = this.entityManager.createQuery(countCriteria).getSingleResult();
 
       // Populate this.pageItems
 
-      CriteriaQuery<UsuarioPerfil> criteria = builder.createQuery(UsuarioPerfil.class);
-      root = criteria.from(UsuarioPerfil.class);
-      TypedQuery<UsuarioPerfil> query = this.entityManager.createQuery(criteria.select(root).where(getSearchPredicates(root)));
+      CriteriaQuery<Rotina> criteria = builder.createQuery(Rotina.class);
+      root = criteria.from(Rotina.class);
+      TypedQuery<Rotina> query = this.entityManager.createQuery(criteria.select(root).where(getSearchPredicates(root)));
       query.setFirstResult(this.page * getPageSize()).setMaxResults(getPageSize());
       this.pageItems = query.getResultList();
    }
 
-   private Predicate[] getSearchPredicates(Root<UsuarioPerfil> root)
+   private Predicate[] getSearchPredicates(Root<Rotina> root)
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      int idUsuarioPerfil = this.search.getIdUsuarioPerfil();
-      if (idUsuarioPerfil != 0)
+      int idRotina = this.search.getIdRotina();
+      if (idRotina != 0)
       {
-         predicatesList.add(builder.equal(root.get("idUsuarioPerfil"), idUsuarioPerfil));
+         predicatesList.add(builder.equal(root.get("idRotina"), idRotina));
       }
-      Usuario usuario = this.search.getUsuario();
-      if (usuario != null)
+      Sistema sistema = this.search.getSistema();
+      if (sistema != null)
       {
-         predicatesList.add(builder.equal(root.get("usuario"), usuario));
+         predicatesList.add(builder.equal(root.get("sistema"), sistema));
       }
-      Perfil perfil = this.search.getPerfil();
-      if (perfil != null)
+      String txRotina = this.search.getTxRotina();
+      if (txRotina != null && !"".equals(txRotina))
       {
-         predicatesList.add(builder.equal(root.get("perfil"), perfil));
+         predicatesList.add(builder.like(root.<String> get("txRotina"), '%' + txRotina + '%'));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);
    }
 
-   public List<UsuarioPerfil> getPageItems()
+   public List<Rotina> getPageItems()
    {
       return this.pageItems;
    }
@@ -245,15 +244,15 @@ public class UsuarioPerfilBean implements Serializable
    }
 
    /*
-    * Support listing and POSTing back UsuarioPerfil entities (e.g. from inside an
+    * Support listing and POSTing back Rotina entities (e.g. from inside an
     * HtmlSelectOneMenu)
     */
 
-   public List<UsuarioPerfil> getAll()
+   public List<Rotina> getAll()
    {
 
-      CriteriaQuery<UsuarioPerfil> criteria = this.entityManager.getCriteriaBuilder().createQuery(UsuarioPerfil.class);
-      return this.entityManager.createQuery(criteria.select(criteria.from(UsuarioPerfil.class))).getResultList();
+      CriteriaQuery<Rotina> criteria = this.entityManager.getCriteriaBuilder().createQuery(Rotina.class);
+      return this.entityManager.createQuery(criteria.select(criteria.from(Rotina.class))).getResultList();
    }
 
    public Converter getConverter()
@@ -266,7 +265,7 @@ public class UsuarioPerfilBean implements Serializable
          public Object getAsObject(FacesContext context, UIComponent component, String value)
          {
 
-            return UsuarioPerfilBean.this.entityManager.find(UsuarioPerfil.class, Long.valueOf(value));
+            return RotinaBean.this.entityManager.find(Rotina.class, Long.valueOf(value));
          }
 
          @Override
@@ -278,7 +277,7 @@ public class UsuarioPerfilBean implements Serializable
                return "";
             }
 
-            return String.valueOf(((UsuarioPerfil) value).getIdUsuarioPerfil());
+            return String.valueOf(((Rotina) value).getIdRotina());
          }
       };
    }
@@ -287,17 +286,17 @@ public class UsuarioPerfilBean implements Serializable
     * Support adding children to bidirectional, one-to-many tables
     */
 
-   private UsuarioPerfil add = new UsuarioPerfil();
+   private Rotina add = new Rotina();
 
-   public UsuarioPerfil getAdd()
+   public Rotina getAdd()
    {
       return this.add;
    }
 
-   public UsuarioPerfil getAdded()
+   public Rotina getAdded()
    {
-      UsuarioPerfil added = this.add;
-      this.add = new UsuarioPerfil();
+      Rotina added = this.add;
+      this.add = new Rotina();
       return added;
    }
 }

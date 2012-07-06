@@ -1,4 +1,4 @@
-package br.ss.authenticator.view;
+package br.ss.authenticator.web.managedbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,12 +22,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import br.ss.authenticator.model.entity.UsuarioPerfil;
+import br.ss.authenticator.model.entity.Perfil;
 import br.ss.authenticator.model.entity.Usuario;
 
 /**
- * Backing bean for Usuario entities.
+ * Backing bean for UsuarioPerfil entities.
  * <p>
- * This class provides CRUD functionality for all Usuario entities. It focuses
+ * This class provides CRUD functionality for all UsuarioPerfil entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
  * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
@@ -37,13 +39,13 @@ import br.ss.authenticator.model.entity.Usuario;
 @Named
 @Stateful
 @ConversationScoped
-public class UsuarioBean implements Serializable
+public class UsuarioPerfilBean implements Serializable
 {
 
    private static final long serialVersionUID = 1L;
 
    /*
-    * Support creating and retrieving Usuario entities
+    * Support creating and retrieving UsuarioPerfil entities
     */
 
    private Integer id;
@@ -58,11 +60,11 @@ public class UsuarioBean implements Serializable
       this.id = id;
    }
 
-   private Usuario usuario;
+   private UsuarioPerfil usuarioPerfil;
 
-   public Usuario getUsuario()
+   public UsuarioPerfil getUsuarioPerfil()
    {
-      return this.usuario;
+      return this.usuarioPerfil;
    }
 
    @Inject
@@ -93,16 +95,16 @@ public class UsuarioBean implements Serializable
 
       if (this.id == null)
       {
-         this.usuario = this.search;
+         this.usuarioPerfil = this.search;
       }
       else
       {
-         this.usuario = this.entityManager.find(Usuario.class, getId());
+         this.usuarioPerfil = this.entityManager.find(UsuarioPerfil.class, getId());
       }
    }
 
    /*
-    * Support updating and deleting Usuario entities
+    * Support updating and deleting UsuarioPerfil entities
     */
 
    public String update()
@@ -113,13 +115,13 @@ public class UsuarioBean implements Serializable
       {
          if (this.id == null)
          {
-            this.entityManager.persist(this.usuario);
+            this.entityManager.persist(this.usuarioPerfil);
             return "search?faces-redirect=true";
          }
          else
          {
-            this.entityManager.merge(this.usuario);
-            return "view?faces-redirect=true&id=" + this.usuario.getIdUsuario();
+            this.entityManager.merge(this.usuarioPerfil);
+            return "view?faces-redirect=true&id=" + this.usuarioPerfil.getIdUsuarioPerfil();
          }
       }
       catch (Exception e)
@@ -135,7 +137,7 @@ public class UsuarioBean implements Serializable
 
       try
       {
-         this.entityManager.remove(this.entityManager.find(Usuario.class, getId()));
+         this.entityManager.remove(this.entityManager.find(UsuarioPerfil.class, getId()));
          this.entityManager.flush();
          return "search?faces-redirect=true";
       }
@@ -147,14 +149,14 @@ public class UsuarioBean implements Serializable
    }
 
    /*
-    * Support searching Usuario entities with pagination
+    * Support searching UsuarioPerfil entities with pagination
     */
 
    private int page;
    private long count;
-   private List<Usuario> pageItems;
+   private List<UsuarioPerfil> pageItems;
 
-   private Usuario search = new Usuario();
+   private UsuarioPerfil search = new UsuarioPerfil();
 
    public int getPage()
    {
@@ -171,12 +173,12 @@ public class UsuarioBean implements Serializable
       return 10;
    }
 
-   public Usuario getSearch()
+   public UsuarioPerfil getSearch()
    {
       return this.search;
    }
 
-   public void setSearch(Usuario search)
+   public void setSearch(UsuarioPerfil search)
    {
       this.search = search;
    }
@@ -194,50 +196,45 @@ public class UsuarioBean implements Serializable
       // Populate this.count
 
       CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<Usuario> root = countCriteria.from(Usuario.class);
+      Root<UsuarioPerfil> root = countCriteria.from(UsuarioPerfil.class);
       countCriteria = countCriteria.select(builder.count(root)).where(getSearchPredicates(root));
       this.count = this.entityManager.createQuery(countCriteria).getSingleResult();
 
       // Populate this.pageItems
 
-      CriteriaQuery<Usuario> criteria = builder.createQuery(Usuario.class);
-      root = criteria.from(Usuario.class);
-      TypedQuery<Usuario> query = this.entityManager.createQuery(criteria.select(root).where(getSearchPredicates(root)));
+      CriteriaQuery<UsuarioPerfil> criteria = builder.createQuery(UsuarioPerfil.class);
+      root = criteria.from(UsuarioPerfil.class);
+      TypedQuery<UsuarioPerfil> query = this.entityManager.createQuery(criteria.select(root).where(getSearchPredicates(root)));
       query.setFirstResult(this.page * getPageSize()).setMaxResults(getPageSize());
       this.pageItems = query.getResultList();
    }
 
-   private Predicate[] getSearchPredicates(Root<Usuario> root)
+   private Predicate[] getSearchPredicates(Root<UsuarioPerfil> root)
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      int idUsuario = this.search.getIdUsuario();
-      if (idUsuario != 0)
+      int idUsuarioPerfil = this.search.getIdUsuarioPerfil();
+      if (idUsuarioPerfil != 0)
       {
-         predicatesList.add(builder.equal(root.get("idUsuario"), idUsuario));
+         predicatesList.add(builder.equal(root.get("idUsuarioPerfil"), idUsuarioPerfil));
       }
-      String txLogin = this.search.getTxLogin();
-      if (txLogin != null && !"".equals(txLogin))
+      Usuario usuario = this.search.getUsuario();
+      if (usuario != null)
       {
-         predicatesList.add(builder.like(root.<String> get("txLogin"), '%' + txLogin + '%'));
+         predicatesList.add(builder.equal(root.get("usuario"), usuario));
       }
-      String txEmail = this.search.getTxEmail();
-      if (txEmail != null && !"".equals(txEmail))
+      Perfil perfil = this.search.getPerfil();
+      if (perfil != null)
       {
-         predicatesList.add(builder.like(root.<String> get("txEmail"), '%' + txEmail + '%'));
-      }
-      String txSenha = this.search.getTxSenha();
-      if (txSenha != null && !"".equals(txSenha))
-      {
-         predicatesList.add(builder.like(root.<String> get("txSenha"), '%' + txSenha + '%'));
+         predicatesList.add(builder.equal(root.get("perfil"), perfil));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);
    }
 
-   public List<Usuario> getPageItems()
+   public List<UsuarioPerfil> getPageItems()
    {
       return this.pageItems;
    }
@@ -248,15 +245,15 @@ public class UsuarioBean implements Serializable
    }
 
    /*
-    * Support listing and POSTing back Usuario entities (e.g. from inside an
+    * Support listing and POSTing back UsuarioPerfil entities (e.g. from inside an
     * HtmlSelectOneMenu)
     */
 
-   public List<Usuario> getAll()
+   public List<UsuarioPerfil> getAll()
    {
 
-      CriteriaQuery<Usuario> criteria = this.entityManager.getCriteriaBuilder().createQuery(Usuario.class);
-      return this.entityManager.createQuery(criteria.select(criteria.from(Usuario.class))).getResultList();
+      CriteriaQuery<UsuarioPerfil> criteria = this.entityManager.getCriteriaBuilder().createQuery(UsuarioPerfil.class);
+      return this.entityManager.createQuery(criteria.select(criteria.from(UsuarioPerfil.class))).getResultList();
    }
 
    public Converter getConverter()
@@ -269,7 +266,7 @@ public class UsuarioBean implements Serializable
          public Object getAsObject(FacesContext context, UIComponent component, String value)
          {
 
-            return UsuarioBean.this.entityManager.find(Usuario.class, Long.valueOf(value));
+            return UsuarioPerfilBean.this.entityManager.find(UsuarioPerfil.class, Long.valueOf(value));
          }
 
          @Override
@@ -281,7 +278,7 @@ public class UsuarioBean implements Serializable
                return "";
             }
 
-            return String.valueOf(((Usuario) value).getIdUsuario());
+            return String.valueOf(((UsuarioPerfil) value).getIdUsuarioPerfil());
          }
       };
    }
@@ -290,17 +287,17 @@ public class UsuarioBean implements Serializable
     * Support adding children to bidirectional, one-to-many tables
     */
 
-   private Usuario add = new Usuario();
+   private UsuarioPerfil add = new UsuarioPerfil();
 
-   public Usuario getAdd()
+   public UsuarioPerfil getAdd()
    {
       return this.add;
    }
 
-   public Usuario getAdded()
+   public UsuarioPerfil getAdded()
    {
-      Usuario added = this.add;
-      this.add = new Usuario();
+      UsuarioPerfil added = this.add;
+      this.add = new UsuarioPerfil();
       return added;
    }
 }

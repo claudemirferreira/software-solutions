@@ -28,8 +28,8 @@
 
 		<h:outputText value="Ativo" />
 		<p:selectOneMenu value="#{sistemaBean.search.ativo}" effect="fade">
-            <f:selectItem itemLabel="-- Todos os registros --" itemValue="" />
-            <f:selectItems value="#{sistemaBean.ativoInativoList}" var="item" itemLabel="#{item}" itemValue="#{item}"/>
+            <f:selectItem itemLabel="-- Todos os registros --" />
+            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
         </p:selectOneMenu>
 		
 	</ui:define>
