@@ -60,11 +60,12 @@ CREATE TABLE authenticator.perfil
   id_perfil serial NOT NULL,
   tx_perfil character varying(100),
   id_sistema integer NOT NULL,
+  ativo boolean NOT NULL,
   CONSTRAINT perfil_pkey PRIMARY KEY (id_perfil),
   CONSTRAINT id_sistema_fk FOREIGN KEY (id_sistema)
       REFERENCES authenticator.sistema (id_sistema) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT perfil_tx_perfil_key UNIQUE (tx_perfil)
+  CONSTRAINT idx_perfil_sistema UNIQUE (tx_perfil, id_sistema)
 )
 WITH (
   OIDS=FALSE
