@@ -44,7 +44,8 @@ CREATE TABLE authenticator.sistema
   tx_descricao character varying(100),
   tx_sigla character varying(10) NOT NULL,
   ativo boolean NOT NULL,
-  CONSTRAINT sistema_pkey PRIMARY KEY (id_sistema)
+  CONSTRAINT sistema_pkey PRIMARY KEY (id_sistema),
+  CONSTRAINT idx_sistema UNIQUE (tx_sistema)
 )
 WITH (
   OIDS=FALSE
