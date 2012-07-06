@@ -23,18 +23,12 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements Serializa
 	@Getter
 	protected Class<T> persistentClass;
 	
-//	@Inject 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	@RequestScoped 
 	@Database
 	@Getter
 	protected EntityManager entityManager;
 
-//	public AbstractDAO( Class<T> clazz) {
-//		this.persistentClass = clazz;
-//	}
-	
-	
 	public AbstractDAO() {
 		initEntityClass();
 	}

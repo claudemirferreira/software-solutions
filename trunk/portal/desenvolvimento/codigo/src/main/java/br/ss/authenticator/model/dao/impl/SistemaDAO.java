@@ -39,7 +39,9 @@ public class SistemaDAO extends AbstractDAO<Sistema> implements ISistemaDAO {
 			condictions.add(" s.ativo = :ativo ");
 		}
 		
-		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) );
+		String orderBy = " order by s.txSistema ";
+		
+		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
 		
 		if ( notEmpty(sistema.getTxSistema() ) ) {
 //			q.setParameter("txSistema", "%" + StringUtil.removerAcento( sistema.getTxSistema().trim().toLowerCase() ) + "%" );
