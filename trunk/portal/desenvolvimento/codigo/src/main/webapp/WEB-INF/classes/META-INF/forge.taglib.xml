@@ -5,7 +5,7 @@
 
 	<function>
 		<function-name>asList</function-name>
-		<function-class>br.ss.authenticator.view.ViewUtils</function-class>
+		<function-class>br.ss.authenticator.web.managedbean.ViewUtils</function-class>
 		<function-signature>
 			java.util.List asList(java.util.Collection)
 		</function-signature>

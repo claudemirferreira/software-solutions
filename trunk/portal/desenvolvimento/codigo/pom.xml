@@ -9,6 +9,10 @@
 	<packaging>war</packaging>
 	
 	
+	<properties>
+		<seam.solder.version>3.1.0.Final</seam.solder.version>
+	</properties>
+	
 	
 	<distributionManagement>
 		<repository>
@@ -94,6 +98,21 @@
 	        <artifactId>primefaces-extensions</artifactId>
 	        <version>0.5.1</version>
 	    </dependency>
+
+
+		<!-- ===== Seam =============== -->
+		<dependency>
+		    <groupId>org.jboss.solder</groupId>
+		    <artifactId>solder-api</artifactId>
+		    <version>${seam.solder.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.jboss.solder</groupId>
+		    <artifactId>solder-impl</artifactId>
+		    <version>${seam.solder.version}</version>
+		    <scope>runtime</scope>
+		</dependency>
 	    
 	    
 	    <dependency>
@@ -161,4 +180,6 @@
 			
 		</plugins>
 	</build>
+	
+	
 </project>

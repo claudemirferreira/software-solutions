@@ -1,4 +1,4 @@
-package br.ss.authenticator.view;
+package br.ss.authenticator.web.managedbean;
 
 import java.io.Serializable;
 
@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import br.ss.authenticator.model.dao.ISistemaDAO;
 import br.ss.authenticator.model.entity.Sistema;
+import br.ss.authenticator.service.IService;
 import br.ss.core.model.dao.IAbstractDAO;
 import br.ss.core.web.managedbean.GenericBean;
 
@@ -19,6 +20,9 @@ public class SistemaBean extends GenericBean<Sistema> implements Serializable {
 	
 	@Inject
 	private ISistemaDAO dao;
+	
+	@Inject
+	private IService<Sistema> service;
 
 	@Override
 	public void init() {
@@ -35,10 +39,10 @@ public class SistemaBean extends GenericBean<Sistema> implements Serializable {
 	protected IAbstractDAO<Sistema> getDAO() {
 		return dao;
 	}
-	
-	@Override
-	public void search() {
-		this.resultList = dao.searchByEntity(search);
-	}
 
+	@Override
+	protected IService<Sistema> getService() {
+		return service;
+	}
+	
 }

@@ -1,4 +1,4 @@
-package br.ss.authenticator.view;
+package br.ss.authenticator.web.managedbean;
 
 import java.util.ArrayList;
 import java.util.Collection;

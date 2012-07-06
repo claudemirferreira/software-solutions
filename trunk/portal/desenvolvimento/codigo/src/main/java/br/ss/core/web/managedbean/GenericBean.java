@@ -1,26 +1,32 @@
 package br.ss.core.web.managedbean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import lombok.Getter;
 import lombok.Setter;
-import br.ss.core.constant.AtivoInativoConstant;
+import br.ss.authenticator.service.IService;
 import br.ss.core.model.dao.IAbstractDAO;
 import br.ss.core.model.entity.AbstractEntity;
 
+@Named
 public abstract class GenericBean<T extends AbstractEntity> implements Serializable {
 
 	private static final long serialVersionUID = -1229239475130268144L;
+	
+	/**
+	 * Alias para redirecionar para a tela de cadastro.
+	 */
+	public static final String CADASTRO = "create.seam";
 
+	/**
+	 * Alias para redirecionar para a tela de pesquisa. */
+	public static final String PESQUISA = "search.seam";
 	/* ---------- Atributos ----------------------- */
 
 	@Inject
@@ -38,17 +44,11 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	@Getter
 	protected T search;
 
-	@Getter
+	@Getter 
 	protected List<T> resultList;
-
-	// @Inject @RequestScoped @Database
-	// protected EntityManager entityManager;
-
-	// /** Mensagem. */
-	// protected CoreMessage message;
-
-	@Getter
-	protected List<Object> ativoInativoList;
+	
+	
+	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
 	protected void setup() {
@@ -56,19 +56,16 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 		initEntity();
 		init();
 
-		ativoInativoList = new ArrayList<Object>();
-		for (AtivoInativoConstant c : AtivoInativoConstant.values()) {
-			ativoInativoList.add(new SelectItem(c.isValue(), c.getDescricao()));
-		}
 	}
-
-	/* ---------- Metodos ----------------------- */
 
 	protected abstract void init();
 
 	protected abstract void initEntity();
 
 	protected abstract IAbstractDAO<T> getDAO();
+
+	protected abstract IService<T> getService();
+	
 
 	private void initConversation() {
 		if (conversation.isTransient()) {
@@ -81,37 +78,30 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	}
 
 	public void search() {
-		this.resultList = getDAO().listAll();
+		this.resultList = getService().search(search);
 	}
 
 	public String save() {
 		try {
-
-			getDAO().saveOrUpdate(entity);
-
-//			endConversation();
-			sendInfoMessageToUser(MSG_SUCESSO);
+			getService().save(entity);
 			return PESQUISA;
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO message
 		}
-		return ERRO;
+		return null;
 	}
 
 	public void remove() {
 		remove(itemToRemove);
 	}
 
+	
 	public void remove(T itemRemove) {
 		try {
-			getDAO().remove(itemRemove);
+			getService().remove(itemRemove);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO message
 		}
-
 	}
 
 	/**
@@ -146,65 +136,9 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 		return PESQUISA;
 	}
 
-	/**
-	 * Retorna a qtde de itens retornados na pesquisa.
-	 * 
-	 * @return Integer
-	 */
-	public Integer resultCount() {
-		return resultList == null ? 0 : resultList.size();
-	}
-
-	protected void sendInfoMessageToUser(String message) {
-		FacesContext context = getContext();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				message, message));
-	}
-
-	protected void sendWarnMessageToUser(String message) {
-		FacesContext context = getContext();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-				message, message));
-	}
-
-	protected void sendErrorMessageToUser(String message) {
-		FacesContext context = getContext();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-				message, message));
-	}
-
-	protected FacesContext getContext() {
-		return FacesContext.getCurrentInstance();
-	}
 	
 	/* ---------- Others ------------- */
-	/**
-	 * Alias para redirecionar para a tela de cadastro. Mapear o mesmo no
-	 * page.xml.
-	 */
-	public static final String CADASTRO = "create.seam?faces-redirect=true";
 
-	/**
-	 * Alias para redirecionar para a tela de pesquisa. Mapear o mesmo no
-	 * page.xml.
-	 */
-	public static final String PESQUISA = "search.seam?faces-redirect=true";
 
-	/**
-	 * Alias para redirecionamento apos uma operacao de SUCESSO. Mapear o mesmo
-	 * no page.xml.
-	 */
-	public static final String SUCESSO = "sucesso";
-
-	/**
-	 * Alias para redirecionamento apos uma operacao com ERRO. Mapear o mesmo no
-	 * page.xml.
-	 */
-	public static final String ERRO = "erro";
-
-	/**
-	 * Msg de sucesso.
-	 */
-	public static final String MSG_SUCESSO = "Operação realizada com sucesso.";
 	
 }

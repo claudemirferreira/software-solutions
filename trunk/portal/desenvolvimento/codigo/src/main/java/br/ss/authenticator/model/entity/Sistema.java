@@ -47,7 +47,7 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 	@Column(name = "tx_sigla", nullable = false, length = 10)
 	private String txSigla;
 
-	@Getter @Setter
+	@Setter @Getter 
 	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
 
