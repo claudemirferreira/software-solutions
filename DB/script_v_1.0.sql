@@ -43,6 +43,7 @@ CREATE TABLE authenticator.sistema
   tx_sistema character varying(50) NOT NULL,
   tx_descricao character varying(100),
   tx_sigla character varying(10) NOT NULL,
+  tx_url_home character varying(50) NOT NULL,
   ativo boolean NOT NULL,
   CONSTRAINT sistema_pkey PRIMARY KEY (id_sistema),
   CONSTRAINT idx_sistema UNIQUE (tx_sistema)
@@ -138,3 +139,80 @@ WITH (
 );
 ALTER TABLE authenticator.usuario_perfil OWNER TO root;
 
+
+
+CREATE TABLE authenticator.responsabilidade
+(
+  id_responsabilidade serial NOT NULL,
+  tx_responsabilidade character varying(100) NOT NULL,
+  cs_ativo boolean NOT NULL,
+  tx_descricao character varying(300) NOT NULL,
+  CONSTRAINT responsabilidade_pkey PRIMARY KEY (id_responsabilidade)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE authenticator.responsabilidade OWNER TO root;
+
+
+CREATE TABLE authenticator.responsabilidade_servico
+(
+  id_responsabilidade_servico serial NOT NULL,
+  id_responsabilidade integer NOT NULL,
+  tx_servico_codigo character varying(80) NOT NULL,
+  dt_inicio timestamp without time zone NOT NULL,
+  dt_fim timestamp without time zone,
+  CONSTRAINT responsabilidade_servico_pkey PRIMARY KEY (id_responsabilidade_servico),
+  CONSTRAINT responsabilidade_servico_id_responsabilidade_fkey FOREIGN KEY (id_responsabilidade)
+      REFERENCES authenticator.responsabilidade (id_responsabilidade) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE authenticator.responsabilidade_servico OWNER TO root;
+
+CREATE INDEX idx_fk_resp_servico_responsab
+  ON authenticator.responsabilidade_servico
+  USING btree
+  (id_responsabilidade);
+
+
+
+CREATE TABLE authenticator.perfil_responsabilidade
+(
+  id_perfil_responsabilidade serial NOT NULL,
+  id_perfil integer NOT NULL,
+  id_responsabilidade integer NOT NULL,
+  dt_inicio timestamp without time zone NOT NULL,
+  dt_termino timestamp without time zone,
+  CONSTRAINT perfil_responsabilidade_pk PRIMARY KEY (id_perfil_responsabilidade),
+  CONSTRAINT perfil_id_perfil_fk FOREIGN KEY (id_perfil)
+      REFERENCES authenticator.perfil (id_perfil) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT perfil_id_responsabilidade_fk FOREIGN KEY (id_responsabilidade)
+      REFERENCES authenticator.responsabilidade (id_responsabilidade) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE authenticator.perfil_responsabilidade OWNER TO root;
+
+CREATE UNIQUE INDEX ak_perfil_responsabilidade
+  ON authenticator.perfil_responsabilidade
+  USING btree
+  (id_responsabilidade, id_perfil);
+
+CREATE INDEX idx_fk_perfil_id_responsabilidade
+  ON authenticator.perfil_responsabilidade
+  USING btree
+  (id_responsabilidade);
+
+CREATE INDEX idx_fk_perfil_resp_id_perfil
+  ON authenticator.perfil_responsabilidade
+  USING btree
+  (id_perfil);
+
+  
+  
