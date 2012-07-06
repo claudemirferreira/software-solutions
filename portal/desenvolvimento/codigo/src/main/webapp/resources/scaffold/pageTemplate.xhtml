@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:head>
@@ -21,11 +23,14 @@
 				<ul>
 					<li>
 						<h:link outcome="/view/sistema/search" value="Sistema" />
+						<h:link outcome="/view/perfil/search" value="Perfil" />
+						<h:link outcome="/view/servico/search" value="Serviço" />
 						<h:link outcome="/view/teste/search" value="Teste" />
 					</li>
 				</ul>				
 			</div>
-		
+			
+			
 			<div id="content">
 				<h1><ui:insert name="header"/></h1>		
 				<h2><ui:insert name="subheader"/></h2>

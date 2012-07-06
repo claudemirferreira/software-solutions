@@ -12,15 +12,11 @@ import br.ss.authenticator.web.message.AuthenticatorMessage;
 import br.ss.core.model.dao.IAbstractDAO;
 import br.ss.core.model.entity.AbstractEntity;
 
-public abstract class GenericService<T extends AbstractEntity> implements Serializable, IService<T> {
+public abstract class BaseService<T extends AbstractEntity> implements Serializable, IService<T> {
 
-//	@Getter
-//	protected List<T> resultList;
-	
 	@Inject 
 	private Event<AuthenticatorException> catchEvent;
 
-	
 	protected abstract IAbstractDAO<T> getDao();
 	
 

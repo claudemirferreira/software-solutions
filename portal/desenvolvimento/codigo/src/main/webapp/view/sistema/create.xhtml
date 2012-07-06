@@ -27,16 +27,22 @@
 						value="#{sistemaBean.entity.txDescricao}" 
 						label="Descrição"/>						
 			
+			<fpf2:input id="URL" 
+						value="#{sistemaBean.entity.txUrlHome}" 
+						label="Url "
+						required="true"/>						
+
 			<fpf2:input id="Sigla" 
 						value="#{sistemaBean.entity.txSigla}" 
 						label="Sigla"
 						size="15"
-						required="true"/>			
-
+						required="true"/>
+			
 			<h:panelGrid columns="2">  
 				<p:column>
 					<h:outputText value="Ativo" />
 					<h:outputText value="*" styleClass="required" />
+					<p:spacer width="45px" height="5px"/>
 				</p:column>
 				<p:column>
 					<p:selectBooleanCheckbox id="ativo" value="#{sistemaBean.entity.ativo}" required="true" />
