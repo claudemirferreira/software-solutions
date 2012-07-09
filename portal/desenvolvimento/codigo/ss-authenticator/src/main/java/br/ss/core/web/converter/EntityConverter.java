@@ -1,4 +1,4 @@
-package br.ss.authenticator.web.converter;
+package br.ss.core.web.converter;
 
 import java.util.ArrayList;
 import java.util.List;
