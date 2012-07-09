@@ -20,7 +20,7 @@ public class ApplicationProducer {
 	public List<SelectItem> ativoInativoList() {
 		List<SelectItem> ativoInativoList = new ArrayList<SelectItem>();
 		for (AtivoInativoConstant c : AtivoInativoConstant.values()) {
-			ativoInativoList.add(new SelectItem(c.isValue(), c.getDescricao()));
+			ativoInativoList.add(new SelectItem(c.getValue(), c.getDescricao()));
 		}
 		return ativoInativoList;
 	}

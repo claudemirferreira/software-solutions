@@ -28,10 +28,9 @@
 
 		<h:outputText value="Ativo" />
 		<p:selectOneMenu value="#{sistemaBean.search.ativo}" effect="fade">
-            <f:selectItem itemLabel="-- Todos os registros --" />
             <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
         </p:selectOneMenu>
-		
+        
 	</ui:define>
 	
 	
@@ -82,8 +81,8 @@
 	            </h:outputText>  
 	        </p:column>  
 	  
-	        <p:column style="text-align:center">  
-	            <f:facet name="header" style="width:60px">  
+	        <p:column style="text-align:center; width:100px">  
+	            <f:facet name="header">  
 	                <h:outputText value="Ação" />  
 	            </f:facet>  
 				

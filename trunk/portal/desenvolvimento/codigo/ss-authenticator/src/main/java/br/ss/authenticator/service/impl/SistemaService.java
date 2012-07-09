@@ -18,14 +18,11 @@ import br.ss.core.model.dao.IAbstractDAO;
 public class SistemaService extends BaseService<Sistema> implements Serializable {
 
 	@Inject
-	private ISistemaDAO dao;
-
-	@Inject
 	private ISistemaDAO sistemaDao;
 	
 	@Override
 	protected IAbstractDAO<Sistema> getDao() {
-		return dao;
+		return sistemaDao;
 	}
 	
 	@Produces @Named 

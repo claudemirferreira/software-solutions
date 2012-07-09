@@ -55,7 +55,7 @@ public class SistemaDAO extends AbstractDAO<Sistema> implements ISistemaDAO {
 			q.setParameter("txSigla", "%" + sistema.getTxSigla().trim().toLowerCase() + "%" );
 		}
 		if ( notEmpty(sistema.getAtivo() ) ) {
-			q.setParameter("ativo", ( boolean ) sistema.getAtivo());
+			q.setParameter("ativo", ( Boolean ) sistema.getAtivo());
 		}
 		
 		return q.getResultList();
