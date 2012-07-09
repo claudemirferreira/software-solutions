@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<cc:interface>
+
+	<cc:attribute name="severity" default="alert" />
+	<cc:attribute name="update" default="msg" />
+	
+	<cc:attribute name="selectedItem" required="true" />
+	<cc:attribute name="targetItem" required="true" />
+    <cc:attribute name="actionMethod" required="true" method-signature="void action()" />
+	
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:confirmDialog message="Tem certeza que deseja remover este registro?"  
+					 appendToBody="true"
+               		 severity="#{cc.attrs.severity}" 
+               		 widgetVar="confirmation">  
+        
+        <!-- TODO testar
+        	<p:ajax event="change" update="output" process="@this"/>
+         -->
+               		
+        <p:commandButton value="Confirmar" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  action="#{cc.attrs.actionMethod}" >	<!--  -->
+        	<f:setPropertyActionListener target="#{cc.attrs.targetItem}" value="#{cc.attrs.selectedItem}" />
+        </p:commandButton>
+        
+        <p:commandButton value="Cancelar" onclick="confirmation.hide()" type="button" />
+		
+    </p:confirmDialog>  
+
+</cc:implementation>
+</html>
