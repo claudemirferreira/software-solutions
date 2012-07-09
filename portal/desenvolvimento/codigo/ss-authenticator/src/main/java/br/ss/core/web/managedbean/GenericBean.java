@@ -84,6 +84,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	public String save() {
 		try {
 			getService().save(entity);
+			init();
 			return PESQUISA;
 		} catch (Exception e) {
 //			e.printStackTrace();	// 
