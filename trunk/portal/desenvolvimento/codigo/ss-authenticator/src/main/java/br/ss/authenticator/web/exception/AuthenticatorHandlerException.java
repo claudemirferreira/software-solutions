@@ -11,6 +11,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.solder.exception.control.CaughtException;
 import org.jboss.solder.exception.control.Handles;
 import org.jboss.solder.exception.control.HandlesExceptions;
+import org.jboss.solder.exception.control.Precedence;
 import org.jboss.solder.exception.control.TraversalMode;
 import org.jboss.solder.logging.Logger;
 
@@ -72,4 +73,10 @@ public class AuthenticatorHandlerException {
 //		conversationContext.activate(null); // Workaround WELD-855 - Create a new transient conversation.	// TODO mudou o import..
 	}
 
+	
+	public void onThrowable( @Handles(during = TraversalMode.BREADTH_FIRST, precedence = Precedence.HIGH ) CaughtException<Throwable> ce) {
+		log.debug("A excecao " + ce.getException().getClass() + " foi lançada");
+	}
+	
+	
 }

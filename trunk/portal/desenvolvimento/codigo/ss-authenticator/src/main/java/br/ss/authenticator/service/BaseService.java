@@ -36,7 +36,7 @@ public abstract class BaseService<T extends AbstractEntity> implements Serializa
 			
 		} catch (Exception e) {
 			AuthenticatorMessage.sendErrorMessageToUser(AuthenticatorMessage.MSG_ERRO);
-			catchEvent.fire( new AuthenticatorException( AuthenticatorMessage.MSG_ERRO  ) );
+			catchEvent.fire( new AuthenticatorException( AuthenticatorMessage.MSG_ERRO ) );
 			
 		}
 	}
