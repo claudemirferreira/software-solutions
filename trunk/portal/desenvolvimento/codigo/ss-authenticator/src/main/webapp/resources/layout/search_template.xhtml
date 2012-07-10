@@ -42,7 +42,7 @@
 						
 						<ui:insert name="search_filter" />
 	                    
-						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}"  />	<!-- update="msg panelGrid"  process="@this"  -->
+						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}" update=":formSearch:panelGrid :formSearch:msg" />
 							
 						<p:defaultCommand target="btnSearh" />
 						

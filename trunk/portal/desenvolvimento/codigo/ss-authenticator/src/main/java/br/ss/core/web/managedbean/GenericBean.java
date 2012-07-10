@@ -100,6 +100,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	public void remove(T itemRemove) {
 		try {
 			getService().remove(itemRemove);
+			search();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

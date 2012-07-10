@@ -32,14 +32,12 @@
 	<!-- ==== Grid ======= -->
 	<ui:define name="grid_region">	
  		
- 		<p:outputPanel autoUpdate="true">
- 		
 		<p:dataTable id="grid" 
 					 var="item" 
 					 value="#{perfilBean.resultList}"
-					 rendered="#{not empty perfilBean.resultList}"
-	                 paginator="true"
 	                 rows="5"
+	                 paginator="true"
+	                 paginatorPosition="bottom"
 	                 paginatorAlwaysVisible="false"
 	                 emptyMessage="Nenhum registro encontrado."
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
@@ -71,7 +69,6 @@
 															
 					<fpf2:confirmDialog targetItem="#{perfilBean.itemToRemove}" 
 										selectedItem="#{item}" 
-										update="@all"
 										actionMethod="#{perfilBean.remove()}" />
 				</p:commandButton>  
 	        </p:column>  
@@ -82,8 +79,6 @@
                  
 	    </p:dataTable>
 	    
-	    </p:outputPanel>
-			
 	</ui:define>
 
 </ui:composition>
