@@ -7,7 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import br.ss.authenticator.web.exception.AuthenticatorException;
+import org.jboss.solder.exception.control.ExceptionToCatch;
+
 import br.ss.authenticator.web.message.AuthenticatorMessage;
 import br.ss.core.model.dao.IAbstractDAO;
 import br.ss.core.model.entity.AbstractEntity;
@@ -15,7 +16,7 @@ import br.ss.core.model.entity.AbstractEntity;
 public abstract class BaseService<T extends AbstractEntity> implements Serializable, IService<T> {
 
 	@Inject 
-	private Event<AuthenticatorException> catchEvent;
+	private Event<ExceptionToCatch> catchEvent;
 
 	protected abstract IAbstractDAO<T> getDao();
 	
@@ -23,7 +24,6 @@ public abstract class BaseService<T extends AbstractEntity> implements Serializa
 	@PostConstruct
 	protected void setup() {
 		getDao();
-		
 	}
 	
 	
@@ -35,9 +35,7 @@ public abstract class BaseService<T extends AbstractEntity> implements Serializa
 			AuthenticatorMessage.sendInfoMessageToUser(AuthenticatorMessage.MSG_SUCESSO);
 			
 		} catch (Exception e) {
-			AuthenticatorMessage.sendErrorMessageToUser(AuthenticatorMessage.MSG_ERRO);
-			catchEvent.fire( new AuthenticatorException( AuthenticatorMessage.MSG_ERRO ) );
-			
+			catchEvent.fire( new ExceptionToCatch( e ) );
 		}
 	}
 	
@@ -56,8 +54,7 @@ public abstract class BaseService<T extends AbstractEntity> implements Serializa
 			AuthenticatorMessage.sendInfoMessageToUser(AuthenticatorMessage.MSG_SUCESSO);
 			
 		} catch (Exception e) {
-			AuthenticatorMessage.sendErrorMessageToUser(AuthenticatorMessage.MSG_ERRO);
-			catchEvent.fire( new AuthenticatorException( AuthenticatorMessage.MSG_ERRO  ) );
+			catchEvent.fire( new ExceptionToCatch( e ) );
 		}
 	}
 	
