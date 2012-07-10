@@ -7,7 +7,7 @@
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:pe="http://primefaces.org/ui/extensions">
 
-	
+	<!--
 	<pe:head title=":: Authenticator :: #{empty pageTitle ? '*' : pageTitle}" shortcutIcon="#{resource['favicon.ico']}" >
 		<f:facet name="first">
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,9 +16,13 @@
             <meta http-equiv="expires" content="0"/>
 		</f:facet>
 	</pe:head>
+	-->
 	
 	<h:head>
-	
+		
+		<title>:: Authenticator :: #{empty pageTitle ? '*' : pageTitle}</title>
+		<link rel="icon" href="#{resource['favicon.ico']}" />
+		
 		<h:outputStylesheet name="forge-style.css" />
 		
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />

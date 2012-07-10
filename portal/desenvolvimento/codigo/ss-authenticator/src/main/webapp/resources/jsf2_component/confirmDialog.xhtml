@@ -9,7 +9,7 @@
 <cc:interface>
 
 	<cc:attribute name="severity" default="alert" />
-	<cc:attribute name="update" default="msg" />
+	<cc:attribute name="update" default=":formSearch:panelGrid :formSearch:msg" />
 	
 	<cc:attribute name="selectedItem" required="true" />
 	<cc:attribute name="targetItem" required="true" />
@@ -24,11 +24,7 @@
                		 severity="#{cc.attrs.severity}" 
                		 widgetVar="confirmation">  
         
-        <!-- TODO testar
-        	<p:ajax event="change" update="output" process="@this"/>
-         -->
-               		
-        <p:commandButton value="Confirmar" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  action="#{cc.attrs.actionMethod}" >	<!--  -->
+        <p:commandButton value="Confirmar" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  action="#{cc.attrs.actionMethod}" >
         	<f:setPropertyActionListener target="#{cc.attrs.targetItem}" value="#{cc.attrs.selectedItem}" />
         </p:commandButton>
         
