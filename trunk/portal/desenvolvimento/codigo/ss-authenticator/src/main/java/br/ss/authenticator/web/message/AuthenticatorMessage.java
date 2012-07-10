@@ -11,7 +11,12 @@ public final class AuthenticatorMessage {
 	public static final String MSG_SUCESSO = "Operação realizada com sucesso.";
 
 	/** Msg de sucesso. */
-	public static final String MSG_ERRO = "Erro! Não foi possível realizar a operação.";
+	public static final String MSG_ERRO = "Ocorreu um erro! Não foi possível realizar a operação.";
+	
+	/** Msg de sucesso. */
+	public static final String MSG_CONSTRAINT_VIOLATION = "O registro não pode ser excluído pois o mesmo é referenciado em outras partes do sistema.";
+	
+	
 	
 	/** Alias para redirecionamento apos uma operacao de SUCESSO. Mapear o mesmo no page.xml. */
 	public static final String SUCESSO = "sucesso";

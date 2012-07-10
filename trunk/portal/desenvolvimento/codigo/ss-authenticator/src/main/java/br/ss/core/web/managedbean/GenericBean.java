@@ -94,21 +94,17 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 
 	public void remove() {
 		remove(itemToRemove);
+		search();
+		setItemToRemove(null);
 	}
 
 	
 	public void remove(T itemRemove) {
-		try {
-			getService().remove(itemRemove);
-			search();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		getService().remove(itemRemove);
 	}
 
 	/**
 	 * Metodo utilizado para ir para a tela de cadastra da entidade.
-	 * 
 	 * @return string.
 	 */
 	public String cadastrar() {
@@ -119,7 +115,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	/**
 	 * Metodo utilizado para editar uma entidade. Sobrescrever este metodo caso
 	 * necessário realizar outras operaçoes.
-	 * 
 	 * @return string.
 	 */
 	public String editar(T entity) {
@@ -129,7 +124,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 
 	/**
 	 * Metodo utilizado para editar uma entidade.
-	 * 
 	 * @return string.
 	 */
 	public String cancel() {
