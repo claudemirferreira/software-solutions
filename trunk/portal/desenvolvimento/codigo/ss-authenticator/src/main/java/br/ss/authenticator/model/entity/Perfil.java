@@ -51,16 +51,15 @@ public class Perfil extends AbstractEntity implements java.io.Serializable {
 	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
 	
-//	@Getter @Setter
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfil")
-//	private Set<PerfilRotina> perfilRotinas = new HashSet<PerfilRotina>(0);
-
 	@Getter @Setter
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfil")
 	private Set<UsuarioPerfil> usuarioPerfils = new HashSet<UsuarioPerfil>(0);
 
-	public Perfil() {
-	}
+	@Getter @Setter
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="perfil")
+    private Set<PerfilResponsabilidade> perfilResponsabilidades = new HashSet<PerfilResponsabilidade>(0);
+    
+	public Perfil() { }
 
 	public Perfil(Long idPerfil, Sistema sistema) {
 		this.idPerfil = idPerfil;
@@ -73,11 +72,6 @@ public class Perfil extends AbstractEntity implements java.io.Serializable {
 		this.sistema = sistema;
 		this.txPerfil = txPerfil;
 		this.usuarioPerfils = usuarioPerfils;
-	}
-
-	@Override
-	public Long getId() {
-		return idPerfil;
 	}
 
 }

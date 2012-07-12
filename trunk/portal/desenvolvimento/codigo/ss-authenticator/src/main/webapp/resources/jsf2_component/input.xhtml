@@ -23,7 +23,7 @@
 		<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required">
 		  
 		 		<p:column>
-					<h:outputLabel value="#{cc.attrs.label}" for="inp_#{cc.attrs.id}"/>
+					<h:outputLabel value="#{cc.attrs.label}" for="#{cc.attrs.id}"/>
 			 		<h:outputText value="  * " styleClass="input_required" rendered="#{cc.attrs.required}" />
 		 		</p:column>
 		 		

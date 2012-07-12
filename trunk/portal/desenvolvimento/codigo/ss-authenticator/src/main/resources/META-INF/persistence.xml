@@ -9,10 +9,20 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/jboss/datasources/authenticator_DS</jta-data-source>
 
-		<class>br.ss.authenticator.model.entity.Sistema</class>
+		<class>br.ss.authenticator.model.entity.Grupo</class>
+		<class>br.ss.authenticator.model.entity.GrupoUsuario</class>
 		<class>br.ss.authenticator.model.entity.Perfil</class>
+		<class>br.ss.authenticator.model.entity.PerfilResponsabilidade</class>
+		<class>br.ss.authenticator.model.entity.Responsabilidade</class>
+		<class>br.ss.authenticator.model.entity.ResponsabilidadeServico</class>
+		<class>br.ss.authenticator.model.entity.Servico</class>
+		<class>br.ss.authenticator.model.entity.Sistema</class>
 		<class>br.ss.authenticator.model.entity.Usuario</class>
+		<class>br.ss.authenticator.model.entity.UsuarioAcesso</class>
 		<class>br.ss.authenticator.model.entity.UsuarioPerfil</class>
+		<class>br.ss.authenticator.model.entity.UsuarioResponsaDesignada</class>
+		<class>br.ss.authenticator.model.entity.UsuarioSenha</class>
+		<class>br.ss.authenticator.model.entity.UsuarioStatus</class>
 		<class>br.ss.core.model.entity.AbstractEntity</class>
 
 		<properties>
