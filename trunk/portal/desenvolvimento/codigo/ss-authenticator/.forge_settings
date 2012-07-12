@@ -11,4 +11,16 @@
 </forge>
 </jboss>
 </org>
+<table>*</table>
+<schema>*</schema>
+<catalog>*</catalog>
+<entityPackage>br.ss.authenticator.model.entity.generated</entityPackage>
+<driver>org.postgresql.Driver</driver>
+<pathToDriver>F:\\java\\jboss-as-7.1.0.Final\\modules\\org\\postgresql\\main\\postgresql-9.1-901.jdbc4.jar</pathToDriver>
+<url>jdbc:postgresql://localhost:5433/ss</url>
+<user>root</user>
+<dialect>org.hibernate.dialect.PostgreSQLDialect</dialect>
+<detectManyToMany>true</detectManyToMany>
+<detectOneToOne>true</detectOneToOne>
+<detectOptimisticLock>true</detectOptimisticLock>
 </configuration>
