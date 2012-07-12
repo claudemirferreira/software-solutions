@@ -17,15 +17,23 @@
 
 	<ui:define name="search_filter">
 		
-		<h:outputText value="Nome" />
-		<p:inputText id="txPerfil" value="#{perfilBean.search.txPerfil}" size="50"/>
-
-		<h:outputText value="Sistema" />
-		<p:selectOneMenu value="#{perfilBean.search.sistema}" effect="fade" converter="entityConverter">
-            <f:selectItem itemLabel="-- Todos os registros --"  />
-            <f:selectItems value="#{sistemasAtivos}" var="item" itemLabel="#{item.txSistema}" itemValue="#{item}"/>
-        </p:selectOneMenu>
+		<fpf2:input id="Nome" 
+					value="#{perfilBean.search.txPerfil}" 
+					label="Nome" />
 		
+		<h:panelGrid columns="2">  
+			<p:column>
+				<h:outputText value="Sistema" />
+				<p:spacer width="36px" height="5px"/>
+			</p:column>
+			<p:column>
+				<p:selectOneMenu value="#{perfilBean.search.sistema}" effect="fade" converter="entityConverter">
+		            <f:selectItem itemLabel="-- Todos os registros --"  />
+		            <f:selectItems value="#{sistemasAtivos}" var="item" itemLabel="#{item.txSistema}" itemValue="#{item}"/>
+		        </p:selectOneMenu>
+			</p:column>
+		</h:panelGrid>
+        
 	</ui:define>
 	
 	

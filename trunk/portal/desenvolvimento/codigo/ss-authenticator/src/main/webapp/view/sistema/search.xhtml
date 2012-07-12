@@ -17,19 +17,29 @@
 
 	<ui:define name="search_filter">
 		
-		<h:outputText value="Nome" />
-		<p:inputText id="txSistema" value="#{sistemaBean.search.txSistema}" size="50"/>
+		<fpf2:input id="Nome" 
+					value="#{sistemaBean.search.txSistema}" 
+					label="Nome" />
 
-		<h:outputText value="Descrição" />
-		<p:inputText id="txDescricao" value="#{sistemaBean.search.txDescricao}" size="50" />
+		<fpf2:input id="Descrição" 
+					value="#{sistemaBean.search.txDescricao}" 
+					label="Descrição" />
 
-		<h:outputText value="Sigla" />
-		<p:inputText id="txSigla" value="#{sistemaBean.search.txSigla}" size="10" />
-
-		<h:outputText value="Ativo" />
-		<p:selectOneMenu value="#{sistemaBean.search.ativo}" effect="fade">
-            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-        </p:selectOneMenu>
+		<fpf2:input id="Sigla" 
+					value="#{sistemaBean.search.txSigla}" 
+					label="Sigla" />
+		
+		<h:panelGrid columns="2">  
+			<p:column>
+				<h:outputText value="Ativo" />
+				<p:spacer width="50px" height="5px"/>
+			</p:column>
+			<p:column>
+				<p:selectOneMenu value="#{sistemaBean.search.ativo}" effect="fade">
+		            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+		        </p:selectOneMenu>
+			</p:column>
+		</h:panelGrid>
         
 	</ui:define>
 	
