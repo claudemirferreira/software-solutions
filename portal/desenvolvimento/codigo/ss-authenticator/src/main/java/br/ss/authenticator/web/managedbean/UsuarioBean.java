@@ -213,7 +213,7 @@ public class UsuarioBean implements Serializable
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      int idUsuario = this.search.getIdUsuario();
+      int idUsuario =  this.search.getIdUsuario().intValue();
       if (idUsuario != 0)
       {
          predicatesList.add(builder.equal(root.get("idUsuario"), idUsuario));

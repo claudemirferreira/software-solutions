@@ -63,9 +63,9 @@
 	                <h:outputText value="Ação" />  
 	            </f:facet>  
 				
-				<p:commandButton action="#{perfilBean.editar(item)}" icon="btn_edit_grid" title="Editar" />
+				<p:commandButton action="#{perfilBean.editar(item)}" icon="ui-icon-pencil" title="Editar" />
 				
-				<p:commandButton onclick="confirmation.show()" icon="btn_remove_grid" title="Excluir" >
+				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
 															
 					<fpf2:confirmDialog targetItem="#{perfilBean.itemToRemove}" 
 										selectedItem="#{item}" 

@@ -2,7 +2,7 @@ package br.ss.core.constant;
 
 import lombok.Getter;
 
-public enum AtivoInativoConstant {
+public enum AtivoInativoConstant implements AbstractContant<AtivoInativoConstant> {
 	
     TODOS( ( short ) 0, null, "-- Todos os registros --" ),
     
@@ -40,5 +40,13 @@ public enum AtivoInativoConstant {
 		return null;
 	}
 	
-
+	@Override
+	public AtivoInativoConstant getEnum(short id) {
+		for ( AtivoInativoConstant aic : values() ) {
+			if (aic.getId() == id ) {
+				return aic;
+			}
+		}
+		return null;
+	}
 }

@@ -69,9 +69,9 @@
 	  
 	        <p:column style="text-align:center; width:100px" headerText="Ação">  
 				
-				<p:commandButton action="#{sistemaBean.editar(item)}" icon="btn_edit_grid" title="Editar" />
+				<p:commandButton action="#{sistemaBean.editar(item)}" icon="ui-icon-pencil" title="Editar" />
 				
-				<p:commandButton onclick="confirmation.show()" icon="btn_remove_grid" title="Excluir" >
+				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
 															
 					<fpf2:confirmDialog targetItem="#{sistemaBean.itemToRemove}" 
 										selectedItem="#{item}" 
