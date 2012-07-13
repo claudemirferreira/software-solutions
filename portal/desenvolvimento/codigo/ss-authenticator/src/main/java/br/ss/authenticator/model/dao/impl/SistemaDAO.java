@@ -11,7 +11,6 @@ import br.ss.authenticator.model.dao.ISistemaDAO;
 import br.ss.authenticator.model.entity.Sistema;
 import br.ss.core.annotation.stereotype.DAO;
 import br.ss.core.model.dao.impl.AbstractDAO;
-import br.ss.core.utils.StringUtil;
 
 @Dependent
 @Stateless
