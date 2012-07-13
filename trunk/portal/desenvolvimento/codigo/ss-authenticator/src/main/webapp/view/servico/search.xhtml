@@ -4,68 +4,77 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="page" value="#{rotinaBean.page}"/>
-		<f:event type="preRenderView" listener="#{rotinaBean.paginate}"/>
-	</f:metadata>
+	<ui:param name="pageTitle" value="Cadastro de Servico"/>
+	<ui:param name="pageHeader" value="Servico"/>
+	<ui:param name="managedBean" value="#{servicoBean}"/>
+	
 
-	<ui:param name="pageTitle" value="Search Rotina entities"/>
+	<ui:define name="search_filter">
+		
+		<h:outputText value="Nome" />
+		<p:inputText id="txServico" value="#{servicoBean.search.txServico}" size="50"/>
 
-	<ui:define name="header">
-		Rotina
+		<h:outputText value="Ativo" />
+		<p:selectOneMenu value="#{servicoBean.search.ativo}" effect="fade">
+            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+        </p:selectOneMenu>
+        
 	</ui:define>
-
-	<ui:define name="subheader">
-		Search Rotina entities
-	</ui:define>
-
-	<ui:define name="footer"/>
-
-	<ui:define name="main">
-		<h:form id="search">
-			<h:panelGroup styleClass="search">
-
-				<h:panelGrid columnClasses="label,component,required" columns="3">
-					<h:outputLabel for="rotinaBeanSearchSistema" value="Sistema:"/>
-					<h:panelGroup>
-						<h:selectOneMenu converter="#{sistemaBean.converter}" id="rotinaBeanSearchSistema" value="#{rotinaBean.search.sistema}">
-							<f:selectItem/>
-							<f:selectItems value="#{sistemaBean.all}"/>
-						</h:selectOneMenu>
-						<h:message for="rotinaBeanSearchSistema" styleClass="error"/>
-					</h:panelGroup>
-					<h:outputText/>
-					<h:outputLabel for="rotinaBeanSearchTxRotina" value="Tx Rotina:"/>
-					<h:panelGroup>
-						<h:inputText id="rotinaBeanSearchTxRotina" value="#{rotinaBean.search.txRotina}"/>
-						<h:message for="rotinaBeanSearchTxRotina" styleClass="error"/>
-					</h:panelGroup>
-					<h:outputText/>
-				</h:panelGrid>
-				<h:panelGroup styleClass="buttons">
-					<h:commandLink value="Search" action="#{rotinaBean.search}"/>
-					<h:commandLink value="Create New" action="#{rotinaBean.create}"/>
-				</h:panelGroup>
-			</h:panelGroup>
-			
-			<h:dataTable id="rotinaBeanPageItems" styleClass="data-table" value="#{rotinaBean.pageItems}" var="_item">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Tx Rotina"/>
-					</f:facet>
-					<h:link outcome="/view/rotina/view">
-						<f:param name="id" value="#{_item.idRotina}"/>
-						<h:outputText id="itemTxRotina" value="#{_item.txRotina}"/>
-					</h:link>
-				</h:column>
-			</h:dataTable>
-			<ui:include src="/resources/scaffold/paginator.xhtml">
-				<ui:param name="paginatorBean" value="#{rotinaBean}"/>
-			</ui:include>
-		</h:form>
-			
+	
+	
+	<!-- ==== Grid ======= -->
+	<ui:define name="grid_region">	
+ 		
+		<p:dataTable id="grid" 
+					 var="item" 
+					 value="#{servicoBean.resultList}"
+	                 rows="5" 
+	                 paginator="true"
+	                 paginatorPosition="bottom"
+	                 paginatorAlwaysVisible="false"
+	                 emptyMessage="Nenhum registro encontrado."
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 rowsPerPageTemplate="5,10,15,20"
+	                 >
+	  
+	  		<p:column style="text-align:left" headerText="Nome">  
+	            <h:outputText value="#{item.txServico}" />  
+	        </p:column>  
+	  		
+	  		<p:column style="text-align:left" headerText="Sistema">  
+	            <h:outputText value="#{item.sistema.txSistema}" />  
+	        </p:column>  
+	  		
+	        <p:column style="text-align:center" headerText="Situação">  
+	            <h:outputText value="#{item.ativo}" >
+	            	<f:converter converterId="ativoInativoConverter"/>
+	            </h:outputText>  
+	        </p:column>  
+	  
+	        <p:column style="text-align:center; width:100px" headerText="Ação">  
+				
+				<p:commandButton action="#{servicoBean.editar(item)}" icon="ui-icon-pencil" title="Editar" ajax="false"/>
+				
+				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
+															
+					<fpf2:confirmDialog targetItem="#{servicoBean.itemToRemove}" 
+										selectedItem="#{item}" 
+										actionMethod="#{servicoBean.remove()}" ajax="false"/>
+				</p:commandButton>  
+	        </p:column>  
+	        
+	        <f:facet name="footer">
+	        	<h:outputText value="#{fn:length(servicoBean.resultList)} Registro(s) encontrado(s)." />  
+            </f:facet>
+                 
+	    </p:dataTable>
+	    
 	</ui:define>
 
 </ui:composition>
