@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/register_template.xhtml">
+
+	<ui:param name="pageTitle" value="Cadastro de Grupo"/>
+	<ui:param name="pageHeader" value="Cadastro de Grupo"/>
+	<ui:param name="managedBean" value="#{grupoBean}"/>
+
+	<ui:define name="register_region">
+		
+		<p:panel header="Dados do Grupo" footer="* Campos obrigatórios" style="width:700px">
+		
+			<fpf2:input id="grupo" 
+						value="#{grupoBean.entity.txGrupo}" 
+						label="Nome"
+						required="true"/>
+			
+			<h:panelGrid columns="2">  
+				<p:column>
+					<h:outputText value="Ativo" />
+					<h:outputText value="*" styleClass="required" />
+					<p:spacer width="45px" height="5px"/>
+				</p:column>
+				<p:column>
+					<p:selectBooleanCheckbox id="ativo" value="#{grupoBean.entity.csAtivo}" required="true" />
+					<h:message for="ativo" styleClass="error"/>
+				</p:column>
+
+			</h:panelGrid>
+			
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
