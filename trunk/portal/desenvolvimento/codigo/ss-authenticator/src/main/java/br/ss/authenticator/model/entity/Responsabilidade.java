@@ -41,8 +41,8 @@ public class Responsabilidade extends AbstractEntity implements java.io.Serializ
 	private String txResponsabilidade;
 
 	@Getter @Setter
-	@Column(name = "cs_ativo", nullable = false)
-	private Boolean csAtivo;
+	@Column(name = "ativo", nullable = false)
+	private Boolean ativo;
 
 	@Getter @Setter
 	@Column(name = "tx_descricao", nullable = false, length = 300)
@@ -66,7 +66,7 @@ public class Responsabilidade extends AbstractEntity implements java.io.Serializ
 			boolean csAtivo, String txDescricao) {
 		this.idResponsabilidade = idResponsabilidade;
 		this.txResponsabilidade = txResponsabilidade;
-		this.csAtivo = csAtivo;
+		this.ativo = csAtivo;
 		this.txDescricao = txDescricao;
 	}
 
@@ -77,7 +77,7 @@ public class Responsabilidade extends AbstractEntity implements java.io.Serializ
 			Set<UsuarioResponsaDesignada> usuarioResponsaDesignadas) {
 		this.idResponsabilidade = idResponsabilidade;
 		this.txResponsabilidade = txResponsabilidade;
-		this.csAtivo = csAtivo;
+		this.ativo = csAtivo;
 		this.txDescricao = txDescricao;
 		this.responsabilidadeServicos = responsabilidadeServicos;
 		this.perfilResponsabilidades = perfilResponsabilidades;

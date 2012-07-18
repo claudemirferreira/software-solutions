@@ -11,6 +11,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 
 import br.ss.core.model.entity.AbstractEntity;
+import br.ss.core.utils.StringUtil;
 
 /**
  * Conversor para entidades. Utilizado nos combos.
@@ -24,6 +25,10 @@ public class EntityConverter implements Converter {
 
 	@SuppressWarnings("unchecked")
 	public Object getAsObject( FacesContext facesContext, UIComponent uicomp, String value ) {
+		/* => o item 0 no combo é nulo (o "Selecione um registro" ou "Todos os registros" ) */
+		if ( !StringUtil.notEmpty(value) || value.equals( ( ( Integer ) 0 ).toString() ) ) {
+			return null;
+		}
 		List<Object> items = new ArrayList<Object>();
 		List<UIComponent> uicompList = uicomp.getChildren();
 		for (UIComponent comp : uicompList) {
@@ -31,7 +36,8 @@ public class EntityConverter implements Converter {
 				items.addAll( ( List<SelectItem> ) ( ( UISelectItems ) comp).getValue());
 			}
 		}
-		return "-1".equals(value) ? null : items.get(Integer.valueOf(value));
+		/* -1 : para nao considerar o item 0 do combo */ 
+		return "-1".equals(value) ? null : items.get(Integer.valueOf(value) -1); 
 	}
 
 	public String getAsString( FacesContext facesContext, UIComponent uicomp, Object entity ) {

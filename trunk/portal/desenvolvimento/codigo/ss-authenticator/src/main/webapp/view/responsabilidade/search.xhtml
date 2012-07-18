@@ -10,29 +10,26 @@
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Sistema"/>
-	<ui:param name="pageHeader" value="Sistema"/>
-	<ui:param name="managedBean" value="#{sistemaBean}"/>
+	<ui:param name="pageTitle" value="Cadastro de Responsabilidade"/>
+	<ui:param name="pageHeader" value="Responsabilidade"/>
+	<ui:param name="managedBean" value="#{responsabilidadeBean}"/>
 	
 
 	<ui:define name="search_filter">
 		
-		<fpf2:input id="Nome" 
-					value="#{sistemaBean.search.txSistema}" 
+		<fpf2:input id="Responsabilidade" 
+					value="#{responsabilidadeBean.search.txResponsabilidade}" 
 					label="Nome" />
-
-		<fpf2:input id="Descrição" 
-					value="#{sistemaBean.search.txDescricao}" 
-					label="Descrição" />
-
-		<fpf2:input id="Sigla" 
-					value="#{sistemaBean.search.txSigla}" 
-					label="Sigla" />
 		
-		<fpf2:comboBox value="#{sistemaBean.search.ativo}" 
-						list="#{ativoInativoList}"
-						label="Ativo"/>
-        
+		<fpf2:input id="Descrição" 
+					value="#{responsabilidadeBean.search.txDescricao}" 
+					label="Descrição" />
+		
+		<h:outputText value="Ativo" />
+		<p:selectOneMenu value="#{responsabilidadeBean.search.ativo}" effect="fade">
+            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+        </p:selectOneMenu>
+		
 	</ui:define>
 	
 	
@@ -41,8 +38,8 @@
  		
 		<p:dataTable id="grid" 
 					 var="item" 
-					 value="#{sistemaBean.resultList}"
-	                 rows="5" 
+					 value="#{responsabilidadeBean.resultList}"
+	                 rows="5"
 	                 paginator="true"
 	                 paginatorPosition="bottom"
 	                 paginatorAlwaysVisible="false"
@@ -51,38 +48,37 @@
 	                 rowsPerPageTemplate="5,10,15,20"
 	                 >
 	  
-	  		<p:column style="text-align:left" headerText="Nome">  
-	            <h:outputText value="#{item.txSistema}" />  
+	  		<p:column style="text-align:left">  
+	            <f:facet name="header">  
+	                <h:outputText value="Nome" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.txResponsabilidade}" />  
 	        </p:column>  
 	  
-	        <p:column style="text-align:left" headerText="Descrição">  
-	            <h:outputText value="#{item.txDescricao}" />  
+	  		<p:column style="text-align:left">  
+	            <f:facet name="header">  
+	                <h:outputText value="Sistema" />  
+	            </f:facet>  
+	            <h:outputText value="#{item.sistema.txSistema}" />  
 	        </p:column>  
 	  
-	        <p:column style="text-align:center" headerText="Sigla">  
-	            <h:outputText value="#{item.txSigla}" />  
-	        </p:column>  
-	  
-	        <p:column style="text-align:center" headerText="Situação">  
-	            <h:outputText value="#{item.ativo}" >
-	            	<f:converter converterId="ativoInativoConverter"/>
-	            </h:outputText>  
-	        </p:column>  
-	  
-	        <p:column style="text-align:center; width:100px" headerText="Ação">  
+	        <p:column style="text-align:center; width:100px">  
+	            <f:facet name="header">  
+	                <h:outputText value="Ação" />  
+	            </f:facet>  
 				
-				<p:commandButton action="#{sistemaBean.editar(item)}" icon="ui-icon-pencil" title="Editar" />
+				<p:commandButton action="#{responsabilidadeBean.editar(item)}" icon="ui-icon-pencil" title="Editar" />
 				
 				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
 															
-					<fpf2:confirmDialog targetItem="#{sistemaBean.itemToRemove}" 
+					<fpf2:confirmDialog targetItem="#{responsabilidadeBean.itemToRemove}" 
 										selectedItem="#{item}" 
-										actionMethod="#{sistemaBean.remove()}" />
+										actionMethod="#{responsabilidadeBean.remove()}" />
 				</p:commandButton>  
 	        </p:column>  
 	        
 	        <f:facet name="footer">
-	        	<h:outputText value="#{fn:length(sistemaBean.resultList)} Registro(s) encontrado(s)." />  
+	        	<h:outputText value="#{fn:length(responsabilidadeBean.resultList)} Registro(s) encontrado(s)." />  
             </f:facet>
                  
 	    </p:dataTable>
