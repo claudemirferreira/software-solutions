@@ -16,10 +16,12 @@
 		<cc:attribute name="size" default="50"  />
 		<cc:attribute name="align" default="left" />
 		
+		<cc:attribute name="type" default="text" required="false"  />
+		
 	</cc:interface>
 	
 	<cc:implementation>
-		
+	
 		<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required">
 		  
 		 		<p:column>
@@ -27,7 +29,7 @@
 			 		<h:outputText value="  * " styleClass="input_required" rendered="#{cc.attrs.required}" />
 		 		</p:column>
 		 		
-		 		<p:column>
+		 		<p:column rendered="#{cc.attrs.type eq 'text'}">
 					<p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" size="#{cc.attrs.size}"/>
 					<h:message for="#{cc.attrs.id}" styleClass="error"  />
 		 		</p:column>

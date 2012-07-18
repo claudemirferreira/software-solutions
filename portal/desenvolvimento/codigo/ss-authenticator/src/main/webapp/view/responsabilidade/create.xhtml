@@ -10,25 +10,23 @@
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Perfil"/>
-	<ui:param name="pageHeader" value="Cadastro de Perfil"/>
-	<ui:param name="managedBean" value="#{perfilBean}"/>
+	<ui:param name="pageTitle" value="Cadastro de Responsabilidade"/>
+	<ui:param name="pageHeader" value="Cadastro de Responsabilidade"/>
+	<ui:param name="managedBean" value="#{responsabilidadeBean}"/>
 
 	<ui:define name="register_region">
 		
-		<p:panel header="Dados do perfil" footer="* Campos obrigatórios" style="width:700px">
+		<p:panel header="Dados do responsabilidade" footer="* Campos obrigatórios" style="width:700px">
 		
-			<fpf2:input id="Perfil" 
-						value="#{perfilBean.entity.txPerfil}" 
+			<fpf2:input id="Responsabilidade" 
+						value="#{responsabilidadeBean.entity.txResponsabilidade}" 
 						label="Nome"
 						required="true"/>
-			
-			<fpf2:comboBox value="#{perfilBean.entity.sistema}" 
-							list="#{sistemasAtivos}"
-							atributo="#{item.txSistema}"
-							foreignKey="true"
-							selectOne="true"
-							label="Sistema"/>
+						
+			<h:outputText value="Sistema" />
+			<p:selectOneMenu value="#{responsabilidadeBean.entity.sistema}" required="true" effect="fade" converter="entityConverter">
+	            <f:selectItems value="#{sistemasAtivos}" var="item" itemLabel="#{item.txSistema}" itemValue="#{item}"/>
+	        </p:selectOneMenu>
 			
 			<h:panelGrid columns="2">  
 				<p:column>
@@ -37,7 +35,7 @@
 					<p:spacer width="45px" height="5px"/>
 				</p:column>
 				<p:column>
-					<p:selectBooleanCheckbox id="ativo" value="#{perfilBean.entity.ativo}" required="true" />
+					<p:selectBooleanCheckbox id="ativo" value="#{responsabilidadeBean.entity.ativo}" required="true" />
 					<h:message for="ativo" styleClass="error"/>
 				</p:column>
 			</h:panelGrid>

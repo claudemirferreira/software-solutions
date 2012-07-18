@@ -4,11 +4,9 @@ import lombok.Getter;
 
 public enum AtivoInativoConstant implements AbstractContant<AtivoInativoConstant> {
 	
-    TODOS( ( short ) 0, null, "-- Todos os registros --" ),
-    
-	ATIVO( ( short ) 1, true, "Ativo"),
+	ATIVO( ( short ) 0, true, "Ativo"),
 	
-	INATIVO( ( short ) 2, false, "Inativo");
+	INATIVO( ( short ) 1, false, "Inativo");
 	
     @Getter
     private short id;
