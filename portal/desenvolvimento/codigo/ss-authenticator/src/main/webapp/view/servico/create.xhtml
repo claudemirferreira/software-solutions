@@ -25,16 +25,13 @@
 			
 			<h:panelGrid columns="2">  
 				<p:column>
-					<h:outputText value="Sistema:" />
-					<h:outputText value="*" styleClass="required" />
-					<p:spacer width="29px" height="5px"/>
-				</p:column>
-				
-				<p:column>
-					<p:selectOneMenu id="idSistemaCmb" converter="entityConverter" value="#{servicoBean.entity.sistema}" required="true" effect="explode">
-						<f:selectItems value="#{sistemasAtivos}" var="item" itemLabel="#{item.txSistema}" itemValue="#{item}"/>
-					</p:selectOneMenu>
-					<h:message for="idSistemaCmb" styleClass="error"/>
+					<fpf2:comboBox value="#{servicoBean.entity.sistema}" 
+							required="true" 
+							list="#{sistemasAtivos}"
+							atributo="#{item.txSistema}"
+							foreignKey="true"
+							selectOne="true"
+							label="Sistema"/>
 				</p:column>
 				
 				<p:column>
