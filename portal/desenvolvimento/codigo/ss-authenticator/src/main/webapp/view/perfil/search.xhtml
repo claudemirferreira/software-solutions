@@ -27,6 +27,10 @@
 						foreignKey="true"
 						label="Sistema"/>
 		
+		<fpf2:comboBox value="#{perfilBean.search.ativo}" 
+						list="#{ativoInativoList}"
+						label="Ativo"/>
+						
 	</ui:define>
 	
 	
@@ -57,6 +61,12 @@
 	                <h:outputText value="Sistema" />  
 	            </f:facet>  
 	            <h:outputText value="#{item.sistema.txSistema}" />  
+	        </p:column>  
+	  
+	        <p:column style="text-align:center; width:130px" headerText="Situação">  
+	            <h:outputText value="#{item.ativo}" >
+	            	<f:converter converterId="ativoInativoConverter"/>
+	            </h:outputText>  
 	        </p:column>  
 	  
 	        <p:column style="text-align:center; width:100px">  

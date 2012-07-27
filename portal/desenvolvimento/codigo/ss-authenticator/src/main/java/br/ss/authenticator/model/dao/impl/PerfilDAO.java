@@ -34,6 +34,10 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 			condictions.add(" p.sistema = :sistema ");
 		}
 
+		if ( notEmpty(perfil.getAtivo() ) ) {
+			condictions.add(" p.ativo = :ativo ");
+		}
+
 		String orderBy = " order by p.txPerfil ";
 		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
 		
@@ -42,6 +46,9 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 		}
 		if ( notEmpty(perfil.getSistema() ) ) {
 			q.setParameter("sistema", perfil.getSistema() );
+		}
+		if ( notEmpty(perfil.getAtivo() ) ) {
+			q.setParameter("ativo", ( Boolean ) perfil.getAtivo());
 		}
 		
 		return q.getResultList();
