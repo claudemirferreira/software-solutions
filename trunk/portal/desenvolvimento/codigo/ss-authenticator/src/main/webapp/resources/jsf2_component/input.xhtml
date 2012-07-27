@@ -2,6 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
@@ -15,6 +16,7 @@
 		
 		<cc:attribute name="size" default="50"  />
 		<cc:attribute name="align" default="left" />
+		<cc:attribute name="maxlength" required="false" />
 		
 		<cc:attribute name="type" default="text" required="false"  />
 		
@@ -30,7 +32,9 @@
 		 		</p:column>
 		 		
 		 		<p:column rendered="#{cc.attrs.type eq 'text'}">
-					<p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" size="#{cc.attrs.size}"/>
+					<p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" size="#{cc.attrs.size}">
+						<ui:insert />
+					</p:inputText>
 					<h:message for="#{cc.attrs.id}" styleClass="error"  />
 		 		</p:column>
 		 		

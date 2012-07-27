@@ -17,14 +17,12 @@
 
 	<ui:define name="search_filter">
 		
-		<h:outputText value="Nome" />
-		<p:inputText id="txgrupo" value="#{grupoBean.search.txGrupo}" size="50"/>
-
-		<h:outputText value="Ativo" />
-		<p:selectOneMenu value="#{grupoBean.search.csAtivo}" effect="fade">
-            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-        </p:selectOneMenu>
-        
+		<fpf2:input label="Nome" value="#{grupoBean.search.txGrupo}" />
+		
+		<fpf2:comboBox 	label="Ativo"
+						value="#{grupoBean.search.ativo}" 
+						list="#{ativoInativoList}" />
+						
 	</ui:define>
 	
 	
@@ -48,7 +46,7 @@
 	        </p:column>  
 	  		
 	        <p:column style="text-align:center" headerText="Situação">  
-	            <h:outputText value="#{item.csAtivo}" >
+	            <h:outputText value="#{item.ativo}" >
 	            	<f:converter converterId="ativoInativoConverter"/>
 	            </h:outputText>  
 	        </p:column>  

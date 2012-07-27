@@ -23,18 +23,7 @@
 						label="Nome"
 						required="true"/>
 			
-			<h:panelGrid columns="2">  
-				<p:column>
-					<h:outputText value="Ativo" />
-					<h:outputText value="*" styleClass="required" />
-					<p:spacer width="45px" height="5px"/>
-				</p:column>
-				<p:column>
-					<p:selectBooleanCheckbox id="ativo" value="#{grupoBean.entity.csAtivo}" required="true" />
-					<h:message for="ativo" styleClass="error"/>
-				</p:column>
-
-			</h:panelGrid>
+			<fpf2:checkBox value="#{grupoBean.entity.ativo}" label="Ativo" required="true" />
 			
 		</p:panel>
 

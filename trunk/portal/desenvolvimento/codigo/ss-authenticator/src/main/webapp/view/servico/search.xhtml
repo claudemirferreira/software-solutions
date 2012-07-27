@@ -10,21 +10,25 @@
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Servico"/>
-	<ui:param name="pageHeader" value="Servico"/>
+	<ui:param name="pageTitle" value="Cadastro de Serviço"/>
+	<ui:param name="pageHeader" value="Serviço"/>
 	<ui:param name="managedBean" value="#{servicoBean}"/>
 	
 
 	<ui:define name="search_filter">
 		
-		<h:outputText value="Nome" />
-		<p:inputText id="txServico" value="#{servicoBean.search.txServico}" size="50"/>
-
-		<h:outputText value="Ativo" />
-		<p:selectOneMenu value="#{servicoBean.search.ativo}" effect="fade">
-            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-        </p:selectOneMenu>
-        
+		<fpf2:input label="Nome" value="#{servicoBean.search.txServico}" />
+					
+		<fpf2:comboBox 	label="Sistema"
+						value="#{servicoBean.search.sistema}" 
+						list="#{sistemasAtivos}"
+						atributo="#{item.txSistema}"
+						foreignKey="true" />
+						
+		<fpf2:comboBox 	label="Ativo"
+						value="#{servicoBean.search.ativo}" 
+						list="#{ativoInativoList}" />
+							
 	</ui:define>
 	
 	

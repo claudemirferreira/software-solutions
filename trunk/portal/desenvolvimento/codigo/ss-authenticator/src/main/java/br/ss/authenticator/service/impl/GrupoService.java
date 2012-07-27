@@ -28,7 +28,7 @@ public class GrupoService extends BaseService<Grupo> implements Serializable{
 	@Produces @Named 
 	public List<Grupo> gruposAtivos() {
 		Grupo grupo = new Grupo();
-		grupo.setCsAtivo(true);	// somente ativos
+		grupo.setAtivo(true);	// somente ativos
 		return grupoDAO.searchByEntity(grupo);
 	}
 

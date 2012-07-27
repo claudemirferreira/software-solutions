@@ -42,7 +42,7 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 
 	@Getter  @Setter
 	@Column(name = "cs_ativo", nullable = false)
-	private Boolean csAtivo;
+	private Boolean ativo;
 
 	@Getter  @Setter
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo")
@@ -53,14 +53,14 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 	public Grupo(Integer idGrupo, String txGrupo, boolean csAtivo) {
 		this.idGrupo = idGrupo;
 		this.txGrupo = txGrupo;
-		this.csAtivo = csAtivo;
+		this.ativo = csAtivo;
 	}
 
 	public Grupo(Integer idGrupo, String txGrupo, boolean csAtivo,
 			Set<GrupoUsuario> grupoUsuarios) {
 		this.idGrupo = idGrupo;
 		this.txGrupo = txGrupo;
-		this.csAtivo = csAtivo;
+		this.ativo = csAtivo;
 		this.grupoUsuarios = grupoUsuarios;
 	}
 
