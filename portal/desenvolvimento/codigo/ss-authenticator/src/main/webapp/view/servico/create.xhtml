@@ -23,28 +23,15 @@
 						label="Nome"
 						required="true"/>
 			
-			<h:panelGrid columns="2">  
-				<p:column>
-					<fpf2:comboBox value="#{servicoBean.entity.sistema}" 
-							required="true" 
-							list="#{sistemasAtivos}"
-							atributo="#{item.txSistema}"
-							foreignKey="true"
-							selectOne="true"
-							label="Sistema"/>
-				</p:column>
-				
-				<p:column>
-					<h:outputText value="Ativo" />
-					<h:outputText value="*" styleClass="required" />
-					<p:spacer width="45px" height="5px"/>
-				</p:column>
-				<p:column>
-					<p:selectBooleanCheckbox id="ativo" value="#{servicoBean.entity.ativo}" required="true" />
-					<h:message for="ativo" styleClass="error"/>
-				</p:column>
-
-			</h:panelGrid>
+			<fpf2:comboBox value="#{servicoBean.entity.sistema}" 
+					required="true" 
+					list="#{sistemasAtivos}"
+					atributo="#{item.txSistema}"
+					foreignKey="true"
+					selectOne="true"
+					label="Sistema"/>
+					
+			<fpf2:checkBox value="#{servicoBean.entity.ativo}" label="Ativo" required="true" />
 			
 		</p:panel>
 

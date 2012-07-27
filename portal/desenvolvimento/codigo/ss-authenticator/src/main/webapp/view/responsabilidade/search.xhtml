@@ -25,11 +25,10 @@
 					value="#{responsabilidadeBean.search.txDescricao}" 
 					label="Descrição" />
 		
-		<h:outputText value="Ativo" />
-		<p:selectOneMenu value="#{responsabilidadeBean.search.ativo}" effect="fade">
-            <f:selectItems value="#{ativoInativoList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-        </p:selectOneMenu>
-		
+		<fpf2:comboBox 	label="Ativo"
+						value="#{responsabilidadeBean.search.ativo}" 
+						list="#{ativoInativoList}" />
+						
 	</ui:define>
 	
 	
@@ -57,9 +56,15 @@
 	  
 	  		<p:column style="text-align:left">  
 	            <f:facet name="header">  
-	                <h:outputText value="Sistema" />  
+	                <h:outputText value="Descrição" />  
 	            </f:facet>  
-	            <h:outputText value="#{item.sistema.txSistema}" />  
+	            <h:outputText value="#{item.txDescricao}" />  
+	        </p:column>  
+	  
+	        <p:column style="text-align:center" headerText="Situação">  
+	            <h:outputText value="#{item.ativo}" >
+	            	<f:converter converterId="ativoInativoConverter"/>
+	            </h:outputText>  
 	        </p:column>  
 	  
 	        <p:column style="text-align:center; width:100px">  

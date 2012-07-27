@@ -28,8 +28,8 @@ public class GrupoDAO extends AbstractDAO<Grupo> implements IGrupoDAO{
 			condictions.add(" lower(s.txGrupo) like :txGrupo ");
 		}
 		
-		if ( notEmpty(grupo.getCsAtivo()) ) {
-			condictions.add(" s.csAtivo = :csAtivo ");
+		if ( notEmpty(grupo.getAtivo()) ) {
+			condictions.add(" s.ativo = :ativo ");
 		}
 		
 		String orderBy = " order by s.txGrupo ";
@@ -40,8 +40,8 @@ public class GrupoDAO extends AbstractDAO<Grupo> implements IGrupoDAO{
 			q.setParameter("txGrupo", "%" + grupo.getTxGrupo().trim().toLowerCase() + "%" );
 		}
 		
-		if ( notEmpty(grupo.getCsAtivo() ) ) {
-			q.setParameter("csAtivo", ( Boolean ) grupo.getCsAtivo());
+		if ( notEmpty(grupo.getAtivo() ) ) {
+			q.setParameter("ativo", ( Boolean ) grupo.getAtivo());
 		}
 		
 		return q.getResultList();
