@@ -44,6 +44,10 @@ public class ResponsabilidadeDAO extends AbstractDAO<Responsabilidade> implement
 		if ( notEmpty(responsabilidade.getTxDescricao() ) ) {
 			q.setParameter("Descricao", "%" + responsabilidade.getTxDescricao().trim().toLowerCase() + "%" );
 		}
+		if ( notEmpty(responsabilidade.getAtivo() ) ) {
+			q.setParameter("ativo", ( Boolean ) responsabilidade.getAtivo());
+		}
+		
 		
 		return q.getResultList();
 	}
