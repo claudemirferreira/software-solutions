@@ -7,21 +7,25 @@
 	<artifactId>ss-authenticator</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
-	
+
+
 	<properties>
 		<seam.solder.version>3.1.0.Final</seam.solder.version>
+		<version.weld-servlet>1.1.0.Final</version.weld-servlet>
+		<version.arquillian>1.0.0.Alpha4</version.arquillian>
+		<version.mojarra>2.0.3</version.mojarra>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<distributionManagement>
 		<repository>
-            <id>authenticator</id>
-            <name>Authenticator Web SS Repository</name>
-            <url>file://${basedir}/target</url>
-        </repository>
+			<id>authenticator</id>
+			<name>Authenticator Web SS Repository</name>
+			<url>file://${basedir}/target</url>
+		</repository>
 	</distributionManagement>
-	
-	
+
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -76,7 +80,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-			<!-- shiro -->
+		<!-- shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
@@ -101,49 +105,95 @@
 			<version>3.3</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
-	        <groupId>org.primefaces.extensions</groupId>
-	        <artifactId>primefaces-extensions</artifactId>
-	        <version>0.5.1</version>
-	    </dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>0.5.1</version>
+		</dependency>
 
 
 		<!-- ===== Seam =============== -->
 		<dependency>
-		    <groupId>org.jboss.solder</groupId>
-		    <artifactId>solder-api</artifactId>
-		    <version>${seam.solder.version}</version>
-		    <scope>compile</scope>
+			<groupId>org.jboss.solder</groupId>
+			<artifactId>solder-api</artifactId>
+			<version>${seam.solder.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.jboss.solder</groupId>
-		    <artifactId>solder-impl</artifactId>
-		    <version>${seam.solder.version}</version>
-		    <scope>runtime</scope>
+			<groupId>org.jboss.solder</groupId>
+			<artifactId>solder-impl</artifactId>
+			<version>${seam.solder.version}</version>
+			<scope>runtime</scope>
 		</dependency>
-	    
-	    
-	    <dependency>
+
+
+		<!-- Bean Validation API (JSR 303) -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.0.0.GA</version>
+		</dependency>
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-junit</artifactId>
+			<version>${version.arquillian}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JBehave -->
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>1.1.8.Final</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
-	    </dependency>
-		
+		</dependency>
+
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.jbehave</groupId>
+			<artifactId>jbehave-maven-plugin</artifactId>
+			<version>3.6.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.searls</groupId>
+			<artifactId>jasmine-maven-plugin</artifactId>
+			<version>1.1.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
 			<id>JBOSS_NEXUS</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public</url>
 		</repository>
-		
+
 		<repository>
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>
@@ -176,26 +226,99 @@
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.1.1.Final</version>
 				<extensions>false</extensions>
-				
+
 			</plugin>
-			
+
 			<plugin>
-			    <groupId>org.codehaus.mojo</groupId>
-			    <artifactId>jboss-maven-plugin</artifactId>
-			    <version>1.3.1</version>
-			    <configuration>
-			        <jbossHome>${jboss.home}</jbossHome>
-			        <serverName>${jboss.server.name}</serverName>
-			        <hostName>${jboss.host.name}</hostName>
-			        <port>${jboss.port}</port>
-			        <deployUrlPath>${jboss.deploy.url}</deployUrlPath>
-			        <undeployUrlPath>${jboss.undeploy.url}</undeployUrlPath>
-			        <fileName>${project.build.directory}/${project.build.finalName}.${project.packaging}</fileName>
-			    </configuration>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jboss-maven-plugin</artifactId>
+				<version>1.3.1</version>
+				<configuration>
+					<jbossHome>${jboss.home}</jbossHome>
+					<serverName>${jboss.server.name}</serverName>
+					<hostName>${jboss.host.name}</hostName>
+					<port>${jboss.port}</port>
+					<deployUrlPath>${jboss.deploy.url}</deployUrlPath>
+					<undeployUrlPath>${jboss.undeploy.url}</undeployUrlPath>
+					<fileName>${project.build.directory}/${project.build.finalName}.${project.packaging}</fileName>
+				</configuration>
 			</plugin>
-			
 		</plugins>
 	</build>
-	
-	
+	<profiles>
+		<profile>
+			<id>arq-weld-embedded</id>
+			<activation>
+				<property>
+					<name>!arquillian</name>
+				</property>
+			</activation>
+			
+		</profile>
+
+		<profile>
+			<!-- JSF 2.0 Reference Implementation -->
+			<id>mojarra</id>
+			<activation>
+				<property>
+					<name>!jsf</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-api</artifactId>
+					<version>${version.mojarra}</version>
+				</dependency>
+				<dependency>
+					<groupId>com.sun.faces</groupId>
+					<artifactId>jsf-impl</artifactId>
+					<version>${version.mojarra}</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- JSF 2.0 Implementation -->
+			<id>myfaces</id>
+			<activation>
+				<property>
+					<name>jsf</name>
+					<value>myfaces</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.myfaces.core</groupId>
+					<artifactId>myfaces-api</artifactId>
+					<version>${version.myfaces}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.myfaces.core</groupId>
+					<artifactId>myfaces-impl</artifactId>
+					<version>${version.myfaces}</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- JAX-RS 1.1 Reference Implementation -->
+			<id>jersey</id>
+			<activation>
+				<property>
+					<name>!jaxrs</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun.jersey</groupId>
+					<artifactId>jersey-server</artifactId>
+					<version>1.4</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 </project>
