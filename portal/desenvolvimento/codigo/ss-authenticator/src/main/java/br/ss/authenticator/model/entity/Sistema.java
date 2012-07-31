@@ -4,6 +4,7 @@ package br.ss.authenticator.model.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +18,6 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import br.ss.core.model.entity.AbstractEntity;
 
 /**
@@ -60,6 +60,10 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sistema")
 	private Set<Perfil> perfils = new HashSet<Perfil>(0);
 
+	@Getter @Setter
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sistema")
+	private Set<Responsabilidade> responsabilidades = new HashSet<Responsabilidade>(0);
+	
 	public Sistema() { }
 
 	public Sistema(Long idSistema, String txSistema, String txSigla, Boolean ativo) {

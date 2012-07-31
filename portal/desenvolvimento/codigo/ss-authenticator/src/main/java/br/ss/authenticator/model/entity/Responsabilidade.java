@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -48,6 +50,11 @@ public class Responsabilidade extends AbstractEntity implements java.io.Serializ
 	@Column(name = "tx_descricao", nullable = false, length = 300)
 	private String txDescricao;
 
+	@Getter @Setter
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_sistema", nullable = false)
+	private Sistema sistema;
+	
 	@Getter @Setter
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "responsabilidade")
 	private Set<ResponsabilidadeServico> responsabilidadeServicos = new HashSet<ResponsabilidadeServico>(0);

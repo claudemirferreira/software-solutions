@@ -34,10 +34,10 @@ public class ServicoDAO extends AbstractDAO<Servico> implements IServicoDAO {
 			condictions.add(" lower(s.txServico) like :txServico ");
 		}
 		if ( notEmpty(servico.getTxPacoteCodigo() ) ) {
-			condictions.add(" lower(s.txServico) like :txPacoteCodigo ");
+			condictions.add(" lower(s.txPacoteCodigo) like :txPacoteCodigo ");
 		}
 		if ( notEmpty(servico.getTxServicoCodigo() ) ) {
-			condictions.add(" lower(s.txServico) like :txServicoCodigo ");
+			condictions.add(" lower(s.txServicoCodigo) like :txServicoCodigo ");
 		}
 		if ( notEmpty(servico.getAtivo() ) ) {
 			condictions.add(" s.ativo = :ativo ");
