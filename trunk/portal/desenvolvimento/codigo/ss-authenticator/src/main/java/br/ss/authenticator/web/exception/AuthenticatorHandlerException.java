@@ -55,6 +55,15 @@ public class AuthenticatorHandlerException {
 		ce.handled(); // mark as handled
 	}
 
+	public void onGeneralException( @Handles(during = TraversalMode.DEPTH_FIRST) CaughtException<Exception> ce) {
+		debug(ce);
+		ce.getException().printStackTrace();
+		AuthenticatorMessage.sendErrorMessageToUser( ce.getException().getMessage() ); // TODO msg
+		if ( !ce.isMarkedHandled() ) {
+			ce.rethrow();
+		}
+	}
+
 	
 	public void onNonexistentConversation( @Handles CaughtException<NonexistentConversationException> evt ) {
 		final NonexistentConversationException exception = evt.getException();

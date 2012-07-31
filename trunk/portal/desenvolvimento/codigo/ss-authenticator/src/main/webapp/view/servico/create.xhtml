@@ -18,19 +18,12 @@
 		
 		<p:panel header="Dados do servico" footer="* Campos obrigatórios" style="width:700px">
 		
-			<fpf2:input id="servico" 
-						value="#{servicoBean.entity.txServico}" 
-						label="Nome"
-						required="true"/>
+			<fpf2:input label="Nome" id="servico" value="#{servicoBean.entity.txServico}" required="true"/>
 			
-			<fpf2:comboBox value="#{servicoBean.entity.sistema}" 
-					required="true" 
-					list="#{sistemasAtivos}"
-					atributo="#{item.txSistema}"
-					foreignKey="true"
-					selectOne="true"
-					label="Sistema"/>
-					
+			<fpf2:input label="Código do Serviço" value="#{servicoBean.entity.txServicoCodigo}" required="true" />
+			
+			<fpf2:input label="Código do Pacote" value="#{servicoBean.entity.txPacoteCodigo}" required="true" />
+			
 			<fpf2:checkBox value="#{servicoBean.entity.ativo}" label="Ativo" required="true" />
 			
 		</p:panel>

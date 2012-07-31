@@ -18,13 +18,11 @@
 	<ui:define name="search_filter">
 		
 		<fpf2:input label="Nome" value="#{servicoBean.search.txServico}" />
-					
-		<fpf2:comboBox 	label="Sistema"
-						value="#{servicoBean.search.sistema}" 
-						list="#{sistemasAtivos}"
-						atributo="#{item.txSistema}"
-						foreignKey="true" />
 						
+		<fpf2:input label="Código do Serviço" value="#{servicoBean.search.txServicoCodigo}" />
+		
+		<fpf2:input label="Código do Pacote" value="#{servicoBean.search.txPacoteCodigo}" />
+		
 		<fpf2:comboBox 	label="Ativo"
 						value="#{servicoBean.search.ativo}" 
 						list="#{ativoInativoList}" />
@@ -51,8 +49,12 @@
 	            <h:outputText value="#{item.txServico}" />  
 	        </p:column>  
 	  		
-	  		<p:column style="text-align:left" headerText="Sistema">  
-	            <h:outputText value="#{item.sistema.txSistema}" />  
+	  		<p:column style="text-align:left" headerText="Código do Serviço">  
+	            <h:outputText value="#{item.txServicoCodigo}" />  
+	        </p:column>  
+	  		
+	  		<p:column style="text-align:left" headerText="Código do Pacote">  
+	            <h:outputText value="#{item.txPacoteCodigo}" />  
 	        </p:column>  
 	  		
 	        <p:column style="text-align:center" headerText="Situação">  

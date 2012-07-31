@@ -60,10 +60,6 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sistema")
 	private Set<Perfil> perfils = new HashSet<Perfil>(0);
 
-	@Getter @Setter
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="sistema")
-    private Set<Servico> servicos = new HashSet<Servico>(0);
-    
 	public Sistema() { }
 
 	public Sistema(Long idSistema, String txSistema, String txSigla, Boolean ativo) {
