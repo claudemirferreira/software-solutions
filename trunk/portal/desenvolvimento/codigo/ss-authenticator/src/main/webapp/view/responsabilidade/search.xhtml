@@ -24,7 +24,13 @@
 		<fpf2:input id="Descrição" 
 					value="#{responsabilidadeBean.search.txDescricao}" 
 					label="Descrição" />
-		
+					
+		<fpf2:comboBox value="#{responsabilidadeBean.search.sistema}" 
+						list="#{sistemasAtivos}"
+						atributo="#{item.txSistema}"
+						foreignKey="true"
+						label="Sistema"/>
+						
 		<fpf2:comboBox 	label="Ativo"
 						value="#{responsabilidadeBean.search.ativo}" 
 						list="#{ativoInativoList}" />

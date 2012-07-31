@@ -18,11 +18,11 @@
 		
 		<p:panel header="Dados do servico" footer="* Campos obrigatórios" style="width:700px">
 		
-			<fpf2:input label="Nome" id="servico" value="#{servicoBean.entity.txServico}" required="true"/>
+			<fpf2:input label="Nome" id="servico" value="#{servicoBean.entity.txServico}" required="true" maxlength="80"/>
 			
-			<fpf2:input label="Código do Serviço" value="#{servicoBean.entity.txServicoCodigo}" required="true" />
+			<fpf2:input label="Código do Serviço" value="#{servicoBean.entity.txServicoCodigo}" required="true" maxlength="40" />
 			
-			<fpf2:input label="Código do Pacote" value="#{servicoBean.entity.txPacoteCodigo}" required="true" />
+			<fpf2:input label="Código do Pacote" value="#{servicoBean.entity.txPacoteCodigo}" required="true" maxlength="20" />
 			
 			<fpf2:checkBox value="#{servicoBean.entity.ativo}" label="Ativo" required="true" />
 			
