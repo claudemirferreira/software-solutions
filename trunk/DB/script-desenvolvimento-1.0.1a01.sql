@@ -25,11 +25,15 @@ DROP TABLE authenticator.servico;
 CREATE TABLE authenticator.servico
 (
   id_servico serial NOT NULL,
+  id_sistema integer NOT NULL,
   tx_servico character varying(80) NOT NULL,
   tx_servico_codigo character varying(40) NOT NULL,
   tx_pacote_codigo character varying(20) NOT NULL,
   ativo boolean NOT NULL,
-  CONSTRAINT servico_pkey PRIMARY KEY (id_servico)
+  CONSTRAINT servico_pkey PRIMARY KEY (id_servico),
+  CONSTRAINT servico_id_sistema_fkey FOREIGN KEY (id_sistema)
+      REFERENCES authenticator.sistema (id_sistema) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
