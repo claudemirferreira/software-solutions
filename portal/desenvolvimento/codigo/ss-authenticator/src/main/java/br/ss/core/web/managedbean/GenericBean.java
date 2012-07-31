@@ -87,6 +87,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 			init();
 			return PESQUISA;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

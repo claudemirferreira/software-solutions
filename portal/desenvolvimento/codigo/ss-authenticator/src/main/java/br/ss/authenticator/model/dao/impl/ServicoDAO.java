@@ -33,11 +33,12 @@ public class ServicoDAO extends AbstractDAO<Servico> implements IServicoDAO {
 		if ( notEmpty(servico.getTxServico() ) ) {
 			condictions.add(" lower(s.txServico) like :txServico ");
 		}
-
-		if ( notEmpty(servico.getSistema() ) ) {
-			condictions.add(" s.sistema = :sistema ");
+		if ( notEmpty(servico.getTxPacoteCodigo() ) ) {
+			condictions.add(" lower(s.txServico) like :txPacoteCodigo ");
 		}
-
+		if ( notEmpty(servico.getTxServicoCodigo() ) ) {
+			condictions.add(" lower(s.txServico) like :txServicoCodigo ");
+		}
 		if ( notEmpty(servico.getAtivo() ) ) {
 			condictions.add(" s.ativo = :ativo ");
 		}
@@ -49,8 +50,11 @@ public class ServicoDAO extends AbstractDAO<Servico> implements IServicoDAO {
 		if ( notEmpty(servico.getTxServico() ) ) {
 			q.setParameter("txServico", "%" + servico.getTxServico().trim().toLowerCase() + "%" );
 		}
-		if ( notEmpty(servico.getSistema() ) ) {
-			q.setParameter("sistema", servico.getSistema() );
+		if ( notEmpty(servico.getTxPacoteCodigo() ) ) {
+			q.setParameter("txPacoteCodigo", "%" + servico.getTxPacoteCodigo().trim().toLowerCase() + "%" );
+		}
+		if ( notEmpty(servico.getTxServicoCodigo() ) ) {
+			q.setParameter("txServicoCodigo", "%" + servico.getTxServicoCodigo().trim().toLowerCase() + "%" );
 		}
 		if ( notEmpty(servico.getAtivo() ) ) {
 			q.setParameter("ativo", ( Boolean ) servico.getAtivo());
