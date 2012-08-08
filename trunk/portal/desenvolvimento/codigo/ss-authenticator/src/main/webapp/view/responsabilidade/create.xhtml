@@ -15,8 +15,15 @@
 	<ui:param name="managedBean" value="#{responsabilidadeBean}"/>
 
 	<ui:define name="register_region">
+	
+		<p:panel header="Dados do responsabilidade">
 		
-		<p:panel header="Dados do responsabilidade" footer="* Campos obrigatórios" style="width:700px">
+			<fpf2:comboBox label="Sistema" 
+							value="#{responsabilidadeBean.entity.sistema}" 
+							list="#{sistemasAtivos}" 
+							atributo="#{item.txSistema}" 
+							foreignKey="true" selectOne="true" 
+							disabled="#{sistemaBean.entity.persistent}" />
 		
 			<fpf2:input id="Responsabilidade" 
 						value="#{responsabilidadeBean.entity.txResponsabilidade}" 
@@ -41,6 +48,35 @@
 			<fpf2:checkBox value="#{responsabilidadeBean.entity.ativo}" label="Ativo" required="true" />
 			
 		</p:panel>
+			
+		<p:spacer height="10px" />	
+			
+		<p:panel id="pnlGridServico">
+			
+			<!-- TODO grid -->
+		
+			<p:commandLink value="Novo" onclick="dlgServicos.show();" />
+			
+			<fpf2:grid list="#{responsabilidadeBean.entity.responsabilidadeServicos}">
+				
+				<p:column style="text-align:left">  
+		            <f:facet name="header">  
+		                <h:outputText value="Serviço" />  
+		            </f:facet>  
+		            <h:outputText value="#{item.servico.txServico}" />  
+		        </p:column>  
+				
+			</fpf2:grid>
+		
+			
+			<p:dialog id="dlgServicos" header="Novo Serviço" widgetVar="item" dynamic="true">  
+			    
+			    TODO: carregar servicos do sistema..
+			    
+			</p:dialog>  
+			
+		</p:panel>
+				
 
 	</ui:define>
 

@@ -23,9 +23,9 @@
 		
 		<fpf2:input label="Código do Pacote" value="#{servicoBean.search.txPacoteCodigo}" />
 		
-		<fpf2:comboBox 	label="Ativo"
-						value="#{servicoBean.search.ativo}" 
-						list="#{ativoInativoList}" />
+		<fpf2:comboBox label="Sistema" value="#{servicoBean.search.sistema}" list="#{sistemasAtivos}" atributo="#{item.txSistema}" foreignKey="true" />
+		
+		<fpf2:comboBox 	label="Ativo" value="#{servicoBean.search.ativo}" list="#{ativoInativoList}" />
 							
 	</ui:define>
 	

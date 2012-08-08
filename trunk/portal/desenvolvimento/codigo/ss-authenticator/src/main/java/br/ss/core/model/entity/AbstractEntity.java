@@ -33,8 +33,10 @@ public abstract class AbstractEntity implements Serializable {
 		try {
 			Field field = ReflectionsUtil.findAnnotatedFields(this.getClass(), Id.class)[0];
 			field.setAccessible(true);
-			id = ( Long ) field.get(this);
-		} catch (Exception e) { }
+			id = new Long( field.get(this).toString() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	
