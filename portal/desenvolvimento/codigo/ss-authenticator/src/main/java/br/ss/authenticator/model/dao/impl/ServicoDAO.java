@@ -42,6 +42,9 @@ public class ServicoDAO extends AbstractDAO<Servico> implements IServicoDAO {
 		if ( notEmpty(servico.getAtivo() ) ) {
 			condictions.add(" s.ativo = :ativo ");
 		}
+		if ( notEmpty(servico.getSistema() ) ) {
+			condictions.add(" s.sistema = :sistema ");
+		}
 		
 		String orderBy = " order by s.txServico ";
 		
@@ -58,6 +61,9 @@ public class ServicoDAO extends AbstractDAO<Servico> implements IServicoDAO {
 		}
 		if ( notEmpty(servico.getAtivo() ) ) {
 			q.setParameter("ativo", ( Boolean ) servico.getAtivo());
+		}
+		if ( notEmpty(servico.getSistema() ) ) {
+			q.setParameter("sistema", servico.getSistema() );
 		}
 		
 		return q.getResultList();

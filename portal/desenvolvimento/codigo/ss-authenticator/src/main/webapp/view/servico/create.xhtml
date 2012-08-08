@@ -16,7 +16,11 @@
 
 	<ui:define name="register_region">
 		
-		<p:panel header="Dados do servico" footer="* Campos obrigatórios" style="width:700px">
+		<p:panel header="Dados do servico">
+		
+			<!-- sistema: nao permite alterar na edição pois ja pode ter sido utilizado -->
+			<fpf2:comboBox label="Sistema"  value="#{servicoBean.entity.sistema}" list="#{sistemasAtivos}" 
+						disabled="#{servicoBean.entity.persistent}" atributo="#{item.txSistema}" foreignKey="true" selectOne="true" />
 		
 			<fpf2:input label="Nome" id="servico" value="#{servicoBean.entity.txServico}" required="true" maxlength="80"/>
 			

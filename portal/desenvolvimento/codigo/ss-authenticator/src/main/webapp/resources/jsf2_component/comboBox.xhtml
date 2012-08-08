@@ -13,6 +13,7 @@
 		<cc:attribute name="idCmb" required="false" default="id" />
 		<cc:attribute name="label" required="false" />	
 		<cc:attribute name="required" required="false" default="false" />
+		<cc:attribute name="disabled" required="false" default="false" />
 		<cc:attribute name="selectOne" required="false" default="false" />
 		<cc:attribute name="selectAll" required="false" default="#{not cc.attrs.selectOne ? true : false}" />
 		<cc:attribute name="selectOneMsg" required="false" default="-- Selecione um registro --" />
@@ -40,7 +41,7 @@
 		 		
 		 		<p:column>
 		 			<c:if test="#{not cc.attrs.foreignKey}">
-						<p:selectOneMenu id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" effect="#{cc.attrs.effect}">
+						<p:selectOneMenu id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" disabled="#{cc.attrs.disabled}" effect="#{cc.attrs.effect}">
 							<c:if test="#{cc.attrs.selectOne}">
 					        	<f:selectItem itemLabel="#{cc.attrs.selectOneMsg}" itemValue="" />
 				        	</c:if>
@@ -53,7 +54,7 @@
 		 			</c:if>
 		 			
 		 			<c:if test="#{cc.attrs.foreignKey}">
-				        <p:selectOneMenu id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" effect="#{cc.attrs.effect}" converter="entityConverter">
+				        <p:selectOneMenu id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" disabled="#{cc.attrs.disabled}" effect="#{cc.attrs.effect}" converter="entityConverter">
 				        	<c:if test="#{cc.attrs.selectOne}">
 					        	<f:selectItem itemLabel="#{cc.attrs.selectOneMsg}" itemValue="" />
 				        	</c:if>
