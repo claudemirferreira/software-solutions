@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioAniversariante" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataInicial" class="java.lang.String"/>
+	<parameter name="dataFinal" class="java.lang.String"/>
+	<parameter name="ano" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="titulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[bairro]]></fieldDescription>
+	</field>
+	<field name="batizado" class="java.lang.String">
+		<fieldDescription><![CDATA[batizado]]></fieldDescription>
+	</field>
+	<field name="celular" class="java.lang.String">
+		<fieldDescription><![CDATA[celular]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="dataNascimento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataNascimento]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[email]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
+	</field>
+	<field name="foneComercial" class="java.lang.String">
+		<fieldDescription><![CDATA[foneComercial]]></fieldDescription>
+	</field>
+	<field name="foneResidencial" class="java.lang.String">
+		<fieldDescription><![CDATA[foneResidencial]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="membroIgreja" class="java.lang.String">
+		<fieldDescription><![CDATA[membroIgreja]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="pequenoGrupo" class="br.com.ss.centralaamar.model.entity.PequenoGrupo">
+		<fieldDescription><![CDATA[pequenoGrupo]]></fieldDescription>
+	</field>
+	<field name="profissao" class="br.com.ss.centralaamar.model.entity.Profissao">
+		<fieldDescription><![CDATA[profissao]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[sexo]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="94" height="84"/>
+				<imageExpression><![CDATA["C:\\jasper\\IASD_new.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="94" y="20" width="337" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DEPARTAMENTO DE COMUNICAÇÃO DA CENTRAL AAMAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="80" width="97" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Data de Impressão: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="0" width="337" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[IGREJA ADVENTISTA DO SÉTIMO DIA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="256" y="80" width="100" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="40" width="337" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SISTEMA DE CONTROLE DE COMUNICAÇÃO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="458" y="0" width="94" height="84"/>
+				<imageExpression><![CDATA["C:\\jasper\\boton comunicação_new.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="94" y="60" width="337" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="0" width="100" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="1" width="55" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="1" width="51" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="1" width="100" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="1" width="51" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Comercial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="1" width="58" height="16"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Residencial]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="17" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="147" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="155" y="0" width="55" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="(99)99999999" isBlankWhenNull="true">
+				<reportElement x="218" y="0" width="56" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="0" width="145" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField pattern="(##)########" isBlankWhenNull="true">
+				<reportElement x="278" y="0" width="55" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{foneComercial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="(##)######## " isBlankWhenNull="true">
+				<reportElement x="338" y="0" width="55" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{foneResidencial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="159" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Total de Registros : " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="512" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<elementGroup/>
+			<elementGroup/>
+		</band>
+	</summary>
+</jasperReport>
