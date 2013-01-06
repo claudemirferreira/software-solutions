@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @ManagedBean(name = "simpleEmail")
 @Scope("session")
 public class SimpleEmail {
-	// atributos que serão injetados pelo Spring
+
 	
 	private MailSender mailSender;
 	private SimpleMailMessage defaultMessage;
