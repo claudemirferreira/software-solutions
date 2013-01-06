@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/pageUtils/template.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<div align="left">
+				<p:messages id="messages" autoUpdate="true" />
+				<p:panel header="Envio de email" style="whidt:800px;">
+					<h:panelGrid columns="1" id="painel" width="100%">
+
+						<h:outputText value="Nome :" style="width:100" />
+
+					</h:panelGrid>
+				</p:panel>
+				<p:toolbar align="center">
+					<p:toolbarGroup align="center">
+						<p:commandButton value="Salvar" icon="ui-icon-disk"
+							action="#{simpleEmail.enviarEmail}" />
+							
+
+					</p:toolbarGroup>
+				</p:toolbar>
+
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
