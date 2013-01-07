@@ -23,7 +23,6 @@
 		<property name="suffix" value=".xhtml" />
 	</bean>
 
-	<!-- Configura o servidor SMTP de E-mail -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="username" value="alvaraesam@gmail.com" />
@@ -40,27 +39,6 @@
 		</property>
 	</bean>
 
-	<!-- Cria uma parte da mensagem que será padrão -->
-	<bean id="defaultMessage" class="org.springframework.mail.SimpleMailMessage">
-		<property name="to" value="alvaraesam@gmail.com" />
-		<property name="subject" value="teste" />
-	</bean>
-
-	<!-- Determina a classe que será injetada -->
-	<bean id="simpleMail" class="br.com.ss.centralaamar.controller.SimpleEmail">
-		<property name="mailSender" ref="mailSender" />
-		<property name="defaultMessage" ref="defaultMessage" />
-	</bean>
-
-	<!-- Determina a classe que será injetada -->
-	<bean id="htmlMail" class="br.com.ss.centralaamar.controller.SimpleEmail">
-		<property name="mailSender" ref="mailSender" />
-	</bean>
-
-	<!-- Identifica os beans anotados com @Component -->
-	<context:component-scan base-package="br.com.ss.centralaamar.controller.SimpleEmail"
-		annotation-config="true" />
-
 	<bean id="velocityEngine"
 		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
 		<property name="velocityProperties">
@@ -70,5 +48,13 @@
 			</value>
 		</property>
 	</bean>
+
+	<bean id="registrationService"
+		class="br.com.ss.centralaamar.controller.SimpleRegistrationService">
+		<property name="mailSender" ref="mailSender" />
+		<property name="velocityEngine" ref="velocityEngine" />
+	</bean>
+
+
 
 </beans>
