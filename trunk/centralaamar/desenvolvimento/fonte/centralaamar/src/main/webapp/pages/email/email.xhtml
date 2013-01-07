@@ -12,15 +12,28 @@
 				<p:panel header="Envio de email" style="whidt:800px;">
 					<h:panelGrid columns="1" id="painel" width="100%">
 
-						<h:outputText value="Nome :" style="width:100" />
+						<h:outputText value="Assunto :" style="width:100" />
+						<p:inputText id="assunto"
+							value="#{simpleRegistrationService.mail.assunto}"
+							label="o assunto deve ser informado" maxlength="60"
+							style="width:400px;" />
+
+						<h:outputText value="Conteudo :" style="width:100" />
+						<p:inputTextarea rows="5" cols="30" required="true"
+							value="#{simpleRegistrationService.mail.conteudo}"
+							maxlength="100" counterTemplate="{0} characters remaining."
+							autoResize="false" label="o conteudo deve ser informado"
+							style="width:400px;" />
+
+						<input type="file" name="file" size="50"
+							value="#{simpleRegistrationService.mail.path}" />
 
 					</h:panelGrid>
 				</p:panel>
 				<p:toolbar align="center">
 					<p:toolbarGroup align="center">
 						<p:commandButton value="Salvar" icon="ui-icon-disk"
-							action="#{simpleRegistrationService.enviarEmail()}" />
-							
+							action="#{simpleRegistrationService.enviarEmail}" />
 
 					</p:toolbarGroup>
 				</p:toolbar>
