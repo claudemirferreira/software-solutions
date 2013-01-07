@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class SimpleEmail {
 
-	
 	private MailSender mailSender;
 	private SimpleMailMessage defaultMessage;
 
@@ -39,15 +38,15 @@ public class SimpleEmail {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void enviarEmail(){
+
+	public void enviarEmail() {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext(
 				"classpath:/META-INF/spring/jboss-as-spring-mvc-context.xml");
 
 		SimpleEmail enviaEmailSimples = (SimpleEmail) appCtx
 				.getBean("simpleMail");
 		enviaEmailSimples.enviar();
-		
+
 	}
 
 	public static void main(String args[]) {
