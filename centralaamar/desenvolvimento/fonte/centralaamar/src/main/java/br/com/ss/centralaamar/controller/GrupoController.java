@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +15,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,44 +23,42 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.ss.centralaamar.exception.ValidationException;
-import br.com.ss.centralaamar.model.dao.PequenoGrupoDAO;
-import br.com.ss.centralaamar.model.entity.PequenoGrupo;
+import br.com.ss.centralaamar.model.dao.GrupoDAO;
+import br.com.ss.centralaamar.model.entity.Grupo;
 
-@Component("pequenoGrupoController")
+@Component("grupoController")
 @Scope("session")
-public class PequenoGrupoController {
+public class GrupoController {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(PequenoGrupoController.class);
+			.getLogger(GrupoController.class);
 
-	private PequenoGrupo pequenoGrupo = new PequenoGrupo();
-	private List<PequenoGrupo> pequenoGrupos;
-	private PequenoGrupo selected;
+	private Grupo grupo = new Grupo();
+	private List<Grupo> grupos;
+	private Grupo selected;
 
 	@Autowired
-	private PequenoGrupoDAO pequenoGrupoDAO;
+	private GrupoDAO grupoDAO;
 
 	public String getMessage() {
 		logger.debug("Returning message from pequenoGrupo home bean");
 		return "Hello from Spring";
 	}
 
-	public PequenoGrupo getPequenoGrupo() {
-		return pequenoGrupo;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
 	public void save() {
 		try {
-			// PequenoGrupoValidator.validarCampos(pequenoGrupo);
+			this.grupo.setNome(this.grupo.getNome().toUpperCase());
 
-			this.pequenoGrupo.setDescricao(this.pequenoGrupo.getDescricao());
-
-			if (this.pequenoGrupo.getId() == null)
-				pequenoGrupoDAO.save(this.pequenoGrupo);
+			if (this.grupo.getId() == null)
+				grupoDAO.save(this.grupo);
 			else
-				pequenoGrupoDAO.merge(this.pequenoGrupo);
-			this.pequenoGrupo = new PequenoGrupo();
-			this.pequenoGrupos = pequenoGrupoDAO.list();
+				grupoDAO.merge(this.grupo);
+			this.grupo = new Grupo();
+			this.grupos = grupoDAO.list();
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
@@ -81,48 +79,61 @@ public class PequenoGrupoController {
 	}
 
 	public String listAll() {
-		this.pequenoGrupos = pequenoGrupoDAO.list();
-		return "listaAllPequenoGrupo";
+		this.grupos = grupoDAO.list();
+		return "listaAllGrupo";
 	}
 
 	public String editar() {
-		this.pequenoGrupo = this.selected;
-		this.selected = new PequenoGrupo();
-		return "edit";
+		this.grupo = this.selected;
+		this.selected = new Grupo();
+		return "/pages/grupo/grupo.xhtml";
 	}
 
 	public void remove() {
-		this.pequenoGrupo = this.selected;
-		pequenoGrupoDAO.remove(this.pequenoGrupo);
-		this.pequenoGrupos = pequenoGrupoDAO.list();
+
+		this.grupo = this.selected;
+		try {
+			grupoDAO.remove(this.grupo);
+			this.grupos = grupoDAO.list();
+		} catch (ConstraintViolationException e) {
+			e.printStackTrace();
+
+			FacesContext
+					.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									"Erro",
+									"O registro não pode ser excluido, Favor entre em contato com o suporte"));
+		}
 
 	}
 
-	public List<PequenoGrupo> getPequenoGrupos() {
-		if (this.pequenoGrupos == null)
-			this.pequenoGrupos = pequenoGrupoDAO.list();
-		return this.pequenoGrupos;
+	public List<Grupo> getGrupos() {
+		if (this.grupos == null)
+			this.grupos = grupoDAO.list();
+		return this.grupos;
 	}
 
-	public void setPequenoGrupos(List<PequenoGrupo> pequenoGrupos) {
-		this.pequenoGrupos = pequenoGrupos;
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 	public String clean() {
-		this.pequenoGrupo = new PequenoGrupo();
-		return "edit";
+		this.grupo = new Grupo();
+		return "/pages/grupo/grupo.xhtml";
 	}
 
-	public PequenoGrupo getSelected() {
+	public Grupo getSelected() {
 		return selected;
 	}
 
-	public void setSelected(PequenoGrupo selected) {
+	public void setSelected(Grupo selected) {
 		this.selected = selected;
 	}
 
-	public void setPequenoGrupo(PequenoGrupo pequenoGrupo) {
-		this.pequenoGrupo = pequenoGrupo;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 	public void print() {
@@ -134,16 +145,10 @@ public class PequenoGrupoController {
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			ServletContext servletContext = (ServletContext) facesContext
-					.getExternalContext().getContext();
-
-			// String pathJasper = servletContext
-			// .getRealPath("/WEB-INF/jasper/pequenoGrup.jasper");
-
 			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
-					null, new JRBeanCollectionDataSource(this.pequenoGrupos));
+					null, new JRBeanCollectionDataSource(this.grupos));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);
