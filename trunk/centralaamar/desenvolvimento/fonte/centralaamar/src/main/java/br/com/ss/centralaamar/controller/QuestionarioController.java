@@ -73,36 +73,36 @@ public class QuestionarioController {
 		return questionario;
 	}
 
-	public void save() {
-		try {
-
-			if (this.questionario.getId() == null)
-				questionarioDAO.save(this.questionario);
-			else
-				questionarioDAO.merge(this.questionario);
-			this.questionario = new Questionario();
-			this.questionarios = questionarioDAO.list();
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-							"Dados salvos com sucesso !"));
-		} catch (ValidationException e) {
-			System.out.println(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
-							.getMessage()));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
-							.getMessage()));
-		}
-
-	}
+//	public void save() {
+//		try {
+//
+//			if (this.questionario.getId() == null)
+////				questionarioDAO.save(this.questionario);
+//			else
+//				questionarioDAO.merge(this.questionario);
+//			this.questionario = new Questionario();
+////			this.questionarios = questionarioDAO.list();
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+//							"Dados salvos com sucesso !"));
+//		} catch (ValidationException e) {
+//			System.out.println(e.getMessage());
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
+//							.getMessage()));
+//		} catch (Exception e) {
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
+//							.getMessage()));
+//		}
+//
+//	}
 
 	public String listAll() {
-		this.questionarios = questionarioDAO.list();
+//		this.questionarios = questionarioDAO.list();
 		return "listaAllQuestionario";
 	}
 
@@ -130,7 +130,7 @@ public class QuestionarioController {
 			questionario.setSabado(sabado);
 			questionario.setPequenoGrupo(this.pequenoGrupo);
 
-			questionarioDAO.save(questionario);
+//			questionarioDAO.save(questionario);
 
 		}
 		
@@ -155,7 +155,7 @@ public class QuestionarioController {
 		this.questionario = this.selected;
 		try {
 			questionarioDAO.remove(this.questionario);
-			this.questionarios = questionarioDAO.list();
+//			this.questionarios = questionarioDAO.list();
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
 
