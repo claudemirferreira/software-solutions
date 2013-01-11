@@ -10,10 +10,11 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.model.entity.Chamada;
 
 @Component
-public class ChamadaDAO extends GenericDAO {
+public class ChamadaDAO extends AbstractDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -74,6 +75,12 @@ public class ChamadaDAO extends GenericDAO {
 
 		listChamada = q.getResultList();
 		return listChamada;
+	}
+
+	@Override
+	public List searchByEntity(AbstractEntity entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

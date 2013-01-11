@@ -12,36 +12,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ss.centralaamar.component.Relatorio;
 import br.com.ss.centralaamar.model.entity.Membro;
+import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
 import br.com.ss.centralaamar.model.entity.Sabado;
 
 @Component
-public class MembroDAO extends GenericDAO {
+public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
-	@Transactional
-	public void save(Membro membro) {
-		entityManager.persist(membro);
-	}
-
-	@Transactional
-	public void merge(Membro membro) {
-		entityManager.merge(membro);
-	}
-
-	@Transactional
-	public void remove(Membro membro) {
-		Membro entity = entityManager.merge(membro);
-		entityManager.remove(entity);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Membro> list() {
-		return entityManager.createQuery(
-				"select t from Membro t order by t.nome").getResultList();
-	}
+//	@PersistenceContext
+//	private EntityManager entityManager;
+//
+//	@Transactional
+//	public void save(Membro membro) {
+//		entityManager.persist(membro);
+//	}
+//
+//	@Transactional
+//	public void merge(Membro membro) {
+//		entityManager.merge(membro);
+//	}
+//
+//	@Transactional
+//	public void remove(Membro membro) {
+//		Membro entity = entityManager.merge(membro);
+//		entityManager.remove(entity);
+//	}
+//
+//	@SuppressWarnings("unchecked")
+//	public List<Membro> list() {
+//		return entityManager.createQuery(
+//				"select t from Membro t order by t.nome").getResultList();
+//	}
 
 	@SuppressWarnings("unchecked")
 	public List<Membro> listAniversariantes(String dataInicial,
@@ -101,13 +102,6 @@ public class MembroDAO extends GenericDAO {
 		StringBuilder hql = new StringBuilder();
 		List<String> cond = new ArrayList<String>();
 		List<Membro> listMembro = new ArrayList<Membro>();
-
-		/**
-		 * SELECT * FROM centralaamar.membro m
-where m.peq_id = 1
-and m.mem_id not in (select mem_id from centralaamar.chamada c
-where c.saba_id  = 1 and c.peq_id = 1)
-		 */
 		
 		hql.append(" select m from Membro m ");
 		hql.append(" where m.pequenoGrupo = :pg" );
@@ -128,6 +122,13 @@ where c.saba_id  = 1 and c.peq_id = 1)
 		
 		listMembro = q.getResultList();
 		return listMembro;
+	}
+
+
+	@Override
+	public List<Membro> searchByEntity(Membro entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

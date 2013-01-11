@@ -8,17 +8,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "pergunta", catalog = "centralaamar")
-public class Pergunta implements java.io.Serializable {
+public class Pergunta extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 845836539746268610L;
-	
+
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "perg_id", unique = true, nullable = false)
-	private Integer id;
+	private Long idPergunta;
+
+	@Getter @Setter
+	@Column(name = "descricao", nullable = false, length = 100)
 	private String descricao;
 	
 	public Pergunta() {
@@ -28,21 +35,8 @@ public class Pergunta implements java.io.Serializable {
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Column(name = "descricao", nullable = false, length = 100)
-	public String getDescricao() {
-		return this.descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public Long getId() {
+		return this.idPergunta;
 	}
 
 }

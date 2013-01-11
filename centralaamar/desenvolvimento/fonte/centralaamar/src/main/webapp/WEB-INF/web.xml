@@ -10,11 +10,28 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/META-INF/spring/applicationContext.xml,
 		/WEB-INF/jboss-as-spring-mvc-context.xml</param-value>
-	</context-param>	
+	</context-param>
+		
 	<context-param>
 		<param-name>primefaces.SKIN</param-name>
-		<param-value>none</param-value>
+		<param-value>sunny</param-value>
 	</context-param>
+	
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<!-- Config. para combo-box submeter valores nulos para campos booleans -->
+	<context-param>  
+	    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>  
+	    <param-value>true</param-value>  
+	</context-param> 
+	
+	<context-param>   
+		<param-name>com.sun.faces.writeStateAtFormEnd</param-name>   
+		<param-value>false</param-value>   
+	</context-param> 
 	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -43,5 +60,10 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type> image/x-icon</mime-type>
+	</mime-mapping>
 	
 </web-app>

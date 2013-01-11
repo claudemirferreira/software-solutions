@@ -47,6 +47,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+	            
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.jboss.spec.javax.faces</groupId> -->
+<!-- 				<artifactId>jboss-jsf-api_2.0_spec</artifactId> -->
+<!-- 				<scope>provided</scope> -->
+<!-- 			</dependency> -->
                             
             <!-- Spring dependencies -->
             <dependency>
@@ -138,6 +144,47 @@
     </dependencyManagement>
 
     <dependencies>
+    
+<!--     	<dependency>   -->
+<!-- 		  <groupId>org.cdisource.springbridge</groupId>   -->
+<!-- 		  <artifactId>springbridge</artifactId>   -->
+<!-- 		  <version>1.0-SNAPSHOT</version>   -->
+<!-- 		</dependency>   -->
+
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-api</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>runtime</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>0.11.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
         <!-- Import the JPA API using the provided scope It is included in JBoss
             AS 7 / EAP 6 -->
@@ -337,6 +384,14 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.as.maven.plugin}</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Surefire plugin before 2.9 version is buggy -->
             <plugin>

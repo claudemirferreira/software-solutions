@@ -92,5 +92,16 @@
 			</value>
 		</property>
 	</bean>
+	
+	
+	<!-- ============= CDI x Spring Integration ===================== -->
+	<!-- To bridge from the CDI into Spring -->
+	<bean class="br.com.ss.core.web.integration.cdispring.CdiBeanFactoryPostProcessor" />
+	
+	<!-- Configuring a CdiFactoryBean to lookup a TaskRepository  -->
+	<bean class="org.cdisource.springintegration.CdiFactoryBean" name="taskRespository" >
+       <property name="beanClass" value="org.cdisource.springapp.TaskRepository"/>
+    </bean>
+	
 
 </beans>

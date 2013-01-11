@@ -73,9 +73,9 @@ public class MembroController {
 	@PostConstruct
 	public void init() {
 		this.pequenoGrupos = pequenoGrupoDAO.list();
-		this.membros = membroDAO.list();
+//		this.membros = membroDAO.list();
 		this.profissoes = profissaoDAO.list();
-		this.pastores = pastorDAO.list();
+//		this.pastores = pastorDAO.list();		// TODO 
 		this.membro = new Membro();
 		this.pequenoGrupo = new PequenoGrupo();
 		this.profissao = new Profissao();
@@ -90,45 +90,45 @@ public class MembroController {
 		return "Hello from Spring";
 	}
 
-	public void save() {
-		try {
-
-			MembrolValidator.validarCampos(this.membro);
-
-			this.membro.setNome(this.membro.getNome().toUpperCase());
-			if (this.pequenoGrupo.getId() > 0)
-				this.membro.setPequenoGrupo(this.pequenoGrupo);
-
-			if (this.profissao.getId() > 0)
-				this.membro.setProfissao(this.profissao);
-
-			if (this.pastor.getId() > 0)
-				this.membro.setPastor(this.pastor);
-
-			if (this.membro.getId() == null)
-				membroDAO.save(this.membro);
-			else
-				membroDAO.merge(this.membro);
-			this.membro = new Membro();
-			this.membros = membroDAO.list();
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-							"Dados salvos com sucesso !"));
-			
-		} catch (ValidationException e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
-							.getMessage()));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
-							.getMessage()));
-		}
-
-	}
+//	public void save() {
+//		try {
+//
+//			MembrolValidator.validarCampos(this.membro);
+//
+//			this.membro.setNome(this.membro.getNome().toUpperCase());
+//			if (this.pequenoGrupo.getId() > 0)
+//				this.membro.setPequenoGrupo(this.pequenoGrupo);
+//
+//			if (this.profissao.getId() > 0)
+//				this.membro.setProfissao(this.profissao);
+//
+//			if (this.pastor.getId() > 0)
+//				this.membro.setPastor(this.pastor);
+//
+//			if (this.membro.getId() == null)
+//				membroDAO.save(this.membro);
+//			else
+//				membroDAO.merge(this.membro);
+//			this.membro = new Membro();
+//			this.membros = membroDAO.list();
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
+//							"Dados salvos com sucesso !"));
+//			
+//		} catch (ValidationException e) {
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
+//							.getMessage()));
+//		} catch (Exception e) {
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
+//							.getMessage()));
+//		}
+//
+//	}
 
 	public void findP() {
 		try {
@@ -158,7 +158,7 @@ public class MembroController {
 	}
 
 	public void listAll() {
-		this.membros = membroDAO.list();
+//		this.membros = membroDAO.list();
 	}
 
 	public String editar() {
@@ -184,14 +184,14 @@ public class MembroController {
 	public void remove() {
 		this.membro = this.selected;
 		membroDAO.remove(this.membro);
-		this.membros = membroDAO.list();
+//		this.membros = membroDAO.list();
 	}
 
-	public List<Membro> getMembros() {
-		if (this.membros == null)
-			this.membros = membroDAO.list();
-		return this.membros;
-	}
+//	public List<Membro> getMembros() {
+//		if (this.membros == null)
+//			this.membros = membroDAO.list();
+//		return this.membros;
+//	}
 
 	public List<PequenoGrupo> getPequenoGrupos() {
 		if (this.pequenoGrupos == null)
@@ -341,7 +341,7 @@ public class MembroController {
 	}
 
 	public List<Pastor> getPastores() {
-		return pastorDAO.list();
+		return pastorDAO.listAll();
 	}
 
 	public void setPastores(List<Pastor> pastores) {

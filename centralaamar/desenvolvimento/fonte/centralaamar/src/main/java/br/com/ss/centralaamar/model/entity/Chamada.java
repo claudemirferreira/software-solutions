@@ -13,70 +13,44 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "chamada", catalog = "centralaamar")
-public class Chamada implements Serializable {
+public class Chamada extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 3970262043034919537L;
 
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "cham_id", unique = true, nullable = false)
-	private Integer id;
+	private Long idChamada;
 
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mem_id")
 	private Membro membro;
 
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "peq_id")
 	private PequenoGrupo pequenoGrupo;
 
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "saba_id")
 	private Sabado sabado;
 
+	@Getter @Setter
 	@Column(name = "presente")
 	private Boolean presente;
 
-	public Membro getMembro() {
-		return membro;
-	}
 
-	public void setMembro(Membro membro) {
-		this.membro = membro;
+	@Override
+	public Long getId() {
+		return getIdChamada();
 	}
-
-	public Sabado getSabado() {
-		return sabado;
-	}
-
-	public void setSabado(Sabado sabado) {
-		this.sabado = sabado;
-	}
-
-	public Boolean getPresente() {
-		return presente;
-	}
-
-	public void setPresente(Boolean presente) {
-		this.presente = presente;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public PequenoGrupo getPequenoGrupo() {
-		return pequenoGrupo;
-	}
-
-	public void setPequenoGrupo(PequenoGrupo pequenoGrupo) {
-		this.pequenoGrupo = pequenoGrupo;
-	}
-
+	
 }

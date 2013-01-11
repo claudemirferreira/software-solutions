@@ -20,6 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -31,50 +34,106 @@ import org.hibernate.validator.constraints.Email;
  */
 @Entity
 @Table(name = "membro", catalog = "centralaamar")
-public class Membro implements java.io.Serializable {
+public class Membro  extends AbstractEntity implements java.io.Serializable {
 
+	
+	// TODO campos nao mapeados..
+	
 	private static final long serialVersionUID = -1291295231738443097L;
-
+	
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "mem_id", unique = true, nullable = false)
-	private Integer id;
+	private Long idMembro;
 
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
 	private Profissao profissao;
 
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "peq_id", referencedColumnName = "peq_id")
 	private PequenoGrupo pequenoGrupo;
 
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "past_id", referencedColumnName = "past_id")
 	private Pastor pastor;
 
+	@Getter @Setter
 	@OneToMany(mappedBy = "membro", fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SELECT)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private List<Chamada> chamadas = new ArrayList<Chamada>();
 
+	@Getter @Setter
+	@Column(name = "nome", nullable = false, length = 60)
 	private String nome;
+	
+	@Getter @Setter
+	@Column(name = "endereco", length = 60)
 	private String endereco;
+	
+	@Getter @Setter
+	@Column(name = "bairro", length = 30)
 	private String bairro;
+	
+	@Getter @Setter
+	@Column(name = "celular", length = 10)
 	private String celular;
+	
+	@Getter @Setter
+	@Column(name = "foneResidencial", length = 10)
 	private String foneResidencial;
+	
+	@Getter @Setter
+	@Column(name = "foneComercial", length = 10)
 	private String foneComercial;
+	
+	@Getter @Setter
+	@Column(name = "sexo", nullable = false, length = 1)
 	private String sexo;
+	
+	@Getter @Setter
+	@Column(name = "membroIgreja", nullable = false, length = 1)
 	private String membroIgreja;
+	
+	@Getter @Setter
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dataNascimento")
 	private Date dataNascimento;
+	
+	@Getter @Setter
 	private Date dataBatismo;
+	
+	@Getter @Setter
+	@Column(name = "email", length = 60)
+	@Email(message = "E-mail inv·lido!")
 	private String email;
+	
+	@Getter @Setter
 	private String batizado;
+	
+	@Getter @Setter
 	private String temFilho;
+	
+	@Getter @Setter
 	private String modoConversao;
+	
+	@Getter @Setter
 	private int membrosBatizadoFamilia;
+	
+	@Getter @Setter
 	private String pai;
+	
+	@Getter @Setter
 	private String mae;
+	
+	@Getter @Setter
 	private String amigoContato;
+	
 	@Column(name = "interesse", length = 30)
 	private String interesse;
 
@@ -107,196 +166,8 @@ public class Membro implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public Integer getid() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Profissao getProfissao() {
-		return this.profissao;
-	}
-
-	public void setProfissao(Profissao profissao) {
-		this.profissao = profissao;
-	}
-
-	@Column(name = "nome", nullable = false, length = 60)
-	public String getNome() {
-		return this.nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	@Column(name = "endereco", length = 60)
-	public String getEndereco() {
-		return this.endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	@Column(name = "bairro", length = 30)
-	public String getBairro() {
-		return this.bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	@Column(name = "celular", length = 10)
-	public String getCelular() {
-		return this.celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	@Column(name = "foneResidencial", length = 10)
-	public String getFoneResidencial() {
-		return this.foneResidencial;
-	}
-
-	public void setFoneResidencial(String foneResidencial) {
-		this.foneResidencial = foneResidencial;
-	}
-
-	@Column(name = "foneComercial", length = 10)
-	public String getFoneComercial() {
-		return this.foneComercial;
-	}
-
-	public void setFoneComercial(String foneComercial) {
-		this.foneComercial = foneComercial;
-	}
-
-	@Column(name = "sexo", nullable = false, length = 1)
-	public String getSexo() {
-		return this.sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	@Column(name = "membroIgreja", nullable = false, length = 1)
-	public String getMembroIgreja() {
-		return this.membroIgreja;
-	}
-
-	public void setMembroIgreja(String membroIgreja) {
-		this.membroIgreja = membroIgreja;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dataNascimento")
-	public Date getDataNascimento() {
-		return this.dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNacimento) {
-		this.dataNascimento = dataNacimento;
-	}
-
-	@Column(name = "email", length = 60)
-	@Email(message = "E-mail inv√°lido!")
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public PequenoGrupo getPequenoGrupo() {
-		return pequenoGrupo;
-	}
-
-	public void setPequenoGrupo(PequenoGrupo pequenoGrupo) {
-		this.pequenoGrupo = pequenoGrupo;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public String getBatizado() {
-		return batizado;
-	}
-
-	public void setBatizado(String batizado) {
-		this.batizado = batizado;
-	}
-
-	public Date getDataBatismo() {
-		return dataBatismo;
-	}
-
-	public void setDataBatismo(Date dataBatismo) {
-		this.dataBatismo = dataBatismo;
-	}
-
-	public String getTemFilho() {
-		return temFilho;
-	}
-
-	public void setTemFilho(String temFilho) {
-		this.temFilho = temFilho;
-	}
-
-	public String getModoConversao() {
-		return modoConversao;
-	}
-
-	public void setModoConversao(String modoConversao) {
-		this.modoConversao = modoConversao;
-	}
-
-	public int getMembrosBatizadoFamilia() {
-		return membrosBatizadoFamilia;
-	}
-
-	public void setMembrosBatizadoFamilia(int membrosBatizadoFamilia) {
-		this.membrosBatizadoFamilia = membrosBatizadoFamilia;
-	}
-
-	public String getPai() {
-		return pai;
-	}
-
-	public void setPai(String pai) {
-		this.pai = pai;
-	}
-
-	public String getMae() {
-		return mae;
-	}
-
-	public void setMae(String mae) {
-		this.mae = mae;
-	}
-
-	public Pastor getPastor() {
-		return pastor;
-	}
-
-	public void setPastor(Pastor pastor) {
-		this.pastor = pastor;
-	}
-
-	public String getAmigoContato() {
-		return amigoContato;
-	}
-
-	public void setAmigoContato(String amigoContato) {
-		this.amigoContato = amigoContato;
+	public Long getId() {
+		return this.idMembro;
 	}
 
 	public List<Chamada> getChamadas() {
@@ -305,14 +176,6 @@ public class Membro implements java.io.Serializable {
 
 	public void setChamadas(List<Chamada> chamadas) {
 		this.chamadas = chamadas;
-	}
-
-	public String getInteresse() {
-		return interesse;
-	}
-
-	public void setInteresse(String interesse) {
-		this.interesse = interesse;
 	}
 
 }
