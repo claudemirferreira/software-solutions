@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,21 +17,9 @@ import br.com.ss.centralaamar.service.IService;
 @Component
 public abstract class GenericBean<T extends AbstractEntity> implements Serializable {
 
-	private static final long serialVersionUID = -1229239475130268144L;
-	
-	/**
-	 * Alias para redirecionar para a tela de cadastro.
-	 */
-	public static final String CADASTRO = "create.jsf";
-
-	/**
-	 * Alias para redirecionar para a tela de pesquisa. */
-	public static final String PESQUISA = "search.jsf";
 	/* ---------- Atributos ----------------------- */
 
-//	@Inject
-//	@Autowired
-//	protected Conversation conversation;	// TODO conversation
+	private static final long serialVersionUID = -1229239475130268144L;
 
 	/** Entity usado no cadastro. */
 	@Getter
@@ -50,7 +36,10 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	@Getter 
 	protected List<T> resultList;
 	
-	
+//	@Inject
+//	@Autowired
+//	protected Conversation conversation;	// TODO conversation
+
 	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
@@ -89,7 +78,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 			getService().save(entity);
 			init();
 			// TODO enviar msg de sucesso
-			return PESQUISA;
+			return resolveNavigation(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +102,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	 */
 	public String cadastrar() {
 		this.initEntity();
-		return CADASTRO;
+		return resolveNavigation(true);
 	}
 
 	/**
@@ -123,9 +112,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	 */
 	public String editar(T entity) {
 		this.entity = entity;
-		System.out.println(">> editar: " + entity );
-		
-		return "http://localhost:8080/centralaamar/pages/pastor/" + CADASTRO;
+		return resolveNavigation(true);
 	}
 
 	/**
@@ -135,12 +122,16 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	public String cancel() {
 //		endConversation();
 		init();
-		return PESQUISA;
+		return resolveNavigation(false);
 	}
 
 	
 	/* ---------- Others ------------- */
-
-
+	protected String resolveNavigation(boolean crud ) {
+		String url = "/pages/" + entity.getClass().getSimpleName().toLowerCase() + "/";
+		url += crud ? "create.jsf" : "search.jsf";
+		return url;
+	}
+	
 	
 }

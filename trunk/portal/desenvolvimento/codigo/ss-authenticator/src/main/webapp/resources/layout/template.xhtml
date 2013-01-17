@@ -4,20 +4,8 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:pe="http://primefaces.org/ui/extensions">
+	  xmlns:p="http://primefaces.org/ui">
 
-	<!--
-	<pe:head title=":: Authenticator :: #{empty pageTitle ? '*' : pageTitle}" shortcutIcon="#{resource['favicon.ico']}" >
-		<f:facet name="first">
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <meta http-equiv="pragma" content="no-cache"/>
-            <meta http-equiv="cache-control" content="no-cache"/>
-            <meta http-equiv="expires" content="0"/>
-		</f:facet>
-	</pe:head>
-	-->
-	
 	<h:head>
 		
 		<title>:: Authenticator :: #{empty pageTitle ? '*' : pageTitle}</title>
@@ -41,25 +29,24 @@
 	
 	<h:body>
 	
-		<p:layout fullPage="true">
-
-			<p:layoutUnit position="north" size="60">
-				<h:outputText value="Header content." />
-			</p:layoutUnit>
 	
-			<p:layoutUnit position="south" size="30">
-				<h:outputText value="Footer content." />
-			</p:layoutUnit>
-	
-			<p:layoutUnit position="west">
-				<h:outputText value="Menu content." />
-			</p:layoutUnit>
-	
-			<p:layoutUnit position="center">
-				<ui:insert name="content"/>
-			</p:layoutUnit>
-	
-		</p:layout>  
+		<table>
+			<tr>
+				<td>
+					<h:outputText value="Header content." />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ui:insert name="content"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputText value="Footer content." />
+				</td>
+			</tr>
+		</table>
 		
 	</h:body>
 </html>

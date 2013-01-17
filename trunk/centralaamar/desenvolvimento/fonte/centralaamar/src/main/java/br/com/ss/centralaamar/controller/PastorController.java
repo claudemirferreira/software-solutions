@@ -37,7 +37,8 @@ import br.com.ss.centralaamar.service.PastorService;
 
 @Controller
 @Named
-@ConversationScoped
+//@ConversationScoped
+@Scope("session")
 public class PastorController extends GenericBean<Pastor> {
 
 	private static final Logger logger = LoggerFactory.getLogger(PastorController.class);
