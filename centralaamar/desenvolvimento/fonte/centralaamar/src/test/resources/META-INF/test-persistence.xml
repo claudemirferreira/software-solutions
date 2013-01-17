@@ -5,8 +5,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>br.com.ss.centralaamar.domain.Member</class>
         <properties>
-        <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="update" />
+        <!-- Properties for Hibernate 
+         <property name="hibernate.hbm2ddl.auto" value="update" /> -->
          <property name="hibernate.show_sql" value="true" />
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
         </properties>
