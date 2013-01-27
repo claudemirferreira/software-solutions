@@ -4,10 +4,12 @@
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<cc:interface>
+	<cc:interface componentType="">
 	
 		<cc:attribute name="id" required="false" default="id" />
 		<cc:attribute name="label" required="true" default="falta definir label" />	
@@ -18,7 +20,7 @@
 		<cc:attribute name="align" default="left" />
 		<cc:attribute name="maxlength" required="false" default="50" />
 		
-		<cc:attribute name="type" default="text" required="false"  />
+		<cc:attribute name="type" default="text" required="false"   />
 		<cc:attribute name="datePattern" default="dd-MM-yyyy" required="false"  />
 		
 	</cc:interface>
@@ -32,21 +34,26 @@
 			 		<h:outputText value="  * " styleClass="input_required" rendered="#{cc.attrs.required}" />
 		 		</p:column>
 		 		
-		 		<p:column rendered="#{cc.attrs.type eq 'text'}">
-					<p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" size="#{cc.attrs.size}">
-						<ui:insert />
-					</p:inputText>
-					<h:message for="#{cc.attrs.id}" styleClass="error"  />
-		 		</p:column>
 		 		
+			 		<p:column rendered="#{cc.attrs.type eq 'text'}">
+						<p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" size="#{cc.attrs.size}">
+							<ui:insert />
+						</p:inputText>
+						<h:message for="#{cc.attrs.id}" styleClass="error"  />
+			 		</p:column>
+			 		
 		 		
-		 		<p:column rendered="#{cc.attrs.type eq 'date'}">
-		 			<p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" pattern="#{datePattern}" >
-		 				<ui:insert />
-		 			</p:calendar>
-					<h:message for="#{cc.attrs.id}" styleClass="error"  />
-		 		</p:column>
+		 			<!-- 
+		 				 *#{cc.attrs.type}**#{cc.attrs.type eq 'date'}*
 		 		
+			 		<p:column rendered="#{cc.attrs.type eq 'date'}">
+			 			<p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" pattern="#{datePattern}" >
+			 				<ui:insert />
+			 			</p:calendar>
+						<h:message for="#{cc.attrs.id}" styleClass="error"  />
+			 		</p:column>
+			 		
+		 			 -->
 		 		
 		</h:panelGrid>
 		
