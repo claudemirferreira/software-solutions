@@ -11,12 +11,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.Getter;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 
+@Repository
 public abstract class AbstractDAO<T extends AbstractEntity> implements Serializable, IAbstractDAO<T> {
 	
-
 	@Getter
 	protected Class<T> persistentClass;
 	

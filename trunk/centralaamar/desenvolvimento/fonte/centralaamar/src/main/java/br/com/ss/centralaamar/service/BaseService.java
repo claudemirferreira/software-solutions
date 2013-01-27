@@ -5,10 +5,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.ss.centralaamar.message.DefaultMessage;
 import br.com.ss.centralaamar.model.dao.IAbstractDAO;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 
+@Service
 public abstract class BaseService<T extends AbstractEntity> implements Serializable, IService<T> {
 
 //	@Inject 
@@ -22,7 +26,7 @@ public abstract class BaseService<T extends AbstractEntity> implements Serializa
 		getDao();
 	}
 	
-	
+	@Transactional
 	@Override
 	public void save(T entity) {
 		try {
@@ -42,7 +46,8 @@ public abstract class BaseService<T extends AbstractEntity> implements Serializa
 		return getDao().searchByEntity(entity);
 	}
 	
-	
+
+	@Transactional
 	@Override
 	public void remove( T entity ) {
 		try {
