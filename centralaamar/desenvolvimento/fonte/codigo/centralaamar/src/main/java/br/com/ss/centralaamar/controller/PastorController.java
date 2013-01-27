@@ -16,15 +16,11 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ss.centralaamar.exception.ValidationException;
-import br.com.ss.centralaamar.model.dao.IAbstractDAO;
-import br.com.ss.centralaamar.model.dao.IPastorDAO;
 import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.service.IService;
 
@@ -33,40 +29,13 @@ import br.com.ss.centralaamar.service.IService;
 @Scope("session")
 public class PastorController extends GenericBean<Pastor> {
 
-	private static final Logger logger = LoggerFactory.getLogger(PastorController.class);
-
-	@Autowired
-	private IPastorDAO dao;
-
 	@Autowired
 	private IService<Pastor> service;
-
-	@Override
-	public void init() {
-		this.search();
-	}
-
-	@Override
-	protected void initEntity() {
-		this.entity = new Pastor();
-		this.search = new Pastor();
-	}
-
-	@Override
-	protected IAbstractDAO<Pastor> getDAO() {
-		return dao;
-	}
 
 	@Override
 	protected IService<Pastor> getService() {
 		return service;
 	}
-
-	public String getMessage() {
-		logger.debug("Returning message from pequenoGrupo home bean");
-		return "Hello from Spring";
-	}
-
 
 	public String save() {
 		try {

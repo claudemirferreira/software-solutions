@@ -1,43 +1,38 @@
 package br.com.ss.centralaamar.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
 
-@Component
-public class PequenoGrupoDAO {
+@Repository
+public class PequenoGrupoDAO  extends AbstractDAO<PequenoGrupo> implements IPequenoGrupoDAO  {
 
-	@PersistenceContext
-	private EntityManager entityManager;
 
-	@Transactional
-	public void save(PequenoGrupo pequenoGrupo) {
-		entityManager.persist(pequenoGrupo);
-	}
-
-	@Transactional
-	public void merge(PequenoGrupo pequenoGrupo) {
-		entityManager.merge(pequenoGrupo);
-	}
-
-	@Transactional
-	public void remove(PequenoGrupo pequenoGrupo) {
-		PequenoGrupo entity = entityManager.merge(pequenoGrupo);
-		entityManager.remove(entity);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<PequenoGrupo> list() {
-		Query q = entityManager
-				.createQuery("select r from PequenoGrupo r order by r.descricao");
+	@Override
+	public List<PequenoGrupo> searchByEntity(PequenoGrupo entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+		
+		s.append(" select pg from PequenoGrupo pg ");
+		if ( notEmpty(entity.getDescricao()) ) {
+			condictions.add(" lower(p.descricao) like :desc ");
+		}
+		
+		String orderBy = " order by p.descricao ";
+		
+		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
+		
+		if ( notEmpty(entity.getDescricao() ) ) {
+			q.setParameter("nome", "%" + entity.getDescricao().trim().toLowerCase() + "%" );
+		}
+		
 		return q.getResultList();
 	}
+
 
 }
