@@ -1,6 +1,7 @@
 package br.com.ss.centralaamar.controller;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,14 +25,17 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	/** Entity usado no cadastro. */
 	@Getter
 	protected T entity;
+	
+	/** Entity usado na pesquisa. */
+	@Getter
+	protected T search;
 
+	private Class<T> entityClass;
+	
 	@Getter
 	@Setter
 	protected T itemToRemove;
 
-	/** Entity usado na pesquisa. */
-	@Getter
-	protected T search;
 
 	@Getter 
 	protected List<T> resultList;
@@ -43,18 +47,24 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
-	protected void setup() {
+	protected void setup() throws InstantiationException, IllegalAccessException {
 //		initConversation();
 		initEntity();
 		init();
 
 	}
 
-	protected abstract void init();
+	public void init() {
+		this.search();
+	}
 
-	protected abstract void initEntity();
-
-	protected abstract IAbstractDAO<T> getDAO();
+	protected void initEntity() throws InstantiationException, IllegalAccessException {
+		this.entity = entityClass.newInstance();
+		this.search = entityClass.newInstance();
+		
+	}
+	
+//	protected abstract IAbstractDAO<T> getDAO();
 
 	protected abstract IService<T> getService();
 	
@@ -69,6 +79,19 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 //		conversation.end();
 //	}
 
+	
+	
+	private void instanciateEntityClass() {
+		if ( getClass().getGenericSuperclass() instanceof ParameterizedType ) {
+			ParameterizedType paramType = (ParameterizedType)  getClass().getGenericSuperclass();
+			entityClass = (Class<T>) paramType.getActualTypeArguments()[0];
+		} else if ( getClass().getSuperclass().getGenericSuperclass() instanceof ParameterizedType ) {
+			ParameterizedType paramType = (ParameterizedType)  getClass().getSuperclass().getGenericSuperclass();
+			entityClass = (Class<T>) paramType.getActualTypeArguments()[0];
+		}
+	}
+	
+	
 	public void search() {
 		this.resultList = getService().search(search);
 	}
@@ -99,8 +122,10 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	/**
 	 * Metodo utilizado para ir para a tela de cadastra da entidade.
 	 * @return string.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public String cadastrar() {
+	public String cadastrar() throws InstantiationException, IllegalAccessException {
 		this.initEntity();
 		return resolveNavigation(true);
 	}

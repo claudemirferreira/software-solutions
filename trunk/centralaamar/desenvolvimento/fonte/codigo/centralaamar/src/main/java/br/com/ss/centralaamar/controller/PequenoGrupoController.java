@@ -2,10 +2,9 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -16,113 +15,24 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.com.ss.centralaamar.exception.ValidationException;
-import br.com.ss.centralaamar.model.dao.PequenoGrupoDAO;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
+import br.com.ss.centralaamar.service.IService;
 
 @Component("pequenoGrupoController")
+@Named
 @Scope("session")
-public class PequenoGrupoController {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(PequenoGrupoController.class);
-
-	private PequenoGrupo pequenoGrupo = new PequenoGrupo();
-	private List<PequenoGrupo> pequenoGrupos;
-	private PequenoGrupo selected;
+public class PequenoGrupoController extends GenericBean<PequenoGrupo>  {
 
 	@Autowired
-	private PequenoGrupoDAO pequenoGrupoDAO;
+	private IService<PequenoGrupo> service;
 
-	public String getMessage() {
-		logger.debug("Returning message from pequenoGrupo home bean");
-		return "Hello from Spring";
-	}
-
-	public PequenoGrupo getPequenoGrupo() {
-		return pequenoGrupo;
-	}
-
-	public void save() {
-		try {
-			// PequenoGrupoValidator.validarCampos(pequenoGrupo);
-
-			this.pequenoGrupo.setDescricao(this.pequenoGrupo.getDescricao());
-
-			if (this.pequenoGrupo.getId() == null)
-				pequenoGrupoDAO.save(this.pequenoGrupo);
-			else
-				pequenoGrupoDAO.merge(this.pequenoGrupo);
-			this.pequenoGrupo = new PequenoGrupo();
-			this.pequenoGrupos = pequenoGrupoDAO.list();
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-							"Dados salvos com sucesso !"));
-		} catch (ValidationException e) {
-			System.out.println(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
-							.getMessage()));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
-							.getMessage()));
-		}
-
-	}
-
-	public String listAll() {
-		this.pequenoGrupos = pequenoGrupoDAO.list();
-		return "listaAllPequenoGrupo";
-	}
-
-	public String editar() {
-		this.pequenoGrupo = this.selected;
-		this.selected = new PequenoGrupo();
-		return "edit";
-	}
-
-	public void remove() {
-		this.pequenoGrupo = this.selected;
-		pequenoGrupoDAO.remove(this.pequenoGrupo);
-		this.pequenoGrupos = pequenoGrupoDAO.list();
-
-	}
-
-	public List<PequenoGrupo> getPequenoGrupos() {
-		if (this.pequenoGrupos == null)
-			this.pequenoGrupos = pequenoGrupoDAO.list();
-		return this.pequenoGrupos;
-	}
-
-	public void setPequenoGrupos(List<PequenoGrupo> pequenoGrupos) {
-		this.pequenoGrupos = pequenoGrupos;
-	}
-
-	public String clean() {
-		this.pequenoGrupo = new PequenoGrupo();
-		return "edit";
-	}
-
-	public PequenoGrupo getSelected() {
-		return selected;
-	}
-
-	public void setSelected(PequenoGrupo selected) {
-		this.selected = selected;
-	}
-
-	public void setPequenoGrupo(PequenoGrupo pequenoGrupo) {
-		this.pequenoGrupo = pequenoGrupo;
+	@Override
+	protected IService<PequenoGrupo> getService() {
+		return service;
 	}
 
 	public void print() {
@@ -143,7 +53,7 @@ public class PequenoGrupoController {
 			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
-					null, new JRBeanCollectionDataSource(this.pequenoGrupos));
+					null, new JRBeanCollectionDataSource(this.resultList));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);

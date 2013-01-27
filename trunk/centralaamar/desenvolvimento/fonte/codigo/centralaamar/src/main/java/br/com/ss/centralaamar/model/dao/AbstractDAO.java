@@ -16,9 +16,12 @@ import org.springframework.stereotype.Repository;
 import lombok.Getter;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 
+@SuppressWarnings("unchecked")
 @Repository
 public abstract class AbstractDAO<T extends AbstractEntity> implements Serializable, IAbstractDAO<T> {
-	
+
+	private static final long serialVersionUID = -6314171287987529278L;
+
 	@Getter
 	protected Class<T> persistentClass;
 	
