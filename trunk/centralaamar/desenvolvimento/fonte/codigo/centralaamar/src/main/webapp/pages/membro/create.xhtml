@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/register_template.xhtml">
+
+	<ui:param name="pageTitle" value="Cadastro de Membro"/>
+	<ui:param name="pageHeader" value="Cadastro de Membro"/>
+	<ui:param name="managedBean" value="#{membroController}"/>
+
+	<ui:define name="register_region">
+		
+		<p:panel header="Dados do Membro">
+		
+			<fpf2:input id="Nome" 
+						value="#{managedBean.entity.nome}" 
+						maxlength="100"
+						label="Nome"
+						required="true"/>
+						
+			<fpf2:input id="Mae" 
+						value="#{membroController.entity.mae}" 
+						maxlength="100"
+						label="Mãe" />
+					
+			<fpf2:input id="Pai" 
+						value="#{membroController.entity.pai}" 
+						maxlength="100"
+						label="Pai" />
+			
+			<fpf2:input id="Endereco" 
+						value="#{membroController.entity.endereco}" 
+						maxlength="200"
+						label="Endereço" />
+								
+			<fpf2:input id="Bairro" 
+						value="#{membroController.entity.bairro}" 
+						maxlength="30"
+						label="Bairro" />
+			
+			<fpf2:input id="Celular" 
+						value="#{membroController.entity.celular}" 
+						maxlength="10"
+						label="Celular" />
+						
+			<fpf2:input id="FoneResidencial" 
+						value="#{membroController.entity.foneResidencial}" 
+						maxlength="10"
+						label="Fone Residencial" />
+						
+			<fpf2:input id="FoneComercial" 
+						value="#{membroController.entity.foneComercial}" 
+						maxlength="10"
+						label="Fone Comercial" />	
+			
+			<fpf2:input id="Email" 
+						value="#{membroController.entity.email}" 
+						maxlength="60"
+						label="E-mail" />
+						
+			<fpf2:input id="DataNascimento" 
+						value="#{membroController.entity.dataNascimento}" 
+						type="date"
+						label="Data de Nascimento" />
+									
+			<fpf2:comboBox id="Sexo" 
+							value="#{membroController.entity.sexo}" 
+							list="#{masculinoFemininoList}"
+							required="true"
+							label="Sexo" />					
+						
+			<fpf2:comboBox id="TemFilhos" 
+							value="#{membroController.entity.temFilho}" 
+							list="#{simNaoList}"
+							label="Tem Filhos"/>	
+							
+			<fpf2:comboBox id="MembroIgreja" 
+							value="#{membroController.entity.membroIgreja}" 
+							list="#{simNaoList}"
+							required="true"
+							label="Membro da Igreja"/>	
+				
+			<fpf2:input id="DataBatismo" 
+						value="#{membroController.entity.dataBatismo}" 
+						type="date"
+						label="Data de Batismo" />
+						
+			<fpf2:comboBox id="Batizado" 
+							value="#{membroController.entity.batizado}" 
+							list="#{batizadoList}"
+							required="true"
+							label="Batizado" />
+				
+			<fpf2:comboBox 	id="ModoConversao" 
+							value="#{membroController.entity.modoConversao}" 
+							list="#{modoConversaoList}"
+							label="Modo de Conversão" />
+				
+			<fpf2:input id="MembrosBatizadoFamilia" 
+						value="#{membroController.entity.email}" 
+						maxlength="255"
+						label="Membros Batizado na Família" />		
+						
+			<fpf2:input id="PessoaContato" 
+						value="#{membroController.entity.amigoContato}" 
+						maxlength="100"
+						label="Pessoa para Contato (Igreja)" />
+				
+			<fpf2:input id="cargoAOcuparIgreja" 
+						value="#{membroController.entity.interesse}" 
+						maxlength="50"
+						label="Cargo que gostaria de ocupar na Igreja" />			
+					
+			<fpf2:comboBox 	id="PequenoGrupo" 
+							value="#{membroController.entity.pequenoGrupo}" 
+							list="#{membroController.pequenoGrupoList}"
+							label="Pequeno Grupo" />
+					
+			<fpf2:comboBox 	id="Profissao" 
+							value="#{membroController.entity.profissao}" 
+							list="#{membroController.profissaoList}"
+							label="Profissão" />
+					
+			<fpf2:comboBox 	id="Pastor" 
+							value="#{membroController.entity.pastor}" 
+							list="#{membroController.pastorList}"
+							label="Pastor" />
+					
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>

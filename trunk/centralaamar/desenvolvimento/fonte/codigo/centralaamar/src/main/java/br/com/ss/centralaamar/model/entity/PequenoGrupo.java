@@ -29,14 +29,14 @@ public class PequenoGrupo extends AbstractEntity implements java.io.Serializable
 	private Long idPequenoGrupo;
 
 	@Getter @Setter
-	@Column(name = "descricao", nullable = false, length = 100)
-	private String descricao;
+	@Column(name = "nome", nullable = false, length = 100)
+	private String nome;
 
 	public PequenoGrupo() {
 	}
 
-	public PequenoGrupo(String descricao) {
-		this.descricao = descricao;
+	public PequenoGrupo(String nome) {
+		this.nome = nome;
 	}
 
 	@Override

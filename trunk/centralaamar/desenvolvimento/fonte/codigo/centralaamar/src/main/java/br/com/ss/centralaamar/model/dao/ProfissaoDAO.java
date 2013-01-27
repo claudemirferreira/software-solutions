@@ -1,54 +1,37 @@
 package br.com.ss.centralaamar.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ss.centralaamar.model.entity.Profissao;
 
 @Component
-public class ProfissaoDAO {
-
-	@PersistenceContext
-	private EntityManager entityManager;
-
-	@Transactional
-	public void save(Profissao profissao) {
-		entityManager.persist(profissao);
-	}
-
-	@Transactional
-	public void merge(Profissao profissao) {
-		entityManager.merge(profissao);
-	}
-
-	@Transactional
-	public void remove(Profissao profissao) {
-
-		try {
-			Profissao entity = entityManager.merge(profissao);
-			entityManager.remove(entity);
-			
-		} catch (org.hibernate.exception.ConstraintViolationException e) {
-			e.printStackTrace();
-		} catch (org.springframework.dao.DataIntegrityViolationException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-
-	}
+public class ProfissaoDAO extends AbstractDAO<Profissao> implements IProfissaoDAO {
 
 	@SuppressWarnings("unchecked")
-	public List<Profissao> list() {
-		return entityManager.createQuery(
-				"select t from Profissao t order by t.descricao")
-				.getResultList();
+	@Override
+	public List<Profissao> searchByEntity(Profissao entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+		
+		s.append(" select p from Profissao p ");
+		if ( notEmpty(entity.getNome()) ) {
+			condictions.add(" lower(p.nome) like :nome ");
+		}
+		
+		String orderBy = " order by p.nome ";
+		
+		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
+		
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase() + "%" );
+		}
+		
+		return q.getResultList();
 	}
 
 }

@@ -3,50 +3,67 @@ package br.com.ss.centralaamar.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import br.com.ss.centralaamar.component.Relatorio;
 import br.com.ss.centralaamar.model.entity.Membro;
-import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
 import br.com.ss.centralaamar.model.entity.Sabado;
 
-@Component
+@Repository
 public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 
-//	@PersistenceContext
-//	private EntityManager entityManager;
-//
-//	@Transactional
-//	public void save(Membro membro) {
-//		entityManager.persist(membro);
-//	}
-//
-//	@Transactional
-//	public void merge(Membro membro) {
-//		entityManager.merge(membro);
-//	}
-//
-//	@Transactional
-//	public void remove(Membro membro) {
-//		Membro entity = entityManager.merge(membro);
-//		entityManager.remove(entity);
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public List<Membro> list() {
-//		return entityManager.createQuery(
-//				"select t from Membro t order by t.nome").getResultList();
-//	}
-
 	@SuppressWarnings("unchecked")
-	public List<Membro> listAniversariantes(String dataInicial,
-			String dataFinal, String ano) {
+	@Override
+	public List<Membro> searchByEntity(Membro entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+		
+		s.append(" select m from Membro m ");
+		if ( notEmpty(entity.getNome()) ) {
+			condictions.add(" lower(m.nome) like :nome ");
+		}
+		if ( notEmpty(entity.getMae()) ) {
+			condictions.add(" lower(m.mae) like :mae ");
+		}
+		if ( notEmpty(entity.getPai()) ) {
+			condictions.add(" lower(m.pai) like :pai ");
+		}
+		if ( notEmpty(entity.getBatizado()) ) {
+			condictions.add(" m.batizado = :batizado ");
+		}
+		
+		// TODO demais campos
+		
+//		if ( notEmpty(entity.getDataBatismo() ) ) {
+//			condictions.add(" m.dataBatismo) like :dataBatismo ");
+//		}
+		
+		String orderBy = " order by m.nome ";
+		
+		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
+		
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase() + "%" );
+		}
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("mae", "%" + entity.getMae().trim().toLowerCase() + "%" );
+		}
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("pai", "%" + entity.getPai().trim().toLowerCase() + "%" );
+		}
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("batizado", entity.getBatizado().getId());
+		}
+		
+		return q.getResultList();
+	}
+
+	/* ---------------- */
+	@SuppressWarnings("unchecked")
+	public List<Membro> listAniversariantes(String dataInicial, String dataFinal, String ano) {
 		String sql = Relatorio.montarSql(dataInicial, dataFinal, ano);
 		List<Membro> membros = entityManager.createQuery(sql).getResultList();
 		return membros;
@@ -122,13 +139,6 @@ public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 		
 		listMembro = q.getResultList();
 		return listMembro;
-	}
-
-
-	@Override
-	public List<Membro> searchByEntity(Membro entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

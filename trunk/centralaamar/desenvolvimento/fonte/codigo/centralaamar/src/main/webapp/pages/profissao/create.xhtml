@@ -10,13 +10,13 @@
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Pequeno Grupo"/>
-	<ui:param name="pageHeader" value="Cadastro de Pequeno Grupo"/>
-	<ui:param name="managedBean" value="#{pequenoGrupoController}"/>
+	<ui:param name="pageTitle" value="Cadastro de Profissão"/>
+	<ui:param name="pageHeader" value="Cadastro de Profissão"/>
+	<ui:param name="managedBean" value="#{profissaoController}"/>
 
 	<ui:define name="register_region">
 		
-		<p:panel header="Dados do Pequeno Grupo">
+		<p:panel header="Dados do Profissão">
 		
 			<fpf2:input id="Nome" 
 						value="#{managedBean.entity.nome}" 

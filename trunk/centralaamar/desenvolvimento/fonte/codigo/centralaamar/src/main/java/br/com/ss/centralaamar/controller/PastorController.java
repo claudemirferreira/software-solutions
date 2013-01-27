@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 
 import br.com.ss.centralaamar.exception.ValidationException;
 import br.com.ss.centralaamar.model.entity.Pastor;
+import br.com.ss.centralaamar.service.IPastorService;
 import br.com.ss.centralaamar.service.IService;
 
 @Controller
@@ -30,7 +31,7 @@ import br.com.ss.centralaamar.service.IService;
 public class PastorController extends GenericBean<Pastor> {
 
 	@Autowired
-	private IService<Pastor> service;
+	private IPastorService service;
 
 	@Override
 	protected IService<Pastor> getService() {
