@@ -42,7 +42,7 @@
 						
 						<ui:insert name="search_filter" />
 	                    
-						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}" update=":formSearch:panelGrid :formSearch:msg" />
+						<p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.search}" update=":formSearch:panelGrid :formSearch:msg :formSearch:pnlButtons" />
 							
 						<p:defaultCommand target="btnSearh" />
 						
@@ -59,9 +59,11 @@
 			</h:panelGrid>
 			
 			<!-- ==== Button ======= -->
-			<h:panelGrid columns="2" cellpadding="2">
+			<h:panelGrid id="pnlButtons" columns="2" cellpadding="2">
 				<p:commandButton id="btnNew" value="Novo" action="#{managedBean.cadastrar}" ajax="false"/>
-				<p:commandButton id="btnPrint" value="Imprimir" action="#{managedBean.print}" ajax="false"/>
+				
+				<p:commandButton id="btnPrint" value="Imprimir" action="#{managedBean.print}" ajax="false" rendered="#{not empty managedBean.resultList}"/>
+				
 			</h:panelGrid>
 			
 		</h:form>

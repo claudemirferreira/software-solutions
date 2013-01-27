@@ -47,6 +47,8 @@
 				
 				<p:commandButton action="#{pastorController.editar(item)}" icon="ui-icon-pencil" title="Editar" />
 				
+				<p:spacer width="5px" />
+				
 				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
 															
 					<fpf2:confirmDialog targetItem="#{pastorController.itemToRemove}" 
