@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
+import br.com.ss.centralaamar.service.IPequenoGrupoService;
 import br.com.ss.centralaamar.service.IService;
 
 @Component("pequenoGrupoController")
@@ -28,11 +29,17 @@ import br.com.ss.centralaamar.service.IService;
 public class PequenoGrupoController extends GenericBean<PequenoGrupo>  {
 
 	@Autowired
-	private IService<PequenoGrupo> service;
+	private IPequenoGrupoService service;
 
 	@Override
 	protected IService<PequenoGrupo> getService() {
 		return service;
+	}
+	
+	@Override
+	public String save() {
+		entity.setNome(this.entity.getNome().toUpperCase());
+		return super.save();
 	}
 
 	public void print() {

@@ -6,18 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.centralaamar.model.dao.IAbstractDAO;
-import br.com.ss.centralaamar.model.dao.PastorDAO;
-import br.com.ss.centralaamar.model.entity.Pastor;
+import br.com.ss.centralaamar.model.dao.ProfissaoDAO;
+import br.com.ss.centralaamar.model.entity.Profissao;
 
 @Service
-public class PastorService  extends BaseService<Pastor> implements Serializable, IPastorService  {
+public class ProfissaoService  extends BaseService<Profissao> implements Serializable, IProfissaoService  {
 
 	@Autowired
-	private PastorDAO dao;
+	private ProfissaoDAO dao;
 	
 	
 	@Override
-	protected IAbstractDAO<Pastor> getDao() {
+	protected IAbstractDAO<Profissao> getDao() {
 		return dao;
 	}
 

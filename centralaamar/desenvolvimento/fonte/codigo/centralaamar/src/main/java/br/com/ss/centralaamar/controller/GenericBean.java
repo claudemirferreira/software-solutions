@@ -49,6 +49,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	@PostConstruct
 	protected void setup() throws InstantiationException, IllegalAccessException {
 //		initConversation();
+		instanciateEntityClass();
 		initEntity();
 		init();
 
@@ -84,9 +85,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements Serializa
 	private void instanciateEntityClass() {
 		if ( getClass().getGenericSuperclass() instanceof ParameterizedType ) {
 			ParameterizedType paramType = (ParameterizedType)  getClass().getGenericSuperclass();
-			entityClass = (Class<T>) paramType.getActualTypeArguments()[0];
-		} else if ( getClass().getSuperclass().getGenericSuperclass() instanceof ParameterizedType ) {
-			ParameterizedType paramType = (ParameterizedType)  getClass().getSuperclass().getGenericSuperclass();
 			entityClass = (Class<T>) paramType.getActualTypeArguments()[0];
 		}
 	}

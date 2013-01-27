@@ -19,6 +19,7 @@
 		<cc:attribute name="maxlength" required="false" default="50" />
 		
 		<cc:attribute name="type" default="text" required="false"  />
+		<cc:attribute name="datePattern" default="dd-MM-yyyy" required="false"  />
 		
 	</cc:interface>
 	
@@ -37,6 +38,15 @@
 					</p:inputText>
 					<h:message for="#{cc.attrs.id}" styleClass="error"  />
 		 		</p:column>
+		 		
+		 		
+		 		<p:column rendered="#{cc.attrs.type eq 'date'}">
+		 			<p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" pattern="#{datePattern}" >
+		 				<ui:insert />
+		 			</p:calendar>
+					<h:message for="#{cc.attrs.id}" styleClass="error"  />
+		 		</p:column>
+		 		
 		 		
 		</h:panelGrid>
 		

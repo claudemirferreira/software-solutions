@@ -19,16 +19,16 @@ public class PequenoGrupoDAO  extends AbstractDAO<PequenoGrupo> implements IPequ
 		List<String> condictions = new ArrayList<String>();
 		
 		s.append(" select pg from PequenoGrupo pg ");
-		if ( notEmpty(entity.getDescricao()) ) {
-			condictions.add(" lower(p.descricao) like :desc ");
+		if ( notEmpty(entity.getNome()) ) {
+			condictions.add(" lower(pg.nome) like :nome ");
 		}
 		
-		String orderBy = " order by p.descricao ";
+		String orderBy = " order by pg.nome ";
 		
 		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
 		
-		if ( notEmpty(entity.getDescricao() ) ) {
-			q.setParameter("nome", "%" + entity.getDescricao().trim().toLowerCase() + "%" );
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase() + "%" );
 		}
 		
 		return q.getResultList();

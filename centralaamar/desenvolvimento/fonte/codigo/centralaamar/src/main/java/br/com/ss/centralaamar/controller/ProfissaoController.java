@@ -2,10 +2,9 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -16,127 +15,31 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.hibernate.exception.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.com.ss.centralaamar.exception.ValidationException;
-import br.com.ss.centralaamar.model.dao.ProfissaoDAO;
 import br.com.ss.centralaamar.model.entity.Profissao;
+import br.com.ss.centralaamar.service.IProfissaoService;
+import br.com.ss.centralaamar.service.IService;
 
 @Component("profissaoController")
+@Named
 @Scope("session")
-public class ProfissaoController {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(ProfissaoController.class);
-
-	private Profissao profissao = new Profissao();
-	private List<Profissao> profissoes;
-	private Profissao selected;
+public class ProfissaoController extends GenericBean<Profissao>  {
 
 	@Autowired
-	private ProfissaoDAO profissaoDAO;
-
-	public String getMessage() {
-		logger.debug("Returning message from pequenoGrupo home bean");
-		return "Hello from Spring";
+	private IProfissaoService service;
+	
+	@Override
+	protected IService<Profissao> getService() {
+		return service;
 	}
 
-	public Profissao getProfissao() {
-		return profissao;
-	}
-
-	public void save() {
-		try {
-			// ProfissaoValidator.validarCampos(pequenoGrupo);
-
-			this.profissao.setDescricao(this.profissao.getDescricao());
-
-			if (this.profissao.getId() == null)
-				profissaoDAO.save(this.profissao);
-			else
-				profissaoDAO.merge(this.profissao);
-			this.profissao = new Profissao();
-			this.profissoes = profissaoDAO.list();
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-							"Dados salvos com sucesso !"));
-		} catch (ValidationException e) {
-			System.out.println(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
-							.getMessage()));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
-							.getMessage()));
-		}
-
-	}
-
-	public String listAll() {
-		this.profissoes = profissaoDAO.list();
-		return "listaAllProfissao";
-	}
-
-	public String editar() {
-		this.profissao = this.selected;
-		this.selected = new Profissao();
-		return "/pages/profissao/profissao.xhtml";
-	}
-
-	public void remove() {
-
-		this.profissao = this.selected;
-		try {
-			profissaoDAO.remove(this.profissao);
-			this.profissoes = profissaoDAO.list();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-
-			FacesContext
-					.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(FacesMessage.SEVERITY_ERROR,
-									"Erro",
-									"O registro não pode ser excluido, Favor entre em contato com o suporte"));
-		}
-
-	}
-
-	public List<Profissao> getProfissaos() {
-		if (this.profissoes == null)
-			this.profissoes = profissaoDAO.list();
-		return this.profissoes;
-	}
-
-	public void setProfissaos(List<Profissao> profissoes) {
-		this.profissoes = profissoes;
-	}
-
-	public String clean() {
-		this.profissao = new Profissao();
-		return "/pages/profissao/profissao.xhtml";
-	}
-
-	public Profissao getSelected() {
-		return selected;
-	}
-
-	public void setSelected(Profissao selected) {
-		this.selected = selected;
-	}
-
-	public void setProfissao(Profissao profissao) {
-		this.profissao = profissao;
+	@Override
+	public String save() {
+		this.entity.setNome(this.entity.getNome().toUpperCase());
+		return super.save();
 	}
 
 	public void print() {
@@ -151,13 +54,10 @@ public class ProfissaoController {
 			ServletContext servletContext = (ServletContext) facesContext
 					.getExternalContext().getContext();
 
-			// String pathJasper = servletContext
-			// .getRealPath("/WEB-INF/jasper/pequenoGrup.jasper");
-
 			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
-					null, new JRBeanCollectionDataSource(this.profissoes));
+					null, new JRBeanCollectionDataSource(this.resultList));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);

@@ -10,15 +10,15 @@
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Pequeno Grupo"/>
-	<ui:param name="pageHeader" value="Pequeno Grupo"/>
-	<ui:param name="managedBean" value="#{pequenoGrupoController}"/>
+	<ui:param name="pageTitle" value="Cadastro de Profissão"/>
+	<ui:param name="pageHeader" value="Profissão"/>
+	<ui:param name="managedBean" value="#{profissaoController}"/>
 	
 
 	<ui:define name="search_filter">
 		
 		<fpf2:input id="Nome" 
-					value="#{pequenoGrupoController.search.nome}" 
+					value="#{profissaoController.search.nome}" 
 					label="Nome" />
 
 	</ui:define>
@@ -29,7 +29,7 @@
  		
 		<p:dataTable id="grid" 
 					 var="item" 
-					 value="#{pequenoGrupoController.resultList}"
+					 value="#{profissaoController.resultList}"
 	                 rows="5" 
 	                 paginator="true"
 	                 paginatorPosition="bottom"
@@ -45,20 +45,20 @@
 	  
 	        <p:column style="text-align:center; width:100px" headerText="Ação">  
 				
-				<p:commandButton action="#{pequenoGrupoController.editar(item)}" icon="ui-icon-pencil" title="Editar" />
+				<p:commandButton action="#{profissaoController.editar(item)}" icon="ui-icon-pencil" title="Editar" />
 				
 				<p:spacer width="5px" />
 				
 				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
 															
-					<fpf2:confirmDialog targetItem="#{pequenoGrupoController.itemToRemove}" 
+					<fpf2:confirmDialog targetItem="#{profissaoController.itemToRemove}" 
 										selectedItem="#{item}" 
-										actionMethod="#{pequenoGrupoController.remove()}" />
+										actionMethod="#{profissaoController.remove()}" />
 				</p:commandButton>  
 	        </p:column>  
 	        
 	        <f:facet name="footer">
-	        	<h:outputText value="#{fn:length(pequenoGrupoController.resultList)} Registro(s) encontrado(s)." />  
+	        	<h:outputText value="#{fn:length(profissaoController.resultList)} Registro(s) encontrado(s)." />  
             </f:facet>
                  
 	    </p:dataTable>

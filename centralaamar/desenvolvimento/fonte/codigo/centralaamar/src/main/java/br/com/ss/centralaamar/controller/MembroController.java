@@ -2,148 +2,88 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.Getter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-import br.com.ss.centralaamar.component.Batizado;
-import br.com.ss.centralaamar.component.MembroIgreja;
-import br.com.ss.centralaamar.component.ModoConversao;
-import br.com.ss.centralaamar.component.Sexo;
-import br.com.ss.centralaamar.component.TemFilho;
-import br.com.ss.centralaamar.exception.MembrolValidator;
 import br.com.ss.centralaamar.exception.ValidationException;
-import br.com.ss.centralaamar.model.dao.MembroDAO;
-import br.com.ss.centralaamar.model.dao.PastorDAO;
-import br.com.ss.centralaamar.model.dao.PequenoGrupoDAO;
-import br.com.ss.centralaamar.model.dao.ProfissaoDAO;
+import br.com.ss.centralaamar.model.dao.IPastorDAO;
+import br.com.ss.centralaamar.model.dao.IPequenoGrupoDAO;
+import br.com.ss.centralaamar.model.dao.IProfissaoDAO;
 import br.com.ss.centralaamar.model.entity.Membro;
 import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
 import br.com.ss.centralaamar.model.entity.Profissao;
+import br.com.ss.centralaamar.service.IMembroService;
+import br.com.ss.centralaamar.service.IService;
 
-@Component("membroController")
+@Controller
+@Named
 @Scope("session")
-public class MembroController {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(MembroController.class);
-
-	private Membro membro = new Membro();
-	private PequenoGrupo pequenoGrupo;
-	private Profissao profissao;
-	private Pastor pastor;
-	private Membro selected;
-	private List<Membro> membros;
-	private List<PequenoGrupo> pequenoGrupos;
-	private List<Profissao> profissoes;
-	private List<Pastor> pastores = new ArrayList<Pastor>();
-	private List<Sexo> sexos = new ArrayList<Sexo>();
-	private List<Batizado> batizados = new ArrayList<Batizado>();
-	private List<MembroIgreja> membroIgrejas = new ArrayList<MembroIgreja>();
-	private List<TemFilho> temFilhos = new ArrayList<TemFilho>();
-	private List<ModoConversao> modoConversoes = new ArrayList<ModoConversao>();
+public class MembroController extends GenericBean<Membro> {
 
 	@Autowired
-	private MembroDAO membroDAO;
-	@Autowired
-	private PequenoGrupoDAO pequenoGrupoDAO;
-	@Autowired
-	private ProfissaoDAO profissaoDAO;
-	@Autowired
-	private PastorDAO pastorDAO;
+	private IMembroService service;
 
-	@PostConstruct
+	@Autowired
+	private IPequenoGrupoDAO pequenoGrupoDAO;
+
+	@Autowired
+	private IProfissaoDAO profissaoDAO;
+
+	@Autowired
+	private IPastorDAO pastorDAO;
+	
+	@Getter
+	private List<PequenoGrupo> pequenoGrupoList;
+
+	@Getter
+	private List<Profissao> profissaoList;
+
+	@Getter
+	private List<Pastor> pastorList;
+	
+	
+	@Override
 	public void init() {
-		this.pequenoGrupos = pequenoGrupoDAO.list();
-//		this.membros = membroDAO.list();
-		this.profissoes = profissaoDAO.list();
-//		this.pastores = pastorDAO.list();		// TODO 
-		this.membro = new Membro();
-		this.pequenoGrupo = new PequenoGrupo();
-		this.profissao = new Profissao();
-		this.pastor = new Pastor();
-		this.setSexos(getSexos());
-		this.setTemFilhos(getTemFilhos());
-		this.setModoConversoes(getModoConversoes());
+		super.init();
+		
+		this.pequenoGrupoList = pequenoGrupoDAO.listAll();
+		this.profissaoList = profissaoDAO.listAll();
+		this.pastorList = pastorDAO.listAll();
+	}
+	
+
+	@Override
+	protected IService<Membro> getService() {
+		return service;
 	}
 
-	public String getMessage() {
-		logger.debug("Returning message from pequenoGrupo home bean");
-		return "Hello from Spring";
-	}
-
-//	public void save() {
-//		try {
-//
-//			MembrolValidator.validarCampos(this.membro);
-//
-//			this.membro.setNome(this.membro.getNome().toUpperCase());
-//			if (this.pequenoGrupo.getId() > 0)
-//				this.membro.setPequenoGrupo(this.pequenoGrupo);
-//
-//			if (this.profissao.getId() > 0)
-//				this.membro.setProfissao(this.profissao);
-//
-//			if (this.pastor.getId() > 0)
-//				this.membro.setPastor(this.pastor);
-//
-//			if (this.membro.getId() == null)
-//				membroDAO.save(this.membro);
-//			else
-//				membroDAO.merge(this.membro);
-//			this.membro = new Membro();
-//			this.membros = membroDAO.list();
-//			FacesContext.getCurrentInstance().addMessage(
-//					null,
-//					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-//							"Dados salvos com sucesso !"));
-//			
-//		} catch (ValidationException e) {
-//			FacesContext.getCurrentInstance().addMessage(
-//					null,
-//					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
-//							.getMessage()));
-//		} catch (Exception e) {
-//			FacesContext.getCurrentInstance().addMessage(
-//					null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
-//							.getMessage()));
-//		}
-//
-//	}
-
-	public void findP() {
+	public String save() {
 		try {
-
-			this.membro.setNome(this.membro.getNome().toUpperCase());
+			this.entity.setNome(this.entity.getNome().toUpperCase());
 			
-			if (this.pequenoGrupo.getId() > 0)
-				this.membro.setPequenoGrupo(this.pequenoGrupo);
+			// TODO usar script para Uppercase nos inputs
 			
-			this.membros = membroDAO.listPesquisa(this.membro);
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-							"Dados salvos com sucesso !"));
+			return super.save();
 		} catch (ValidationException e) {
+			System.out.println(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
@@ -154,91 +94,9 @@ public class MembroController {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
 							.getMessage()));
 		}
+		
+		return null;
 
-	}
-
-	public void listAll() {
-//		this.membros = membroDAO.list();
-	}
-
-	public String editar() {
-		this.membro = this.selected;
-		if (this.selected.getProfissao() == null)
-			this.pequenoGrupo = new PequenoGrupo();
-		else
-			this.pequenoGrupo = this.selected.getPequenoGrupo();
-
-		if (this.selected.getProfissao() == null)
-			this.profissao = new Profissao();
-		else
-			this.profissao = this.selected.getProfissao();
-
-		if (this.selected.getPastor() == null)
-			this.pastor = new Pastor();
-		else
-			this.pastor = this.selected.getPastor();
-
-		return "/pages/membro/membro.xhtml";
-	}
-
-	public void remove() {
-		this.membro = this.selected;
-		membroDAO.remove(this.membro);
-//		this.membros = membroDAO.list();
-	}
-
-//	public List<Membro> getMembros() {
-//		if (this.membros == null)
-//			this.membros = membroDAO.list();
-//		return this.membros;
-//	}
-
-	public List<PequenoGrupo> getPequenoGrupos() {
-		if (this.pequenoGrupos == null)
-			this.pequenoGrupos = pequenoGrupoDAO.list();
-		return pequenoGrupos;
-	}
-
-	public void setMembros(List<Membro> membros) {
-		this.membros = membros;
-	}
-
-	public String clean() {
-		this.membro = new Membro();
-		return "/pages/membro/membro.xhtml";
-	}
-	
-	public String back() {
-		this.membro = new Membro();
-		return "/pages/membro/listMembro.xhtml";
-	}
-
-	public Membro getSelected() {
-		return selected;
-	}
-
-	public void setSelected(Membro selected) {
-		this.selected = selected;
-	}
-
-	public void setMembro(Membro membro) {
-		this.membro = membro;
-	}
-
-	public void setPequenoGrupos(List<PequenoGrupo> pequenoGrupos) {
-		this.pequenoGrupos = pequenoGrupos;
-	}
-
-	public Membro getMembro() {
-		return membro;
-	}
-
-	public void setPequenoGrupo(PequenoGrupo pequenoGrupo) {
-		this.pequenoGrupo = pequenoGrupo;
-	}
-
-	public PequenoGrupo getPequenoGrupo() {
-		return pequenoGrupo;
 	}
 
 	public void print() {
@@ -250,10 +108,14 @@ public class MembroController {
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			String pathJasper = "C:\\jasper\\membro.jasper";
+			ServletContext servletContext = (ServletContext) facesContext
+					.getExternalContext().getContext();
+
+			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
-					null, new JRBeanCollectionDataSource(this.membros));
+					null, new JRBeanCollectionDataSource(this.resultList));
+
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);
 
@@ -265,8 +127,10 @@ public class MembroController {
 					.getOutputStream();
 			servletOutPutStream.write(byteOutPutStream.toByteArray(), 0,
 					byteOutPutStream.size());
+
 			servletOutPutStream.flush();
 			servletOutPutStream.close();
+
 			FacesContext.getCurrentInstance().responseComplete();
 
 		} catch (JRException jrex) {
@@ -275,77 +139,4 @@ public class MembroController {
 			e.printStackTrace();
 		}
 	}
-
-	public Profissao getProfissao() {
-		return profissao;
-	}
-
-	public void setProfissao(Profissao profissao) {
-		this.profissao = profissao;
-	}
-
-	public List<Profissao> getProfissoes() {
-		return profissoes;
-	}
-
-	public void setProfissoes(List<Profissao> profissoes) {
-		this.profissoes = profissoes;
-	}
-
-	public List<Sexo> getSexos() {
-		return Sexo.list();
-	}
-
-	public void setSexos(List<Sexo> sexos) {
-		this.sexos = sexos;
-	}
-
-	public List<Batizado> getBatizados() {
-		return Batizado.list();
-	}
-
-	public void setBatizados(List<Batizado> batizados) {
-		this.batizados = batizados;
-	}
-
-	public List<MembroIgreja> getMembroIgrejas() {
-		return MembroIgreja.list();
-	}
-
-	public void setMembroIgrejas(List<MembroIgreja> membroIgrejas) {
-		this.membroIgrejas = membroIgrejas;
-	}
-
-	public List<TemFilho> getTemFilhos() {
-		return TemFilho.list();
-	}
-
-	public void setTemFilhos(List<TemFilho> temFilhos) {
-		this.temFilhos = temFilhos;
-	}
-
-	public List<ModoConversao> getModoConversoes() {
-		return ModoConversao.list();
-	}
-
-	public void setModoConversoes(List<ModoConversao> modoConversoes) {
-		this.modoConversoes = modoConversoes;
-	}
-
-	public Pastor getPastor() {
-		return pastor;
-	}
-
-	public void setPastor(Pastor pastor) {
-		this.pastor = pastor;
-	}
-
-	public List<Pastor> getPastores() {
-		return pastorDAO.listAll();
-	}
-
-	public void setPastores(List<Pastor> pastores) {
-		this.pastores = pastores;
-	}
-
 }

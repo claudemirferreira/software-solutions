@@ -44,5 +44,4 @@ public class Pastor extends AbstractEntity implements java.io.Serializable {
 		return getIdPastor();
 	}
 
-
 }
