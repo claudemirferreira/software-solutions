@@ -101,25 +101,25 @@ CREATE TABLE `grupo_membro` (
 DROP TABLE IF EXISTS `membro`;
 CREATE TABLE `membro` (
   `mem_id` int(11) NOT NULL AUTO_INCREMENT,
-  `amigoContato` varchar(255) DEFAULT NULL,
-  `bairro` varchar(255) DEFAULT NULL,
-  `batizado` varchar(255) DEFAULT NULL,
-  `celular` varchar(255) DEFAULT NULL,
-  `dataBatismo` datetime DEFAULT NULL,
-  `dataNascimento` datetime DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `endereco` varchar(255) DEFAULT NULL,
-  `foneComercial` varchar(255) DEFAULT NULL,
-  `foneResidencial` varchar(255) DEFAULT NULL,
+  `amigo_contato` varchar(100) DEFAULT NULL,
+  `bairro` varchar(100) DEFAULT NULL,
+  `batizado` varchar(1) DEFAULT NULL,
+  `celular` varchar(10) DEFAULT NULL,
+  `data_batismo` datetime DEFAULT NULL,
+  `data_nascimento` datetime DEFAULT NULL,
+  `email` varchar(60) DEFAULT NULL,
+  `endereco` varchar(100) DEFAULT NULL,
+  `fone_comercial` varchar(10) DEFAULT NULL,
+  `fone_residencial` varchar(10) DEFAULT NULL,
   `interesse` varchar(30) DEFAULT NULL,
-  `mae` varchar(255) DEFAULT NULL,
-  `membroIgreja` varchar(255) DEFAULT NULL,
-  `membrosBatizadoFamilia` int(11) NOT NULL,
-  `modoConversao` varchar(255) DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `pai` varchar(255) DEFAULT NULL,
-  `sexo` varchar(255) DEFAULT NULL,
-  `temFilho` varchar(255) DEFAULT NULL,
+  `mae` varchar(60) DEFAULT NULL,
+  `membro_igreja` int(1) DEFAULT NULL,
+  `membros_batizado_familia` varchar(60) NOT NULL,
+  `modo_conversao` varchar(1) DEFAULT NULL,
+  `nome` varchar(60) NOT NULL,
+  `pai` varchar(60) DEFAULT NULL,
+  `sexo` int(1) DEFAULT NULL,
+  `tem_filho` int(1) DEFAULT NULL,
   `past_id` int(11) DEFAULT NULL,
   `peq_id` int(11) DEFAULT NULL,
   `pro_id` int(11) DEFAULT NULL,
@@ -206,7 +206,7 @@ INSERT INTO `pastor` (`past_id`,`nome`) VALUES
 DROP TABLE IF EXISTS `pequenogrupo`;
 CREATE TABLE `pequenogrupo` (
   `peq_id` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(100) NOT NULL,
+  `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`peq_id`),
   UNIQUE KEY `peq_id` (`peq_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -216,7 +216,7 @@ CREATE TABLE `pequenogrupo` (
 --
 
 /*!40000 ALTER TABLE `pequenogrupo` DISABLE KEYS */;
-INSERT INTO `pequenogrupo` (`peq_id`,`descricao`) VALUES 
+INSERT INTO `pequenogrupo` (`peq_id`,`nome`) VALUES 
  (1,'PREPARA TE PARA ETERNIDADE'),
  (2,'MANANCIAL DE BENÇÃO');
 /*!40000 ALTER TABLE `pequenogrupo` ENABLE KEYS */;
@@ -229,7 +229,7 @@ INSERT INTO `pequenogrupo` (`peq_id`,`descricao`) VALUES
 DROP TABLE IF EXISTS `pergunta`;
 CREATE TABLE `pergunta` (
   `perg_id` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`perg_id`),
   UNIQUE KEY `perg_id` (`perg_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -249,7 +249,7 @@ CREATE TABLE `pergunta` (
 DROP TABLE IF EXISTS `profissao`;
 CREATE TABLE `profissao` (
   `pro_id` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(255) DEFAULT NULL,
+  `nome` varchar(60) NOT NULL,
   PRIMARY KEY (`pro_id`),
   UNIQUE KEY `pro_id` (`pro_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
@@ -259,7 +259,7 @@ CREATE TABLE `profissao` (
 --
 
 /*!40000 ALTER TABLE `profissao` DISABLE KEYS */;
-INSERT INTO `profissao` (`pro_id`,`descricao`) VALUES 
+INSERT INTO `profissao` (`pro_id`,`nome`) VALUES 
  (1,'ANALISTA DE SISTEMAS'),
  (2,'ADVOGADO(A)'),
  (3,'DESEMPREGADO(A)'),
