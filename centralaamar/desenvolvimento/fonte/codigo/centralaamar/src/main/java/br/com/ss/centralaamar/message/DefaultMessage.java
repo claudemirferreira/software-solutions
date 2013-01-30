@@ -8,10 +8,10 @@ public final class DefaultMessage {
 	
 
 	/** Msg de sucesso. */
-	public static final String MSG_SUCESSO = "Operação realizada com sucesso.";
+	public static final String MSG_SUCESSO = "Operacao realizada com sucesso.";
 
 	/** Msg de sucesso. */
-	public static final String MSG_ERRO = "Ocorreu um erro! Não foi possível realizar a operação.";
+	public static final String MSG_ERRO = "Ocorreu um erro! N�o foi possível realizar a operação.";
 	
 	/** Msg de sucesso. */
 	public static final String MSG_CONSTRAINT_VIOLATION = "O registro não pode ser excluído pois o mesmo é referenciado em outras partes do sistema.";
