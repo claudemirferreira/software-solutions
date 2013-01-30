@@ -25,7 +25,7 @@ public class Pergunta extends AbstractEntity implements java.io.Serializable {
 	private Long idPergunta;
 
 	@Getter @Setter
-	@Column(name = "nome", nullable = false, length = 100)
+	@Column(unique = true, name = "nome", nullable = false, length = 100)
 	private String nome;
 	
 	public Pergunta() {

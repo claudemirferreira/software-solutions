@@ -29,7 +29,7 @@ public class Profissao extends AbstractEntity implements java.io.Serializable {
 	private Long idProfissao;
 
 	@Getter @Setter
-	@Column(name = "nome", nullable = false, length = 100)
+	@Column(unique = true, name = "nome", nullable = false, length = 100)
 	private String nome;
 	
 
