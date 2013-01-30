@@ -1,33 +1,4 @@
 
-    create table centralaamar.Eleitor (
-        ele_id bigint not null auto_increment,
-        bairro varchar(30),
-        celular varchar(10),
-        comercial varchar(10),
-        nome varchar(60) not null,
-        numero varchar(6),
-        residencial varchar(10),
-        rua varchar(30),
-        secao varchar(4) not null,
-        titulo varchar(15) not null,
-        zona varchar(3) not null,
-        loc_id integer,
-        res_id integer,
-        primary key (ele_id)
-    );
-
-    create table centralaamar.Local (
-        loc_id integer not null auto_increment,
-        nome varchar(60) not null,
-        primary key (loc_id)
-    );
-
-    create table centralaamar.Responsavel (
-        res_id integer not null auto_increment,
-        nome varchar(60) not null,
-        primary key (res_id)
-    );
-
     create table centralaamar.chamada (
         cham_id integer not null auto_increment unique,
         presente bit,
