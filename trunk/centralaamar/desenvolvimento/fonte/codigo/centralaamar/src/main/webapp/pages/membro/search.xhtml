@@ -18,18 +18,18 @@
 	<ui:define name="search_filter">
 		
 		<fpf2:input id="Nome" 
-					value="#{membroController.search.nome}" 
+					value="#{managedBean.search.nome}" 
 					label="Nome" />
 
 		<fpf2:input id="Mae" 
-					value="#{membroController.search.mae}" 
+					value="#{managedBean.search.mae}" 
 					label="Mãe" />
 					
 		<fpf2:input id="Pai" 
-					value="#{membroController.search.pai}" 
+					value="#{managedBean.search.pai}" 
 					label="Pai" />
 			
-		<fpf2:comboBox value="#{membroController.search.batizado}" 
+		<fpf2:comboBox value="#{managedBean.search.batizado}" 
 						list="#{simNaoList}"
 						label="Batizado"/>		
 					
@@ -43,7 +43,7 @@
  		
 		<p:dataTable id="grid" 
 					 var="item" 
-					 value="#{membroController.resultList}"
+					 value="#{managedBean.resultList}"
 	                 rows="5" 
 	                 paginator="true"
 	                 paginatorPosition="bottom"
@@ -73,20 +73,20 @@
 	  
 	        <p:column style="text-align:center; width:100px" headerText="Ação">  
 				
-				<p:commandButton action="#{membroController.editar(item)}" icon="ui-icon-pencil" title="Editar" />
+				<p:commandButton action="#{managedBean.editar(item)}" icon="ui-icon-pencil" title="Editar" />
 				
 				<p:spacer width="5px" />
 				
 				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
 															
-					<fpf2:confirmDialog targetItem="#{membroController.itemToRemove}" 
+					<fpf2:confirmDialog targetItem="#{managedBean.itemToRemove}" 
 										selectedItem="#{item}" 
-										actionMethod="#{membroController.remove()}" />
+										actionMethod="#{managedBean.remove()}" />
 				</p:commandButton>  
 	        </p:column>  
 	        
 	        <f:facet name="footer">
-	        	<h:outputText value="#{fn:length(membroController.resultList)} Registro(s) encontrado(s)." />  
+	        	<h:outputText value="#{fn:length(managedBean.resultList)} Registro(s) encontrado(s)." />  
             </f:facet>
                  
 	    </p:dataTable>
