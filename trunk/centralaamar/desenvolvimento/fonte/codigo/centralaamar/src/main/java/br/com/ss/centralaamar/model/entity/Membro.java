@@ -8,7 +8,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,9 +22,6 @@ import lombok.Setter;
 
 import org.hibernate.validator.constraints.Email;
 
-import br.com.ss.centralaamar.domain.BatizadoDomain;
-import br.com.ss.centralaamar.domain.MasculinoFemininoDomain;
-import br.com.ss.centralaamar.domain.ModoConversaoDomain;
 import br.com.ss.centralaamar.domain.SimNaoDomain;
 
 /**
@@ -33,122 +29,150 @@ import br.com.ss.centralaamar.domain.SimNaoDomain;
  */
 @Entity
 @Table(name = "membro", catalog = "centralaamar")
-public class Membro  extends AbstractEntity implements java.io.Serializable {
-	
+public class Membro extends AbstractEntity implements java.io.Serializable {
+
 	private static final long serialVersionUID = -9176551890483396580L;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "mem_id", unique = true, nullable = false)
 	private Long idMembro;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Column(name = "nome", nullable = false, length = 100)
 	private String nome;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "endereco", length = 200)
 	private String endereco;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "bairro", length = 30)
 	private String bairro;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "celular", length = 10)
 	private String celular;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "fone_residencial", length = 10)
 	private String foneResidencial;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "fone_comercial", length = 10)
 	private String foneComercial;
-	
-	@Getter @Setter
-	@Enumerated
-	@Column(name = "sexo", nullable = false )
-	private MasculinoFemininoDomain sexo;
-	
-	@Getter @Setter
-	@Enumerated
+
+	@Getter
+	@Setter
+	// @Enumerated
+	@Column(name = "sexo", nullable = false)
+	// private MasculinoFemininoDomain sexo;e
+	private String sexo;
+
+	@Getter
+	@Setter
+	// @Enumerated
 	@Column(name = "membro_igreja", nullable = false)
-	private SimNaoDomain membroIgreja;
-	
-	@Getter @Setter
+	// private SimNaoDomain membroIgreja;
+	private String membroIgreja;
+
+	@Getter
+	@Setter
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "data_batismo")
 	@Temporal(TemporalType.DATE)
 	private Date dataBatismo;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "email", length = 60)
 	@Email(message = "E-mail inválido!")
 	private String email;
-	
-	@Getter @Setter
-	@Enumerated
+
+	@Getter
+	@Setter
+	// @Enumerated
 	@Column(name = "batizado")
-	private BatizadoDomain batizado;
-	
-	@Getter @Setter
-	@Enumerated
+	// private BatizadoDomain batizado;
+	private String batizado;
+
+	@Getter
+	@Setter
+	// @Enumerated
 	@Column(name = "tem_filho")
-	private SimNaoDomain temFilho;
-	
-	@Getter @Setter
-	@Enumerated
+	// private SimNaoDomain temFilho;
+	private String temFilho;
+
+	@Getter
+	@Setter
+	// @Enumerated
 	@Column(name = "modo_conversao")
-	private ModoConversaoDomain modoConversao;
-	
-	@Getter @Setter
+	// private ModoConversaoDomain modoConversao;
+	private String modoConversao;
+
+	@Getter
+	@Setter
 	@Column(name = "membros_batizado_familia", length = 255)
 	private String membrosBatizadoFamilia;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "pai", length = 100)
 	private String pai;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "mae", length = 100)
 	private String mae;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Column(name = "amigo_contato", length = 100)
 	private String amigoContato;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Column(name = "interesse", length = 50)
 	private String interesse;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
 	private Profissao profissao;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "peq_id", referencedColumnName = "peq_id")
 	private PequenoGrupo pequenoGrupo;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "past_id", referencedColumnName = "past_id")
 	private Pastor pastor;
 
 	/* TODO chamada.. */
-//	@Getter @Setter
-//	@OneToMany(mappedBy = "membro", fetch = FetchType.LAZY)
-//	@Fetch(FetchMode.SELECT)
-//	@Cascade(CascadeType.SAVE_UPDATE)
-//	private List<Chamada> chamadas = new ArrayList<Chamada>();
-	
+	// @Getter @Setter
+	// @OneToMany(mappedBy = "membro", fetch = FetchType.LAZY)
+	// @Fetch(FetchMode.SELECT)
+	// @Cascade(CascadeType.SAVE_UPDATE)
+	// private List<Chamada> chamadas = new ArrayList<Chamada>();
+
 	public Membro() {
 	}
 

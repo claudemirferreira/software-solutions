@@ -54,9 +54,6 @@ public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 		if ( notEmpty(entity.getNome() ) ) {
 			q.setParameter("pai", "%" + entity.getPai().trim().toLowerCase() + "%" );
 		}
-		if ( notEmpty(entity.getNome() ) ) {
-			q.setParameter("batizado", entity.getBatizado().getId());
-		}
 		
 		return q.getResultList();
 	}
