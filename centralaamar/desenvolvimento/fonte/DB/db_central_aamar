@@ -113,13 +113,13 @@ CREATE TABLE `membro` (
   `fone_residencial` varchar(10) DEFAULT NULL,
   `interesse` varchar(30) DEFAULT NULL,
   `mae` varchar(60) DEFAULT NULL,
-  `membro_igreja` int(1) DEFAULT NULL,
+  `membro_igreja` varchar(1) DEFAULT NULL,
   `membros_batizado_familia` varchar(60) NOT NULL,
   `modo_conversao` varchar(1) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `pai` varchar(60) DEFAULT NULL,
-  `sexo` int(1) DEFAULT NULL,
-  `tem_filho` int(1) DEFAULT NULL,
+  `sexo` varchar(1) DEFAULT NULL,
+  `tem_filho` varchar(1) DEFAULT NULL,
   `past_id` int(11) DEFAULT NULL,
   `peq_id` int(11) DEFAULT NULL,
   `pro_id` int(11) DEFAULT NULL,
@@ -131,13 +131,18 @@ CREATE TABLE `membro` (
   CONSTRAINT `FKBFC28C2A24A1375E` FOREIGN KEY (`peq_id`) REFERENCES `pequenogrupo` (`peq_id`),
   CONSTRAINT `FKBFC28C2A9EADD421` FOREIGN KEY (`past_id`) REFERENCES `pastor` (`past_id`),
   CONSTRAINT `FKBFC28C2ADC39DE7` FOREIGN KEY (`pro_id`) REFERENCES `profissao` (`pro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `membro`
 --
 
 /*!40000 ALTER TABLE `membro` DISABLE KEYS */;
+INSERT INTO `membro` (`mem_id`,`amigo_contato`,`bairro`,`batizado`,`celular`,`data_batismo`,`data_nascimento`,`email`,`endereco`,`fone_comercial`,`fone_residencial`,`interesse`,`mae`,`membro_igreja`,`membros_batizado_familia`,`modo_conversao`,`nome`,`pai`,`sexo`,`tem_filho`,`past_id`,`peq_id`,`pro_id`) VALUES 
+ (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'qq',NULL,'MACELO COUTRIM',NULL,NULL,NULL,NULL,NULL,NULL),
+ (3,'','','S','',NULL,'2013-03-01 00:00:00','','','','',NULL,'','S','12','1','CLAUDEMIR RAMOS FERREIRA','','M','S',NULL,NULL,NULL),
+ (4,'','','N','',NULL,'2012-01-01 00:00:00','','','','',NULL,'','S','1','1','CLAUDEMIR RAMOS FERREIRA','','M','N',NULL,NULL,NULL),
+ (5,'','','S','',NULL,NULL,'','','','',NULL,'','S','32','1','CLAUDEMIR RAMOS FERREIRA','','M','S',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `membro` ENABLE KEYS */;
 
 
@@ -152,7 +157,7 @@ CREATE TABLE `pastor` (
   PRIMARY KEY (`past_id`),
   UNIQUE KEY `past_id` (`past_id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pastor`
@@ -183,6 +188,7 @@ INSERT INTO `pastor` (`past_id`,`nome`) VALUES
  (33,'KUARUP REIS'),
  (36,'LORIVAL GOMES'),
  (11,'LUIZ FUCKNER'),
+ (37,'MACELO COUTRIM'),
  (29,'MARCOS BENTES'),
  (16,'MOISÉS SEIXAS'),
  (30,'NATERCIO UCHOA'),
@@ -209,7 +215,7 @@ CREATE TABLE `pequenogrupo` (
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`peq_id`),
   UNIQUE KEY `peq_id` (`peq_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pequenogrupo`
