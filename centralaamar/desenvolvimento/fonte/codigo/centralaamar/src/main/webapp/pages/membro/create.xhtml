@@ -8,13 +8,13 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
-	template="/pageUtils/template.xhtml">
+	template="/resources/layout/register_template.xhtml">
 
 	<ui:param name="pageTitle" value="Cadastro de Membro" />
 	<ui:param name="pageHeader" value="Cadastro de Membro" />
 	<ui:param name="managedBean" value="#{membroController}" />
 
-	<ui:define name="body">
+	<ui:define name="register_region">
 		<h:form prependId="false">
 			<div align="left">
 			<p:messages id="messages" autoUpdate="true" />
