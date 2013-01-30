@@ -125,13 +125,14 @@ CREATE TABLE `membro` (
   `pro_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`mem_id`),
   UNIQUE KEY `mem_id` (`mem_id`),
+  UNIQUE KEY `nome_membro_unique` (`nome`) USING BTREE,
   KEY `FKBFC28C2A9EADD421` (`past_id`),
   KEY `FKBFC28C2ADC39DE7` (`pro_id`),
   KEY `FKBFC28C2A24A1375E` (`peq_id`),
   CONSTRAINT `FKBFC28C2A24A1375E` FOREIGN KEY (`peq_id`) REFERENCES `pequenogrupo` (`peq_id`),
   CONSTRAINT `FKBFC28C2A9EADD421` FOREIGN KEY (`past_id`) REFERENCES `pastor` (`past_id`),
   CONSTRAINT `FKBFC28C2ADC39DE7` FOREIGN KEY (`pro_id`) REFERENCES `profissao` (`pro_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `membro`
@@ -139,10 +140,7 @@ CREATE TABLE `membro` (
 
 /*!40000 ALTER TABLE `membro` DISABLE KEYS */;
 INSERT INTO `membro` (`mem_id`,`amigo_contato`,`bairro`,`batizado`,`celular`,`data_batismo`,`data_nascimento`,`email`,`endereco`,`fone_comercial`,`fone_residencial`,`interesse`,`mae`,`membro_igreja`,`membros_batizado_familia`,`modo_conversao`,`nome`,`pai`,`sexo`,`tem_filho`,`past_id`,`peq_id`,`pro_id`) VALUES 
- (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'qq',NULL,'MACELO COUTRIM',NULL,NULL,NULL,NULL,NULL,NULL),
- (3,'','','S','',NULL,'2013-03-01 00:00:00','','','','',NULL,'','S','12','1','CLAUDEMIR RAMOS FERREIRA','','M','S',NULL,NULL,NULL),
- (4,'','','N','',NULL,'2012-01-01 00:00:00','','','','',NULL,'','S','1','1','CLAUDEMIR RAMOS FERREIRA','','M','N',NULL,NULL,NULL),
- (5,'','','S','',NULL,NULL,'','','','',NULL,'','S','32','1','CLAUDEMIR RAMOS FERREIRA','','M','S',NULL,NULL,NULL);
+ (6,'QQQ','','S','',NULL,'2013-03-03 00:00:00','','','','',NULL,'','S','AAA','1','CLAUDEMIR RAMOS FERREIRA','','M','S',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `membro` ENABLE KEYS */;
 
 
@@ -214,7 +212,8 @@ CREATE TABLE `pequenogrupo` (
   `peq_id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`peq_id`),
-  UNIQUE KEY `peq_id` (`peq_id`)
+  UNIQUE KEY `peq_id` (`peq_id`),
+  UNIQUE KEY `nome_pequenogrupo_unique` (`nome`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -223,8 +222,8 @@ CREATE TABLE `pequenogrupo` (
 
 /*!40000 ALTER TABLE `pequenogrupo` DISABLE KEYS */;
 INSERT INTO `pequenogrupo` (`peq_id`,`nome`) VALUES 
- (1,'PREPARA TE PARA ETERNIDADE'),
- (2,'MANANCIAL DE BENÇÃO');
+ (2,'MANANCIAL DE BENÇÃO'),
+ (1,'PREPARA TE PARA ETERNIDADE');
 /*!40000 ALTER TABLE `pequenogrupo` ENABLE KEYS */;
 
 
