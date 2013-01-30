@@ -279,7 +279,7 @@ public class QuestionarioController {
 	}
 
 	public List<PequenoGrupo> getPequenoGrupos() {
-		this.pequenoGrupos =  pequenoGrupoDAO.list();
+		this.pequenoGrupos =  pequenoGrupoDAO.listAll();
 		return this.pequenoGrupos;
 	}
 
