@@ -31,7 +31,7 @@ public class TemFilho implements Serializable {
 		List<TemFilho> batizadoS = new ArrayList<TemFilho>();
 		TemFilho s1 = new TemFilho("S", "SIM");
 		batizadoS.add(s1);
-		TemFilho s2 = new TemFilho("N", "N√ÉO");
+		TemFilho s2 = new TemFilho("N", "N√O");
 		batizadoS.add(s2);
 		return batizadoS;
 	}
