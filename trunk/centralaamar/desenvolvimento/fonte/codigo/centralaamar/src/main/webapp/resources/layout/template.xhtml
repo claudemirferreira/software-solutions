@@ -27,26 +27,15 @@
 		
 	</h:head>
 	
-	<h:body>
-	
-	
-		<table>
-			<tr>
-				<td>
-					<h:outputText value="Header content." />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<ui:insert name="content"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h:outputText value="Footer content." />
-				</td>
-			</tr>
+	<body width="800px" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#68A3A2">
+	<center>
+		<table width="800px" border="0px" cellspacing="0px" cellpadding="0px" bgcolor="#D7EFEF">
+			<tr ><td colspan="3" align="center"> <h2>Sistema de Controle de Membros - CENTRALAAMAR</h2> </td> </tr>
+			 
+			<tr><td colspan="2" > <ui:include src="navigation.xhtml"/> </td> </tr> 
+			<tr><td colspan="2"> <div id="bodyDiv"> <ui:insert name="content"/> </div> </td> </tr>
+			<tr><td colspan="2"> <ui:include src="rodape.xhtml"/> </td> </tr>
 		</table>
-		
-	</h:body>
+	</center>
+	</body>
 </html>
