@@ -57,20 +57,6 @@
 	            <h:outputText value="#{item.nome}" />  
 	        </p:column>  
 	  
-	  		<p:column style="text-align:left" headerText="Mãe">  
-	            <h:outputText value="#{item.mae}" />  
-	        </p:column>  
-	  
-	  		<p:column style="text-align:left" headerText="Pai">  
-	            <h:outputText value="#{item.pai}" />  
-	        </p:column>  
-	  
-	  		<p:column style="text-align:left" headerText="Batizado?">  
-	            <h:outputText value="#{item.batizado}" >
-	            	<f:converter converterId="simNaoConverter"/>
-	            </h:outputText>  
-	        </p:column>  
-	  
 	        <p:column style="text-align:center; width:100px" headerText="Ação">  
 				
 				<p:commandButton action="#{managedBean.editar(item)}" icon="ui-icon-pencil" title="Editar" />
