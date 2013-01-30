@@ -121,7 +121,7 @@ public class QuestionarioController {
 	public String find() {
 		Questionario questionario = new Questionario();
 		sabado = new Sabado();
-		sabado.setId(1);
+		sabado.setIdSabado(1l);
 		this.membros = (List<Membro>) membroDAO.listPorGrupo(this.pequenoGrupo, sabado);
 		for (Iterator<Membro> iterator = membros.iterator(); iterator.hasNext();) {
 			Membro membro = (Membro) iterator.next();

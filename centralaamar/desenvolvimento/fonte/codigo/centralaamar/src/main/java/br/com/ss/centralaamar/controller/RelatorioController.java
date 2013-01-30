@@ -61,7 +61,7 @@ public class RelatorioController {
 			// String pathJasper = servletContext
 			// .getRealPath("/WEB-INF/relatorio/graficoResponsavel.jasper");
 
-			String pathJasper = "C:\\jasper\\relatorioMebroPorGrupo.jasper";
+			String pathJasper = "D:\\jasper\\relatorioMebroPorGrupo.jasper";
 
 			JasperPrint printReport = JasperFillManager.fillReport(pathJasper,
 					null, ConnectionFactory.getConnection());
@@ -103,7 +103,7 @@ public class RelatorioController {
 			ServletContext servletContext = (ServletContext) facesContext
 					.getExternalContext().getContext();
 
-			String pathJasper = "C:\\jasper\\relatorioAniversariante.jasper";
+			String pathJasper = "D:\\jasper\\relatorioAniversariante.jasper";
 
 			this.membros = membroDAO.listPais(this.sexo.getCodigo());
 
@@ -156,7 +156,7 @@ public class RelatorioController {
 			// String pathJasper = servletContext
 			// .getRealPath("/WEB-INF/relatorio/graficoResponsavel.jasper");
 
-			String pathJasper = "C:\\jasper\\relatorioAniversariante.jasper";
+			String pathJasper = "D:\\jasper\\relatorioAniversariante.jasper";
 
 			parametros.put("dataInicial", "2012-11-1");
 			parametros.put("dataFinal", "2012-12-31");

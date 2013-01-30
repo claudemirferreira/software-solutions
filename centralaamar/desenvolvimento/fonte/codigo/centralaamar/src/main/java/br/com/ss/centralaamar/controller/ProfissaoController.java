@@ -54,7 +54,7 @@ public class ProfissaoController extends GenericBean<Profissao>  {
 			ServletContext servletContext = (ServletContext) facesContext
 					.getExternalContext().getContext();
 
-			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
+			String pathJasper = "D:\\jasper\\pequenoGrup.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
 					null, new JRBeanCollectionDataSource(this.resultList));
