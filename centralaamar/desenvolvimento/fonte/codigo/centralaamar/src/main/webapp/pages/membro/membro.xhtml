@@ -176,21 +176,21 @@
 
 				</p:panel>
 				<div align="center">
-				<p:toolbar align="center">
-					<p:toolbarGroup align="center">
-						<p:commandButton value="Salvar" icon="ui-icon-disk" ajax="false"
-							action="#{membroController.save()}" update="painel" />
+					<p:toolbar align="center">
+						<p:toolbarGroup align="center">
+							<p:commandButton value="Salvar" icon="ui-icon-disk" ajax="false"
+								action="#{membroController.save()}" update="painel" />
 
-						<p:commandButton value="Novo" icon="ui-icon-document"
-							action="#{membroController.clean()}" update="painel,messages"
-							process="@this" />
-							
-						<p:commandButton value="Voltar" icon="ui-icon-document"
-							action="#{membroController.back()}" update="painel,messages"
-							process="@this" />
+							<p:commandButton value="Novo" icon="ui-icon-document"
+								action="#{membroController.clean()}" update="painel,messages"
+								process="@this" />
 
-					</p:toolbarGroup>					
-				</p:toolbar>
+							<p:commandButton value="Voltar" icon="ui-icon-document"
+								action="#{membroController.back()}" update="painel,messages"
+								process="@this" />
+
+						</p:toolbarGroup>
+					</p:toolbar>
 				</div>
 			</div>
 		</h:form>
