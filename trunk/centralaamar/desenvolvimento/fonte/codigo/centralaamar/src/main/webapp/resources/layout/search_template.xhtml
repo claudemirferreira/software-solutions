@@ -10,34 +10,21 @@
 				template="/resources/layout/template.xhtml">
 	  
 	  <ui:define name="content">
-	  	
-	  	<!-- ====== Params ================ -->
-  		<!-- 
-  			. Obrigatorio: 
-  				- managedBean
-  		 -->
-  		
-  		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
-		
-		<f:metadata>
-			<!-- f:event type="preRenderView" listener="managedBean.initConversation" /-->		<!-- TODO validar se vai necessitar de conversa no spring -->
-		</f:metadata>
-		
 		
 		<h:form id="formSearch" prependId="false">
 		
-			 <h2 class="title ui-widget-header ui-corner-all">#{pageHeader}</h2>
-		
 			<!-- ===== Msg ============ -->
-			<h:panelGrid cellpadding="6">
+			<h:panelGrid id="msg" cellpadding="6" >
+			<!--
 				<p:messages id="msg" />
+			-->
+				<p:growl id="msgGrowl" />
 			</h:panelGrid>
-			<p:growl id="msgGrowl" />
 			
 			
 			<!-- ==== Filtro ===== -->
 			<p:accordionPanel>
-				<p:tab title="Filtro de Pesquisa:">
+				<p:tab title="Filtro de Pesquisa -  #{pageHeader}">
 					<h:panelGrid cellpadding="5">
 						
 						<ui:insert name="search_filter" />
