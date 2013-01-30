@@ -1,9 +1,11 @@
 package br.com.ss.centralaamar.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,42 +13,28 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.ss.centralaamar.model.entity.Grupo;
 
 @Component
-public class GrupoDAO {
-
-	@PersistenceContext
-	private EntityManager entityManager;
-
-	@Transactional
-	public void save(Grupo Grupo) {
-		entityManager.persist(Grupo);
-	}
-
-	@Transactional
-	public void merge(Grupo Grupo) {
-		entityManager.merge(Grupo);
-	}
-
-	@Transactional
-	public void remove(Grupo Grupo) {
-
-		try {
-			Grupo entity = entityManager.merge(Grupo);
-			entityManager.remove(entity);
-
-		} catch (org.hibernate.exception.ConstraintViolationException e) {
-			e.printStackTrace();
-		} catch (org.springframework.dao.DataIntegrityViolationException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+public class GrupoDAO extends AbstractDAO<Grupo> implements IGrupoDAO {
 
 	@SuppressWarnings("unchecked")
-	public List<Grupo> list() {
-		return entityManager.createQuery(
-				"select t from Grupo t order by t.nome desc").getResultList();
+	@Override
+	public List<Grupo> searchByEntity(Grupo entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+		
+		s.append(" select p from Grupo p ");
+		if ( notEmpty(entity.getNome()) ) {
+			condictions.add(" lower(p.nome) like :nome ");
+		}
+		
+		String orderBy = " order by p.nome ";
+		
+		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
+		
+		if ( notEmpty(entity.getNome() ) ) {
+			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase() + "%" );
+		}
+		
+		return q.getResultList();
 	}
 
 }

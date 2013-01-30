@@ -2,7 +2,6 @@ package br.com.ss.centralaamar.model.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -21,15 +23,17 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "grupo", catalog = "centralaamar")
-public class Grupo implements Serializable {
+public class Grupo extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = -4116112636792954532L;
 
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "grup_id", unique = true, nullable = false)
-	private Integer id;
-	
+	private Long idGrupo;
+
 	@Column(unique = true, nullable = false, length = 60)
 	private String nome;
 
@@ -41,17 +45,14 @@ public class Grupo implements Serializable {
 		this.nome = nome;
 	}
 
-	@OneToMany( fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SELECT)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private List<Membro> membros = new ArrayList<Membro>();
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	@Override
+	public Long getId() {
+		return getIdGrupo();
 	}
 
 	public List<Membro> getMembros() {
