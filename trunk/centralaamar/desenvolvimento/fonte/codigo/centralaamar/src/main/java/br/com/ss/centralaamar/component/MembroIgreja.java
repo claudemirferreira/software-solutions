@@ -31,7 +31,7 @@ public class MembroIgreja implements Serializable {
 		List<MembroIgreja> membroIgrejas = new ArrayList<MembroIgreja>();
 		MembroIgreja s1 = new MembroIgreja("S", "SIM");
 		membroIgrejas.add(s1);
-		MembroIgreja s2 = new MembroIgreja("N", "N√ÉO");
+		MembroIgreja s2 = new MembroIgreja("N", "N√O");
 		membroIgrejas.add(s2);
 		return membroIgrejas;
 	}
