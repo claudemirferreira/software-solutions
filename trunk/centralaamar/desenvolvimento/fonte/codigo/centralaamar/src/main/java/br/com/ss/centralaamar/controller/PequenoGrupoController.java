@@ -57,7 +57,7 @@ public class PequenoGrupoController extends GenericBean<PequenoGrupo>  {
 			// String pathJasper = servletContext
 			// .getRealPath("/WEB-INF/jasper/pequenoGrup.jasper");
 
-			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
+			String pathJasper = "D:\\jasper\\pequenoGrupo.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
 					null, new JRBeanCollectionDataSource(this.resultList));
