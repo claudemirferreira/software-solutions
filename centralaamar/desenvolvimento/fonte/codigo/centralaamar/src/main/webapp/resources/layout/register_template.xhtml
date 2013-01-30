@@ -12,30 +12,20 @@
 	  
 	  <ui:define name="content">
 	  	
-	  	<!-- ====== Params ================ -->
-  		<!-- 
-  			. Obrigatorios: 
-  				- managedBean
-  		 -->
-  		 
-  		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
-  		
   		<c:if test="#{empty widthContainer}" >
-  			<c:set var="widthContainer" value="700px" />
+  			<c:set var="widthContainer" value="100%" />
   		</c:if>
   		
-  		
-		
 		<h:form id="formRegister" prependId="false">
-		
-			 <h1 class="title ui-widget-header ui-corner-all">#{pageHeader}</h1>
 		
 			<!-- ===== Msg ============ -->
 			
 			<h:panelGrid cellpadding="6">
 				<p:messages id="msg"  />
 			</h:panelGrid>
+			<!-- 
 			<p:growl id="msgGrowl" />
+			 -->
 			
 			<h:messages errorClass="error"/>
 			
