@@ -55,17 +55,17 @@ public class Membro extends AbstractEntity implements java.io.Serializable {
 
 	@Getter
 	@Setter
-	@Column(name = "celular", length = 10)
+	@Column(name = "celular", length = 12)
 	private String celular;
 
 	@Getter
 	@Setter
-	@Column(name = "fone_residencial", length = 10)
+	@Column(name = "fone_residencial", length = 12)
 	private String foneResidencial;
 
 	@Getter
 	@Setter
-	@Column(name = "fone_comercial", length = 10)
+	@Column(name = "fone_comercial", length = 12)
 	private String foneComercial;
 
 	@Getter

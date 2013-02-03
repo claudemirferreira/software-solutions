@@ -2,8 +2,6 @@ package br.com.ss.centralaamar.model.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,35 +20,39 @@ public class Chamada extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 3970262043034919537L;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "cham_id", unique = true, nullable = false)
+	@Column(name = "cham_id", nullable = false)
 	private Long idChamada;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "mem_id")
+	@JoinColumn(name = "mem_id", nullable=false)
 	private Membro membro;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "peq_id")
+	@JoinColumn(name = "peq_id", nullable=false)
 	private PequenoGrupo pequenoGrupo;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "saba_id")
+	@JoinColumn(name = "saba_id", nullable=false)
 	private Sabado sabado;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Column(name = "presente")
 	private Boolean presente;
-
 
 	@Override
 	public Long getId() {
 		return getIdChamada();
 	}
-	
+
 }

@@ -31,20 +31,16 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "grup_id", unique = true, nullable = false)
+	@Column(name = "grup_id", nullable = false)
 	private Long idGrupo;
 
+	@Getter
+	@Setter
 	@Column(unique = true, nullable = false, length = 60)
 	private String nome;
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
+	@Getter
+	@Setter
 	@OneToMany(fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SELECT)
 	@Cascade(CascadeType.SAVE_UPDATE)
@@ -53,14 +49,6 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 	@Override
 	public Long getId() {
 		return getIdGrupo();
-	}
-
-	public List<Membro> getMembros() {
-		return membros;
-	}
-
-	public void setMembros(List<Membro> membros) {
-		this.membros = membros;
 	}
 
 }

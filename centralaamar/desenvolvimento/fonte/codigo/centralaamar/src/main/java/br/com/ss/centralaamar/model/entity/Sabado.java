@@ -23,22 +23,16 @@ public class Sabado extends AbstractEntity implements java.io.Serializable {
 	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "saba_id", unique = true, nullable = false)
+	@Column(name = "saba_id", nullable = false)
 	private Long idSabado;
 
+	@Getter
+	@Setter
 	@Column(name = "data", unique = true, nullable = false)
 	private Date data;
 
 	public Long getId() {
 		return getIdSabado();
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
 	}
 
 }

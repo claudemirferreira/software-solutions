@@ -18,17 +18,20 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "pequenogrupo", catalog = "centralaamar")
-public class PequenoGrupo extends AbstractEntity implements java.io.Serializable {
+public class PequenoGrupo extends AbstractEntity implements
+		java.io.Serializable {
 
 	private static final long serialVersionUID = -4554552668548180993L;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "peq_id", unique = true, nullable = false)
+	@Column(name = "peq_id", nullable = false)
 	private Long idPequenoGrupo;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Column(unique = true, name = "nome", nullable = false, length = 100)
 	private String nome;
 

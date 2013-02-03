@@ -22,16 +22,17 @@ public class Profissao extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 845836539746268610L;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "pro_id", unique = true, nullable = false)
+	@Column(name = "pro_id", nullable = false)
 	private Long idProfissao;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Column(unique = true, name = "nome", nullable = false, length = 100)
 	private String nome;
-	
 
 	public Profissao() {
 	}
