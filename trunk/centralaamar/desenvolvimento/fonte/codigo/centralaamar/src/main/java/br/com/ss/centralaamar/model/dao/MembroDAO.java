@@ -48,12 +48,12 @@ public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 		if ( notEmpty(entity.getNome() ) ) {
 			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase() + "%" );
 		}
-		if ( notEmpty(entity.getNome() ) ) {
-			q.setParameter("mae", "%" + entity.getMae().trim().toLowerCase() + "%" );
-		}
-		if ( notEmpty(entity.getNome() ) ) {
-			q.setParameter("pai", "%" + entity.getPai().trim().toLowerCase() + "%" );
-		}
+//		if ( notEmpty(entity.getNome() ) ) {
+//			q.setParameter("mae", "%" + entity.getMae().trim().toLowerCase() + "%" );
+//		}
+//		if ( notEmpty(entity.getNome() ) ) {
+//			q.setParameter("pai", "%" + entity.getPai().trim().toLowerCase() + "%" );
+//		}
 		
 		return q.getResultList();
 	}
