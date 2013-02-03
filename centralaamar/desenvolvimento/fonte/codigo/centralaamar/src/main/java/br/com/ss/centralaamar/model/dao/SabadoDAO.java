@@ -1,52 +1,59 @@
 package br.com.ss.centralaamar.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ss.centralaamar.model.entity.Sabado;
 
 @Component
-public class SabadoDAO {
+public class SabadoDAO extends AbstractDAO<Sabado> implements ISabadoDAO {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Sabado> searchByEntity(Sabado entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
 
-	@Transactional
-	public void save(Sabado sabado) {
-		entityManager.persist(sabado);
-	}
+		s.append(" select p from Chamada p ");
+		// if (notEmpty(entity.getPequenoGrupo().getIdPequenoGrupo())) {
+		// condictions.add(" m.pequenoGrupo = :pg ");
+		// }
 
-	@Transactional
-	public void merge(Sabado sabado) {
-		entityManager.merge(sabado);
-	}
+		String orderBy = " order by p.data ";
 
-	@Transactional
-	public void remove(Sabado sabado) {
+		Query q = this.entityManager.createQuery(generateHql(s.toString(),
+				condictions) + orderBy);
 
-		try {
-			Sabado entity = entityManager.merge(sabado);
-			entityManager.remove(entity);
-
-		} catch (org.hibernate.exception.ConstraintViolationException e) {
-			e.printStackTrace();
-		} catch (org.springframework.dao.DataIntegrityViolationException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		return q.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Sabado> list() {
-		return entityManager.createQuery(
-				"select t from Sabado t order by t.data desc").getResultList();
+	public List<Sabado> listPorGrupo(Sabado chamada) {
+		StringBuilder hql = new StringBuilder();
+		List<String> cond = new ArrayList<String>();
+		List<Sabado> listSabado = new ArrayList<Sabado>();
+
+		hql.append("select m from Chamada m ");
+
+		// cond.add(" m.pequenoGrupo = :pg ");
+
+		// cond.add(" m.sabado = :sb ");
+
+		String orderby = " order by m.id asc ";
+		String generatedHql = generateHql(hql.toString(), cond, orderby);
+
+		System.out.println("sql === " + generatedHql);
+		Query q = entityManager.createQuery(generatedHql);
+
+		// q.setParameter("pg", chamada.getPequenoGrupo());
+		// q.setParameter("sb", chamada.getSabado());
+
+		listSabado = q.getResultList();
+		return listSabado;
 	}
 
 }
