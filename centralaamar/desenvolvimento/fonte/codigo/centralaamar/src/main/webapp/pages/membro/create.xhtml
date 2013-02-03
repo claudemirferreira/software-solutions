@@ -17,7 +17,7 @@
 	<ui:define name="register_region">
 		<h:form prependId="false">
 			<div align="left">
-			<p:messages id="messages" autoUpdate="true" />
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
 				<p:panel header="Cadastro de membros" style="whidt:800px;">
 					<h:panelGrid columns="6" id="painel" width="100%"
@@ -78,7 +78,7 @@
 							<f:selectItem itemLabel="Selecione o profissão" itemValue=""
 								id="profissao" />
 							<f:selectItems value="#{managedBean.profissaos}" var="pro"
-								itemLabel="#{pro.nome}" itemValue="#{pro.id}" />
+								itemLabel="#{pro.nome}" itemValue="#{pro.idProfissao}" />
 						</p:selectOneMenu>
 						<p:tooltip for="profissao" showEvent="focus" hideEvent="blur" />
 
@@ -96,7 +96,7 @@
 							<f:selectItem itemLabel="Selecione o pequeno Grupo" itemValue=""
 								id="peq" />
 							<f:selectItems value="#{managedBean.pequenoGrupos}" var="item"
-								itemLabel="#{item.nome}" itemValue="#{item.id}" />
+								itemLabel="#{item.nome}" itemValue="#{item.idPequenoGrupo}" />
 						</p:selectOneMenu>
 
 						<p:tooltip for="peq" showEvent="focus" hideEvent="blur" />
@@ -110,6 +110,18 @@
 								itemLabel="#{mem.descricao}" itemValue="#{mem.codigo}" />
 						</p:selectOneMenu>
 						<h:outputText />
+						
+						<h:outputText value="Cargo Desejado" style="height:2;" />
+						<p:inputText id="interesse" value="#{managedBean.entity.interesse}"
+							label="o cargo desejado deve ser informado" maxlength="60"
+							title="informe o cargo desejado" style="width:300px; heidth:2px" />
+						<p:tooltip for="interesse" showEvent="focus" hideEvent="blur" />
+
+						<h:outputText value="Data Batismo" />
+						<p:calendar id="dataBatismo" maxlength="10"
+							style="width:130px;" value="#{managedBean.entity.dataBatismo}"
+							title="informe a Data Nascimento" mask="99/99/9999" />
+						<p:tooltip for="dataBatismo" showEvent="focus" hideEvent="blur" />
 
 						<h:outputText value="Pai" style="height:2;" />
 						<p:inputText id="pai" value="#{managedBean.entity.pai}"
@@ -125,7 +137,7 @@
 								itemLabel="#{bat.descricao}" itemValue="#{bat.codigo}" />
 						</p:selectOneMenu>
 						<h:outputText />
-
+						
 						<h:outputText value="Mãe" style="height:2;" />
 						<p:inputText id="mae" value="#{managedBean.entity.mae}"
 							label="o nome da mae deve ser informado" maxlength="60"
@@ -148,7 +160,7 @@
 							<f:selectItem itemLabel="Selecione o pastor que o batizou"
 								itemValue="" id="past" />
 							<f:selectItems value="#{managedBean.pastors}" var="past"
-								itemLabel="#{past.nome}" itemValue="#{past.id}" />
+								itemLabel="#{past.nome}" itemValue="#{past.idPastor}" />
 						</p:selectOneMenu>
 						<p:tooltip for="past" showEvent="focus" hideEvent="blur" />
 
@@ -179,24 +191,7 @@
 						<h:outputText />
 
 					</h:panelGrid>
-					<div align="center">
-						<p:toolbar align="center">
-							<p:toolbarGroup align="center">
-								<p:commandButton value="Salvar" icon="ui-icon-disk" ajax="false"
-									action="#{managedBean.save()}" update="painel" />
-
-								<p:commandButton value="Novo" icon="ui-icon-document"
-									action="#{managedBean.clean()}" update="painel,messages"
-									process="@this" />
-
-								<p:commandButton value="Cancelar" icon="ui-icon-document"
-									action="#{managedBean.cancel()}" update="painel,messages"
-									process="@this" />
-
-							</p:toolbarGroup>
-						</p:toolbar>
-					</div>
-
+					
 				</p:panel>
 			</div>
 		</h:form>
