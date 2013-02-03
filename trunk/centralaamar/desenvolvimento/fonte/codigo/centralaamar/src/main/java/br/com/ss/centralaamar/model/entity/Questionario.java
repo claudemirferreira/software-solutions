@@ -22,34 +22,40 @@ public class Questionario extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -4029046368610105833L;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "quest_id", unique = true, nullable = false)
 	private Long idQuestionario;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "mem_id" ,nullable = false)
+	@JoinColumn(name = "mem_id", nullable = false)
 	private Membro membro;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "peq_id",nullable = false)
+	@JoinColumn(name = "peq_id", nullable = false)
 	private PequenoGrupo pequenoGrupo;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "saba_id",nullable = false)
+	@JoinColumn(name = "saba_id", nullable = false)
 	private Sabado sabado;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "perg_id",nullable = false)
+	@JoinColumn(name = "perg_id", nullable = false)
 	private Pergunta pergunta;
 
-	@Getter @Setter
-	@Column(name = "nome", unique=true,nullable = false)
+	@Getter
+	@Setter
+	@Column(name = "nome", unique = true, nullable = false)
 	private String nome;
 
 	public Long getId() {

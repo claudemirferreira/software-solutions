@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class Sabado extends AbstractEntity implements java.io.Serializable {
 	@Getter
 	@Setter
 	@Column(name = "data", unique = true, nullable = false)
+	@NotNull
 	private Date data;
 
 	public Long getId() {
