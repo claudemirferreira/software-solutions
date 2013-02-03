@@ -2,8 +2,8 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.com.ss.centralaamar.exception.ValidationException;
+import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.model.entity.Grupo;
 import br.com.ss.centralaamar.service.IGrupoService;
 import br.com.ss.centralaamar.service.IService;
@@ -38,24 +38,9 @@ public class GrupoController extends GenericBean<Grupo> {
 		return service;
 	}
 
-	public String save() {
-		try {
-			this.entity.setNome(this.entity.getNome().toUpperCase());
-			return super.save();
-		} catch (ValidationException e) {
-			System.out.println(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
-							.getMessage()));
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e
-							.getMessage()));
-		}
-
-		return null;
+	public String save() throws SQLException {
+		this.entity.setNome(this.entity.getNome().toUpperCase());
+		return super.save();
 
 	}
 
@@ -99,4 +84,6 @@ public class GrupoController extends GenericBean<Grupo> {
 			e.printStackTrace();
 		}
 	}
+
+	
 }

@@ -39,7 +39,7 @@ public class Relatorio implements Serializable {
 		return f.format(data);
 	}
 
-	public static String montarSql(String d1, String d2, String ano) {
+	public static String montarSqlnew(String d1, String d2, String ano) {
 
 		String sql = "SELECT DATE_ADD( CONCAT('2013', SUBSTRING(A.dataNascimento,5,6)), INTERVAL 0 DAY) dataNascimento, "
 				+ "t.NOME, t.FONE_COMERCIAL, t.FONE_RESIDENCIAL"
@@ -54,7 +54,7 @@ public class Relatorio implements Serializable {
 		return sql;
 	}
 
-	public static String montarSqlnew(String d1, String d2, String ano) {
+	public static String montarSql(String d1, String d2, String ano) {
 
 		String sql = "SELECT t FROM Membro t " + "where CONCAT(" + ano
 				+ ", SUBSTRING(dataNascimento,5,6)) between '" + d1 + "' and '"

@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.UnexpectedRollbackException;
 
 import br.com.ss.centralaamar.component.Relatorio;
+import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.exception.ValidationException;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.service.IService;
@@ -53,7 +54,11 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	protected T itemToRemove;
 
 	@Getter
+	@Setter
 	protected List<T> resultList;
+	
+	
+//	protected abstract IReport getRelatorio();
 
 	@Getter
 	@Setter
@@ -200,6 +205,13 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		url += crud ? "create.jsf" : "search.jsf";
 		return url;
 	}
+	
+	
+//	public void print() {
+//		
+//		getRelatorio().print();
+//		
+//	}
 
 	public void print() {
 		ByteArrayOutputStream byteOutPutStream = new ByteArrayOutputStream();

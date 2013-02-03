@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
 import br.com.ss.centralaamar.service.IPequenoGrupoService;
 import br.com.ss.centralaamar.service.IService;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.service.IPastorService;
@@ -39,4 +40,5 @@ public class PastorController extends GenericBean<Pastor> {
 		this.relatorio.setResultList(new ArrayList<AbstractEntity>());
 		super.print();
 	}
+
 }
