@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 	@Getter
 	@Setter
 	@Column(unique = true, nullable = false, length = 60)
+	@NotNull
 	private String nome;
 
 	@Getter

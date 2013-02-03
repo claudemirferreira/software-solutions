@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +49,7 @@ public class Chamada extends AbstractEntity implements java.io.Serializable {
 	@Getter
 	@Setter
 	@Column(name = "presente")
+	@NotNull
 	private Boolean presente;
 
 	@Override

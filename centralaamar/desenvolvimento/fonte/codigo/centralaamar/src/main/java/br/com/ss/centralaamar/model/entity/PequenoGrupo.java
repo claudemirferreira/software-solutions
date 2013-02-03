@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,13 +37,22 @@ public class PequenoGrupo extends AbstractEntity implements
 	@Getter
 	@Setter
 	@Column(unique = true, name = "nome", nullable = false, length = 100)
+	@NotNull
 	private String nome;
 	
 	@Getter
 	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "anfi_id", referencedColumnName = "pro_id")
+	@NotNull
 	private Membro anfritriao;
+	
+	@Getter
+	@Setter
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "coord_id", referencedColumnName = "pro_id")
+	@NotNull
+	private Membro coordenador;
 
 	public PequenoGrupo() {
 	}
