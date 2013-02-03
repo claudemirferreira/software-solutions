@@ -30,22 +30,27 @@ public class Questionario extends AbstractEntity implements Serializable {
 
 	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "mem_id")
+	@JoinColumn(name = "mem_id" ,nullable = false)
 	private Membro membro;
 
 	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "peq_id")
+	@JoinColumn(name = "peq_id",nullable = false)
 	private PequenoGrupo pequenoGrupo;
 
 	@Getter @Setter
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "saba_id")
+	@JoinColumn(name = "saba_id",nullable = false)
 	private Sabado sabado;
+	
+	@Getter @Setter
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "perg_id",nullable = false)
+	private Pergunta pergunta;
 
 	@Getter @Setter
-	@Column(name = "descricao")
-	private String descricao;
+	@Column(name = "nome", unique=true,nullable = false)
+	private String nome;
 
 	public Long getId() {
 		return idQuestionario;

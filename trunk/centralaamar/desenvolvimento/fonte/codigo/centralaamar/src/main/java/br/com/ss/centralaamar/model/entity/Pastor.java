@@ -25,7 +25,7 @@ public class Pastor extends AbstractEntity implements java.io.Serializable {
 	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "past_id", unique = true, nullable = false)
+	@Column(name = "past_id", nullable = false)
 	private Long idPastor;
 
 	@Getter @Setter
