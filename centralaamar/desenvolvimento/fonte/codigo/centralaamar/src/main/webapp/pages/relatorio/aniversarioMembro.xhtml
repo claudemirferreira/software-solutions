@@ -17,7 +17,7 @@
 							readOnlyInputText="false" showOn="false" required="true"
 							requiredMessage="a data inicio deve ser informado"
 							style="width:90px;" pattern="dd/MM/yyyy"
-							value="#{relatorioController.relatorio.dataInicial}"
+							value="#{membroController.relatorio.dataInicial}"
 							title="informe a data inicial " mask="99/99/9999" />
 						<p:tooltip for="dataInicial" showEvent="focus" hideEvent="blur" />
 
@@ -26,7 +26,7 @@
 							readOnlyInputText="false" showOn="false" required="true"
 							requiredMessage="a data final deve ser informado"
 							style="width:90px;" pattern="dd/MM/yyyy"
-							value="#{relatorioController.relatorio.dataFinal}"
+							value="#{membroController.relatorio.dataFinal}"
 							title="informe a data inicial " mask="99/99/9999" />
 						<p:tooltip for="dataFinal" showEvent="focus" hideEvent="blur" />
 
@@ -34,9 +34,14 @@
 
 					<p:toolbar align="center">
 						<p:toolbarGroup align="center">
+							<p:commandButton value="Imprimir Lista Detalhada" icon="ui-icon-print"
+								ajax="false"
+								action="#{membroController.printAniversariante()}">
+							</p:commandButton>
+							
 							<p:commandButton value="Imprimir" icon="ui-icon-print"
 								ajax="false"
-								action="#{relatorioController.printAniversariante()}">
+								action="#{membroController.printAniversariante()}">
 							</p:commandButton>
 
 						</p:toolbarGroup>
