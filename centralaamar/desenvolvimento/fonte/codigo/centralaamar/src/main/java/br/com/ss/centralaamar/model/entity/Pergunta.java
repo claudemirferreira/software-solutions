@@ -29,6 +29,11 @@ public class Pergunta extends AbstractEntity implements java.io.Serializable {
 	@Column(unique = true, name = "nome", nullable = false, length = 100)
 	private String nome;
 
+	@Getter
+	@Setter
+	@Column(name = "status", nullable = false)
+	private Boolean status;
+
 	public Pergunta() {
 	}
 
