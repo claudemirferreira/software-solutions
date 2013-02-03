@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,6 +37,7 @@ import br.com.ss.centralaamar.model.entity.PequenoGrupo;
 import br.com.ss.centralaamar.model.entity.Sabado;
 
 @Component("questionarioController")
+@Named
 @Scope("session")
 public class QuestionarioController {
 

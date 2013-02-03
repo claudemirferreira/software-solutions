@@ -2,6 +2,7 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -39,7 +40,12 @@ public class PequenoGrupoController extends GenericBean<PequenoGrupo>  {
 	@Override
 	public String save() {
 		entity.setNome(this.entity.getNome().toUpperCase());
-		return super.save();
+		try {
+			return super.save();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void print() {
