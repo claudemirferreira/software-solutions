@@ -41,8 +41,12 @@ public class ModoConversao implements Serializable {
 		modoConversoes.add(s5);
 		ModoConversao s6 = new ModoConversao("6", "OPERAÇÃO RESGATE");
 		modoConversoes.add(s6);
-		ModoConversao s7 = new ModoConversao("7", "COMPORTAGEM");
+		ModoConversao s7 = new ModoConversao("7", "COMPORTOR");
 		modoConversoes.add(s7);
+		ModoConversao s8 = new ModoConversao("8", "DE BERCO");
+		modoConversoes.add(s8);
+		ModoConversao s9 = new ModoConversao("9", "NENHUMA DAS OPCOES");
+		modoConversoes.add(s9);
 
 		return modoConversoes;
 	}
