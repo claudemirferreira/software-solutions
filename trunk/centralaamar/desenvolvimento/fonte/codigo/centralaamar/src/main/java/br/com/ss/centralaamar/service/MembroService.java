@@ -1,6 +1,7 @@
 package br.com.ss.centralaamar.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,10 @@ public class MembroService  extends BaseService<Membro> implements Serializable,
 	@Override
 	protected IAbstractDAO<Membro> getDao() {
 		return dao;
+	}
+	
+	public List<Membro> listAniversariantes(String dataInicial, String dataFinal, String ano){
+		return dao.listAniversariantes(dataInicial, dataFinal, ano);
 	}
 
 }

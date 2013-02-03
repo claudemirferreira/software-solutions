@@ -28,6 +28,7 @@ import br.com.ss.centralaamar.component.ConnectionFactory;
 import br.com.ss.centralaamar.component.Relatorio;
 import br.com.ss.centralaamar.component.Sexo;
 import br.com.ss.centralaamar.model.dao.MembroDAO;
+import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.model.entity.Membro;
 
 @Component("relatorioController")
@@ -100,8 +101,6 @@ public class RelatorioController {
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			ServletContext servletContext = (ServletContext) facesContext
-					.getExternalContext().getContext();
 
 			String pathJasper = "D:\\jasper\\relatorioAniversariante.jasper";
 
