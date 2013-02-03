@@ -15,6 +15,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="br.com.ss.centralaamar.controller" />
 	<context:component-scan base-package="br.com.ss.centralaamar.service" />
+	<context:component-scan base-package="br.com.ss.centralaamar.componente.report" />
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
