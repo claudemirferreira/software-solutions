@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import br.com.ss.centralaamar.service.IGrupoService;
 import br.com.ss.centralaamar.service.IService;
 
 @Component("grupoController")
+@Named
 @Scope("session")
 public class GrupoController extends GenericBean<Grupo> {
 

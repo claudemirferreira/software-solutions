@@ -2,10 +2,10 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,53 +15,32 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.hibernate.exception.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.ss.centralaamar.exception.ValidationException;
-import br.com.ss.centralaamar.model.dao.SabadoDAO;
 import br.com.ss.centralaamar.model.entity.Sabado;
+import br.com.ss.centralaamar.service.ISabadoService;
+import br.com.ss.centralaamar.service.IService;
 
 @Component("sabadoController")
+@Named
 @Scope("session")
-public class SabadoController {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(SabadoController.class);
-
-	private Sabado sabado = new Sabado();
-	private List<Sabado> sabados;
-	private Sabado selected;
+public class SabadoController extends GenericBean<Sabado> {
 
 	@Autowired
-	private SabadoDAO sabadoDAO;
+	private ISabadoService service;
 
-	public String getMessage() {
-		logger.debug("Returning message from pequenoGrupo home bean");
-		return "Hello from Spring";
+	@Override
+	protected IService<Sabado> getService() {
+		return service;
 	}
 
-	public Sabado getSabado() {
-		return sabado;
-	}
-
-	public void save() {
+	public String save() {
 		try {
-
-			if (this.sabado.getId() == null)
-				sabadoDAO.save(this.sabado);
-			else
-				sabadoDAO.merge(this.sabado);
-			this.sabado = new Sabado();
-			this.sabados = sabadoDAO.list();
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso",
-							"Dados salvos com sucesso !"));
+			// this.entity.setNome(this.entity.getNome().toUpperCase());
+			return super.save();
 		} catch (ValidationException e) {
 			System.out.println(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(
@@ -75,63 +54,8 @@ public class SabadoController {
 							.getMessage()));
 		}
 
-	}
+		return null;
 
-	public String listAll() {
-		this.sabados = sabadoDAO.list();
-		return "listaAllSabado";
-	}
-
-	public String editar() {
-		this.sabado = this.selected;
-		this.selected = new Sabado();
-		return "/pages/sabado/sabado.xhtml";
-	}
-
-	public void remove() {
-		this.sabado = this.selected;
-		try {
-			sabadoDAO.remove(this.sabado);
-			this.sabados = sabadoDAO.list();
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-
-			FacesContext
-					.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(FacesMessage.SEVERITY_ERROR,
-									"Erro",
-									"O registro não pode ser excluido, Favor entre em contato com o suporte"));
-		}
-
-	}
-
-	public List<Sabado> getSabados() {
-		if (this.sabados == null)
-			this.sabados = sabadoDAO.list();
-		return this.sabados;
-	}
-
-	public void setSabados(List<Sabado> sabados) {
-		this.sabados = sabados;
-	}
-
-	public String clean() {
-		this.sabado = new Sabado();
-		return "/pages/sabado/sabado.xhtml";
-	}
-
-	public Sabado getSelected() {
-		return selected;
-	}
-
-	public void setSelected(Sabado selected) {
-		this.selected = selected;
-	}
-
-	public void setSabado(Sabado sabado) {
-		this.sabado = sabado;
 	}
 
 	public void print() {
@@ -143,10 +67,10 @@ public class SabadoController {
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			String pathJasper = "C:\\jasper\\pequenoGrup.jasper";
+			String pathJasper = "D:\\jasper\\pequenoSabado.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
-					null, new JRBeanCollectionDataSource(this.sabados));
+					null, new JRBeanCollectionDataSource(this.resultList));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);
@@ -171,5 +95,4 @@ public class SabadoController {
 			e.printStackTrace();
 		}
 	}
-
 }
