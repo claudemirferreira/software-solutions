@@ -2,6 +2,7 @@ package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +29,13 @@ import br.com.ss.centralaamar.component.ConnectionFactory;
 import br.com.ss.centralaamar.component.Relatorio;
 import br.com.ss.centralaamar.component.Sexo;
 import br.com.ss.centralaamar.model.dao.MembroDAO;
-import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.model.entity.Membro;
 
 @Component("relatorioController")
 @Scope("session")
-public class RelatorioController {
+public class RelatorioController implements Serializable {
+
+	private static final long serialVersionUID = -8410272853225806467L;
 
 	private List<Membro> membros = new ArrayList<Membro>();
 	private Relatorio relatorio = new Relatorio();
@@ -100,7 +102,6 @@ public class RelatorioController {
 
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
-
 
 			String pathJasper = "D:\\jasper\\relatorioAniversariante.jasper";
 

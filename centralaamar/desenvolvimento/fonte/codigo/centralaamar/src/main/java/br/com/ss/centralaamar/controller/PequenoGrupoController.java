@@ -1,23 +1,13 @@
 package br.com.ss.centralaamar.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,6 +23,8 @@ import br.com.ss.centralaamar.service.IService;
 @Named
 @Scope("session")
 public class PequenoGrupoController extends GenericBean<PequenoGrupo> {
+
+	private static final long serialVersionUID = 5221608581326985775L;
 
 	@Autowired
 	private IPequenoGrupoService service;
@@ -64,15 +56,16 @@ public class PequenoGrupoController extends GenericBean<PequenoGrupo> {
 	@Override
 	public String save() {
 		entity.setNome(this.entity.getNome().toUpperCase());
-		if (null != this.getAnfitriao())
-			entity.setAnfritriao(this.anfitriao);
-		this.anfitriao = entity.getAnfritriao();
+		if (this.getAnfitriao() != null)
+			entity.setAnfitriao(this.anfitriao);
 		if (entity.getCoordenador() != null)
 			this.coordenador = entity.getCoordenador();
 
 		try {
 			return super.save();
 		} catch (SQLException e) {
+			System.out.println(e.getErrorCode());
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
@@ -90,9 +83,11 @@ public class PequenoGrupoController extends GenericBean<PequenoGrupo> {
 	}
 
 	public String editar(PequenoGrupo entity) {
+//		this.anfitriao = new Membro();
+//		this.coordenador = new Membro();
 
 		if (this.anfitriao != null)
-			entity.setAnfritriao(this.anfitriao);
+			entity.setAnfitriao(this.anfitriao);
 		if (this.coordenador != null)
 			entity.setCoordenador(this.coordenador);
 
@@ -100,42 +95,11 @@ public class PequenoGrupoController extends GenericBean<PequenoGrupo> {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void print() {
-		ByteArrayOutputStream byteOutPutStream = new ByteArrayOutputStream();
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-
-			HttpServletResponse response = (HttpServletResponse) facesContext
-					.getExternalContext().getResponse();
-
-			String pathJasper = "D:\\jasper\\pequenoGrupo.jasper";
-
-			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
-					null, new JRBeanCollectionDataSource(this.resultList));
-
-			JasperExportManager.exportReportToPdfStream(preencher,
-					byteOutPutStream);
-
-			System.out.println("Size of OutPut: " + byteOutPutStream.size());
-			response.setContentLength(byteOutPutStream.size());
-			response.setContentType("application/pdf");
-
-			ServletOutputStream servletOutPutStream = response
-					.getOutputStream();
-			servletOutPutStream.write(byteOutPutStream.toByteArray(), 0,
-					byteOutPutStream.size());
-
-			servletOutPutStream.flush();
-			servletOutPutStream.close();
-
-			FacesContext.getCurrentInstance().responseComplete();
-
-		} catch (JRException jrex) {
-			jrex.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.relatorio.setPath("D:\\jasper\\pequenoGrupo.jasper");
+		this.relatorio.setResultList(this.resultList);
+		super.print();
 	}
 
 }

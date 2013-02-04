@@ -20,7 +20,6 @@ import br.com.ss.centralaamar.component.ModoConversao;
 import br.com.ss.centralaamar.component.Relatorio;
 import br.com.ss.centralaamar.component.Sexo;
 import br.com.ss.centralaamar.component.TemFilho;
-import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.model.entity.Membro;
 import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
@@ -36,6 +35,8 @@ import br.com.ss.centralaamar.service.IService;
 @Scope("session")
 public class MembroController extends GenericBean<Membro> {
 
+	private static final long serialVersionUID = 4169632240996553603L;
+	
 	@Autowired
 	private IMembroService service;
 	@Autowired
@@ -89,14 +90,6 @@ public class MembroController extends GenericBean<Membro> {
 	@Setter
 	private List<PequenoGrupo> pequenoGrupos = new ArrayList<PequenoGrupo>();
 
-//	@Autowired
-//	private MembroReport<Membro> report;
-//
-//	@Override
-//	public IReport<Membro> getRelatorio() {
-//		return report;
-//	}
-
 	@Override
 	protected IService<Membro> getService() {
 		return service;
@@ -119,7 +112,7 @@ public class MembroController extends GenericBean<Membro> {
 	@PostConstruct
 	protected void setup() throws InstantiationException,
 			IllegalAccessException {
-		
+
 		pastors = pastorService.search(new Pastor());
 		profissaos = profissaoService.search(new Profissao());
 		pequenoGrupos = pequenoGrupoService.search(new PequenoGrupo());
@@ -147,7 +140,7 @@ public class MembroController extends GenericBean<Membro> {
 	}
 
 	public String editar(Membro entity) {
-		
+
 		this.setPastor(new Pastor());
 		this.setProfissao(new Profissao());
 		this.setPequenoGrupo(new PequenoGrupo());
@@ -163,19 +156,47 @@ public class MembroController extends GenericBean<Membro> {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void printAniversariante() {
 
-		relatorio.setPath("D:\\jasper\\relatorioAniversariante.jasper");
-		this.setResultList(service.listAniversariantes(
+		List<Membro> list = service
+				.listAniversariantes(
 						Relatorio.converterDataToString(this.relatorio
 								.getDataInicial()), Relatorio
 								.converterDataToString(this.relatorio
 										.getDataFinal()), Relatorio
 								.converterAnoToString(this.relatorio
-										.getDataInicial())));
-		
+										.getDataInicial()));
+		relatorio.setPath("D:\\jasper\\relatorioAniversariante.jasper");
+		relatorio.setResultList(list);
+
 		super.print();
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public void printAniversarianteResumido() {
+
+		List<Membro> list = service
+				.listAniversariantes(
+						Relatorio.converterDataToString(this.relatorio
+								.getDataInicial()), Relatorio
+								.converterDataToString(this.relatorio
+										.getDataFinal()), Relatorio
+								.converterAnoToString(this.relatorio
+										.getDataInicial()));
+		relatorio.setPath("D:\\jasper\\relatorioAniversarianteResumido.jasper");
+		relatorio.setResultList(list);
+
+		super.print();
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public void print() {
+		this.relatorio.setPath("D:\\jasper\\membro.jasper");
+		this.relatorio.setResultList(this.resultList);
+		super.print();
 	}
 
 }

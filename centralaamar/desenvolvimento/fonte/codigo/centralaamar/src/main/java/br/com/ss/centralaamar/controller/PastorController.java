@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.model.entity.Pastor;
 import br.com.ss.centralaamar.service.IPastorService;
@@ -20,6 +19,8 @@ import br.com.ss.centralaamar.service.IService;
 @Scope("session")
 public class PastorController extends GenericBean<Pastor> {
 
+	private static final long serialVersionUID = 6031730028318406591L;
+	
 	@Autowired
 	private IPastorService service;
 
@@ -34,10 +35,10 @@ public class PastorController extends GenericBean<Pastor> {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void print() {
-		this.relatorio.setPath("D:\\jasper\\pequenoGrup.jasper");
-		// TODO INCLUIR A CONSULTA AOS DADOS DO RELATORIOS
-		this.relatorio.setResultList(new ArrayList<AbstractEntity>());
+		this.relatorio.setPath("D:\\jasper\\pastor.jasper");
+		this.relatorio.setResultList(this.resultList);
 		super.print();
 	}
 
