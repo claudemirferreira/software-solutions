@@ -185,22 +185,22 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements Serializa
 	}
 	
 	
-	public static void main(String[] args) {
-		StringBuilder hql = new StringBuilder();
-		List<String> cond = new ArrayList<String>();
-
-		hql.append( "select m from Membro m ");
-			hql.append(" join m.pequenoGrupo pg ");
-			hql.append(" join m.profissao prof ");
-			cond.add(" upper(m.nome) like :nome ");
-			cond.add(" m.pequenoGrupo = :pg ");
-			cond.add(" m.profissao = :prof ");
-		String orderby = " order by m.nome asc ";
-		
-		MembroDAO dao = new MembroDAO();
-		System.out.println( dao.generateHql(hql.toString(), cond, orderby) );
-		
-	}
+//	public static void main(String[] args) {
+//		StringBuilder hql = new StringBuilder();
+//		List<String> cond = new ArrayList<String>();
+//
+//		hql.append( "select m from Membro m ");
+//			hql.append(" join m.pequenoGrupo pg ");
+//			hql.append(" join m.profissao prof ");
+//			cond.add(" upper(m.nome) like :nome ");
+//			cond.add(" m.pequenoGrupo = :pg ");
+//			cond.add(" m.profissao = :prof ");
+//		String orderby = " order by m.nome asc ";
+//		
+//		MembroDAO dao = new MembroDAO();
+//		System.out.println( dao.generateHql(hql.toString(), cond, orderby) );
+//		
+//	}
 	
 	
 }
