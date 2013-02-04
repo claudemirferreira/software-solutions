@@ -10,19 +10,44 @@
 	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Pequeno Grupo"/>
-	<ui:param name="pageHeader" value="Cadastro de Pequeno Grupo"/>
-	<ui:param name="managedBean" value="#{pequenoGrupoController}"/>
+	<ui:param name="pageTitle" value="Cadastro de Pequeno Grupo" />
+	<ui:param name="pageHeader" value="Cadastro de Pequeno Grupo" />
+	<ui:param name="managedBean" value="#{pequenoGrupoController}" />
 
 	<ui:define name="register_region">
-		
-		<p:panel header="Cadastro do Pequeno Grupo">
-		
-			<fpf2:input id="Nome" 
-						value="#{managedBean.entity.nome}" 
-						label="Nome"
-						required="true"/>
-			
+
+		<p:panel header="Cadastro do Pequeno Grupo" style="width: 100%; position: relative;">
+			<h:panelGrid columns="3" id="painel" width="100%"
+				style="margin-bottom:10px">
+
+				<h:outputText value="Nome *" />
+				<p:inputText id="nome" value="#{managedBean.entity.nome}"
+					required="true" requiredMessage="o nome deve ser informado"
+					label="o nome deve ser informado" maxlength="60"
+					title="informe o nome do membro" style="width:300px;" />
+				<p:tooltip for="nome" showEvent="focus" hideEvent="blur" />
+
+				<h:outputText value="Anfitrião *" />
+				<p:selectOneMenu value="#{managedBean.anfitriao.idMembro}"
+					style="width:300px;">
+					<f:selectItem itemLabel="Selecione o profissão" itemValue=""
+						id="anfitriao" />
+					<f:selectItems value="#{managedBean.anfitriaos}" var="anfi"
+						itemLabel="#{anfi.nome}" itemValue="#{anfi.idMembro}" />
+				</p:selectOneMenu>
+				<p:tooltip for="anfitriao" showEvent="focus" hideEvent="blur" />
+				
+				<h:outputText value="Coordenador *" />
+				<p:selectOneMenu value="#{managedBean.coordenador.idMembro}"
+					style="width:300px;">
+					<f:selectItem itemLabel="Selecione o profissão" itemValue=""
+						id="coordenador" />
+					<f:selectItems value="#{managedBean.coordenadors}" var="coor"
+						itemLabel="#{coor.nome}" itemValue="#{coor.idMembro}" />
+				</p:selectOneMenu>
+				<p:tooltip for="coordenador" showEvent="focus" hideEvent="blur" />
+				
+			</h:panelGrid>
 		</p:panel>
 
 	</ui:define>
