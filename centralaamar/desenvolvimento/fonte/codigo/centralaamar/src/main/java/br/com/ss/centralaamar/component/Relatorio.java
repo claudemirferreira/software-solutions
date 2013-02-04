@@ -2,7 +2,6 @@ package br.com.ss.centralaamar.component;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import lombok.Setter;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.model.entity.Membro;
 
-public class Relatorio implements Serializable {
+public class Relatorio<T extends AbstractEntity> implements Serializable {
 
 	@Getter
 	@Setter
@@ -26,7 +25,9 @@ public class Relatorio implements Serializable {
 
 	@Getter
 	@Setter
-	private List<AbstractEntity> resultList = new ArrayList<AbstractEntity>();
+	private List<T> resultList;
+	
+	
 
 	public static String converterDataToString(Date data) {
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
