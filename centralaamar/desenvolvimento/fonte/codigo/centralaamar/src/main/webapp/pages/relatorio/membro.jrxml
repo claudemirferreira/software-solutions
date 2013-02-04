@@ -90,7 +90,7 @@
 			<staticText>
 				<reportElement uuid="2e3d5f08-6a60-49f4-b9fe-9f4854fb3961" x="165" y="60" width="337" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[RELATORIO DE ANIVERSARIANTE]]></text>
+				<text><![CDATA[RELATORIO DE MEMBROS]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -106,11 +106,6 @@
 				<reportElement uuid="2cf93ef7-f14d-4db8-9a9f-70a0d9bed8ac" x="1" y="0" width="100" height="16"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Nome]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f7971d1c-38b5-415f-a0f9-c9f9a157afd1" x="175" y="1" width="55" height="16"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="03973765-e8bc-4217-ac34-3f35effb7e93" x="238" y="1" width="51" height="16"/>
@@ -140,14 +135,9 @@
 				<reportElement uuid="f987678b-50e7-410b-a702-cbfeaa7508a3" x="0" y="17" width="802" height="1"/>
 			</line>
 			<textField>
-				<reportElement uuid="c50e2e0e-bfb3-4a82-8344-7bfa44e22eda" x="0" y="0" width="165" height="16"/>
+				<reportElement uuid="c50e2e0e-bfb3-4a82-8344-7bfa44e22eda" x="0" y="0" width="190" height="16"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM">
-				<reportElement uuid="85377ac6-b69d-4254-b17e-92b9921f622a" x="175" y="0" width="55" height="16"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="(99)99999999" isBlankWhenNull="true">
 				<reportElement uuid="b134e81d-cdbd-4321-bab4-fc25260265da" x="238" y="0" width="70" height="16"/>
