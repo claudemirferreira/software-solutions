@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.UnexpectedRollbackException;
 
 import br.com.ss.centralaamar.component.Relatorio;
-import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.exception.ValidationException;
 import br.com.ss.centralaamar.model.entity.AbstractEntity;
 import br.com.ss.centralaamar.service.IService;
@@ -57,9 +56,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	@Setter
 	protected List<T> resultList;
 	
-	
-//	protected abstract IReport getRelatorio();
-
 	@Getter
 	@Setter
 	protected Relatorio relatorio = new Relatorio();
@@ -96,19 +92,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 
 	}
 
-	// protected abstract IAbstractDAO<T> getDAO();
-
 	protected abstract IService<T> getService();
-
-	// private void initConversation() {
-	// if (conversation.isTransient()) {
-	// conversation.begin();
-	// }
-	// }
-
-	// protected void endConversation() {
-	// conversation.end();
-	// }
 
 	private void instanciateEntityClass() {
 		if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
@@ -126,7 +110,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		try {
 			getService().save(entity);
 			init();
-			// TODO enviar msg de sucesso
 			return resolveNavigation(false);
 		} catch (UnexpectedRollbackException ure) {
 			System.out.println(ure.getMessage());
@@ -209,7 +192,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	
 //	public void print() {
 //		
-//		getRelatorio().print();
+//		getRelatorio().print( resultList );
 //		
 //	}
 
@@ -222,8 +205,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			JasperPrint preencher = JasperFillManager.fillReport(relatorio
-					.getPath(), null,
+			JasperPrint preencher = JasperFillManager.fillReport(relatorio.getPath(), null,
 					new JRBeanCollectionDataSource(relatorio.getResultList()));
 
 			JasperExportManager.exportReportToPdfStream(preencher,

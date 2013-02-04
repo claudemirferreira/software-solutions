@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.com.ss.centralaamar.componente.report.IReport;
 import br.com.ss.centralaamar.exception.ValidationException;
 import br.com.ss.centralaamar.model.entity.Chamada;
 import br.com.ss.centralaamar.service.IChamadaService;
