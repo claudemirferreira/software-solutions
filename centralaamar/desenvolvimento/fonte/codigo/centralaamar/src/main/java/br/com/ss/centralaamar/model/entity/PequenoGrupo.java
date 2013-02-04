@@ -44,14 +44,14 @@ public class PequenoGrupo extends AbstractEntity implements
 	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "anfi_id", referencedColumnName = "pro_id")
-	@NotNull
+	//@NotNull
 	private Membro anfritriao;
 	
 	@Getter
 	@Setter
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "coord_id", referencedColumnName = "pro_id")
-	@NotNull
+	//@NotNull
 	private Membro coordenador;
 
 	public PequenoGrupo() {
