@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +41,6 @@ public class Membro extends AbstractEntity implements java.io.Serializable {
 	@Getter
 	@Setter
 	@Column(name = "nome", nullable = false, length = 100, unique = true)
-	@NotNull
 	private String nome;
 
 	@Getter

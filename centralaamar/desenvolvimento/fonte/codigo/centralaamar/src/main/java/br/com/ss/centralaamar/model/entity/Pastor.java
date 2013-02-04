@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +32,6 @@ public class Pastor extends AbstractEntity implements java.io.Serializable {
 	@Getter
 	@Setter
 	@Column(unique = true, nullable = false, length = 100)
-	@NotNull
 	private String nome;
 
 	public Pastor() {

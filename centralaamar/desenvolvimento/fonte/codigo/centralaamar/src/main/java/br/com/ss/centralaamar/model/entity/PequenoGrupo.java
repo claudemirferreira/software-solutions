@@ -37,7 +37,7 @@ public class PequenoGrupo extends AbstractEntity implements
 	@Getter
 	@Setter
 	@Column(unique = true, name = "nome", nullable = false, length = 100)
-	@NotNull
+//	@NotNull
 	private String nome;
 	
 	@Getter
@@ -45,7 +45,7 @@ public class PequenoGrupo extends AbstractEntity implements
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "anfi_id", referencedColumnName = "pro_id")
 	//@NotNull
-	private Membro anfritriao;
+	private Membro anfitriao;
 	
 	@Getter
 	@Setter
