@@ -15,11 +15,9 @@ import br.com.ss.centralaamar.model.entity.AbstractEntity;
 @Service
 public abstract class BaseService<T extends AbstractEntity> implements Serializable, IService<T> {
 
-//	@Inject 
-//	private Event<ExceptionToCatch> catchEvent;
+	private static final long serialVersionUID = 2311196919969967993L;
 
 	protected abstract IAbstractDAO<T> getDao();
-	
 
 	@PostConstruct
 	protected void setup() {
