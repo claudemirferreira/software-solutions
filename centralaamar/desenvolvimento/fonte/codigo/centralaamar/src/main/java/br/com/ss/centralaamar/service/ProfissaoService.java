@@ -12,6 +12,8 @@ import br.com.ss.centralaamar.model.entity.Profissao;
 @Service
 public class ProfissaoService  extends BaseService<Profissao> implements Serializable, IProfissaoService  {
 
+	private static final long serialVersionUID = -4537153933201915492L;
+	
 	@Autowired
 	private ProfissaoDAO dao;
 	
@@ -19,6 +21,11 @@ public class ProfissaoService  extends BaseService<Profissao> implements Seriali
 	@Override
 	protected IAbstractDAO<Profissao> getDao() {
 		return dao;
+	}
+	
+	@Override
+	public Profissao getByPrimaryKey(Profissao entity) {
+		return getByPrimaryKey(entity);
 	}
 
 }
