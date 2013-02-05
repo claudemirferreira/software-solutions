@@ -10,28 +10,38 @@ import org.springframework.stereotype.Component;
 import br.com.ss.centralaamar.model.entity.Profissao;
 
 @Component
-public class ProfissaoDAO extends AbstractDAO<Profissao> implements IProfissaoDAO {
+public class ProfissaoDAO extends AbstractDAO<Profissao> implements
+		IProfissaoDAO {
+
+	private static final long serialVersionUID = -2267398215112517194L;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Profissao> searchByEntity(Profissao entity) {
 		StringBuilder s = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();
-		
+
 		s.append(" select p from Profissao p ");
-		if ( notEmpty(entity.getNome()) ) {
+		if (notEmpty(entity.getNome())) {
 			condictions.add(" lower(p.nome) like :nome ");
 		}
-		
+
 		String orderBy = " order by p.nome ";
-		
-		Query q = this.entityManager.createQuery( generateHql(s.toString(), condictions) + orderBy );
-		
-		if ( notEmpty(entity.getNome() ) ) {
-			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase() + "%" );
+
+		Query q = this.entityManager.createQuery(generateHql(s.toString(),
+				condictions) + orderBy);
+
+		if (notEmpty(entity.getNome())) {
+			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase()
+					+ "%");
 		}
-		
+
 		return q.getResultList();
+	}
+
+	@Override
+	public Profissao getByPrimaryKey(Profissao entity) {
+		return getByPrimaryKey(entity);
 	}
 
 }
