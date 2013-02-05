@@ -205,7 +205,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			JasperPrint preencher = JasperFillManager.fillReport(relatorio.getPath(), null,
+			JasperPrint preencher = JasperFillManager.fillReport(relatorio.getPath(), relatorio.getParametros(),
 					new JRBeanCollectionDataSource(relatorio.getResultList()));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
