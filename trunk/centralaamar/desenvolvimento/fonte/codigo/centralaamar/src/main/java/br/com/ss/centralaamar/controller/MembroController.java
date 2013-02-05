@@ -1,20 +1,33 @@
 package br.com.ss.centralaamar.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ss.centralaamar.component.Batizado;
+import br.com.ss.centralaamar.component.ConnectionFactory;
 import br.com.ss.centralaamar.component.MembroIgreja;
 import br.com.ss.centralaamar.component.ModoConversao;
 import br.com.ss.centralaamar.component.Relatorio;
@@ -36,7 +49,7 @@ import br.com.ss.centralaamar.service.IService;
 public class MembroController extends GenericBean<Membro> {
 
 	private static final long serialVersionUID = 4169632240996553603L;
-	
+
 	@Autowired
 	private IMembroService service;
 	@Autowired
@@ -194,9 +207,77 @@ public class MembroController extends GenericBean<Membro> {
 
 	@SuppressWarnings("unchecked")
 	public void print() {
+		Map param = new HashMap();
+		param.put("titulo", "RELATORIO DE MEMBROS ");
+
+		this.relatorio.setParametros(param);
 		this.relatorio.setPath("D:\\jasper\\membro.jasper");
 		this.relatorio.setResultList(this.resultList);
 		super.print();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void listMembrosPorProfissao() {
+
+		Map param = new HashMap();
+//		this.setProfissao(profissaoService.getByPrimaryKey(this.getProfissao()));
+
+//		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
+//				+ this.getProfissao().getNome() + " ]");
+		this.getProfissao().setNome("");
+		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
+				+ this.getProfissao().getNome() + " ]");
+		
+		this.relatorio.setParametros(param);
+		this.relatorio.setPath("D:\\jasper\\membro.jasper");
+		this.relatorio.setResultList(service
+				.listMembrosPorProfissao(this.profissao));
+
+		super.print();
+	}
+
+	@SuppressWarnings("deprecation")
+	public void printRelatorioMaster() throws IOException, JRException {
+		ByteArrayOutputStream byteOutPutStream = new ByteArrayOutputStream();
+
+		try {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+
+			Connection connection = ConnectionFactory.getConnection();
+
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+
+			String pathJasper = "D:\\jasper\\relatorioMasterMembroPorPequenoGrupo.jasper";
+
+			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
+					null, connection);
+
+			System.out.println("Writing to InPut stream...");
+			JasperExportManager.exportReportToPdfStream(preencher,
+					byteOutPutStream);
+
+			System.out.println("Size of OutPut: " + byteOutPutStream.size());
+			response.setContentLength(byteOutPutStream.size());
+			response.setContentType("application/pdf");
+
+			System.out.println("Writing to OutPut stream...");
+			ServletOutputStream servletOutPutStream = response
+					.getOutputStream();
+			servletOutPutStream.write(byteOutPutStream.toByteArray(), 0,
+					byteOutPutStream.size());
+
+			System.out.println("Closing stream...");
+			servletOutPutStream.flush();
+			servletOutPutStream.close();
+
+			FacesContext.getCurrentInstance().responseComplete();
+
+		} catch (JRException jrex) {
+			jrex.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
