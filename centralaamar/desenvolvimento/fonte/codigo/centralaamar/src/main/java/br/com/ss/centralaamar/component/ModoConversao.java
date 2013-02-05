@@ -4,28 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ModoConversao implements Serializable {
 
 	private static final long serialVersionUID = -9132226054781979390L;
 
+	@Getter
+	@Setter
 	private String codigo;
 	private String descricao;
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
 
 	public static List<ModoConversao> list() {
 		List<ModoConversao> modoConversoes = new ArrayList<ModoConversao>();
