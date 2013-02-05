@@ -10,10 +10,14 @@ import org.springframework.stereotype.Repository;
 import br.com.ss.centralaamar.component.Relatorio;
 import br.com.ss.centralaamar.model.entity.Membro;
 import br.com.ss.centralaamar.model.entity.PequenoGrupo;
+import br.com.ss.centralaamar.model.entity.Profissao;
 import br.com.ss.centralaamar.model.entity.Sabado;
 
 @Repository
 public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
+
+	private static final long serialVersionUID = 6493573651144952542L;
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -133,6 +137,28 @@ public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 
 		q.setParameter("pg", pequenoGrupo);
 		q.setParameter("sab", sabado);
+		
+		listMembro = q.getResultList();
+		return listMembro;
+	}
+
+
+	@Override
+	public List<Membro> listMembrosPorProfissao(Profissao profissao) {
+		StringBuilder hql = new StringBuilder();
+		List<String> cond = new ArrayList<String>();
+		List<Membro> listMembro = new ArrayList<Membro>();
+		
+		hql.append(" select m from Membro m ");
+		hql.append(" where m.profissao = :pr" );
+
+		String generatedHql = generateHql(hql.toString(), cond, null);
+		System.out.println("sql ===================================================== " );
+		System.out.println("sql == " + generatedHql);
+		System.out.println("sql ===================================================== " );
+		Query q = entityManager.createQuery(generatedHql);
+
+		q.setParameter("pr", profissao);
 		
 		listMembro = q.getResultList();
 		return listMembro;
