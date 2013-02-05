@@ -3,7 +3,9 @@ package br.com.ss.centralaamar.component;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +24,14 @@ public class Relatorio<T extends AbstractEntity> implements Serializable {
 	@Getter
 	@Setter
 	private String path;
+	
+	@Getter
+	@Setter
+	private String titulo;
+	
+	@Getter
+	@Setter
+	private Map parametros = new HashMap();
 
 	@Getter
 	@Setter
