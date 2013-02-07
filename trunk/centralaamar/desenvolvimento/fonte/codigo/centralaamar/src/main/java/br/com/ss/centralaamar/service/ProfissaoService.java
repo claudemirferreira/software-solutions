@@ -25,7 +25,7 @@ public class ProfissaoService  extends BaseService<Profissao> implements Seriali
 	
 	@Override
 	public Profissao getByPrimaryKey(Profissao entity) {
-		return getByPrimaryKey(entity);
+		return dao.getByPrimaryKey(entity);
 	}
 
 }

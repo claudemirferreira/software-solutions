@@ -41,7 +41,7 @@ public class ProfissaoDAO extends AbstractDAO<Profissao> implements
 
 	@Override
 	public Profissao getByPrimaryKey(Profissao entity) {
-		return getByPrimaryKey(entity);
+		return super.getByPrimaryKey(entity);
 	}
 
 }
