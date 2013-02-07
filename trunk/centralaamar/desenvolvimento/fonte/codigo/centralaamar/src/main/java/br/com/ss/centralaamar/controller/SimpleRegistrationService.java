@@ -1,21 +1,15 @@
 package br.com.ss.centralaamar.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.mail.internet.MimeMessage;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.apache.velocity.app.VelocityEngine;
-import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -33,6 +27,8 @@ import br.com.ss.centralaamar.model.entity.User;
 @Scope("session")
 public class SimpleRegistrationService implements RegistrationService {
 
+	@Getter
+	@Setter
 	private Mail mail = new Mail();
 
 	@Autowired
@@ -59,12 +55,12 @@ public class SimpleRegistrationService implements RegistrationService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(user.getAdress());
-				message.setFrom("alvaraesam@gmail.com"); // could be
+				message.setFrom("centralaamar@gmail.com"); // could be
 															// parameterized...
 				Map<String, String> model = new HashMap<String, String>();
 				model.put("user", user.getAdress());
 
-				message.setSubject("subject");
+				message.setSubject(getMail().getAssunto());
 
 				String text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, "emailBody.vm", model);
@@ -81,13 +77,15 @@ public class SimpleRegistrationService implements RegistrationService {
 		User user = new User();
 		user.setAdress("alvaraesam@gmail.com");
 		register(user);
+		
+//		user.setAdress("waltinhovale@hotmail.com");
+//		register(user);
+//		
+//		user.setAdress("robsonrf@gmail.com");
+//		register(user);
+		
+//		waltinhovale@hotmail.com
+//		robsonrf@gmail.com
 	}
 
-	public Mail getMail() {
-		return mail;
-	}
-
-	public void setMail(Mail mail) {
-		this.mail = mail;
-	}
 }
