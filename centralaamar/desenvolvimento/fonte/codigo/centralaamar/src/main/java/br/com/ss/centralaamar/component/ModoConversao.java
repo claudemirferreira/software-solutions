@@ -14,6 +14,8 @@ public class ModoConversao implements Serializable {
 	@Getter
 	@Setter
 	private String codigo;
+	@Getter
+	@Setter
 	private String descricao;
 
 	public static List<ModoConversao> list() {
