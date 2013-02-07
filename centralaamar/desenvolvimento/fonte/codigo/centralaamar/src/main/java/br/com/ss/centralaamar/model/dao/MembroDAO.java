@@ -66,7 +66,7 @@ public class MembroDAO extends AbstractDAO<Membro> implements IMembroDAO {
 	@SuppressWarnings("unchecked")
 	public List<Membro> listAniversariantes(String dataInicial, String dataFinal, String ano) {
 		String sql = Relatorio.montarSql(dataInicial, dataFinal, ano);
-		List<Membro> membros = entityManager.createQuery(sql).getResultList();
+		List<Membro> membros = entityManager.createNativeQuery(sql).getResultList();
 		return membros;
 	}
 
