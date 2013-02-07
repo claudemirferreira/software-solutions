@@ -220,7 +220,7 @@ public class MembroController extends GenericBean<Membro> {
 	public void listMembrosPorProfissao() {
 
 		Map param = new HashMap();
-//		this.setProfissao(profissaoService.getByPrimaryKey(this.getProfissao()));
+		this.setProfissao(profissaoService.getByPrimaryKey(this.getProfissao()));
 
 //		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
 //				+ this.getProfissao().getNome() + " ]");
@@ -236,7 +236,6 @@ public class MembroController extends GenericBean<Membro> {
 		super.print();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void printRelatorioMaster() throws IOException, JRException {
 		ByteArrayOutputStream byteOutPutStream = new ByteArrayOutputStream();
 
