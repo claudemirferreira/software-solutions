@@ -63,10 +63,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	@Setter
 	protected Relatorio relatorio = new Relatorio();
 
-	// @Inject
-	// @Autowired
-	// protected Conversation conversation; // TODO conversation
-
 	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
@@ -184,7 +180,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	 * @return string.
 	 */
 	public String cancel() {
-		// endConversation();
 		init();
 		return resolveNavigation(false);
 	}
@@ -198,7 +193,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	}
 
 	protected void getPathRelatorio() {
-		this.relatorio.setPath("C:\\jasper\\"
+		this.relatorio.setPath("D:\\jasper\\"
 				+ entity.getClass().getSimpleName().toLowerCase() + ".jasper");
 		System.out.println("path relatorio == " + this.relatorio.getPath());
 	}
@@ -217,7 +212,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 
 			JasperPrint preencher = JasperFillManager.fillReport(fileJasper, relatorio
 					.getParametros(),
-					new JRBeanCollectionDataSource(relatorio.getResultList()));
+					new JRBeanCollectionDataSource(this.getResultList()));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);
