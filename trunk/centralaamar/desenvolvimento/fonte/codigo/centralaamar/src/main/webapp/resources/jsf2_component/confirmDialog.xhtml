@@ -24,7 +24,7 @@
                		 severity="#{cc.attrs.severity}" 
                		 widgetVar="confirmation">  
         
-        <p:commandButton value="Confirmar" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  action="#{cc.attrs.actionMethod}">
+        <p:commandButton value="Confirmar" actionListener="#{cc.attrs.actionMethod}" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  >
         	<f:setPropertyActionListener target="#{cc.attrs.targetItem}" value="#{cc.attrs.selectedItem}" />
         </p:commandButton>
         
