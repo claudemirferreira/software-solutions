@@ -14,6 +14,8 @@ import br.com.ss.centralaamar.model.entity.Membro;
 
 public class Relatorio<T extends AbstractEntity> implements Serializable {
 
+	private static final long serialVersionUID = -7999358612213919208L;
+	
 	@Getter
 	@Setter
 	private Date dataInicial;
