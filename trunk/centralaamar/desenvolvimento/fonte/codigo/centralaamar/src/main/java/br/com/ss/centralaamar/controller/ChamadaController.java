@@ -67,9 +67,6 @@ public class ChamadaController extends GenericBean<Chamada> {
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			ServletContext servletContext = (ServletContext) facesContext
-					.getExternalContext().getContext();
-
 			String pathJasper = "C:\\jasper\\pequenoChamada.jasper";
 
 			JasperPrint preencher = JasperFillManager.fillReport(pathJasper,
