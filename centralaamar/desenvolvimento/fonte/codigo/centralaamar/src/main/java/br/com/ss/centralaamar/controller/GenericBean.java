@@ -1,6 +1,8 @@
 package br.com.ss.centralaamar.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -11,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,7 +58,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	@Getter
 	@Setter
 	protected List<T> resultList;
-	
+
 	@Getter
 	@Setter
 	protected Relatorio relatorio = new Relatorio();
@@ -73,6 +76,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		instanciateEntityClass();
 		initEntity();
 		init();
+		getPathRelatorio();
 
 	}
 
@@ -136,6 +140,10 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		return null;
 	}
 
+	public void remove(ActionEvent actionEvent) {
+
+	}
+
 	public void remove() {
 		remove(itemToRemove);
 		search();
@@ -188,24 +196,27 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		url += crud ? "create.jsf" : "search.jsf";
 		return url;
 	}
-	
-	
-//	public void print() {
-//		
-//		getRelatorio().print( resultList );
-//		
-//	}
+
+	protected void getPathRelatorio() {
+		this.relatorio.setPath("C:\\jasper\\"
+				+ entity.getClass().getSimpleName().toLowerCase() + ".jasper");
+		System.out.println("path relatorio == " + this.relatorio.getPath());
+	}
 
 	public void print() {
 		ByteArrayOutputStream byteOutPutStream = new ByteArrayOutputStream();
 
 		try {
+
+			FileInputStream fileJasper = new FileInputStream(relatorio.getPath());
+
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			JasperPrint preencher = JasperFillManager.fillReport(relatorio.getPath(), relatorio.getParametros(),
+			JasperPrint preencher = JasperFillManager.fillReport(fileJasper, relatorio
+					.getParametros(),
 					new JRBeanCollectionDataSource(relatorio.getResultList()));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
@@ -226,6 +237,9 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 
 		} catch (JRException jrex) {
 			jrex.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.out.println("NAO FOI ENCONTRADO O RELATORIO " + relatorio.getPath());
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
