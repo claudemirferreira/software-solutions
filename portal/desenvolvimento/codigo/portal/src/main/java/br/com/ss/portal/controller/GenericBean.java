@@ -95,6 +95,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 
 	protected abstract IService<T> getService();
 
+	@SuppressWarnings("unchecked")
 	private void instanciateEntityClass() {
 		if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
 			ParameterizedType paramType = (ParameterizedType) getClass()

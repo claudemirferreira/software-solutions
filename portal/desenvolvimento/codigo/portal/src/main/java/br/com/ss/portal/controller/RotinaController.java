@@ -25,6 +25,8 @@ import br.com.ss.portal.service.ISistemaService;
 @Scope("session")
 public class RotinaController extends GenericBean<Rotina> {
 
+	private static final long serialVersionUID = 5368939191352412350L;
+
 	@Getter
 	@Setter
 	private Sistema sistema = new Sistema();
