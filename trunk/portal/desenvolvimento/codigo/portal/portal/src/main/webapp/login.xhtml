@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/templateLogin.xhtml">
+
+	<ui:param name="pageTitle" value="Cadastro de Usuario" />
+	<ui:param name="pageHeader" value="Usuario" />
+	<ui:param name="managedBean" value="#{usuarioController}" />
+
+
+	<ui:define name="content">
+
+		<p:growl id="growl" showDetail="true" life="3000" />
+
+		<h:form>
+			<center>
+				<p:panel header="Controller de acesso" style="width:300px;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="cpf" value="Login:" />
+						<p:inputText value="#{managedBean.search.cpf}" id="cpf"
+							required="true" label="login" />
+
+						<h:outputLabel for="senha" value="Senha:" />
+						<h:inputSecret value="#{managedBean.search.senha}" id="senha"
+							required="true" label="password" />
+
+						<f:facet name="footer">
+							<p:commandButton id="loginButton" value="Logar" update=":growl"
+								action="#{managedBean.logar}" />
+								
+								
+						</f:facet>
+					</h:panelGrid>
+				</p:panel>
+			</center>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
