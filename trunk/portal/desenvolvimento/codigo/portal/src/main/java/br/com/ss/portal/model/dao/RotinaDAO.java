@@ -19,6 +19,7 @@ public class RotinaDAO extends AbstractDAO<Rotina> implements IRotinaDAO {
 		return super.getByPrimaryKey(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Rotina> searchByEntity(Rotina entity) {
 		StringBuilder s = new StringBuilder();

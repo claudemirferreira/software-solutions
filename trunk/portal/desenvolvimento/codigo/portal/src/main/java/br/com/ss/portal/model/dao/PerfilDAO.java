@@ -19,6 +19,7 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 		return super.getByPrimaryKey(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Perfil> searchByEntity(Perfil entity) {
 		StringBuilder s = new StringBuilder();

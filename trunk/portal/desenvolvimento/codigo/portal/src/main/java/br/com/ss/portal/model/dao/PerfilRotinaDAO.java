@@ -20,6 +20,7 @@ public class PerfilRotinaDAO extends AbstractDAO<PerfilRotina> implements
 		return super.getByPrimaryKey(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PerfilRotina> searchByEntity(PerfilRotina entity) {
 		StringBuilder s = new StringBuilder();

@@ -20,6 +20,7 @@ public class LicenciadoDAO extends AbstractDAO<Licenciado> implements
 		return super.getByPrimaryKey(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Licenciado> searchByEntity(Licenciado entity) {
 		StringBuilder s = new StringBuilder();
