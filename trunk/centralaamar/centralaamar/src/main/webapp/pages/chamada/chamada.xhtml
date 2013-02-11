@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/pageUtils/template.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<div align="left">
+				<p:messages id="messages" autoUpdate="true" />
+				<p:panel header="Pesquisa de chamadas" style="whidt:800px;">
+					<h:panelGrid columns="2" id="painel" width="100%"
+						style="margin-bottom:10px">
+
+						<h:outputText value="Pequeno Grupo" style="width:60px;" />
+						<p:selectOneMenu value="#{chamadaController.pequenoGrupo.id}"
+							style="width:400px;">
+							<f:selectItem itemLabel="Selecione o pequeno grupo" itemValue=""
+								id="pequenoGrupo" />
+							<f:selectItems value="#{chamadaController.pequenoGrupos}"
+								var="pro" itemLabel="#{pro.descricao}" itemValue="#{pro.id}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Sabado" style="width:60px;" />
+						<p:calendar id="sabado" maxlength="10" style="width:130px;"
+							value="#{chamadaController.sabado.data}" title="informe o sabado"
+							mask="99/99/9999" />
+						<p:tooltip for="sabado" showEvent="focus" hideEvent="blur" />
+
+					</h:panelGrid>
+
+				</p:panel>
+				<div align="center">
+					<p:toolbar align="center">
+						<p:toolbarGroup align="center">
+
+							<p:commandButton value="Pesquisar" icon="ui-icon-search"
+								action="#{chamadaController.find()}" update="painelLista" />
+
+							<p:commandButton value="Imprimir" icon="ui-icon-print"
+								ajax="false" action="#{chamadaController.print()}">
+							</p:commandButton>
+
+						</p:toolbarGroup>
+					</p:toolbar>
+				</div>
+				<h:panelGrid id="painelLista" style="width:100%;">
+
+					<p:dataTable id="tableLista" var="listChamadas"
+						value="#{chamadaController.mediumChamadasModel}" paginator="true" rows="10"
+						selectionMode="single">
+						<p:ajax event="rowSelect" listener="#{chamadaController.onRowSelect}"
+							update="tableLista"  />
+						<p:ajax event="rowUnselect" listener="#{chamadaController.onRowUnselect}"
+							update="tableLista" />
+						<!-- 
+						selectionMode="single"
+						<p:ajax event="rowSelect" listener="#{chamadaController.onRowSelect}"
+							 oncomplete="carDialog.show()" />
+						 -->
+						<p:column width="20">
+							<f:facet name="header">
+								<h:outputText value="Código" width="20" />
+							</f:facet>
+							<h:outputText value="#{listChamadas.membro.id}" />
+						</p:column>
+
+						<p:column width="300">
+							<f:facet name="header">
+								<h:outputText value="Nome" width="300" />
+							</f:facet>
+							<h:outputText value="#{listChamadas.membro.nome}" />
+						</p:column>
+
+						<p:column width="300">
+							<f:facet name="header">
+								<h:outputText value="Presenca" width="50" />
+							</f:facet>
+							<p:selectBooleanCheckbox value="#{listChamadas.presente}">
+								<p:ajax listener="#{chamadaController.atualizar()}">
+									<f:setPropertyActionListener value="#{listChamadas}"
+										target="#{chamadaController.selected}" />
+								</p:ajax>
+
+							</p:selectBooleanCheckbox>
+						</p:column>
+						<!-- 
+						<p:column width="15">
+							<p:commandButton title="Deletar" update="tableLista"
+								immediate="true" ajax="false"
+								action="#{pastorController.remove()}" icon="ui-icon-trash">
+								<f:setPropertyActionListener
+									target="#{pastorController.selected}" value="#{listPastores}" />
+							</p:commandButton>
+						</p:column>
+						 -->
+
+					</p:dataTable>
+				</h:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
