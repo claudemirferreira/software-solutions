@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/pageUtils/template.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<div align="left">
+				<p:messages id="messages" autoUpdate="true" />
+				<p:panel header="Envio de email" style="whidt:800px;">
+					<h:panelGrid columns="1" id="painel" width="100%">
+
+						<h:outputText value="Assunto :" style="width:100" />
+						<p:inputText id="assunto"
+							value="#{simpleRegistrationService.mail.assunto}"
+							label="o assunto deve ser informado" maxlength="60"
+							style="width:400px;" />
+
+						<h:outputText value="Conteudo :" style="width:100" />
+						<p:inputTextarea rows="5" cols="30" required="true"
+							value="#{simpleRegistrationService.mail.conteudo}"
+							maxlength="100" counterTemplate="{0} characters remaining."
+							autoResize="false" label="o conteudo deve ser informado"
+							style="width:400px;" />
+
+						<input type="file" name="file" size="50"
+							value="#{simpleRegistrationService.mail.path}" />
+
+					</h:panelGrid>
+				</p:panel>
+				<p:toolbar align="center">
+					<p:toolbarGroup align="center">
+						<p:commandButton value="Salvar" icon="ui-icon-disk"
+							action="#{simpleRegistrationService.enviarEmail}" />
+
+					</p:toolbarGroup>
+				</p:toolbar>
+
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
