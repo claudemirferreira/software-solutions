@@ -19,6 +19,7 @@ public class UsuarioPerfilDAO extends AbstractDAO<UsuarioPerfil> implements IUsu
 		return super.getByPrimaryKey(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<UsuarioPerfil> searchByEntity(UsuarioPerfil entity) {
 		StringBuilder s = new StringBuilder();

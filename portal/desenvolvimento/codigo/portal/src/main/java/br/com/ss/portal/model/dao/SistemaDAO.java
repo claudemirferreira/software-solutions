@@ -19,6 +19,7 @@ public class SistemaDAO extends AbstractDAO<Sistema> implements ISistemaDAO {
 		return super.getByPrimaryKey(entity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sistema> searchByEntity(Sistema entity) {
 		StringBuilder s = new StringBuilder();
