@@ -17,6 +17,8 @@ import br.com.ss.portal.service.IUsuarioPerfilService;
 @Scope("session")
 public class UsuarioPerfilController extends GenericBean<UsuarioPerfil> {
 
+	private static final long serialVersionUID = 6720548842395797811L;
+
 	@Autowired
 	private IUsuarioPerfilService service;
 

@@ -47,7 +47,7 @@ public class UsuarioController extends GenericBean<Usuario> {
 		if (this.search == null)
 			return "login.xhtml";
 		else
-			return "home.xhtml";
+			return "http://localhost:8080/centralaamar/home.xhtml";
 
 	}
 

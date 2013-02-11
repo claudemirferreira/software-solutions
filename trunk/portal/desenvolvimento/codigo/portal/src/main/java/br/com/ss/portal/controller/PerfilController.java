@@ -25,6 +25,8 @@ import br.com.ss.portal.service.ISistemaService;
 @Scope("session")
 public class PerfilController extends GenericBean<Perfil> {
 
+	private static final long serialVersionUID = 557784413066030360L;
+
 	@Getter
 	@Setter
 	private Sistema sistema = new Sistema();

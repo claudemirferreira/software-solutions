@@ -17,6 +17,8 @@ import br.com.ss.portal.service.IService;
 @Scope("session")
 public class PerfilRotinaController extends GenericBean<PerfilRotina> {
 
+	private static final long serialVersionUID = -7056309405822788580L;
+	
 	@Autowired
 	private IPerfilRotinaService service;
 
