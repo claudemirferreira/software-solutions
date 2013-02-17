@@ -64,7 +64,7 @@
 	<title>
 		<band height="97" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d2eed58f-235b-40ed-8c22-95529a9bd9bb" x="164" y="20" width="337" height="20"/>
+				<reportElement uuid="d2eed58f-235b-40ed-8c22-95529a9bd9bb" x="143" y="20" width="399" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[DEPARTAMENTO DE COMUNICAÇÃO DA CENTRAL AAMAR]]></text>
 			</staticText>
@@ -74,7 +74,7 @@
 				<text><![CDATA[Data de Impressão: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3c48e9eb-f4ae-4993-b631-be125a469f9f" x="164" y="0" width="337" height="20"/>
+				<reportElement uuid="3c48e9eb-f4ae-4993-b631-be125a469f9f" x="143" y="0" width="399" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[IGREJA ADVENTISTA DO SÉTIMO DIA]]></text>
 			</staticText>
@@ -84,14 +84,14 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="6574b182-2d19-4958-b2e9-1514e0babd3f" x="164" y="40" width="337" height="20"/>
+				<reportElement uuid="6574b182-2d19-4958-b2e9-1514e0babd3f" x="143" y="40" width="399" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[SISTEMA DE CONTROLE DE COMUNICAÇÃO]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="bb4a72bc-4ea8-4131-9625-ccf098d5186c" x="164" y="60" width="337" height="20"/>
+				<reportElement uuid="bb4a72bc-4ea8-4131-9625-ccf098d5186c" x="143" y="60" width="399" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
