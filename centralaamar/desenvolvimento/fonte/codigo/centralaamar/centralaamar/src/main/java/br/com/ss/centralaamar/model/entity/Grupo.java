@@ -44,7 +44,7 @@ public class Grupo extends AbstractEntity implements Serializable {
 
 	@Getter
 	@Setter
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private List<Membro> membros = new ArrayList<Membro>();
