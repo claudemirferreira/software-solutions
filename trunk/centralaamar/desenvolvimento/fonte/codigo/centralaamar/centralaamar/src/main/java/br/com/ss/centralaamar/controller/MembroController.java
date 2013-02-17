@@ -157,6 +157,9 @@ public class MembroController extends GenericBean<Membro> {
 		this.setPastor(new Pastor());
 		this.setProfissao(new Profissao());
 		this.setPequenoGrupo(new PequenoGrupo());
+		
+		this.pastors = pastorService.search(this.pastor);
+		this.profissaos = profissaoService.search(this.profissao);
 
 		if (null != entity.getPastor())
 			this.pastor = entity.getPastor();
@@ -222,11 +225,10 @@ public class MembroController extends GenericBean<Membro> {
 		Map param = new HashMap();
 		this.setProfissao(profissaoService.getByPrimaryKey(this.getProfissao()));
 
-//		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
-//				+ this.getProfissao().getNome() + " ]");
-		this.getProfissao().setNome("");
 		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
 				+ this.getProfissao().getNome() + " ]");
+		
+		this.setResultList(service.listMembrosPorProfissao(this.profissao));
 		
 		this.relatorio.setParametros(param);
 		this.relatorio.setPath("D:\\jasper\\membro.jasper");

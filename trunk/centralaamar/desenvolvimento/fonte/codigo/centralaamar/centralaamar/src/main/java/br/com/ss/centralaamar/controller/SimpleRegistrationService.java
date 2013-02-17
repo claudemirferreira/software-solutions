@@ -1,9 +1,13 @@
 package br.com.ss.centralaamar.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 
 import lombok.Getter;
@@ -20,12 +24,20 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import br.com.ss.centralaamar.component.FacesUtil;
 import br.com.ss.centralaamar.component.Mail;
-import br.com.ss.centralaamar.model.entity.User;
+import br.com.ss.centralaamar.model.entity.Membro;
+import br.com.ss.centralaamar.service.IMembroService;
 
 @Component("simpleRegistrationService")
 @ManagedBean(name = "simpleRegistrationService")
 @Scope("session")
 public class SimpleRegistrationService implements RegistrationService {
+
+	@Autowired
+	private IMembroService service;
+
+	@Getter
+	@Setter
+	private List<Membro> resultList = new ArrayList<Membro>();
 
 	@Getter
 	@Setter
@@ -44,21 +56,21 @@ public class SimpleRegistrationService implements RegistrationService {
 		this.velocityEngine = velocityEngine;
 	}
 
-	public void register(User user) throws Exception {
+	public void register(Membro membro) throws Exception {
 
-		sendConfirmationEmail(user);
+		sendConfirmationEmail(membro);
 	}
 
-	private void sendConfirmationEmail(final User user) throws Exception {
+	private void sendConfirmationEmail(final Membro membro) throws Exception {
 
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-				message.setTo(user.getAdress());
-				message.setFrom("centralaamar@gmail.com"); // could be
+				message.setTo(membro.getEmail());
+				message.setFrom("claudemirramosferreira@gmail.com"); // could be
 															// parameterized...
 				Map<String, String> model = new HashMap<String, String>();
-				model.put("user", user.getAdress());
+				model.put("user", membro.getEmail());
 
 				message.setSubject(getMail().getAssunto());
 
@@ -73,19 +85,37 @@ public class SimpleRegistrationService implements RegistrationService {
 		FacesUtil.exibirMensagemSucesso("Email enviado com sucesso !");
 	}
 
-	public void enviarEmail() throws Exception {
-		User user = new User();
-		user.setAdress("alvaraesam@gmail.com");
-		register(user);
-		
-//		user.setAdress("waltinhovale@hotmail.com");
-//		register(user);
-//		
-//		user.setAdress("robsonrf@gmail.com");
-//		register(user);
-		
-//		waltinhovale@hotmail.com
-//		robsonrf@gmail.com
+	public void enviarEmail() {
+		int count = 0;
+
+		this.resultList = service.search(new Membro());
+		Membro membro = new Membro();
+		for (Iterator iterator = resultList.iterator(); iterator.hasNext();) {
+			membro = (Membro) iterator.next();
+			if (membro.getEmail() != null && membro.getIdMembro() > 25
+					&& membro.getEmail().length() > 6) {
+				try {
+					register(membro);
+				} catch (AddressException adde) {
+					System.out
+							.println("===================== inicio ocorreu um erro =====================");
+					System.out.println(membro.getIdMembro() + " - "
+							+ membro.getEmail());
+					System.out
+							.println("===================== fim ocorreu um erro =====================");
+					adde.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				count++;
+				System.out.println(" email " + count + " " + membro.getEmail());
+			}
+
+			System.out.println("total de email enviados = " + count);
+
+		}
+
 	}
 
 }
