@@ -14,7 +14,6 @@
 	<ui:param name="pageHeader" value="Rotina" />
 	<ui:param name="managedBean" value="#{rotinaController}" />
 
-
 	<ui:define name="search_filter">
 		<fpf2:input id="Nome" value="#{managedBean.search.nome}" label="Nome" />
 		
@@ -42,6 +41,10 @@
 
 			<p:column style="text-align:left" headerText="Nome">
 				<h:outputText value="#{item.nome}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Path">
+				<h:outputText value="#{item.path}" />
 			</p:column>
 
 			<p:column style="text-align:center; width:100px" headerText="Ação">
