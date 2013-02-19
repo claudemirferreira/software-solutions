@@ -24,17 +24,36 @@ body {
 	</h:head>
 
 	<h:body>
-
+<!-- 
 		<p:stack id="stack" icon="/images/stack/stack.png">
+			
 			<p:menuitem value="Aperture" icon="/images/stack/aperture.png"
 				url="http://localhost:8080/centralaamar" />
 			<p:menuitem value="Photoshop" icon="/images/stack/photoshop.png"
 				url="#" />
-			<p:menuitem value="Coda" icon="/images/stack/coda.png" url="#http://localhost:8080/centralaamar" />
-			<p:menuitem value="Safari" icon="/images/stack/safari.png" url="http://localhost:8080/centralaamar" />
-			<p:menuitem value="Finder" icon="/images/stack/finder.png" url="http://localhost:8080/centralaamar" />
+			<p:menuitem value="Coda" icon="/images/stack/coda.png"
+				url="#http://localhost:8080/centralaamar" />
+			<p:menuitem value="Safari" icon="/images/stack/safari.png"
+				url="http://localhost:8080/centralaamar" />
+			<p:menuitem value="Finder" icon="/images/stack/finder.png"
+				url="http://localhost:8080/centralaamar" />
 		</p:stack>
-
+ -->
+ 		<table>
+ 		<ui:repeat value="#{usuarioController.sistemas}" var="sistema">
+				<tr>
+					<td>#{sistema.nome}</td>
+				</tr>
+			</ui:repeat>
+ 		</table>
+ 		<table>
+ 		<p:stack id="stack" icon="/images/stack/stack.png">
+			
+			<p:menuitem value="Saa" icon="/images/stack/aperture.png"
+				url="http://localhost:8080/centralaamar" />
+			
+		</p:stack>
+		</table>
 	</h:body>
 
 	<script language="javascript"
