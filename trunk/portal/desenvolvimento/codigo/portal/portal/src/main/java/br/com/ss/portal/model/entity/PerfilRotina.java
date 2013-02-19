@@ -25,19 +25,19 @@ public class PerfilRotina extends AbstractEntity implements
 	@Getter
 	@Setter
 	@Id
-	@Column(name = "perfil_rotina_id", unique = true, nullable = false)
+	@Column(name = "perfil_rotina_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPerfilRotina;
 
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "perfil_id", nullable = false)
 	private Perfil perfil;
 
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "rotina_id", nullable = false)
 	private Rotina rotina;
 

@@ -34,7 +34,7 @@ public class Aviso extends AbstractEntity implements java.io.Serializable {
 
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "licenciado_sistema_id", nullable = false)
 	private LicenciadoSistema licenciadoSistema;
 

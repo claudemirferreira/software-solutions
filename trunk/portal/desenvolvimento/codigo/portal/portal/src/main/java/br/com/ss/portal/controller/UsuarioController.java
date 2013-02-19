@@ -1,6 +1,7 @@
 package br.com.ss.portal.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
@@ -13,8 +14,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.ss.portal.component.Status;
+import br.com.ss.portal.model.entity.Sistema;
 import br.com.ss.portal.model.entity.Usuario;
 import br.com.ss.portal.service.IService;
+import br.com.ss.portal.service.ISistemaService;
 import br.com.ss.portal.service.IUsuarioService;
 
 @Component("usuarioController")
@@ -26,6 +29,12 @@ public class UsuarioController extends GenericBean<Usuario> {
 
 	@Autowired
 	private IUsuarioService service;
+	@Autowired
+	private ISistemaService sistemaService;
+
+	@Getter
+	@Setter
+	private List<Sistema> sistemas = new ArrayList<Sistema>();
 
 	@Getter
 	@Setter
@@ -39,15 +48,17 @@ public class UsuarioController extends GenericBean<Usuario> {
 	public String save() throws SQLException {
 		this.entity.setNome(this.entity.getNome().toUpperCase());
 		return super.save();
-
 	}
 
 	public String logar() throws SQLException {
 		this.search = service.logar(this.search);
-		if (this.search == null)
+		if (this.search.getIdUsuario() < 1)
 			return "login.xhtml";
-		else
-			return "http://localhost:8080/centralaamar/home.xhtml";
+		else {
+
+			this.sistemas = sistemaService.search(new Sistema());
+			return "home.xhtml";
+		}
 
 	}
 
