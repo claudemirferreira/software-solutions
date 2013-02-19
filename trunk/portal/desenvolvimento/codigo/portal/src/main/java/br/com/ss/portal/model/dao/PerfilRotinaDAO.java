@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.PerfilRotina;
 
 @Repository
@@ -26,20 +27,52 @@ public class PerfilRotinaDAO extends AbstractDAO<PerfilRotina> implements
 		StringBuilder s = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();
 
-		s.append(" select p from Perfil p ");
-		// if (notEmpty(entity.getNome())) {
-		// condictions.add(" lower(p.nome) like :nome ");
-		// }
-		//
-		String orderBy = " order by p.nome ";
+		s.append(" select p from PerfilRotina p ");
+		
+		if (notEmpty(entity)) {
+			s.append(" join p.perfil perf ");
+		}
+
+		if (notEmpty(entity)) {
+			condictions.add(" p.perfil  = :perf ");
+		}
+
+		String orderBy = " order by p.rotina.nome ";
 
 		Query q = this.entityManager.createQuery(generateHql(s.toString(),
 				condictions) + orderBy);
 
-		// if (notEmpty(entity.getNome())) {
-		// q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase()
-		// + "%");
-		// }
+		if (notEmpty(entity)) {
+			q.setParameter("perf", entity.getPerfil());
+		}
+
+		return q.getResultList();
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PerfilRotina> searchByEntity(Perfil entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+
+		s.append(" select p from PerfilRotina p ");
+		
+		if (notEmpty(entity)) {
+			s.append(" join p.perfil perf ");
+		}
+
+		if (notEmpty(entity)) {
+			condictions.add(" p.perfil  = :perf ");
+		}
+
+		String orderBy = " order by p.rotina.nome ";
+
+		Query q = this.entityManager.createQuery(generateHql(s.toString(),
+				condictions) + orderBy);
+
+		if (notEmpty(entity)) {
+			q.setParameter("perf", entity);
+		}
 
 		return q.getResultList();
 
