@@ -66,12 +66,20 @@ public class Relatorio<T extends AbstractEntity> implements Serializable {
 	}
 
 	public static String montarSql(String d1, String d2, String ano) {
-		String sql = "SELECT nome, celular, fone_comercial, fone_residencial, CONCAT('2013', SUBSTRING(data_nascimento,5,6)) dt FROM cent_Membro t "
-				+ "where CONCAT("
+		String sql = "SELECT mem_id,amigo_contato,bairro,batizado,celular,data_batismo, "
+				+ " email,endereco,fone_comercial,fone_residencial,interesse,mae,membro_igreja, "
+				+ " membros_batizado_familia,modo_conversao,nome,pai,sexo,tem_filho,past_id,peq_id, pro_id, "
+				+ " CONCAT("
+				+ ano
+				+ ", SUBSTRING(data_nascimento,5,6)) data_nascimento"
+				+ " FROM cent_Membro t "
+				+ " where CONCAT("
 				+ ano
 				+ ", SUBSTRING(data_nascimento,5,6)) between '"
 				+ d1
-				+ "' and '" + d2 + "' order by dt ";
+				+ "' and '"
+				+ d2
+				+ "' and data_nascimento is not null order by data_nascimento ";
 		System.out.println(sql);
 		return sql;
 	}
