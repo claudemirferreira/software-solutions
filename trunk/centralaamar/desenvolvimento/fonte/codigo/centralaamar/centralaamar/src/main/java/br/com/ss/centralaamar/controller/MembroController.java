@@ -175,7 +175,7 @@ public class MembroController extends GenericBean<Membro> {
 	@SuppressWarnings("unchecked")
 	public void printAniversariante() {
 
-		List<Membro> list = service
+		this.resultList = service
 				.listAniversariantes(
 						Relatorio.converterDataToString(this.relatorio
 								.getDataInicial()), Relatorio
@@ -184,7 +184,6 @@ public class MembroController extends GenericBean<Membro> {
 								.converterAnoToString(this.relatorio
 										.getDataInicial()));
 		relatorio.setPath("D:\\jasper\\relatorioAniversariante.jasper");
-		relatorio.setResultList(list);
 
 		super.print();
 
