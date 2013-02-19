@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.portal.model.entity.Perfil;
+import br.com.ss.portal.model.entity.Sistema;
 
 @Repository
 public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
@@ -55,6 +56,34 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 
 		return q.getResultList();
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Perfil> searchByEntity(Sistema entity) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+
+		s.append(" select p from Perfil p ");
+
+		if (notEmpty(entity)) {
+			s.append(" join p.sistema sis ");
+		}
+
+		if (notEmpty(entity)) {
+			condictions.add(" p.sistema = :sis ");
+		}
+
+		String orderBy = " order by p.sistema.nome, p.nome ";
+
+		Query q = this.entityManager.createQuery(generateHql(s.toString(),
+				condictions) + orderBy);
+
+		if (notEmpty(entity)) {
+			q.setParameter("sis", entity);
+		}
+
+		return q.getResultList();
 	}
 
 }

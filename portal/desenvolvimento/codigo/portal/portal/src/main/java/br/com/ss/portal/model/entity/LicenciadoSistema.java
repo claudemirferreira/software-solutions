@@ -33,13 +33,13 @@ public class LicenciadoSistema extends AbstractEntity implements Serializable {
 
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sistema_id", nullable = false)
 	private Sistema sistema;
 
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "licenciado_id", nullable = false)
 	private Licenciado licenciado;
 

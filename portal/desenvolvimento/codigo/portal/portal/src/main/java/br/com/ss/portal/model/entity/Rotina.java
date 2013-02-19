@@ -1,5 +1,8 @@
 package br.com.ss.portal.model.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -26,7 +30,7 @@ public class Rotina extends AbstractEntity implements java.io.Serializable {
 	@Getter
 	@Setter
 	@Id
-	@Column(name = "rotina_id", unique = true, nullable = false)
+	@Column(name = "rotina_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idRotina;
 
@@ -37,9 +41,15 @@ public class Rotina extends AbstractEntity implements java.io.Serializable {
 
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sistema_id", nullable = false)
 	private Sistema sistema;
+
+	@Getter
+	@Setter
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "rotina_id")
+	private List<PerfilRotina> perfilRotinas;
 
 	@Getter
 	@Setter
@@ -58,6 +68,10 @@ public class Rotina extends AbstractEntity implements java.io.Serializable {
 	@Override
 	public Long getId() {
 		return getIdRotina();
+	}
+
+	public void setId(Long id) {
+		setIdRotina(id);
 	}
 
 }

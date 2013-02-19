@@ -49,6 +49,8 @@ public class UsuarioDAO extends AbstractDAO<Usuario> implements IUsuarioDAO {
 
 	@Override
 	public Usuario logar(Usuario usuario) {
+		Usuario u;
+		
 		StringBuilder s = new StringBuilder();
 
 		s.append(" select u from Usuario u ");
@@ -59,10 +61,14 @@ public class UsuarioDAO extends AbstractDAO<Usuario> implements IUsuarioDAO {
 		Query q = this.entityManager.createQuery(s.toString());
 		q.setParameter("cpf", usuario.getCpf());
 		q.setParameter("senha", usuario.getSenha());
+		
+		System.out.println("cpf == "+ usuario.getCpf());
+		System.out.println("senha == "+ usuario.getSenha());
 
 		try {
 
-			return (Usuario) q.getSingleResult();
+			u = (Usuario) q.getSingleResult();
+			return u;
 
 		} catch (NoResultException nore) {
 			System.out.println("==========================");

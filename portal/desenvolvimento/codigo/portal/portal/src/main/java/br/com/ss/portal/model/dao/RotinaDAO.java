@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.Rotina;
 
 @Repository
@@ -26,21 +27,36 @@ public class RotinaDAO extends AbstractDAO<Rotina> implements IRotinaDAO {
 		List<String> condictions = new ArrayList<String>();
 
 		s.append(" select p from Rotina p ");
-		if (notEmpty(entity.getNome())) {
+		if (notEmpty(entity.getNome()))
 			condictions.add(" lower(p.nome) like :nome ");
-		}
 
 		String orderBy = " order by p.nome ";
 
 		Query q = this.entityManager.createQuery(generateHql(s.toString(),
 				condictions) + orderBy);
 
-		if (notEmpty(entity.getNome())) {
+		if (notEmpty(entity.getNome()))
 			q.setParameter("nome", "%" + entity.getNome().trim().toLowerCase()
 					+ "%");
-		}
 
 		return q.getResultList();
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Rotina> searchRotinasDisponivel(Perfil entity) {
+		String sql = " select r from Rotina r "
+				+ "where r != ( "
+				+ " 	SELECT r2 FROM PerfilRotina pr "
+				+ " 	join pr.rotina r2 " 
+				+ "		where pr = " + entity.getIdPerfil() + "  )";
+
+		System.out.println("sql === " + sql);
+		
+		List<Rotina> list = entityManager.createQuery(sql).getResultList();
+
+		return list;
 
 	}
 
