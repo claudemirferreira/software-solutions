@@ -15,7 +15,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table(name = "saa_sistema")
+@Table(name = "saa_sistema", catalog="portal")
 public class Sistema extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 168661018940283398L;
@@ -36,7 +36,12 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 	@Setter
 	@Column(name = "sis_descricao", nullable = true, length = 100)
 	private String descricao;
-	
+
+	@Getter
+	@Setter
+	@Column(name = "sis_path", nullable = true, length = 100)
+	private String path;
+
 	@Getter
 	@Setter
 	@Column(name = "sis_imagem", nullable = true, length = 20)

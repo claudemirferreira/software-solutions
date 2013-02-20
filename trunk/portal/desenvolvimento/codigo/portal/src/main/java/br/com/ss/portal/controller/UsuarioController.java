@@ -19,6 +19,7 @@ import br.com.ss.portal.model.entity.Usuario;
 import br.com.ss.portal.service.IService;
 import br.com.ss.portal.service.ISistemaService;
 import br.com.ss.portal.service.IUsuarioService;
+import br.com.ss.portal.util.Util;
 
 @Component("usuarioController")
 @Named
@@ -29,10 +30,14 @@ public class UsuarioController extends GenericBean<Usuario> {
 
 	@Autowired
 	private IUsuarioService service;
-	
+
 	@Autowired
 	private ISistemaService sistemaService;
-	
+
+	@Getter
+	@Setter
+	private int coll;
+
 	@Getter
 	@Setter
 	private List<Sistema> sistemas = new ArrayList<Sistema>();
@@ -58,9 +63,12 @@ public class UsuarioController extends GenericBean<Usuario> {
 			return "login.xhtml";
 		else {
 			this.sistemas = sistemaService.search(new Sistema());
+			this.coll = Util.definirTamanhoColuna(this.sistemas.size());
+			
+			System.out.println("qtd coluna " + this.coll);
+			
 			return "/home.xhtml";
 		}
-			
 
 	}
 

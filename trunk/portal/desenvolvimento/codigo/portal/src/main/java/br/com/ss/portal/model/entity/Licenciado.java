@@ -17,7 +17,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table(name = "saa_licenciado")
+@Table(name = "saa_licenciado", catalog="portal")
 public class Licenciado extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 138084726069636595L;

@@ -15,7 +15,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table(name = "saa_usuario")
+@Table(name = "saa_usuario", catalog="portal")
 public class Usuario extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 8626411055461539204L;

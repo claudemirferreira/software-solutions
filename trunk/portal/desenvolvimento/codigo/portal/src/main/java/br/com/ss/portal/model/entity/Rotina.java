@@ -18,7 +18,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table(name = "saa_rotina")
+@Table(name = "saa_rotina", catalog="portal")
 public class Rotina extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5078104430987992410L;

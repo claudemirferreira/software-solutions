@@ -23,7 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "saa_usuario_perfil", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"usuario_id", "perfil_id" }))
+		"usuario_id", "perfil_id" }), catalog="portal")
 public class UsuarioPerfil extends AbstractEntity implements
 		java.io.Serializable {
 
