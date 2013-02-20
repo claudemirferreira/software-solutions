@@ -46,6 +46,11 @@ public class Sistema extends AbstractEntity implements java.io.Serializable {
 	@Setter
 	@Column(name = "sis_imagem", nullable = true, length = 20)
 	private String imagem;
+	
+	@Getter
+	@Setter
+	@Column(name = "sis_sigla", nullable = true, length = 30)
+	private String sigla;
 
 	@Override
 	public Long getId() {
