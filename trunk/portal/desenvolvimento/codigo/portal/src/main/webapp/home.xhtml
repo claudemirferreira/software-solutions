@@ -1,67 +1,42 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<f:view contentType="text/html">
-	<h:head>
-		<f:facet name="first">
-			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
-			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-			<title>PrimeFaces - ShowCase</title>
-		</f:facet>
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/templateLogin.xhtml">
 
-		<link type="text/css" rel="stylesheet"
-			href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
-		<style type="text/css">
-body {
-	margin: 0;
-	padding: 0;
-	background-color: #CEE3F6;
-}
-</style>
-	</h:head>
+	<ui:param name="pageTitle" value="Cadastro de Usuario" />
+	<ui:param name="pageHeader" value="Usuario" />
+	<ui:param name="managedBean" value="#{usuarioController}" />
 
-	<h:body>
-<!-- 
-		<p:stack id="stack" icon="/images/stack/stack.png">
-			
-			<p:menuitem value="Aperture" icon="/images/stack/aperture.png"
-				url="http://localhost:8080/centralaamar" />
-			<p:menuitem value="Photoshop" icon="/images/stack/photoshop.png"
-				url="#" />
-			<p:menuitem value="Coda" icon="/images/stack/coda.png"
-				url="#http://localhost:8080/centralaamar" />
-			<p:menuitem value="Safari" icon="/images/stack/safari.png"
-				url="http://localhost:8080/centralaamar" />
-			<p:menuitem value="Finder" icon="/images/stack/finder.png"
-				url="http://localhost:8080/centralaamar" />
-		</p:stack>
- -->
- 		<table>
- 		<ui:repeat value="#{usuarioController.sistemas}" var="sistema">
-				<tr>
-					<td>#{sistema.nome}</td>
-				</tr>
-			</ui:repeat>
- 		</table>
- 		<table>
- 		<p:stack id="stack" icon="/images/stack/stack.png">
-			
-			<p:menuitem value="Saa" icon="/images/stack/aperture.png"
-				url="http://localhost:8080/centralaamar" />
-			
-		</p:stack>
-		</table>
-	</h:body>
+	<ui:define name="content">
 
-	<script language="javascript"
-		src="#{request.contextPath}/syntaxhighlighter/scripts/sh.js"></script>
-	<script language="javascript">
-			dp.SyntaxHighlighter.ClipboardSwf = '#{request.contextPath}/syntaxhighlighter/scripts/clipboard.swf';
-			dp.SyntaxHighlighter.HighlightAll('code');
-		</script>
+		<p:growl id="growl" showDetail="true" life="3000" />
 
-</f:view>
-</html>
+		<h:form>
+			<center>
+				<p:panel header="Controller de acesso"
+					style="border:0; width: 285px;">
+					<p:dataGrid var="sistema" value="#{usuarioController.sistemas}"
+						columns="#{usuarioController.coll}" rows="12">
+						<p:column>
+							<p:panel header="#{sistema.nome}"
+								style=" width: 115px; align:center;">
+								<h:panelGrid columns="1">
+									<p:graphicImage value="/images/#{sistema.imagem}.jpg" />
+								</h:panelGrid>
+							</p:panel>
+						</p:column>
+					</p:dataGrid>
+				</p:panel>
+			</center>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
