@@ -15,20 +15,20 @@
 	<ui:param name="managedBean" value="#{usuarioController}" />
 
 	<ui:define name="content">
-
 		<p:growl id="growl" showDetail="true" life="3000" />
-
 		<h:form>
 			<center>
-				<p:panel header="Controller de acesso"
-					style="border:0; width: 285px;">
+				<p:panel header="Controller de acesso ao sistemas"
+					style="border:0; width: 400px; align=center; ">
 					<p:dataGrid var="sistema" value="#{usuarioController.sistemas}"
-						columns="#{usuarioController.coll}" rows="12">
-						<p:column>
-							<p:panel header="#{sistema.nome}"
-								style=" width: 115px; align:center;">
+						columns="#{usuarioController.coll}" rows="12"
+						style="border:0; width: 285px; align=center; ">
+						<p:column style=" width: 115px; align:center;">
+							<p:panel header="#{sistema.sigla}" style=" align=center; ">
 								<h:panelGrid columns="1">
-									<p:graphicImage value="/images/#{sistema.imagem}.jpg" />
+									<h:outputLink value="#{sistema.path}" >
+										<p:graphicImage value="/images/#{sistema.imagem}.png" />
+									</h:outputLink>
 								</h:panelGrid>
 							</p:panel>
 						</p:column>
