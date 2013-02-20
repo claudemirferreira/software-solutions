@@ -19,7 +19,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "saa_licenciado_sistema", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"licenciado_id", "sistema_id" }))
+		"licenciado_id", "sistema_id" }) , catalog="portal")
 public class LicenciadoSistema extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -3917968713808885313L;

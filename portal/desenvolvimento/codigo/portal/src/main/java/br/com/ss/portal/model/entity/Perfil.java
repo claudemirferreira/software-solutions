@@ -20,7 +20,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table(name = "saa_perfil")
+@Table(name = "saa_perfil", catalog="portal")
 public class Perfil extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -1550723647595201191L;

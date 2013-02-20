@@ -20,7 +20,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table(name = "saa_aviso")
+@Table(name = "saa_aviso", catalog="portal")
 public class Aviso extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = -7539409961017046170L;
