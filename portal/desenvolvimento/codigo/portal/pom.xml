@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-        
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>br.com.ss.portal</groupId>
-    <artifactId>portal</artifactId>
-    <packaging>war</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <name>Getting Started with Spring on JBoss</name>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.ss.portal</groupId>
+	<artifactId>portal</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
 
-    <properties>
-                <!-- Spring version -->
-        <version.spring>3.1.1.RELEASE</version.spring>
+	<name>Getting Started with Spring on JBoss</name>
 
-        <!-- Spring Third Party dependencies -->
-        <version.aopalliance>1.0</version.aopalliance>
-        
-        <!-- Third Party dependencies -->
-        <version.standard.taglibs>1.1.2</version.standard.taglibs>
-        <version.commons.logging>1.1.1</version.commons.logging>
+	<properties>
+		<!-- Spring version -->
+		<version.spring>3.1.1.RELEASE</version.spring>
 
-        <!-- JBoss AS plugin for deployment -->
-        <version.jboss.as.maven.plugin>7.1.1.Final</version.jboss.as.maven.plugin>
+		<!-- Spring Third Party dependencies -->
+		<version.aopalliance>1.0</version.aopalliance>
 
-    </properties>
+		<!-- Third Party dependencies -->
+		<version.standard.taglibs>1.1.2</version.standard.taglibs>
+		<version.commons.logging>1.1.1</version.commons.logging>
 
-    <dependencyManagement>
+		<!-- JBoss AS plugin for deployment -->
+		<version.jboss.as.maven.plugin>7.1.1.Final</version.jboss.as.maven.plugin>
+
+	</properties>
+
+	<dependencyManagement>
 
 		<dependencies>
 			<!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any 
@@ -337,7 +337,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>3.3</version>
+			<version>3.5</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
