@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fpf2="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
+
+	<ui:param name="pageTitle" value="Cadastro de Usuario" />
+	<ui:param name="pageHeader" value="Usuario" />
+	<ui:param name="managedBean" value="#{usuarioController}" />
+
+	<ui:define name="content">
+		<p:growl id="growl" showDetail="true" life="3000" />
+		<h:form>
+			<center>
+				<p:panel header="Controller de acesso ao sistemas"
+					style="border:0; width: 400px; align=center; ">
+					<p:dataGrid var="sistema" value="#{usuarioController.sistemas}"
+						columns="#{usuarioController.coll}" rows="12"
+						style="border:0; width: 285px; align=center; ">
+						<p:column style=" width: 115px; align:center;">
+							<p:panel header="#{sistema.sigla}" style=" align=center; ">
+								<h:panelGrid columns="1">
+									<h:outputLink value="#{sistema.path}" >
+										<p:graphicImage value="/images/#{sistema.imagem}.png" />
+									</h:outputLink>
+								</h:panelGrid>
+							</p:panel>
+						</p:column>
+					</p:dataGrid>
+				</p:panel>
+			</center>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
