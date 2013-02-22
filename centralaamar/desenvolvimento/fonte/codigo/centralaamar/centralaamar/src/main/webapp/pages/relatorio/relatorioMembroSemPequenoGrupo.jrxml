@@ -64,6 +64,14 @@ where peq_id is null]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[RELATORIO DE MEMBROS QUE NAO POSSUEM PEQUENO GRUPO]]></text>
 			</staticText>
+			<image>
+				<reportElement uuid="c6ab29dc-5b15-4171-b62c-b47f6389f0a6" x="1" y="0" width="83" height="76"/>
+				<imageExpression><![CDATA["D:\\jasper\\logo_adventista.jpg"]]></imageExpression>
+			</image>
+			<image scaleImage="RealSize">
+				<reportElement uuid="45f7a501-7dec-45fe-8d0d-1766b85bfb86" x="689" y="0" width="71" height="76"/>
+				<imageExpression><![CDATA["D:\\jasper\\logo_comunicacao.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
