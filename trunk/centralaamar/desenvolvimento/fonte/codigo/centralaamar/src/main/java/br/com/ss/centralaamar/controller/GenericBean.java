@@ -94,6 +94,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 
 	protected abstract IService<T> getService();
 
+	@SuppressWarnings("unchecked")
 	private void instanciateEntityClass() {
 		if (getClass().getGenericSuperclass() instanceof ParameterizedType) {
 			ParameterizedType paramType = (ParameterizedType) getClass()
@@ -112,7 +113,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 			init();
 			return resolveNavigation(false);
 		} catch (UnexpectedRollbackException ure) {
-			System.out.println(ure.getMessage());
+			System.err.println(ure.getMessage());
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
@@ -120,7 +121,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 			ure.printStackTrace();
 
 		} catch (ValidationException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Warnning", e
@@ -136,18 +137,45 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		return null;
 	}
 
-	public void remove(ActionEvent actionEvent) {
-
-	}
-
+	
 	public void remove() {
 		remove(itemToRemove);
-		search();
-		setItemToRemove(null);
 	}
 
 	public void remove(T itemRemove) {
-		getService().remove(itemRemove);
+		performRemove(itemRemove);
+	}
+	
+	
+	private void performRemove(T itemRemove) {
+		
+		try {
+			
+			getService().remove(itemRemove);
+			search();
+			
+		} catch ( UnexpectedRollbackException ure ) {
+			
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(
+									FacesMessage.SEVERITY_ERROR, 
+									"Erro",
+									"O registro selecionado não pode ser excluído pois está sendo utilizado em outras partes do sistema. "));
+			ure.printStackTrace();
+			
+		} catch (Exception e) {
+			
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
+							"Ocorreu um erro ao tentar excluir o registro!"));
+			System.err.println(e.getMessage());
+
+		} finally {
+			setItemToRemove(null);
+		}
+		
 	}
 
 	/**
