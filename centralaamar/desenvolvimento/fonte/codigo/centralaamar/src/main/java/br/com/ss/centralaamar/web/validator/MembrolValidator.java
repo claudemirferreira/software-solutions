@@ -1,6 +1,7 @@
-package br.com.ss.centralaamar.exception;
+package br.com.ss.centralaamar.web.validator;
 
 import br.com.ss.centralaamar.component.Util;
+import br.com.ss.centralaamar.exception.ValidationException;
 import br.com.ss.centralaamar.model.entity.Membro;
 
 public class MembrolValidator {

@@ -14,6 +14,7 @@
 	<cc:attribute name="selectedItem" required="true" />
 	<cc:attribute name="targetItem" required="true" />
     <cc:attribute name="actionMethod" required="true" method-signature="void action()" />
+	<cc:attribute name="idDialog" required="false" default="dlg"/>
 	
 </cc:interface>
 
@@ -21,10 +22,16 @@
 	
 	<p:confirmDialog message="Tem certeza que deseja remover este registro?"  
 					 appendToBody="true"
+					 id="#{cc.attrs.idDialog}"
                		 severity="#{cc.attrs.severity}" 
                		 widgetVar="confirmation">  
         
-        <p:commandButton value="Confirmar" actionListener="#{cc.attrs.actionMethod}" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  >
+        <p:commandButton value="Confirmar" 
+        		immediate="true" 
+        		ajax="true"
+        		process="@form"
+        		action="#{cc.attrs.actionMethod}" update="#{cc.attrs.update}" oncomplete="confirmation.hide()"  >
+
         	<f:setPropertyActionListener target="#{cc.attrs.targetItem}" value="#{cc.attrs.selectedItem}" />
         </p:commandButton>
         

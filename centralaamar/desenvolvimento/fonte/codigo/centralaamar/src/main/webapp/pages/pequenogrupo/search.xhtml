@@ -49,12 +49,12 @@
 				
 				<p:spacer width="5px" />
 				
-				<p:commandButton onclick="confirmation.show()" icon="ui-icon-trash" title="Excluir" >
-															
-					<fpf2:confirmDialog targetItem="#{managedBean.itemToRemove}" 
-										selectedItem="#{item}" 
-										actionMethod="#{managedBean.remove()}" />
-				</p:commandButton>  
+				<p:commandButton action="#{managedBean.remove(item)}" 
+									icon="ui-icon-trash"
+									update=":formSearch:msg"
+									onclick="return confirm('#{msg.confirmExclusao}')"
+									title="Remover" />
+									
 	        </p:column>  
 	        
 	        <f:facet name="footer">
