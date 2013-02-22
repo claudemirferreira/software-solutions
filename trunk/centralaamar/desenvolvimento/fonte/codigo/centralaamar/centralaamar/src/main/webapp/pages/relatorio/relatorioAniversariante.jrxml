@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioAniversariante" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95161cda-f458-465a-b21c-1247ae23126d">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="129"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="dataInicial" class="java.lang.String"/>
 	<parameter name="dataFinal" class="java.lang.String"/>
@@ -92,6 +92,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[RELATORIO DE ANIVERSARIANTE]]></text>
 			</staticText>
+			<image>
+				<reportElement uuid="6ffa50ab-1952-4895-83b3-1230fab18693" x="1" y="0" width="83" height="76"/>
+				<imageExpression><![CDATA["D:\\jasper\\logo_adventista.jpg"]]></imageExpression>
+			</image>
+			<image scaleImage="RealSize">
+				<reportElement uuid="5d448a84-f592-4ed6-b2ba-cfb8ac99b49c" x="731" y="0" width="71" height="76"/>
+				<imageExpression><![CDATA["D:\\jasper\\logo_comunicacao.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

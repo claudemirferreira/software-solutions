@@ -71,6 +71,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[RELATORIO DE PEQUENOS GRUPOS]]></text>
 			</staticText>
+			<image>
+				<reportElement uuid="b21ab6ee-8385-4c9d-af59-d5e6dbfefb42" x="1" y="4" width="83" height="76"/>
+				<imageExpression><![CDATA["D:\\jasper\\logo_adventista.jpg"]]></imageExpression>
+			</image>
+			<image scaleImage="RealSize">
+				<reportElement uuid="abccf2e4-4cad-444a-a911-ef250a0fa4c0" x="481" y="0" width="71" height="76"/>
+				<imageExpression><![CDATA["D:\\jasper\\logo_comunicacao.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
