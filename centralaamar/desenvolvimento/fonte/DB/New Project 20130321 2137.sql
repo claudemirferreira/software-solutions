@@ -127,7 +127,7 @@ CREATE TABLE `cent_membro` (
   `pro_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`mem_id`),
   UNIQUE KEY `mem_id` (`mem_id`),
-  UNIQUE KEY `nome_membro_unique` (`nome`) USING BTREE,
+  UNIQUE KEY `nome_membro_unique` (`nome`),
   KEY `FKBFC28C2A9EADD421` (`past_id`),
   KEY `FKBFC28C2ADC39DE7` (`pro_id`),
   KEY `FKBFC28C2A24A1375E` (`peq_id`),
