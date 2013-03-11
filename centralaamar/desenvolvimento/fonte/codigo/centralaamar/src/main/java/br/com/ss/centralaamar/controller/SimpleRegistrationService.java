@@ -1,6 +1,7 @@
 package br.com.ss.centralaamar.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import br.com.ss.centralaamar.component.FacesUtil;
 import br.com.ss.centralaamar.component.Mail;
-import br.com.ss.centralaamar.model.entity.User;
+import br.com.ss.centralaamar.model.entity.Membro;
+import br.com.ss.centralaamar.service.IMembroService;
+import br.com.ss.centralaamar.service.MembroService;
 
 @Component("simpleRegistrationService")
 @ManagedBean(name = "simpleRegistrationService")
@@ -30,6 +33,9 @@ public class SimpleRegistrationService implements RegistrationService {
 	@Getter
 	@Setter
 	private Mail mail = new Mail();
+
+	@Autowired
+	private IMembroService service;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -44,21 +50,21 @@ public class SimpleRegistrationService implements RegistrationService {
 		this.velocityEngine = velocityEngine;
 	}
 
-	public void register(User user) throws Exception {
+	public void register(Membro user) throws Exception {
 
 		sendConfirmationEmail(user);
 	}
 
-	private void sendConfirmationEmail(final User user) throws Exception {
+	private void sendConfirmationEmail(final Membro user) throws Exception {
 
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-				message.setTo(user.getAdress());
+				message.setTo(user.getEmail());
 				message.setFrom("centralaamar@gmail.com"); // could be
 															// parameterized...
 				Map<String, String> model = new HashMap<String, String>();
-				model.put("user", user.getAdress());
+				model.put("user", user.getEmail());
 
 				message.setSubject(getMail().getAssunto());
 
@@ -74,18 +80,30 @@ public class SimpleRegistrationService implements RegistrationService {
 	}
 
 	public void enviarEmail() throws Exception {
-		User user = new User();
-		user.setAdress("alvaraesam@gmail.com");
-		register(user);
-		
-//		user.setAdress("waltinhovale@hotmail.com");
-//		register(user);
-//		
-//		user.setAdress("robsonrf@gmail.com");
-//		register(user);
-		
-//		waltinhovale@hotmail.com
-//		robsonrf@gmail.com
+
+		List<Membro> membros = service.search(new Membro());
+		int count = 0;
+		for (Membro membro : membros) {
+			if (membro.getEmail() != null && membro.getEmail().length() > 5) {
+				count++;
+				System.out.println("email = " + count + " - "
+						+ membro.getEmail());
+				register(membro);
+			}
+		}
+		System.out.println("total = " + count);
+		//
+		// User user = new User();
+		// user.setAdress("claudemir.ferreira@fucapi.br");
+
+		// user.setAdress("waltinhovale@hotmail.com");
+		// register(user);
+		//
+		// user.setAdress("robsonrf@gmail.com");
+		// register(user);
+
+		// waltinhovale@hotmail.com
+		// robsonrf@gmail.com
 	}
 
 }

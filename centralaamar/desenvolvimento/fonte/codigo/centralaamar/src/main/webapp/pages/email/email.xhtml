@@ -4,42 +4,44 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="/resources/layout/search_template.xhtml">
+	template="/resources/layout/template.xhtml">
 
-	<ui:define name="body">
-		<h:form prependId="false">
-			<div align="left">
-				<p:messages id="messages" autoUpdate="true" />
-				<p:panel header="Envio de email" style="whidt:800px;">
-					<h:panelGrid columns="1" id="painel" width="100%">
+	<ui:param name="pageTitle" value="Cadastro de Cargo" />
+	<ui:param name="pageHeader" value="Cargo" />
+	<ui:param name="managedBean" value="#{simpleRegistrationService}" />
 
-						<h:outputText value="Assunto :" style="width:100" />
-						<p:inputText id="assunto"
-							value="#{simpleRegistrationService.mail.assunto}"
-							label="o assunto deve ser informado" maxlength="60"
-							style="width:400px;" />
+	<ui:define name="content">
+		<h:form id="formSearch" prependId="false">
+			<p:messages id="messages" autoUpdate="true" />
+			<p:panel header="Envio de email" style="whidt:800px;">
+				<h:panelGrid columns="1" id="painel" width="100%">
 
-						<h:outputText value="Conteudo :" style="width:100" />
-						<p:inputTextarea rows="5" cols="30" required="true"
-							value="#{simpleRegistrationService.mail.conteudo}"
-							maxlength="100" counterTemplate="{0} characters remaining."
-							autoResize="false" label="o conteudo deve ser informado"
-							style="width:400px;" />
+					<h:outputText value="Assunto :" style="width:100" />
+					<p:inputText id="assunto"
+						value="#{simpleRegistrationService.mail.assunto}"
+						label="o assunto deve ser informado" maxlength="60"
+						style="width:400px;" />
 
-						<input type="file" name="file" size="50"
-							value="#{simpleRegistrationService.mail.path}" />
+					<h:outputText value="Conteudo :" style="width:100" />
+					<p:inputTextarea rows="5" cols="30" required="true"
+						value="#{simpleRegistrationService.mail.conteudo}" maxlength="100"
+						counterTemplate="{0} characters remaining." autoResize="false"
+						label="o conteudo deve ser informado" style="width:400px;" />
 
-					</h:panelGrid>
-				</p:panel>
-				<p:toolbar align="center">
-					<p:toolbarGroup align="center">
-						<p:commandButton value="Salvar" icon="ui-icon-disk"
-							action="#{simpleRegistrationService.enviarEmail}" />
+					<input type="file" name="file" size="50"
+						value="#{simpleRegistrationService.mail.path}" />
 
-					</p:toolbarGroup>
-				</p:toolbar>
+				</h:panelGrid>
+			</p:panel>
+			<p:toolbar align="center">
+				<p:toolbarGroup align="center">
+					<p:commandButton value="Salvar" icon="ui-icon-disk"
+						action="#{simpleRegistrationService.enviarEmail}" />
 
-			</div>
+				</p:toolbarGroup>
+			</p:toolbar>
 		</h:form>
 	</ui:define>
+
+
 </ui:composition>
