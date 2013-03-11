@@ -23,8 +23,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "cent_grupo")
-public class Grupo extends AbstractEntity implements java.io.Serializable {
+@Table(name = "cent_cargo", catalog = "portal")
+public class Cargo extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = -4116112636792954532L;
 
@@ -32,8 +32,8 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 	@Setter
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "grup_id", nullable = false)
-	private Long idGrupo;
+	@Column(name = "carg_id", nullable = false)
+	private Long idCargo;
 
 	@Getter
 	@Setter
@@ -41,16 +41,16 @@ public class Grupo extends AbstractEntity implements java.io.Serializable {
 	@NotNull
 	private String nome;
 
-	@Getter
-	@Setter
-	@OneToMany(fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SELECT)
-	@Cascade(CascadeType.SAVE_UPDATE)
-	private List<Membro> membros = new ArrayList<Membro>();
+//	@Getter
+//	@Setter
+//	@OneToMany(fetch = FetchType.LAZY)
+//	@Fetch(FetchMode.SELECT)
+//	@Cascade(CascadeType.SAVE_UPDATE)
+//	private List<Membro> membros = new ArrayList<Membro>();
 
 	@Override
 	public Long getId() {
-		return getIdGrupo();
+		return getIdCargo();
 	}
 
 }

@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "questionario", catalog = "centralaamar")
+@Table(name = "cent_questionario")
 public class Questionario extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -4029046368610105833L;
