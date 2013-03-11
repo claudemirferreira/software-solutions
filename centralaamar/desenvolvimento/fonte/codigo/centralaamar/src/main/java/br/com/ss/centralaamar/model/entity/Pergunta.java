@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "pergunta", catalog = "centralaamar")
+@Table(name = "cent_pergunta")
 public class Pergunta extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 845836539746268610L;
