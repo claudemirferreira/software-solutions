@@ -26,11 +26,11 @@
 	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="mail.fucapi.br" />
-		<property name="username" value="claudemir.ferreira@fucapi.br" />
-		<property name="password" value="claudemir2" />
-		<property name="protocol" value="smtp" />
-		<property name="port" value="25" />
+		<property name="host" value="xxxxxxxxx" />
+		<property name="username" value="xxxxxxxxx" />
+		<property name="password" value="xxxxxxx" />
+		<property name="protocol" value="xxxxx" />
+		<property name="port" value="xxxxx" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">false</prop>
