@@ -4,12 +4,13 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>Java EE 6 Starter Application</display-name>
 
-	<!-- <context-param> <param-name>contextConfigLocation</param-name> <param-value>classpath:/META-INF/spring/applicationContext.xml, 
-		classpath:/META-INF/spring/infrastructure.xml</param-value> </context-param> -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/META-INF/spring/applicationContext.xml,
-		/WEB-INF/jboss-as-spring-mvc-context.xml</param-value>
+		<param-value>
+			classpath:/META-INF/spring/applicationContext.xml
+			/WEB-INF/jboss-as-spring-mvc-context.xml
+			/WEB-INF/applicationContext-security.xml
+		</param-value>
 	</context-param>
 		
 	<context-param>
@@ -58,7 +59,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 	
 	<mime-mapping>
