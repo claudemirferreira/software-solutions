@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -137,7 +136,6 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		return null;
 	}
 
-	
 	public void remove() {
 		remove(itemToRemove);
 	}
@@ -145,27 +143,28 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	public void remove(T itemRemove) {
 		performRemove(itemRemove);
 	}
-	
-	
+
 	private void performRemove(T itemRemove) {
-		
+
 		try {
-			
+
 			getService().remove(itemRemove);
 			search();
-			
-		} catch ( UnexpectedRollbackException ure ) {
-			
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(
-									FacesMessage.SEVERITY_ERROR, 
+
+		} catch (UnexpectedRollbackException ure) {
+
+			FacesContext
+					.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(
+									FacesMessage.SEVERITY_ERROR,
 									"Erro",
 									"O registro selecionado não pode ser excluído pois está sendo utilizado em outras partes do sistema. "));
 			ure.printStackTrace();
-			
+
 		} catch (Exception e) {
-			
+
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
@@ -175,7 +174,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		} finally {
 			setItemToRemove(null);
 		}
-		
+
 	}
 
 	/**
@@ -221,7 +220,7 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 	}
 
 	protected void getPathRelatorio() {
-		this.relatorio.setPath("D:\\jasper\\"
+		this.relatorio.setPath("C:\\jasper\\"
 				+ entity.getClass().getSimpleName().toLowerCase() + ".jasper");
 		System.out.println("path relatorio == " + this.relatorio.getPath());
 	}
@@ -231,16 +230,17 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 
 		try {
 
-			FileInputStream fileJasper = new FileInputStream(relatorio.getPath());
+			FileInputStream fileJasper = new FileInputStream(
+					relatorio.getPath());
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			HttpServletResponse response = (HttpServletResponse) facesContext
 					.getExternalContext().getResponse();
 
-			JasperPrint preencher = JasperFillManager.fillReport(fileJasper, relatorio
-					.getParametros(),
-					new JRBeanCollectionDataSource(this.getResultList()));
+			JasperPrint preencher = JasperFillManager.fillReport(fileJasper,
+					relatorio.getParametros(), new JRBeanCollectionDataSource(
+							this.getResultList()));
 
 			JasperExportManager.exportReportToPdfStream(preencher,
 					byteOutPutStream);
@@ -261,7 +261,8 @@ public abstract class GenericBean<T extends AbstractEntity> implements
 		} catch (JRException jrex) {
 			jrex.printStackTrace();
 		} catch (FileNotFoundException e) {
-			System.out.println("NAO FOI ENCONTRADO O RELATORIO " + relatorio.getPath());
+			System.out.println("NAO FOI ENCONTRADO O RELATORIO "
+					+ relatorio.getPath());
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

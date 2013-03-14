@@ -39,9 +39,9 @@ public class ProfissaoDAO extends AbstractDAO<Profissao> implements
 		return q.getResultList();
 	}
 
-	@Override
-	public Profissao getByPrimaryKey(Profissao entity) {
-		return super.getByPrimaryKey(entity);
-	}
+//	@Override
+//	public Profissao getByPrimaryKey(Profissao entity) {
+//		return super.getByPrimaryKey(entity);
+//	}
 
 }

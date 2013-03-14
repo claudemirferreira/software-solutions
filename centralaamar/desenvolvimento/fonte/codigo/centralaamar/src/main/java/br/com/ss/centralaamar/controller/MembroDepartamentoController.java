@@ -103,10 +103,6 @@ public class MembroDepartamentoController extends
 
 	public String editar(MembroDepartamento entity) {
 
-		// this.setCargo(new Cargo());
-		// this.setDepartamento(new Departamento());
-		// this.setMembro(new Membro());
-
 		if (null != entity.getCargo())
 			this.cargo = entity.getCargo();
 		if (entity.getDepartamento() != null)
@@ -117,6 +113,13 @@ public class MembroDepartamentoController extends
 		return super.editar(entity);
 
 	}
+	
+	public void search() {
+		search.setCargo(cargo);
+		search.setDepartamento(departamento);
+		search.setMembro(membro);
+		super.search();
+	}
 
 	@PostConstruct
 	protected void setup() throws InstantiationException,
@@ -124,7 +127,7 @@ public class MembroDepartamentoController extends
 		cargos = cargoService.search(new Cargo());
 		membros = membroService.search(new Membro());
 		departamentos = departamentoService.search(new Departamento());
-
+		
 		cargo = new Cargo();
 		departamento = new Departamento();
 		membro = new Membro();
