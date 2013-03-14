@@ -1,10 +1,8 @@
 package br.com.ss.centralaamar.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
 import javax.mail.internet.MimeMessage;
 
 import lombok.Getter;
@@ -23,12 +21,10 @@ import br.com.ss.centralaamar.component.FacesUtil;
 import br.com.ss.centralaamar.component.Mail;
 import br.com.ss.centralaamar.model.entity.Membro;
 import br.com.ss.centralaamar.service.IMembroService;
-import br.com.ss.centralaamar.service.MembroService;
 
-@Component("simpleRegistrationService")
-@ManagedBean(name = "simpleRegistrationService")
+@Component
 @Scope("session")
-public class SimpleRegistrationService implements RegistrationService {
+public class SimpleRegistrationService implements RegistrationService{
 
 	@Getter
 	@Setter
@@ -76,22 +72,26 @@ public class SimpleRegistrationService implements RegistrationService {
 		System.out.println("entrou no enviar email");
 		this.mailSender.send(preparator);
 		System.out.println("email enviado");
-		FacesUtil.exibirMensagemSucesso("Email enviado com sucesso !");
+		//FacesUtil.exibirMensagemSucesso("Email enviado com sucesso !");
 	}
 
 	public void enviarEmail() throws Exception {
 
-		List<Membro> membros = service.search(new Membro());
-		int count = 0;
-		for (Membro membro : membros) {
-			if (membro.getEmail() != null && membro.getEmail().length() > 5) {
-				count++;
-				System.out.println("email = " + count + " - "
-						+ membro.getEmail());
-				register(membro);
-			}
-		}
-		System.out.println("total = " + count);
+		// List<Membro> membros = service.search(new Membro());
+		// int count = 0;
+		// for (Membro membro : membros) {
+		// if (membro.getEmail() != null && membro.getEmail().length() > 5) {
+		// count++;
+		// System.out.println("email = " + count + " - "
+		// + membro.getEmail());
+		// register(membro);
+		// }
+		// }
+		Membro m = new Membro();
+		m.setEmail("waltinhovale@hotmail.com");
+		register(m);
+
+		// System.out.println("total = " + count);
 		//
 		// User user = new User();
 		// user.setAdress("claudemir.ferreira@fucapi.br");
