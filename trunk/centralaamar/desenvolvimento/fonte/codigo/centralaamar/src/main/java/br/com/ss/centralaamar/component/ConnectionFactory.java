@@ -10,7 +10,7 @@ public class ConnectionFactory {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String db = "jdbc:mysql://localhost:3306/centralaamar";
+			String db = "jdbc:mysql://localhost:3306/portal";
 			connection = DriverManager.getConnection(db, "root", "root");
 
 		} catch (SQLException ex) {
