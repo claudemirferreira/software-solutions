@@ -219,19 +219,19 @@ public class MembroController extends GenericBean<Membro> {
 	@SuppressWarnings("unchecked")
 	public void listMembrosPorProfissao() {
 
-		Map param = new HashMap();
+		@SuppressWarnings("rawtypes")
+		Map param = new HashMap<String, String>();
 		this.setProfissao(profissaoService.getByPrimaryKey(this.getProfissao()));
 
-//		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
-//				+ this.getProfissao().getNome() + " ]");
-		this.getProfissao().setNome("");
 		param.put("titulo", "RELATORIO DE MEMBROS POR PROFISSAO [ "
 				+ this.getProfissao().getNome() + " ]");
 		
 		this.relatorio.setParametros(param);
 		this.relatorio.setPath("D:\\jasper\\membro.jasper");
-		this.relatorio.setResultList(service
-				.listMembrosPorProfissao(this.profissao));
+
+		this.resultList = new ArrayList<Membro>();
+		this.resultList = service
+				.listMembrosPorProfissao(this.profissao);
 
 		super.print();
 	}
