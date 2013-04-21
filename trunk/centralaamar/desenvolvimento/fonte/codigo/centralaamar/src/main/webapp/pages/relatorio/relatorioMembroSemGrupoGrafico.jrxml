@@ -5,12 +5,12 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT 'POSSUI PEQUENO GRUPO' nome, count(*) total
-FROM centralaamar.membro A
+FROM cent_membro A
 where a.peq_id is not null
 group by 1
 UNION
 SELECT 'NAO POSSUI PEQUENO GRUPO' nome, count(*) total
-FROM centralaamar.membro A
+FROM cent_membro A
 where a.peq_id is null
 group by 1]]>
 	</queryString>
