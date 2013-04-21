@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT b.nome, count(a.mem_id) total FROM centralaamar.membro A, centralaamar.pequenogrupo b
+		<![CDATA[SELECT b.nome, count(a.mem_id) total FROM cent_membro A, cent_pequenogrupo b
 where a.peq_id = b.peq_id
 group by 1
 order by 2]]>

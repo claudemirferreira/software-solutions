@@ -7,11 +7,11 @@
 		<defaultValueExpression><![CDATA["D:\\jasper\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT 'NÃO POSSUI PEQUENO GRUPO' nome, count(a.mem_id)  total FROM centralaamar.membro A
+		<![CDATA[SELECT 'NÃO POSSUI PEQUENO GRUPO' nome, count(a.mem_id)  total FROM cent_membro A
 WHERE A.PEQ_ID IS NULL
 group by 1
 UNION
-SELECT b.nome, count(a.mem_id) total FROM centralaamar.membro A, centralaamar.pequenogrupo b
+SELECT b.nome, count(a.mem_id) total FROM cent_membro A, cent_pequenogrupo b
 where a.peq_id = b.peq_id
 group by 1
 order by 2 desc]]>
