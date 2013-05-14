@@ -1,0 +1,69 @@
+--- 
+_default_charset_latin1: DEFAULT CHARSET=latin1
+_self: /frontend/x3/addoncgi/cpaddons.html
+addon: cPanel::Blogs::WordPress
+addon_path: cPanel/Blogs/WordPress
+adminarea_name: ~
+auth_key: 2y1ydrlXvyVQrsGte34g5VW_4UFCJSvIWyjDBaEphw_lKriaGXpzdQgrjYODdGjt
+auth_salt: 7R9b0MGODrg9BJzn1MY3gzhBsdAhvmXruKFqQS1gxAGqDoXPBzznyaq2nFC3TpUJ
+autoupdate: 0
+domain: centralaamar.com.br
+email: robsonrf@gmail.com
+gmt_hour_offset: '-3'
+homedir: /home/centrala
+hostname: server10.integrator.com.br
+installdir: /home/centrala/public_html/wordpress
+installed_3.5.1: '1368466435'
+installed_on_domain: centralaamar.com.br
+installpath: wordpress
+lang: brazilian-portuguese-utf8
+logged_in_key: rs0_BgW4Dd887b8Wt5RS1yef2lJsGxHUyQDBHXwe5_gqdHBeXltH2yVWCfX10Lqo
+logged_in_salt: 9ZABzKOPpLWxx0xlrgI22korkMAGBjG5eOhLujZflBUzzuDno1Mke2_oap0HhCsH
+mysql: 
+  wp: 
+    _post: wp1
+    mysql-version: '5.1'
+    sqldb: centrala_wp1
+    sqlhost: localhost
+    sqlpass: BZcsXLU8i0
+    sqluser: centrala_wp1
+mysql.wp._post: wp1
+mysql.wp.mysql-version: '5.1'
+mysql.wp.sqldb: centrala_wp1
+mysql.wp.sqlhost: localhost
+mysql.wp.sqlpass: BZcsXLU8i0
+mysql.wp.sqluser: centrala_wp1
+mysql_pass: BZcsXLU8i0
+mysql_user: centrala_wp1
+mysql_user_post: wp1
+mysql_version: '5.1'
+no_protocol_url_to_install: centralaamar.com.br/wordpress/
+no_protocol_url_to_install_without_trailing_slash: centralaamar.com.br/wordpress
+nonce_key: D4VZfyvTz6BCDVId5cTYbBOUXpBwnrqpGnImsknM0_YVQJhc2DrpQkU5YMNF52xE
+nonce_salt: Lj9fiXQ6vitrp7JZ58OI0otOssDpb1XFr2rQYszX6GM2XO6hhx6GqkPurzvxTFI1
+password: aamar_2013
+password_base64: "YWFtYXJfMjAxMw==\n"
+password_crypt: adXVyR1Wwc0zk
+password_md5_base64: M4nKejeJgvp93sLE1dN0yA
+password_md5_hex: 3389ca7a378982fa7ddec2c4d5d374c8
+phpsuexec: 0
+postgre: {}
+
+postgre_version: ''
+public_html: /home/centrala/public_html
+registry: cPanel::Blogs::WordPress.0.yaml
+salt: admin
+secret_key: PeTmc7EHdBRbMObY1Ru5P1TL_tMPVFc8PtdtB81jKl9HV1CBX0CkmLnCZq0zi8YW
+secret_salt: ivEwUTw6zmG7WqA2AzCLFN9grk6I0El1tGPCJYFcHA2Iq7CEkgsW4XtByhz3uwGe
+suexec: 1
+table_prefix: wp
+unix_time: '1368466431'
+url_to_install: http://centralaamar.com.br/wordpress/
+url_to_install_admin: ~
+url_to_install_without_trailing_slash: http://centralaamar.com.br/wordpress
+user: centrala
+username: admin
+version: 3.5.1
+version_key: ~
+workinginstall: ''
+wp: centrala_wp1
