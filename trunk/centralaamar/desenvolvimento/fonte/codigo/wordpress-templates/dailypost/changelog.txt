@@ -1,0 +1,4 @@
+***  Changelog ***
+
+1.11.2011 - version 1.0
+ * First release!

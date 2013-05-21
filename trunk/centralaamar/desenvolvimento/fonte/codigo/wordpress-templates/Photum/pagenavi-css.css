@@ -1,0 +1,58 @@
+/*
++----------------------------------------------------------------+
+|																							|
+|	WordPress 2.8 Plugin: WP-PageNavi 2.50									|
+|	Copyright (c) 2009 Lester "GaMerZ" Chan									|
+|																							|
+|	File Written By:																	|
+|	- Lester "GaMerZ" Chan															|
+|	- http://lesterchan.net															|
+|																							|
+|	File Information:																	|
+|	- Page Navigation CSS Style													|
+|	- wp-content/plugins/wp-pagenavi/pagenavi-css.css					|
+|																							|
++----------------------------------------------------------------+
+*/
+
+.wp-pagenavi {
+font-size:12px;
+padding: 5px 0px 0px 0px;
+margin: 10px 0px 10px 20px;
+}
+.wp-pagenavi a, visited {
+	margin: 5px;
+    padding: 3px 5px;
+	text-decoration: none;
+	background-color: #999999;
+	line-height:35px;
+	border-left: 0px dashed #E5E5E5;
+	border-right: 0px dashed #E5E5E5;
+	color: #ffffff !important;
+}
+.wp-pagenavi a:hover {	
+	color: #fff;
+	background-color:#666666
+	}
+.wp-pagenavi a:active {
+	margin: 5px;
+    padding: 3px 5px;
+	text-decoration: none;
+	border-left: 0px dashed #E5E5E5;
+	border-right: 0px dashed #E5E5E5;
+	color: #fff;
+	}
+.wp-pagenavi span.pages {
+	margin: 8px 2px 2px 2px;
+	float:right;
+	color: #191919;
+	}
+.wp-pagenavi span.current {
+	margin: 5px;
+	font-weight: bold;
+	color: #000;
+	}
+.wp-pagenavi span.extend {
+	margin: 5px;
+	color: #000000;
+	}
