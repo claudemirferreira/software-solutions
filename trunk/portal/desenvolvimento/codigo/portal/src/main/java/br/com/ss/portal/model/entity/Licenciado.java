@@ -22,20 +22,14 @@ public class Licenciado extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 138084726069636595L;
 
-	@Getter
-	@Setter
 	@Id
 	@Column(name = "licenciado_id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idLicenciado;
 
-	@Getter
-	@Setter
 	@Column(name = "lic_nome", nullable = false, length = 60)
 	private String nome;
 
-	@Getter
-	@Setter
 	@Column(name = "lic_cpfcnpj", nullable = false, length = 14)
 	private String cpfCnpj;
 
@@ -46,6 +40,30 @@ public class Licenciado extends AbstractEntity implements Serializable {
 	@Override
 	public Long getId() {
 		return getIdLicenciado();
+	}
+
+	public Long getIdLicenciado() {
+		return idLicenciado;
+	}
+
+	public void setIdLicenciado(Long idLicenciado) {
+		this.idLicenciado = idLicenciado;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
 }

@@ -23,31 +23,61 @@ public class Rotina extends AbstractEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5078104430987992410L;
 
-	@Getter
-	@Setter
 	@Id
 	@Column(name = "rotina_id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idRotina;
 
-	@Getter
-	@Setter
 	@Column(name = "rot_nome", nullable = false, length = 60)
 	private String nome;
 
-	@Getter
-	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sistema_id", nullable = false)
 	private Sistema sistema;
 
-	@Getter
-	@Setter
 	@Column(name = "rot_status")
 	private Boolean status;
 
-	@Getter
-	@Setter
+	public Long getIdRotina() {
+		return idRotina;
+	}
+
+	public void setIdRotina(Long idRotina) {
+		this.idRotina = idRotina;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	@Column(name = "rot_path", nullable = false, length = 60)
 	private String path;
 

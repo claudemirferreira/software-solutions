@@ -7,9 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -31,32 +28,18 @@ public class PerfilRotinaController extends GenericBean<PerfilRotina> {
 
 	private static final long serialVersionUID = -7056309405822788580L;
 
-	@Getter
-	@Setter
 	private Sistema sistema;
 
-	@Getter
-	@Setter
 	private Perfil perfil;
 
-	@Getter
-	@Setter
 	private Sistema searchSistema;
 
-	@Getter
-	@Setter
 	private Rotina rotina;
 
-	@Getter
-	@Setter
 	private List<Sistema> sistemas = new ArrayList<Sistema>();
 
-	@Getter
-	@Setter
 	private List<Perfil> perfils = new ArrayList<Perfil>();
 
-	@Getter
-	@Setter
 	private List<Rotina> rotinas = new ArrayList<Rotina>();
 
 	@Autowired
@@ -76,14 +59,70 @@ public class PerfilRotinaController extends GenericBean<PerfilRotina> {
 		return service;
 	}
 
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+
+	public Sistema getSearchSistema() {
+		return searchSistema;
+	}
+
+	public void setSearchSistema(Sistema searchSistema) {
+		this.searchSistema = searchSistema;
+	}
+
+	public Rotina getRotina() {
+		return rotina;
+	}
+
+	public void setRotina(Rotina rotina) {
+		this.rotina = rotina;
+	}
+
+	public List<Sistema> getSistemas() {
+		return sistemas;
+	}
+
+	public void setSistemas(List<Sistema> sistemas) {
+		this.sistemas = sistemas;
+	}
+
+	public List<Perfil> getPerfils() {
+		return perfils;
+	}
+
+	public void setPerfils(List<Perfil> perfils) {
+		this.perfils = perfils;
+	}
+
+	public List<Rotina> getRotinas() {
+		return rotinas;
+	}
+
+	public void setRotinas(List<Rotina> rotinas) {
+		this.rotinas = rotinas;
+	}
+
 	public String save() throws SQLException {
 
 		this.entity.setPerfil(this.perfil);
 		this.entity.setRotina(this.rotina);
 		super.save();
-		
+
 		this.resultList = getService().search(entity);
-		
+
 		return null;
 
 	}
@@ -110,25 +149,26 @@ public class PerfilRotinaController extends GenericBean<PerfilRotina> {
 	public String editar(Perfil entity) {
 		this.perfil = entity;
 		this.rotinas = rotinaService.searchRotinasDisponivel(this.perfil);
-		
+
 		this.resultList = service.searchByEntity(entity);
 		String url = "/pages/"
-				+ this.entity.getClass().getSimpleName().toLowerCase() + "/search.jsf";
-		System.out.println("url == " + url );
+				+ this.entity.getClass().getSimpleName().toLowerCase()
+				+ "/search.jsf";
+		System.out.println("url == " + url);
 		return url;
 	}
-	
+
 	public String editar(PerfilRotina entity) {
 		System.out.println("entrou no editar");
 		this.entity = entity;
 		return resolveNavigation(true);
 	}
-	
+
 	protected String resolveNavigation(boolean crud) {
 		String url = "/pages/"
 				+ entity.getClass().getSimpleName().toLowerCase() + "/";
 		url += crud ? "create.jsf" : "search.jsf";
 		return url;
 	}
-	
+
 }

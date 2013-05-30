@@ -7,9 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,12 +24,8 @@ public class RotinaController extends GenericBean<Rotina> {
 
 	private static final long serialVersionUID = 5368939191352412350L;
 
-	@Getter
-	@Setter
 	private Sistema sistema = new Sistema();
 
-	@Getter
-	@Setter
 	private List<Sistema> sistemas;
 
 	@Autowired
@@ -40,6 +33,22 @@ public class RotinaController extends GenericBean<Rotina> {
 
 	@Autowired
 	private ISistemaService sistemaService;
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public List<Sistema> getSistemas() {
+		return sistemas;
+	}
+
+	public void setSistemas(List<Sistema> sistemas) {
+		this.sistemas = sistemas;
+	}
 
 	@Override
 	protected IService<Rotina> getService() {
