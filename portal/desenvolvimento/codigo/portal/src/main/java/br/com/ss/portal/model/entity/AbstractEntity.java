@@ -8,8 +8,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
 import br.com.ss.portal.util.ReflectionsUtil;
 
 @MappedSuperclass
@@ -17,16 +15,25 @@ public abstract class AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -1094782059469169706L;
 
-	@Getter
-	@Setter
 	@Transient
 	private boolean checked;
 
-	@Getter
 	@Transient
 	private Long id = null;
 
 	public AbstractEntity() {
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@PostLoad

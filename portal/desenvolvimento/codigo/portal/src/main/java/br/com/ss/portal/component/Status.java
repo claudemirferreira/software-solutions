@@ -11,12 +11,25 @@ public class Status implements Serializable {
 
 	private static final long serialVersionUID = -9132226054781979390L;
 
-	@Getter
-	@Setter
 	private String codigo;
-	@Getter
-	@Setter
+	
 	private String nome;
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public static List<Status> list() {
 		List<Status> listStatus = new ArrayList<Status>();

@@ -7,33 +7,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
-import lombok.Setter;
 import br.com.ss.portal.model.entity.AbstractEntity;
 
 public class Relatorio<T extends AbstractEntity> implements Serializable {
 
-	@Getter
-	@Setter
 	private Date dataInicial;
-	@Getter
-	@Setter
 	private Date dataFinal;
 
-	@Getter
-	@Setter
 	private String path;
 
-	@Getter
-	@Setter
 	private String titulo;
 
-	@Getter
-	@Setter
 	private Map parametros = new HashMap();
 
-	@Getter
-	@Setter
 	private List<T> resultList;
 
 	public static String converterDataToString(Date data) {
@@ -45,6 +31,54 @@ public class Relatorio<T extends AbstractEntity> implements Serializable {
 	public static String converterAnoToString(Date data) {
 		SimpleDateFormat f = new SimpleDateFormat("yyyy");
 		return f.format(data);
+	}
+
+	public Date getDataInicial() {
+		return dataInicial;
+	}
+
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+
+	public Date getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public Map getParametros() {
+		return parametros;
+	}
+
+	public void setParametros(Map parametros) {
+		this.parametros = parametros;
+	}
+
+	public List<T> getResultList() {
+		return resultList;
+	}
+
+	public void setResultList(List<T> resultList) {
+		this.resultList = resultList;
 	}
 
 }

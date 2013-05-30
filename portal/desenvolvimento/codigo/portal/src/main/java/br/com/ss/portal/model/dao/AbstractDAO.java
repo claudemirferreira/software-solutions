@@ -10,8 +10,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaQuery;
 
-import lombok.Getter;
-
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.portal.model.entity.AbstractEntity;
@@ -23,16 +21,26 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements
 
 	private static final long serialVersionUID = -6314171287987529278L;
 
-	@Getter
 	protected Class<T> persistentClass;
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	@RequestScoped
-	@Getter
 	protected EntityManager entityManager;
 
 	public AbstractDAO() {
 		initEntityClass();
+	}
+
+	public Class<T> getPersistentClass() {
+		return persistentClass;
+	}
+
+	public void setPersistentClass(Class<T> persistentClass) {
+		this.persistentClass = persistentClass;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
 	public void initEntityClass() {

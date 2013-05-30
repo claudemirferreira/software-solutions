@@ -6,9 +6,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -34,17 +31,35 @@ public class UsuarioController extends GenericBean<Usuario> {
 	@Autowired
 	private ISistemaService sistemaService;
 
-	@Getter
-	@Setter
 	private int coll;
 
-	@Getter
-	@Setter
 	private List<Sistema> sistemas = new ArrayList<Sistema>();
 
-	@Getter
-	@Setter
 	private List<Status> listStatus = Status.list();
+
+	public int getColl() {
+		return coll;
+	}
+
+	public void setColl(int coll) {
+		this.coll = coll;
+	}
+
+	public List<Sistema> getSistemas() {
+		return sistemas;
+	}
+
+	public void setSistemas(List<Sistema> sistemas) {
+		this.sistemas = sistemas;
+	}
+
+	public List<Status> getListStatus() {
+		return listStatus;
+	}
+
+	public void setListStatus(List<Status> listStatus) {
+		this.listStatus = listStatus;
+	}
 
 	@Override
 	protected IService<Usuario> getService() {
@@ -64,9 +79,9 @@ public class UsuarioController extends GenericBean<Usuario> {
 		else {
 			this.sistemas = sistemaService.search(new Sistema());
 			this.coll = Util.definirTamanhoColuna(this.sistemas.size());
-			
+
 			System.out.println("qtd coluna " + this.coll);
-			
+
 			return "/home.xhtml";
 		}
 

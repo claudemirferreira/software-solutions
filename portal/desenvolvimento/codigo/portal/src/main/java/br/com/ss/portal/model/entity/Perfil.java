@@ -12,33 +12,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Entity implementation class for Entity: Perfil
  * 
  */
 @Entity
-@Table(name = "saa_perfil", catalog="portal")
+@Table(name = "saa_perfil", catalog = "portal")
 public class Perfil extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -1550723647595201191L;
 
-	@Getter
-	@Setter
 	@Id
 	@Column(name = "perfil_id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPerfil;
 
-	@Getter
-	@Setter
 	@Column(name = "perf_nome", nullable = false, length = 60)
 	private String nome;
 
-	@Getter
-	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sistema_id", nullable = false)
 	private Sistema sistema;
@@ -50,6 +41,30 @@ public class Perfil extends AbstractEntity implements Serializable {
 	@Override
 	public Long getId() {
 		return getIdPerfil();
+	}
+
+	public Long getIdPerfil() {
+		return idPerfil;
+	}
+
+	public void setIdPerfil(Long idPerfil) {
+		this.idPerfil = idPerfil;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
 	}
 
 }

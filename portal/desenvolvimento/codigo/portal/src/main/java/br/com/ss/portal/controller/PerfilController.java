@@ -7,9 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,12 +24,8 @@ public class PerfilController extends GenericBean<Perfil> {
 
 	private static final long serialVersionUID = 557784413066030360L;
 
-	@Getter
-	@Setter
 	private Sistema sistema = new Sistema();
 
-	@Getter
-	@Setter
 	private List<Sistema> sistemas;
 
 	@Autowired
@@ -44,6 +37,26 @@ public class PerfilController extends GenericBean<Perfil> {
 	@Override
 	protected IService<Perfil> getService() {
 		return service;
+	}
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public List<Sistema> getSistemas() {
+		return sistemas;
+	}
+
+	public void setSistemas(List<Sistema> sistemas) {
+		this.sistemas = sistemas;
+	}
+
+	public ISistemaService getSistemaService() {
+		return sistemaService;
 	}
 
 	public String save() throws SQLException {

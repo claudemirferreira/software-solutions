@@ -13,9 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Entity implementation class for Entity: UsuarioPerfil
  * 
@@ -23,33 +20,25 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "saa_usuario_perfil", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"usuario_id", "perfil_id" }), catalog="portal")
+		"usuario_id", "perfil_id" }), catalog = "portal")
 public class UsuarioPerfil extends AbstractEntity implements
 		java.io.Serializable {
 
 	private static final long serialVersionUID = 5378741956614883953L;
 
-	@Getter
-	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usuario_perfil_id", unique = true, nullable = false)
 	private Long idUsuarioPerfil;
 
-	@Getter
-	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "perfil_id", nullable = false)
 	private Perfil perfil;
 
-	@Getter
-	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
-	@Getter
-	@Setter
 	@Column(name = "usu_perf_data", nullable = false)
 	private Date data;
 
@@ -59,6 +48,38 @@ public class UsuarioPerfil extends AbstractEntity implements
 
 	public Long getId() {
 		return getIdUsuarioPerfil();
+	}
+
+	public Long getIdUsuarioPerfil() {
+		return idUsuarioPerfil;
+	}
+
+	public void setIdUsuarioPerfil(Long idUsuarioPerfil) {
+		this.idUsuarioPerfil = idUsuarioPerfil;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 }
