@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.PerfilRotina;
+import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
 
 @Repository
 public class PerfilRotinaDAO extends AbstractDAO<PerfilRotina> implements
@@ -73,6 +75,37 @@ public class PerfilRotinaDAO extends AbstractDAO<PerfilRotina> implements
 		if (notEmpty(entity)) {
 			q.setParameter("perf", entity);
 		}
+
+		return q.getResultList();
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> searchPerfilUsuario(Usuario usuario, Sistema sistema) {
+		StringBuilder s = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+
+		List<Object[]> result;
+		
+		s.append(" select up, rot ");
+		s.append(" from UsuarioPerfil up ");
+		s.append(" join up.perfil per ");
+		s.append(" join per.perfilRotinas perRot ");
+		s.append(" join perRot.rotina rot ");
+		s.append(" where rot.sistema = :sistema ");
+		s.append(" and up.usuario = :usuario ");
+		s.append("  ");
+		
+		String orderBy = " order by per.nome, rot.nome ";
+		
+		System.out.println(generateHql(s.toString(),
+				condictions) + orderBy);
+
+		Query q = this.entityManager.createQuery(generateHql(s.toString(),
+				condictions) + orderBy);
+
+		q.setParameter("sistema", sistema);
+		q.setParameter("usuario", usuario);
 
 		return q.getResultList();
 

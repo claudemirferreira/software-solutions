@@ -1,6 +1,8 @@
 package br.com.ss.portal.model.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * Entity implementation class for Entity: Perfil
@@ -34,6 +42,13 @@ public class Perfil extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "sistema_id", nullable = false)
 	private Sistema sistema;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="perfil")
+	@Fetch(FetchMode.SELECT)
+	@Cascade(CascadeType.SAVE_UPDATE)
+	private Set<PerfilRotina> perfilRotinas = new HashSet<PerfilRotina>();
+
+	
+	
 	public Perfil() {
 		super();
 	}
@@ -67,4 +82,12 @@ public class Perfil extends AbstractEntity implements Serializable {
 		this.sistema = sistema;
 	}
 
+	public Set<PerfilRotina> getPerfilRotinas() {
+		return perfilRotinas;
+	}
+
+	public void setPerfilRotinas(Set<PerfilRotina> perfilRotinas) {
+		this.perfilRotinas = perfilRotinas;
+	}
+	
 }

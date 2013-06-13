@@ -10,6 +10,8 @@ import br.com.ss.portal.model.dao.IAbstractDAO;
 import br.com.ss.portal.model.dao.PerfilRotinaDAO;
 import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.PerfilRotina;
+import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
 
 @Service
 public class PerfilRotinaService extends BaseService<PerfilRotina> implements
@@ -32,6 +34,12 @@ public class PerfilRotinaService extends BaseService<PerfilRotina> implements
 	@Override
 	public List<PerfilRotina> searchByEntity(Perfil entity) {
 		return dao.searchByEntity(entity);
+	}
+
+	@Override
+	public List<Object[]> searchPerfilUsuario(Usuario usuario, Sistema sistema) {
+		List<Object[]> list = dao.searchPerfilUsuario(usuario, sistema);
+		return list;
 	}
 
 }

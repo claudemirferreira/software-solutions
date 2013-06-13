@@ -25,7 +25,7 @@
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel for="cpf" value="Login:" />
 						<p:inputText value="#{managedBean.search.cpf}" id="cpf"
-							required="true" label="login" />
+							required="true" label="login"/>
 
 						<h:outputLabel for="senha" value="Senha:" />
 						<h:inputSecret value="#{managedBean.search.senha}" id="senha"
@@ -34,7 +34,6 @@
 						<f:facet name="footer">
 							<p:commandButton id="loginButton" value="Logar" update=":growl"
 								action="#{managedBean.logar}" />
-								
 								
 						</f:facet>
 					</h:panelGrid>
