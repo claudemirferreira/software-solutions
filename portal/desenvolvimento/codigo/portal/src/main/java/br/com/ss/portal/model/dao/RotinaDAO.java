@@ -59,5 +59,22 @@ public class RotinaDAO extends AbstractDAO<Rotina> implements IRotinaDAO {
 		return list;
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Rotina> listarRotinaPorPerfil(Perfil perfil) {
+		
+		String sql = " select a.* from portal.saa_rotina a, " +
+				" portal.saa_perfil_rotina b " +
+				" where a.rotina_id = b.rotina_id " +
+				" and b.perfil_id = " + perfil.getId() +
+				" order by rot_nome ";
+
+		System.out.println("sql === " + sql);
+		
+		List<Rotina> list = (List<Rotina>) entityManager.createNativeQuery(sql).getResultList();
+		return list;
+	}
+
 
 }

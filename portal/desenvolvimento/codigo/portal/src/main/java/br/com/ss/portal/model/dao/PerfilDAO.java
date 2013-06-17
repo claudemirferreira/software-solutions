@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
 
 @Repository
 public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
@@ -85,5 +86,21 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 
 		return q.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Perfil> listarPerfilPorUsuarioSistema(Sistema sistema,
+			Usuario usuario) {
+		String sql = " select b.* from portal.saa_usuario_perfil a, portal.saa_perfil b "
+				+ "where a.usuario_id = " + usuario.getId() +
+				" and a.perfil_id = b.perfil_id and sistema_id =  " + sistema.getId()
+				+ "order by perf_nome ";
+
+		List<Perfil> perfis = (List<Perfil>) entityManager
+				.createNativeQuery(sql).getResultList();
+
+		return perfis;
+	}
+
 
 }
