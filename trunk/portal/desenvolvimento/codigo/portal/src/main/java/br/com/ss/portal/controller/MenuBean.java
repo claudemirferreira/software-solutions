@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.com.ss.portal.model.dao.IPerfilDAO;
 import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.Sistema;
 import br.com.ss.portal.service.IPerfilService;
