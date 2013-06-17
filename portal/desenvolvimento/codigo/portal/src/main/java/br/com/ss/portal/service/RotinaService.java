@@ -35,6 +35,4 @@ public class RotinaService extends BaseService<Rotina> implements Serializable,
 		return dao.listarRotinaPorPerfil(perfil);
 	}
 
-	
-
 }
