@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
 
 @Repository
 public class SistemaDAO extends AbstractDAO<Sistema> implements ISistemaDAO {
@@ -43,5 +44,20 @@ public class SistemaDAO extends AbstractDAO<Sistema> implements ISistemaDAO {
 		return q.getResultList();
 
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Sistema> listarSistemaPorUsuario(Usuario usuario) {
+		String sql = " select distinct a.* from saa_sistema a, " +
+				" saa_perfil b, saa_usuario_perfil c " +
+				" where a.sistema_id = b.sistema_id " +
+				" and b.perfil_id = c.perfil_id and c.usuario_id = " + usuario.getId()
+				+ " order by a.nome ";
+	
+		List<Sistema> sistemas = (List<Sistema>) entityManager.createNativeQuery(sql).getResultList();
+
+		return sistemas;
+	}
+
 
 }
