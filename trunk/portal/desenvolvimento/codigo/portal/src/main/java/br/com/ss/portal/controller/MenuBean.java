@@ -17,7 +17,9 @@ import org.springframework.stereotype.Component;
 
 import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
 import br.com.ss.portal.service.IPerfilService;
+import br.com.ss.portal.service.IRotinaService;
 
 @Component("menuBean")
 @Named
@@ -29,6 +31,9 @@ public class MenuBean implements Serializable{
 	
 	@Autowired
 	private IPerfilService service;
+	
+	@Autowired
+	private IRotinaService rotinaService;
 
 	public MenuBean() {
 		model = new DefaultMenuModel();
@@ -57,9 +62,13 @@ public class MenuBean implements Serializable{
 		item.setValue("Despesas");
 		item.setUrl("#");
 		submenu.getChildren().add(item);
-		Sistema entity = new Sistema();
-		entity.setIdSistema(1l);
-		List<Perfil> perfis = service.searchByEntity(entity);
+		Sistema sistema = new Sistema();
+		sistema.setIdSistema(1l);
+		
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(1l);
+		
+		List<Perfil> perfis = service.listarPerfilPorUsuarioSistema(sistema, usuario);
 		for (Perfil perfil : perfis) {
 			submenu = new Submenu();
 			submenu.setLabel(perfil.getNome());

@@ -1,5 +1,7 @@
 package br.com.ss.portal.controller;
 
+import java.util.List;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
@@ -12,8 +14,15 @@ import org.primefaces.component.menuitem.MenuItem;
 import org.primefaces.component.submenu.Submenu;
 import org.primefaces.model.DefaultMenuModel;
 import org.primefaces.model.MenuModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import br.com.ss.portal.model.entity.Perfil;
+import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
+import br.com.ss.portal.service.IPerfilService;
+import br.com.ss.portal.service.IRotinaService;
 
 @Component("menuMB")
 @Named
@@ -21,6 +30,12 @@ import org.springframework.stereotype.Component;
 public class MenuMB {
 
 	private MenuModel menuModel = new DefaultMenuModel();
+	
+	@Autowired
+	private IPerfilService service;
+	
+	@Autowired
+	private IRotinaService rotinaService;
 
 	public MenuMB() {
 	}
@@ -62,6 +77,21 @@ public class MenuMB {
 		// mi.setActionExpression(new MethodExpression("sss") );
 		submenu1.getChildren().add(mi1);
 		menuModel.addSubmenu(submenu1);
+		
+		Sistema sistema = new Sistema();
+		sistema.setIdSistema(1l);
+		
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(1l);
+		
+		List<Perfil> perfis = service.listarPerfilPorUsuarioSistema(sistema, usuario);
+		for (Perfil perfil : perfis) {
+			submenu = new Submenu();
+			submenu.setLabel(perfil.getNome());
+			System.out.println("perfil ==== "+perfil.getNome());
+			
+			menuModel.addSubmenu(submenu);
+		}
 
 	}
 
