@@ -28,21 +28,16 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 		List<String> condictions = new ArrayList<String>();
 
 		s.append(" select p from Perfil p ");
-
 		if (notEmpty(entity.getSistema())) {
 			s.append(" join p.sistema sis ");
 		}
-
 		if (notEmpty(entity.getNome())) {
 			condictions.add(" lower(p.nome) like :nome ");
 		}
-
 		if (notEmpty(entity.getSistema())) {
 			condictions.add(" p.sistema = :sis ");
 		}
-
 		String orderBy = " order by p.nome ";
-
 		Query q = this.entityManager.createQuery(generateHql(s.toString(),
 				condictions) + orderBy);
 
@@ -54,9 +49,7 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 		if (notEmpty(entity.getSistema())) {
 			q.setParameter("sis", entity.getSistema());
 		}
-
 		return q.getResultList();
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,7 +57,6 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 	public List<Perfil> searchByEntity(Sistema entity) {
 		StringBuilder s = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();
-
 		s.append(" select p from Perfil p ");
 
 		if (notEmpty(entity)) {
@@ -76,14 +68,12 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 		}
 
 		String orderBy = " order by p.sistema.nome, p.nome ";
-
 		Query q = this.entityManager.createQuery(generateHql(s.toString(),
 				condictions) + orderBy);
 
 		if (notEmpty(entity)) {
 			q.setParameter("sis", entity);
 		}
-
 		return q.getResultList();
 	}
 	
@@ -98,9 +88,6 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 
 		List<Perfil> perfis = (List<Perfil>) entityManager
 				.createNativeQuery(sql).getResultList();
-
 		return perfis;
 	}
-
-
 }

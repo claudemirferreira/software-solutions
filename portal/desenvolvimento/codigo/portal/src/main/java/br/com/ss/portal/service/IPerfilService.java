@@ -12,4 +12,5 @@ public interface IPerfilService extends IService<Perfil> {
 	
 	public abstract List<Perfil> listarPerfilPorUsuarioSistema(Sistema sistema,
 			Usuario usuario);
+	
 }

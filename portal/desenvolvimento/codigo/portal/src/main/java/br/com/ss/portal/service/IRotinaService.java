@@ -9,6 +9,6 @@ public interface IRotinaService extends IService<Rotina> {
 
 	public List<Rotina> searchRotinasDisponivel(Perfil entity);
 	
-	public List<Rotina> listarRotinaPorPerfil(Perfil perfil) ;
+	public List<Rotina> listarRotinaPorPerfil(Perfil perfil);
 
 }
