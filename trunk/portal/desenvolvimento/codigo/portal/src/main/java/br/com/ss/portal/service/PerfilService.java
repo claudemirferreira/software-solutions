@@ -10,6 +10,7 @@ import br.com.ss.portal.model.dao.IAbstractDAO;
 import br.com.ss.portal.model.dao.PerfilDAO;
 import br.com.ss.portal.model.entity.Perfil;
 import br.com.ss.portal.model.entity.Sistema;
+import br.com.ss.portal.model.entity.Usuario;
 
 @Service
 public class PerfilService extends BaseService<Perfil> implements Serializable,
@@ -28,6 +29,12 @@ public class PerfilService extends BaseService<Perfil> implements Serializable,
 	@Override
 	public List<Perfil> searchByEntity(Sistema entity) {
 		return dao.searchByEntity(entity);
+	}
+
+	@Override
+	public List<Perfil> listarPerfilPorUsuarioSistema(Sistema sistema,
+			Usuario usuario) {
+		return dao.listarPerfilPorUsuarioSistema(sistema, usuario);
 	}
 
 }

@@ -29,5 +29,12 @@ public class RotinaService extends BaseService<Rotina> implements Serializable,
 	public List<Rotina> searchRotinasDisponivel(Perfil entity) {
 		return dao.searchRotinasDisponivel(entity);
 	}
+	
+	@Override
+	public List<Rotina> listarRotinaPorPerfil(Perfil perfil) {
+		return dao.listarRotinaPorPerfil(perfil);
+	}
+
+	
 
 }
