@@ -72,7 +72,7 @@ public class RotinaDAO extends AbstractDAO<Rotina> implements IRotinaDAO {
 
 		System.out.println("sql === " + sql);
 		
-		List<Rotina> list = (List<Rotina>) entityManager.createNativeQuery(sql).getResultList();
+		List<Rotina> list = (List<Rotina>) entityManager.createNativeQuery(sql, Rotina.class).getResultList();
 		return list;
 	}
 

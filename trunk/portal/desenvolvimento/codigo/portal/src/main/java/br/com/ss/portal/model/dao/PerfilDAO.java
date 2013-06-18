@@ -82,12 +82,12 @@ public class PerfilDAO extends AbstractDAO<Perfil> implements IPerfilDAO {
 	public List<Perfil> listarPerfilPorUsuarioSistema(Sistema sistema,
 			Usuario usuario) {
 		String sql = " select b.* from portal.saa_usuario_perfil a, portal.saa_perfil b "
-				+ "where a.usuario_id = " + usuario.getId() +
-				" and a.perfil_id = b.perfil_id and sistema_id =  " + sistema.getId();
-				//+ "order by perf_nome ";
+				+ " where a.usuario_id = " + usuario.getId() +
+				" and a.perfil_id = b.perfil_id and sistema_id =  " + sistema.getId()
+				+ " order by perf_nome ";
 
-		List<Perfil> perfis = (List<Perfil>) entityManager
-				.createNativeQuery(sql).getResultList();
+		List<Perfil> perfis = entityManager
+				.createNativeQuery(sql, Perfil.class).getResultList();
 		return perfis;
 	}
 }

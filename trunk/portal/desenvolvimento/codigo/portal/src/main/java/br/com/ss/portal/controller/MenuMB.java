@@ -1,5 +1,6 @@
 package br.com.ss.portal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.el.ELContext;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.com.ss.portal.model.entity.Perfil;
+import br.com.ss.portal.model.entity.Rotina;
 import br.com.ss.portal.model.entity.Sistema;
 import br.com.ss.portal.model.entity.Usuario;
 import br.com.ss.portal.service.IPerfilService;
@@ -40,43 +42,12 @@ public class MenuMB {
 	public MenuMB() {
 	}
 
-	public MenuModel getMenuModel() {
-		// if (UsuarioMB.getLoginPerfil() != null) {
-		geraMenu("sicad");
-		// }
-		return menuModel;
-	}
-
 	public void setMenuModel(MenuModel menuModel) {
 		this.menuModel = menuModel;
 	}
 
-	public void geraMenu(String modulo) {
+	public MenuModel getMenuModel() {
 		menuModel = new DefaultMenuModel();
-		// MenuDao menuDAO = new MenuDao();
-		// String usuario = UsuarioMB.getLoginPerfil().getLogin();
-		// List<Menu> listaMenu = menuDAO.buscaPorMenuUsuario(usuario, modulo);
-
-		// Menu menu = new Menu();
-		Submenu submenu = new Submenu();
-		submenu.setLabel("Cadastro");
-		MenuItem mi = new MenuItem();
-		mi.setValue("cadasto 1");
-		mi.setAjax(false);
-		mi.setUrl("eeeeee");
-
-		submenu.getChildren().add(mi);
-		menuModel.addSubmenu(submenu);
-
-		Submenu submenu1 = new Submenu();
-		submenu1.setLabel("Relatorio");
-		MenuItem mi1 = new MenuItem();
-		mi1.setValue("rel 1");
-		mi1.setAjax(false);
-		mi1.setUrl("eeeeee");
-		// mi.setActionExpression(new MethodExpression("sss") );
-		submenu1.getChildren().add(mi1);
-		menuModel.addSubmenu(submenu1);
 		
 		Sistema sistema = new Sistema();
 		sistema.setIdSistema(1l);
@@ -84,24 +55,25 @@ public class MenuMB {
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(1l);
 		
+		List<Rotina> rotinas = new ArrayList<Rotina>();
+		
 		List<Perfil> perfis = service.listarPerfilPorUsuarioSistema(sistema, usuario);
 		for (Perfil perfil : perfis) {
-			submenu = new Submenu();
+			Submenu submenu = new Submenu();
 			submenu.setLabel(perfil.getNome());
-			System.out.println("perfil ==== "+perfil.getNome());
 			
-			menuModel.addSubmenu(submenu);
+			rotinas = rotinaService.listarRotinaPorPerfil(perfil);
+			for (Rotina rotina : rotinas) {
+				MenuItem menuItem = new MenuItem();
+				menuItem.setValue(rotina.getNome());
+				menuItem.setUrl(rotina.getPath());
+				submenu.getChildren().add(menuItem);
+				
+				menuModel.addSubmenu(submenu);
+			}
 		}
-
+		return menuModel;
 	}
-
-	/*
-	 * private MethodExpression criarAcao(String acao) { MethodExpression
-	 * actionExpression = FacesContext .getCurrentInstance() .getApplication()
-	 * .getExpressionFactory() .createMethodExpression(
-	 * FacesContext.getCurrentInstance().getELContext(), acao, null, new
-	 * Class[0]); return actionExpression; }
-	 */
 
 	private MethodExpression createMethodExpression(String action) {
 
@@ -139,31 +111,5 @@ public class MenuMB {
 		return FacesContext.getCurrentInstance().getApplication();
 
 	}
-
-	// public Submenu geraSubmenu(Menu menu) {
-	// String usuario = UsuarioMB.getLoginPerfil().getLogin();
-	// Submenu submenu = new Submenu();
-	// MenuDao menuDAO = new MenuDao();
-	// submenu.setLabel(menu.getDescricao());
-	// for (Menu m : menuDAO.buscaPorMenu(menu, usuario)) {
-	// if (!menuDAO.verificaSubMenu(m, usuario)) {
-	// MenuItem mi = new MenuItem();
-	// mi.setValue(m.getDescricao());
-	// // mi.setActionExpression(createMethodExpression(m.getAcao()));
-	// mi.setAjax(false);
-	// if (m.getAcao() != null) {
-	// mi.setActionExpression(createMethodExpression(m.getAcao()));
-	// }
-	// if (m.getUrl() != null) {
-	// mi.setUrl(m.getUrl());
-	// }
-	// mi.setStyle("width:100px");
-	// submenu.getChildren().add(mi);
-	// } else {
-	// submenu.getChildren().add(geraSubmenu(m));
-	// }
-	// }
-	// return submenu;
-	// }
 
 }
