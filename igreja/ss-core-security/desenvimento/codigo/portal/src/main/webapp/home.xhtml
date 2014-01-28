@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form" >
+		<p:panel id="painel"
+			style="width:50px; height:100px; position:absolute; 
+			top:30%;left:50%; margin-top:-50px;	margin-left:-200px;">
+			<h:panelGrid id="grid" style="width:100%">
+				<p:carousel id="rotina1" value="#{tableBean.rotina1}" var="car"
+					numVisible="4" itemStyleClass="carItem" headerText="Cars">
+
+					<h:panelGrid columns="2" style="width:100%" cellpadding="5">
+						<h:outputText value="Model: " />
+						<h:outputText id="model" value="#{car.nome}" />
+					</h:panelGrid>
+
+					<p:commandLink id="view1" 
+						 title="View Detail">
+						<h:outputText styleClass="ui-icon ui-icon-search"
+							style="margin:0 auto;" />
+						<f:setPropertyActionListener value="#{car}"
+							target="#{tableBean.selectedCar}" />
+					</p:commandLink>
+				</p:carousel>
+
+				<p:carousel value="#{tableBean.rotina1}" var="car" numVisible="4"
+					itemStyleClass="carItem" easing="easeOutBounce">
+					<h:panelGrid columns="1" style="width:100%" cellpadding="5">
+
+						<h:outputText value="Model: #{car.nome}" />
+
+						<h:outputText value="Year: #{car.descricao}" />
+
+					</h:panelGrid>
+				</p:carousel>
+			</h:panelGrid>
+			
+		</p:panel>
+	</h:form>
+</ui:component>
