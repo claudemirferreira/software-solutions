@@ -34,7 +34,7 @@ public class Entrada implements Serializable {
 
 	private Date dataLog;
 
-	private float observacao;
+	private String observacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tipo_entrada_id", nullable = false)
@@ -72,11 +72,11 @@ public class Entrada implements Serializable {
 		this.dataLog = dataLog;
 	}
 
-	public float getObservacao() {
+	public String getObservacao() {
 		return observacao;
 	}
 
-	public void setObservacao(float observacao) {
+	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
 
