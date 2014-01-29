@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
+	<persistence-unit name="persistence-unit-portal"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.ss.data.entities.Perfil</class>
+		<class>br.com.ss.data.entities.Sistema</class>
+		<class>br.com.ss.data.entities.Usuario</class>
+		<class>br.com.ss.data.entities.Rotina</class>
+		<class>br.com.ss.data.entities.Post</class>
+		<class>br.com.ss.data.entities.Membro</class>
+		<class>br.com.ss.data.entities.Pastor</class>
+		<class>br.com.ss.data.entities.Entrada</class>
+		<class>br.com.ss.data.entities.Saida</class>
+		<class>br.com.ss.data.entities.TipoEntrada</class>
+		<class>br.com.ss.data.entities.TipoSaida</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			<property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver"/>
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost/portal"/>
+			<property name="hibernate.connection.username" value="root"/>
+			<property name="hibernate.connection.password" value="root"/>
+		</properties>
+	</persistence-unit>
+
+</persistence>

@@ -1,0 +1,91 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panel header="FORMULÁRIO DE CADASTRO DE MEMBRO">
+
+		<h:panelGrid id="panelCadastro" columns="6">
+
+			<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+			<p:inputText id="nome" value="#{membroControlador.entidade.nome}" />
+
+			<p:outputLabel value="Bairro:" styleClass="ui-priority-primary" />
+			<p:inputText id="bairro" value="#{membroControlador.entidade.bairro}" />
+
+			<p:outputLabel value="Amigo:" styleClass="ui-priority-primary" />
+			<p:inputText id="amigoContato"
+				value="#{membroControlador.entidade.amigoContato}" />
+
+			<p:outputLabel value="Batizado:" styleClass="ui-priority-primary" />
+			<p:selectBooleanButton id="batizado"
+				value="#{membroControlador.entidade.batizado}" onLabel="SIM"
+				offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+
+			<p:outputLabel value="Celular:" styleClass="ui-priority-primary" />
+			<p:inputMask id="celular" mask="9999-9999"
+				value="#{membroControlador.entidade.celular}" />
+
+			<p:outputLabel value="Data Batismo" styleClass="ui-priority-primary" />
+			<p:calendar id="dataBatismo" pattern="dd/MM/yyyy"
+				value="#{membroControlador.entidade.dataBatismo}" />
+
+			<p:outputLabel value="Data Nascimento"
+				styleClass="ui-priority-primary" />
+			<p:inputText id="dataNascimento"
+				value="#{membroControlador.entidade.dataNascimento}" />
+
+			<p:outputLabel value="E-mail" styleClass="ui-priority-primary" />
+			<p:inputText id="email" value="#{membroControlador.entidade.email}" />
+
+			<p:outputLabel value="Fone Comercial"
+				styleClass="ui-priority-primary" />
+			<p:inputMask id="foneComercial" mask="9999-9999"
+				value="#{membroControlador.entidade.foneComercial}" />
+
+			<p:outputLabel value="Fone Residencial"
+				styleClass="ui-priority-primary" />
+			<p:inputMask id="foneResidencial" mask="9999-9999"
+				value="#{membroControlador.entidade.foneResidencial}" />
+
+			<p:outputLabel value="Mãe" styleClass="ui-priority-primary" />
+			<p:inputText id="mae" value="#{membroControlador.entidade.mae}" />
+
+			<p:outputLabel value="Membro da Igreja" styleClass="ui-priority-primary" />
+			<p:selectBooleanButton id="membroIgreja"
+				value="#{membroControlador.entidade.membroIgreja}" onLabel="SIM"
+				offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+
+			<p:outputLabel value="Modo de Conversão"
+				styleClass="ui-priority-primary" />
+			<p:inputText id="modoConversao"
+				value="#{membroControlador.entidade.modoConversao}" />
+
+			<p:outputLabel value="Pai" styleClass="ui-priority-primary" />
+			<p:inputText id="pai" value="#{membroControlador.entidade.pai}" />
+
+			<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
+			<p:selectBooleanButton id="sexo"
+				value="#{membroControlador.entidade.sexo}" onLabel="M"
+				offLabel="F" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+
+			<p:outputLabel value="Tem Filho(s)" styleClass="ui-priority-primary" />
+			<p:selectBooleanButton id="temFilho"
+				value="#{membroControlador.entidade.temFilho}" onLabel="SIM"
+				offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+
+		</h:panelGrid>
+
+		<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+			icon="ui-icon-search" styleClass="ui-priority-primary"
+			action="#{membroControlador.salvar}" />
+
+	</p:panel>
+
+</ui:component>

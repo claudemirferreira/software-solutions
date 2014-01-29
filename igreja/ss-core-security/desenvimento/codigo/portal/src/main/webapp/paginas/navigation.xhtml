@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="menuForm">
+
+		<p:growl id="messages" />
+
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+				<p:commandButton value="Secretária" icon="ui-icon-document"
+					update=":form">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/relatorio/secretaria/pesquisa.xhtml" />
+
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Tesourária" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Pastor" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/pastor/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Membro" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/membro/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Tipo de Entrada" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/tipoentrada/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Tipo de Saída" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/tiposaida/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Tipo de Saída" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/tiposaida/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
+			</p:toolbarGroup>
+
+			<p:toolbarGroup align="right">
+				<p:themeSwitcher style="width:165px" id="defaultSwitcher">
+					<f:selectItem itemLabel="Choose Theme" itemValue="" />
+					<f:selectItems value="#{themeSwitcherControlador.themes}" />
+				</p:themeSwitcher>
+
+				<p:outputLabel style="margin-right:10px"
+					value="Usuário: #{usuarioControlador.usuario.cpf}" />
+				<p:separator />
+				<p:commandButton action="#{usuarioControlador.logout}"
+					value="Logout" icon="ui-icon-extlink" update=":form" />
+			</p:toolbarGroup>
+		</p:toolbar>
+
+	</h:form>
+</ui:component>
