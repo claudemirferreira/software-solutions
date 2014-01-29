@@ -70,6 +70,14 @@
 				</p:commandButton>
 				<p:separator />
 
+				<p:commandButton value="Sistema" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/sistema/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
 			</p:toolbarGroup>
 
 			<p:toolbarGroup align="right">
