@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.data.entities.Rotina;
+import br.com.ss.data.entities.Sistema;
 import br.com.ss.data.repositories.RotinaRepositorio;
 
 @Service
 public class RotinaServicoImpl implements RotinaServico, Serializable {
 
 	private static final long serialVersionUID = -7015513743088712661L;
-	
+
 	@Autowired
 	private RotinaRepositorio rotinaRepositorio;
 
@@ -32,4 +33,16 @@ public class RotinaServicoImpl implements RotinaServico, Serializable {
 		this.rotinaRepositorio.delete(rotina);
 
 	}
+
+	@Override
+	public List<Rotina> findBySistema(Sistema sistema) {
+		return this.rotinaRepositorio.findBySistema(sistema);
+	}
+
+	@Override
+	public List<Rotina> findBySistemaByNomeLike(Sistema sistema, String nome) {
+		// TODO Auto-generated method stub
+		return this.rotinaRepositorio.findBySistemaByNomeLike(sistema, nome);
+	}
+
 }
