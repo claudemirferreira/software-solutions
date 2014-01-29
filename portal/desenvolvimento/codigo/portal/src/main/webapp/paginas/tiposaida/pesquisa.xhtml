@@ -1,0 +1,66 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panel header="FORMULÁRIO DE PESQUISA DE TIPO DE SAÍDA">
+
+		<h:panelGrid id="panelPesquisa" columns="1">
+
+			<h:outputText value="Nome:" styleClass="ui-priority-primary" />
+			<p:inputText id="nome"
+				value="#{tipoSaidaControlador.pesquisa.descricao}" />
+
+		</h:panelGrid>
+
+		<f:facet name="footer">
+			<p:commandButton id="buttonPesquisar" value="Pesquisar"
+				update=":form:gridPesquisa" icon="ui-icon-search"
+				styleClass="ui-priority-primary"
+				action="#{tipoSaidaControlador.pesquisar}" />
+
+			<p:commandButton id="buttonNovo" value="Novo" update=":form"
+				icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+				action="#{tipoSaidaControlador.novo}" />
+		</f:facet>
+
+	</p:panel>
+
+	<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+		value="#{tipoSaidaControlador.lista}" paginatorPosition="bottom"
+		paginatorAlwaysVisible="true"
+		emptyMessage="Nenhum registro encontrado."
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,15,20">
+
+		<p:column style="text-align:left" headerText="Nome"
+			sortBy="#{item.descricao}">
+			<h:outputText value="#{item.descricao}" />
+		</p:column>
+
+		<p:column style="text-align:left" headerText="Detalhe">
+			<p:commandButton ajax="false"
+				action="#{tipoSaidaControlador.detalhe(item)}"
+				styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
+				update=":form" title="Detalhe" />
+
+			<p:commandButton ajax="false"
+				action="#{tipoSaidaControlador.excluir(item)}"
+				styleClass="ui-priority-primary" icon="ui-icon-trash"
+				update=":form:gridPesquisa" title="Detalhe" />
+
+		</p:column>
+
+		<f:facet name="footer">  
+            Total de registros: #{fn:length(tipoSaidaControlador.lista)} Tipo Saida.  
+        </f:facet>
+
+	</p:dataTable>
+
+</ui:component>

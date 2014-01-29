@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<p:dataGrid id="carousel" 
+			value="#{rotinaControlador.moduloTesouraria}" var="car"
+			headerText="TESOURARIA" columns="4"
+			style="width:100%; height:100%; border: 0px solid #a8a8a8;">
+			<div align="center">
+				<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
+					<p:graphicImage id="image" value="#{car.imagem}" height="100px"
+						width="100px" />
+
+					<p:commandButton id="dynamicDialogButton" value="#{car.nome}"
+						onclick="#{car.acao}" type="button" icon="ui-icon-extlink" />
+
+				</h:panelGrid>
+			</div>
+		</p:dataGrid>
+
+		<p:dialog id="tesourariaSaldoCongregacao" header="SALDO DA CONGREGAÇÃO"
+			widgetVar="tesourariaSaldoCongregacao" focus="surname1">
+
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel for="name1" value="Name:" />
+				<p:inputText id="name1" label="name" />
+
+				<h:outputLabel for="surname1" value="Surname:" />
+				<p:inputText id="surname1" label="surname" />
+
+				<h:outputLabel for="telephone1" value="Telephone:" />
+				<p:inputText id="telephone1" label="telephone" />
+
+			</h:panelGrid>
+
+		</p:dialog>
+
+		<p:dialog id="tesourariaProventoPastoral" header="PROVENTO PASTORAL"
+			widgetVar="tesourariaProventoPastoral" focus="surname">
+
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel for="name" value="Name:" />
+				<p:inputText id="name" label="name" />
+
+				<h:outputLabel for="surname" value="Surname:" />
+				<p:inputText id="surname" label="surname" />
+
+				<h:outputLabel for="telephone" value="Telephone:" />
+				<p:inputText id="telephone" label="telephone" />
+
+			</h:panelGrid>
+
+		</p:dialog>
+	</h:form>
+</ui:component>
