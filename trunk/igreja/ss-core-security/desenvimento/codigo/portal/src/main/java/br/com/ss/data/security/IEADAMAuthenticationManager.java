@@ -52,6 +52,10 @@ public class IEADAMAuthenticationManager implements Serializable, Authentication
 			e.printStackTrace();
 		}
 
+		usuario = null;
+
+		// TODO add usuario no contexto p/ injecao
+		
 		return null;
 
 	}

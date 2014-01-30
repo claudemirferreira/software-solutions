@@ -13,27 +13,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 /**
  * Entity implementation class for Entity: Entrada
  * 
  */
 @Entity
 @Table(name = "igre_entrada")
-public class Entrada implements Serializable {
+public class Entrada extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 168661018940283398L;
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
+	private Long id;
+
+	@Column(name = "valor", nullable = false)
 	private float valor;
 
+	@Column(name = "data_entrada", nullable = false)
 	private Date dataEntrada;
 
+	@Column(name = "data_log", nullable = false)
 	private Date dataLog;
 
+	@Column(name = "observacao", length = 255 )
 	private String observacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -48,11 +53,12 @@ public class Entrada implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
-	public int getId() {
+	@Override
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

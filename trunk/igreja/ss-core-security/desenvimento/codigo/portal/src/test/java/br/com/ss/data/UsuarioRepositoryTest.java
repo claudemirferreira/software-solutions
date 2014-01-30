@@ -21,13 +21,23 @@ public class UsuarioRepositoryTest {
 	UsuarioRepositorio repository;
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void test() {
 		Usuario usuario = new Usuario();
 
 		usuario.setCpf("60735090220");
 		usuario.setNome("CLAUDEMIR RAMOS FERREIRA");
 		usuario.setEmail("claudemirramosferreira@gmail.com");
+		usuario.setSenha("admin");
+		usuario.setStatus("A");
+
+		repository.save(usuario);
+		
+		usuario = new Usuario();
+
+		usuario.setCpf("66106516200");
+		usuario.setNome("ROBSON RAMOS FERREIRA");
+		usuario.setEmail("robsonrf@gmail.com");
 		usuario.setSenha("admin");
 		usuario.setStatus("A");
 

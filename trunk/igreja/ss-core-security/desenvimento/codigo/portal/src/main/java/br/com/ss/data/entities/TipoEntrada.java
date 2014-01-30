@@ -11,22 +11,23 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "igre_tipo_entrada")
-public class TipoEntrada implements Serializable {
+public class TipoEntrada extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 4536043846654502248L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 
 	@Column(name = "igre_descricao", nullable = false, length = 60)
 	private String descricao;
 
-	public int getId() {
+	@Override
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
