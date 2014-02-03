@@ -13,23 +13,23 @@
 
 		<p:toolbar>
 			<p:toolbarGroup align="left">
-				<p:commandButton value="Secretária" icon="ui-icon-document"
-					update=":form">
-					<f:setPropertyActionListener
-						target="#{paginaCentralControlador.paginaCentral}"
-						value="paginas/relatorio/secretaria/pesquisa.xhtml" />
+				<p:commandButton value="Cadastro" icon="ui-icon-document"
+					action="#{rotinaControlador.cadastro}" update=":form">
 
 				</p:commandButton>
 				<p:separator />
 
-				<p:commandButton value="Tesourária" update=":form"
-					icon="ui-icon-folder-open">
-					<f:setPropertyActionListener
-						target="#{paginaCentralControlador.paginaCentral}"
-						value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
+				<p:commandButton value="Lancamento" icon="ui-icon-document"
+					action="#{rotinaControlador.lancamento}" update=":form">
 				</p:commandButton>
 				<p:separator />
+				
+				<p:commandButton value="Administrativo" icon="ui-icon-document"
+					action="#{rotinaControlador.administrativo}" update=":form">
 
+				</p:commandButton>
+				<p:separator />
+				
 				<p:commandButton value="Pastor" update=":form"
 					icon="ui-icon-folder-open">
 					<f:setPropertyActionListener

@@ -41,8 +41,12 @@ public class RotinaServicoImpl implements RotinaServico, Serializable {
 
 	@Override
 	public List<Rotina> findBySistemaByNomeLike(Sistema sistema, String nome) {
-		// TODO Auto-generated method stub
 		return this.rotinaRepositorio.findBySistemaByNomeLike(sistema, nome);
+	}
+
+	@Override
+	public List<Rotina> findByPerfil(int perfil_id) {
+		return this.rotinaRepositorio.findByPerfil(perfil_id);
 	}
 
 }

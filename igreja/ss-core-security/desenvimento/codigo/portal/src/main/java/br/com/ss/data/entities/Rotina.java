@@ -41,6 +41,9 @@ public class Rotina implements Serializable {
 
 	@Column(name = "roti_path", nullable = false, length = 60)
 	private String path;
+	
+	@Column(name = "roti_imagem", nullable = false, length = 60)
+	private String imagem;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "saa_perfil_rotina", joinColumns = @JoinColumn(name = "rotina_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id"))

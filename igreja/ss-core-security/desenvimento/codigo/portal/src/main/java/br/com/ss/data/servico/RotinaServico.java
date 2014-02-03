@@ -16,5 +16,7 @@ public interface RotinaServico {
 	public List<Rotina> findBySistema(Sistema sistema);
 
 	public List<Rotina> findBySistemaByNomeLike(Sistema sistema, String nome);
+	
+	public List<Rotina> findByPerfil(int perfil_id);
 
 }
