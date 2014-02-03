@@ -9,6 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.toolbar.ToolbarGroup;
+
 import br.com.ss.data.entities.Perfil;
 import br.com.ss.data.entities.Sistema;
 import br.com.ss.data.servico.PerfilServico;
@@ -35,6 +38,10 @@ public class PerfilControlador implements Serializable {
 
 	private final String TELA_CADASTRO = "paginas/perfil/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/perfil/pesquisa.xhtml";
+
+	private ToolbarGroup left;
+
+	private int perfilId;
 
 	@PostConstruct
 	public void init() {
@@ -86,6 +93,17 @@ public class PerfilControlador implements Serializable {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
+	public ToolbarGroup getLeft() {
+		this.left = new ToolbarGroup();
+		CommandButton salva = new CommandButton();
+		salva.setTitle("Salvar");
+		salva.setIcon("ui-icon-disk");
+
+		salva.setValue("Salvar");
+
+		return this.left;
+	}
+
 	// get e set
 	public Perfil getEntidade() {
 		return entidade;
@@ -117,6 +135,14 @@ public class PerfilControlador implements Serializable {
 
 	public void setLista(List<Perfil> lista) {
 		this.lista = lista;
+	}
+
+	public int getPerfilId() {
+		return perfilId;
+	}
+
+	public void setPerfilId(int perfilId) {
+		this.perfilId = perfilId;
 	}
 
 	public PerfilServico getServico() {
