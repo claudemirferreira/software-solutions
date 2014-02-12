@@ -34,11 +34,7 @@ public class MembroServicoImpl implements MembroServico, Serializable {
 
 	@Override
 	public List<Membro> findByNome(String nome) {
-		 List<Membro> res = 
-				 membroRepositorio.findByNomeLike("%"+nome+"%");
-//				 membroRepositorio.findBySexo(nome);
-		 return res;
-//		return membroRepositorio.findByNome(nome);
+		 return membroRepositorio.findByNomeLike("%"+nome+"%");
 	}
 	
 }
