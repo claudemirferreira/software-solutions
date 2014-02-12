@@ -15,21 +15,30 @@ public class MembroServicoImpl implements MembroServico, Serializable {
 	private static final long serialVersionUID = 2317486927458119916L;
 
 	@Autowired
-	private MembroRepositorio pastorRepositorio;
+	private MembroRepositorio membroRepositorio;
 
 	@Override
 	public List<Membro> listarTodos() {
-		return this.pastorRepositorio.findAll();
+		return this.membroRepositorio.findAll();
 	}
 
 	@Override
 	public Membro salvar(Membro membro) {
-		return this.pastorRepositorio.save(membro);
+		return this.membroRepositorio.save(membro);
 	}
 
 	@Override
 	public void remover(Membro membro) {
-		this.pastorRepositorio.delete(membro);
-
+		this.membroRepositorio.delete(membro);
 	}
+
+	@Override
+	public List<Membro> findByNome(String nome) {
+		 List<Membro> res = 
+				 membroRepositorio.findByNomeLike("%"+nome+"%");
+//				 membroRepositorio.findBySexo(nome);
+		 return res;
+//		return membroRepositorio.findByNome(nome);
+	}
+	
 }

@@ -2,6 +2,8 @@ package br.com.ss.data.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -25,12 +28,12 @@ public class Entrada extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 168661018940283398L;
 
 	@Id
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "id_entrada", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "valor", nullable = false)
-	private float valor;
+	@Column(name = "valor_total", nullable = false)
+	private float valorTotal;
 
 	@Column(name = "data_entrada", nullable = false)
 	private Date dataEntrada;
@@ -42,10 +45,6 @@ public class Entrada extends AbstractEntity implements Serializable {
 	private String observacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tipo_entrada_id", nullable = false)
-	private TipoEntrada tipoEntrada;
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "membro_id", nullable = false)
 	private Membro membro;
 
@@ -53,6 +52,9 @@ public class Entrada extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "entrada")
+	private Set<EntradaItem> entradaItems = new HashSet<EntradaItem>(0);
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -78,14 +80,6 @@ public class Entrada extends AbstractEntity implements Serializable {
 		this.dataLog = dataLog;
 	}
 
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
 	public Membro getMembro() {
 		return membro;
 	}
@@ -102,20 +96,20 @@ public class Entrada extends AbstractEntity implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public float getValor() {
-		return valor;
+	public Set<EntradaItem> getEntradaItems() {
+		return entradaItems;
 	}
 
-	public void setValor(float valor) {
-		this.valor = valor;
+	public void setEntradaItems(Set<EntradaItem> entradaItems) {
+		this.entradaItems = entradaItems;
 	}
 
-	public TipoEntrada getTipoEntrada() {
-		return tipoEntrada;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setTipoEntrada(TipoEntrada tipoEntrada) {
-		this.tipoEntrada = tipoEntrada;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 }

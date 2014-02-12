@@ -11,5 +11,7 @@ public interface MembroServico {
 	public Membro salvar(Membro membro);
 
 	public void remover(Membro membro);
+	
+	public List<Membro> findByNome(String nome);
 
 }

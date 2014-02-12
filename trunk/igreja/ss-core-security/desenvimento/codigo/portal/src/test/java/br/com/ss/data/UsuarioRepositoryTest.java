@@ -21,7 +21,7 @@ public class UsuarioRepositoryTest {
 	UsuarioRepositorio repository;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void test() {
 		Usuario usuario = new Usuario();
 
