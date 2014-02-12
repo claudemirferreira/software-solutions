@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<cc:interface>
+	
+		<cc:attribute name="id" required="false" default="id" />
+		<cc:attribute name="label" required="false" />	
+		<cc:attribute name="value" required="true" />
+		<cc:attribute name="required" required="false" default="false" />
+		
+		<cc:attribute name="size" default="50"  />
+		<cc:attribute name="align" default="left" />
+		<cc:attribute name="maxlength" required="false" default="50" />
+		
+		<!-- types: text, number, calendar, autoComplete -->
+		<cc:attribute name="type" default="text" required="false"  />
+
+		<cc:attribute name="title" default="Informe uma Data" required="false" />
+		
+		<!-- autoComplete params -->
+		<cc:attribute name="bean" required="false"  />
+		<cc:attribute name="completeMethod" required="false"  />
+		<cc:attribute name="var" required="false"  />
+		<cc:attribute name="itemValue" required="false"  />
+		<cc:attribute name="itemLabel" required="false"  />
+		
+		
+	</cc:interface>
+	
+	<cc:implementation>
+	
+		<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required">
+		 		<p:column width="150px" rendered="#{not empty cc.attrs.label}" >
+					<h:outputLabel value="#{cc.attrs.label}" for="#{cc.attrs.id}"/>
+			 		<h:outputText value="  * " styleClass="input_required" rendered="#{cc.attrs.required}" />
+		 		</p:column>
+		 		
+		 		<p:column rendered="#{cc.attrs.type eq 'text'}">
+		 			<!-- Input Text -->
+					<p:inputText id="tx_#{cc.attrs.id}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" size="#{cc.attrs.size}">
+						<ui:insert />
+					</p:inputText>
+					<h:message for="#{cc.attrs.id}" styleClass="error"  />
+		 		</p:column>
+		 		
+		 		<p:column rendered="#{cc.attrs.type eq 'number'}">
+		 			<!-- Input Number -->
+		 			<pe:inputNumber id="nb_#{cc.attrs.id}" value="#{cc.attrs.value}" decimalSeparator="," thousandSeparator="."  dir="RTL" /> 
+		 		</p:column>
+		 		
+		 		<p:column rendered="#{cc.attrs.type eq 'date'}">
+		 			<!-- Calendar -->
+		 			<p:calendar id="dt_#{cc.attrs.id}"
+		 						maxlength="10"
+								size="12"
+								required="#{cc.attrs.required}"
+								value="#{cc.attrs.value}"
+								title="#{cc.attrs.title}" 
+								mask="99/99/9999" >
+						<ui:insert />
+					</p:calendar>	
+					<h:message for="#{cc.attrs.id}" styleClass="error"  />
+		 		</p:column>
+		 		
+		 		<p:column rendered="#{cc.attrs.type eq 'autoComplete'}">
+		 			<!-- Input AutoComplete -->
+		            <p:autoComplete id="ac_#{cc.attrs.id}"
+			                        required="#{cc.attrs.required}"
+		            				value="#{cc.attrs.value}"
+		            				title="#{cc.attrs.title}" 
+		            				completeMethod="#{cc.attrs.bean[cc.attrs.completeMethod]}"  
+			                        var="#{cc.attrs.var}"
+			                        itemLabel="#{cc.attrs.itemLabel}" 
+			                        itemValue="#{cc.attrs.item}" 
+			                        size="#{cc.attrs.size}"
+			                        forceSelection="true" >
+							<ui:insert />
+                      </p:autoComplete>
+		 		</p:column>
+		 		
+		</h:panelGrid>
+		
+	</cc:implementation>
+	
+</html>
