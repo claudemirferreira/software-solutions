@@ -81,7 +81,7 @@ public class EntradaControlador implements Serializable {
 
 	public void salvar() {
 		
-		Usuario usuario = null;	// TODO inject usuario    
+		Usuario usuario = null;	// TODO inject usuario
 		
 		this.entidade.setDataLog(new Date());
 		this.entidade.setUsuario(usuario);
