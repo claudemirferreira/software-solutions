@@ -16,6 +16,7 @@ public class TipoEntrada extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 4536043846654502248L;
 
 	@Id
+	@Column(name = "id_tipo_entrada", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
