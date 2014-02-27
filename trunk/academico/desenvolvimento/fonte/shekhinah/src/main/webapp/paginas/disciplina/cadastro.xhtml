@@ -1,0 +1,45 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+
+		<p:panel header="FORMULÁRIO DE CADASTRO DE DISCIPLINA">
+
+			<h:panelGrid id="panelCadastro" columns="2">
+
+				<p:outputLabel value="*Nome:" styleClass="ui-priority-primary" />
+				<p:inputText id="nome"
+					value="#{disciplinaControlador.entidade.nome}" style="width:300px;" />
+
+				<p:outputLabel value="Descrição:" styleClass="ui-priority-primary" />
+				<p:inputTextarea rows="6" cols="33"
+					value="#{disciplinaControlador.entidade.descricao}"
+					style="width:300px;" />
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					action="#{disciplinaControlador.telaPeaquisa}" />
+
+				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
+					action="#{disciplinaControlador.salvar}" />
+
+			</f:facet>
+
+		</p:panel>
+
+	</h:form>
+
+</ui:component>
