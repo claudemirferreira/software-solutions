@@ -11,17 +11,21 @@
 
 	<h:form id="form">
 
+		<p:growl id="growl" />
+
 		<p:panel header="FORMULÁRIO DE CADASTRO DE CURSO">
 
 			<h:panelGrid id="panelCadastro" columns="6">
 
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{cursoControlador.entidade.nome}"
+					required="true" requiredMessage="O nome deve ser informado"
 					style="width:300px;" />
 
 				<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
-				<p:inputText id="preco"
-					value="#{cursoControlador.entidade.valor}" style="width:300px;" />
+				<p:inputText id="valor" value="#{cursoControlador.entidade.valor}"
+					required="true" requiredMessage="O valor deve ser informado"
+					style="width:300px;" />
 
 			</h:panelGrid>
 
@@ -29,7 +33,7 @@
 
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					action="#{cursoControlador.telaPeaquisa}" />
+					immediate="true" action="#{cursoControlador.telaPeaquisa}" />
 
 				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"

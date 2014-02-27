@@ -15,18 +15,21 @@
 
 			<h:panelGrid id="panelCadastro" columns="6">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
-				<p:inputText id="nome"
+				<p:outputLabel value="*Nome:" styleClass="ui-priority-primary" />
+				<p:inputText id="nome" required="true"
+					requiredMessage="O nome deve ser informado"
 					value="#{responsavelControlador.entidade.nome}"
 					style="width:300px;" />
 
-				<p:outputLabel value="Endereço:" styleClass="ui-priority-primary" />
-				<p:inputText id="endereco"
+				<p:outputLabel value="*Endereço:" styleClass="ui-priority-primary" />
+				<p:inputText id="endereco" required="true"
+					requiredMessage="O endereço deve ser informado"
 					value="#{responsavelControlador.entidade.endereco}"
 					style="width:300px;" />
 
-				<p:outputLabel value="Bairro:" styleClass="ui-priority-primary" />
-				<p:inputText id="bairro"
+				<p:outputLabel value="*Bairro:" styleClass="ui-priority-primary" />
+				<p:inputText id="bairro" required="true"
+					requiredMessage="O bairro deve ser informado"
 					value="#{responsavelControlador.entidade.bairro}"
 					style="width:300px;" />
 
@@ -61,13 +64,15 @@
 					value="#{responsavelControlador.entidade.email}"
 					style="width:300px;" />
 
-				<p:outputLabel value="CPF:" styleClass="ui-priority-primary" />
-				<p:inputText id="cpf" value="#{responsavelControlador.entidade.cpf}"
-					style="width:300px;" />
+				<p:outputLabel value="*CPF:" styleClass="ui-priority-primary" />
+				<p:inputText id="cpf" required="true"
+					requiredMessage="O cpf deve ser informado"
+					value="#{responsavelControlador.entidade.cpf}" style="width:300px;" />
 
 				<p:outputLabel value="RG:" styleClass="ui-priority-primary" />
-				<p:inputText id="rg" value="#{responsavelControlador.entidade.rg}"
-					style="width:300px;" />
+				<p:inputText id="rg" required="true"
+					requiredMessage="O rg deve ser informado"
+					value="#{responsavelControlador.entidade.rg}" style="width:300px;" />
 
 				<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{responsavelControlador.entidade.sexo}">
@@ -77,8 +82,9 @@
 
 				<p:outputLabel value="Data Nascimento:"
 					styleClass="ui-priority-primary" />
-				<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
-					navigator="true" display="inline"
+				<p:calendar id="dataNascimento" required="true"
+					requiredMessage="A data de nascimento deve ser informado"
+					pattern="dd/MM/yyyy" navigator="true" display="inline"
 					value="#{responsavelControlador.entidade.dataNascimento}" />
 
 			</h:panelGrid>
@@ -87,7 +93,7 @@
 
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					action="#{responsavelControlador.telaPeaquisa}" />
+					action="#{responsavelControlador.telaPeaquisa}" immediate="true" />
 
 				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"

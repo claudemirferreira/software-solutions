@@ -19,7 +19,7 @@
 
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" style="width:300px;" required="true"
-					requiredMessage="nome deve ser informado"
+					requiredMessage="O nome deve ser informado"
 					value="#{perfilControlador.entidade.nome}" />
 
 				<p:outputLabel value="Descrição:" styleClass="ui-priority-primary" />
@@ -27,17 +27,17 @@
 					value="#{perfilControlador.entidade.descricao}" />
 
 				<p:outputLabel value="Imagem:" styleClass="ui-priority-primary" />
-				<p:inputText id="imagem" style="width:300px;"
+				<p:inputText id="imagem" style="width:300px;" required="true"
+					requiredMessage="A imagem deve ser informado"
 					value="#{perfilControlador.entidade.imagem}" />
 
 			</h:panelGrid>
 
 			<f:facet name="footer">
 
-				<p:commandButton id="buttonRetornar" value="Retornar"
-					update=":form" icon="ui-icon-circle-arrow-w"
-					styleClass="ui-priority-primary" immediate="true"
-					action="#{perfilControlador.telaPesquisa}" />
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					immediate="true" action="#{perfilControlador.telaPesquisa}" />
 
 				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"

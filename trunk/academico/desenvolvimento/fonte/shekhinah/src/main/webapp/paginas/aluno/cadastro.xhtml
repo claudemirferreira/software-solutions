@@ -13,19 +13,24 @@
 
 		<p:panel header="FORMULÁRIO DE CADASTRO DE ALUNO">
 
+			<p:growl id="growl" />
+
 			<h:panelGrid id="panelCadastro" columns="6">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{alunoControlador.entidade.nome}"
+					required="true" requiredMessage="O nome deve ser informado"
 					style="width:300px;" />
 
-				<p:outputLabel value="Endereço:" styleClass="ui-priority-primary" />
-				<p:inputText id="endereco"
+				<p:outputLabel value="*Endereço:" styleClass="ui-priority-primary" />
+				<p:inputText id="endereco" required="true"
+					requiredMessage="O endereço deve ser informado"
 					value="#{alunoControlador.entidade.endereco}" style="width:300px;" />
 
-				<p:outputLabel value="Bairro:" styleClass="ui-priority-primary" />
-				<p:inputText id="bairro" value="#{alunoControlador.entidade.bairro}"
-					style="width:300px;" />
+				<p:outputLabel value="*Bairro:" styleClass="ui-priority-primary" />
+				<p:inputText id="bairro" required="true"
+					requiredMessage="O bairro deve ser informado"
+					value="#{alunoControlador.entidade.bairro}" style="width:300px;" />
 
 				<p:outputLabel value="CEP:" styleClass="ui-priority-primary" />
 				<p:inputText id="cep" value="#{alunoControlador.entidade.cep}"
@@ -54,15 +59,17 @@
 					style="width:300px;" />
 
 				<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{alunoControlador.entidade.sexo}">
+				<p:selectOneMenu value="#{alunoControlador.entidade.sexo}"
+					required="true" requiredMessage="O sexo deve ser informado">
 					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
 					<f:selectItem itemLabel="FEMININO" itemValue="F" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Data Nascimento:"
+				<p:outputLabel value="*Data Nascimento:"
 					styleClass="ui-priority-primary" />
 				<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
-					navigator="true" display="inline"
+					navigator="true" display="inline" required="true"
+					requiredMessage="A data nascimento deve ser informado"
 					value="#{alunoControlador.entidade.dataNascimento}" />
 
 			</h:panelGrid>
@@ -71,7 +78,7 @@
 
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					action="#{alunoControlador.telaPeaquisa}" />
+					action="#{alunoControlador.telaPeaquisa}" immediate="true" />
 
 				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
