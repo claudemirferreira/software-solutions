@@ -17,7 +17,9 @@
 				<p:inputText id="login" value="#{usuarioControlador.entidade.login}" />
 
 				<p:outputLabel value="Senha*:" styleClass="ui-priority-primary" />
-				<p:password id="senha" value="#{usuarioControlador.entidade.senha}" />
+				<p:password id="senha" required="true"
+					requiredMessage="A senha deve ser informada"
+					value="#{usuarioControlador.entidade.senha}" />
 
 				<p:outputLabel value="Situação*:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="Situação"
@@ -25,16 +27,6 @@
 					<f:selectItem itemLabel="ATIVO(A)" itemValue="A" />
 					<f:selectItem itemLabel="BLOQUEADO(A)" itemValue="B" />
 				</p:selectOneMenu>
-
-				<p:outputLabel value="Nucleo*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox
-					value="#{usuarioControlador.entidade.nucleo}" />
-
-				<p:outputLabel value="Zona*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox value="#{usuarioControlador.entidade.zona}" />
-
-				<p:outputLabel value="Area*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox value="#{usuarioControlador.entidade.area}" />
 
 			</h:panelGrid>
 			<f:facet name="footer">
