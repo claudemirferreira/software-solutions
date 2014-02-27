@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="titulo_pagina">Login Sistema</ui:insert>
+	</title>
+	<link type="text/css" rel="stylesheet"
+		href="resources/estilos/style-custon.css" />
+</h:head>
+
+<h:body styleClass="body">
+
+	<div class="principal">
+		<div class="login">
+
+			<h1>Infome seu Login e Senha</h1>
+			<h:form id="form">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" showSummary="false" />
+
+					<p>
+						<h:outputLabel value="Login: " />
+						<p:inputText value="#{usuarioControlador.usuario.login}"
+							id="login" required="true" label="login"
+							requiredMessage="O login deve ser informado!" />
+					</p>
+					<p>
+						<h:outputLabel value="Senha: " />
+						<p:password value="#{usuarioControlador.usuario.senha}"
+							label="Senha" required="true" />
+					</p>
+
+					<br />
+					<div align="right">
+						<p:commandButton action="#{usuarioControlador.logar}"
+							styleClass="botao-login" value="Entrar" update="messages" />
+					</div>
+			</h:form>
+		</div>
+
+	</div>
+</h:body>
+</html>

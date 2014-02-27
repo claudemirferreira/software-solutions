@@ -1,0 +1,86 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+
+		<p:panel header="FORMULÁRIO DE CADASTRO DE ALUNO">
+
+			<h:panelGrid id="panelCadastro" columns="6">
+
+				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:inputText id="nome" value="#{alunoControlador.entidade.nome}"
+					style="width:300px;" />
+
+				<p:outputLabel value="Endereço:" styleClass="ui-priority-primary" />
+				<p:inputText id="endereco"
+					value="#{alunoControlador.entidade.endereco}" style="width:300px;" />
+
+				<p:outputLabel value="Bairro:" styleClass="ui-priority-primary" />
+				<p:inputText id="bairro" value="#{alunoControlador.entidade.bairro}"
+					style="width:300px;" />
+
+				<p:outputLabel value="CEP:" styleClass="ui-priority-primary" />
+				<p:inputText id="cep" value="#{alunoControlador.entidade.cep}"
+					style="width:300px;" />
+
+				<p:outputLabel value="Celular:" styleClass="ui-priority-primary" />
+				<p:inputText id="celular"
+					value="#{alunoControlador.entidade.celular}" style="width:300px;" />
+
+				<p:outputLabel value="Fone Residencial:"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="foneResidencial"
+					value="#{alunoControlador.entidade.foneResidencial}"
+					style="width:300px;" />
+
+				<p:outputLabel value="E-mail:" styleClass="ui-priority-primary" />
+				<p:inputText id="email" value="#{alunoControlador.entidade.email}"
+					style="width:300px;" />
+
+				<p:outputLabel value="CPF:" styleClass="ui-priority-primary" />
+				<p:inputText id="cpf" value="#{alunoControlador.entidade.cpf}"
+					style="width:300px;" />
+
+				<p:outputLabel value="RG:" styleClass="ui-priority-primary" />
+				<p:inputText id="rg" value="#{alunoControlador.entidade.rg}"
+					style="width:300px;" />
+
+				<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{alunoControlador.entidade.sexo}">
+					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
+					<f:selectItem itemLabel="FEMININO" itemValue="F" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Data Nascimento:"
+					styleClass="ui-priority-primary" />
+				<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
+					navigator="true" display="inline"
+					value="#{alunoControlador.entidade.dataNascimento}" />
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					action="#{alunoControlador.telaPeaquisa}" />
+
+				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
+					action="#{alunoControlador.salvar}" />
+
+			</f:facet>
+
+		</p:panel>
+
+	</h:form>
+
+</ui:component>

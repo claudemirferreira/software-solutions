@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDemonstrativoProventos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="797" leftMargin="25" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5341f1aa-8b61-499b-8428-20556817ff85">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="36"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<parameter name="data_inicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{data_inicio}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_fim" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{data_fim}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="area" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SET DATEFORMAT DMY
+EXECUTE SIIAD_TES.dbo.STP_EXP_DEMONSTRATIVO_TER
+@P_MESANOINI = $P{data_inicio},
+@P_MESANOFIM = $P{data_fim},
+@P_ID_AREA = $P{area};]]>
+	</queryString>
+	<field name="cd_ZonaArgo" class="java.lang.Integer"/>
+	<field name="nm_Supervisor" class="java.lang.String"/>
+	<field name="nm_Secretario" class="java.lang.String"/>
+	<field name="id_Nucleo" class="java.lang.Integer"/>
+	<field name="nm_Coordenador" class="java.lang.String"/>
+	<field name="id_Area" class="java.lang.Integer"/>
+	<field name="id_Congregacao" class="java.lang.Integer"/>
+	<field name="nm_Congregacao" class="java.lang.String"/>
+	<field name="nm_Pastor" class="java.lang.String"/>
+	<field name="CC" class="java.lang.Integer"/>
+	<field name="dt_MesAno" class="java.lang.String"/>
+	<field name="vl_1Semana" class="java.lang.String"/>
+	<field name="vl_2Semana" class="java.lang.String"/>
+	<field name="vl_3Semana" class="java.lang.String"/>
+	<field name="vl_4Semana" class="java.lang.String"/>
+	<field name="vl_5Semana" class="java.lang.String"/>
+	<field name="vl_TotalSemanas" class="java.math.BigDecimal"/>
+	<field name="vl_Atrasado" class="java.math.BigDecimal"/>
+	<field name="qt_Nra" class="java.lang.Integer"/>
+	<field name="vl_1SemanaArea" class="java.math.BigDecimal"/>
+	<field name="vl_2SemanaArea" class="java.math.BigDecimal"/>
+	<field name="vl_3SemanaArea" class="java.math.BigDecimal"/>
+	<field name="vl_4SemanaArea" class="java.math.BigDecimal"/>
+	<field name="vl_5SemanaArea" class="java.math.BigDecimal"/>
+	<field name="vl_TotalSemanasArea" class="java.math.BigDecimal"/>
+	<field name="vl_AtrasadoArea" class="java.math.BigDecimal"/>
+	<field name="qt_NraArea" class="java.lang.Integer"/>
+	<field name="vl_ReceitaArea" class="java.math.BigDecimal"/>
+	<field name="vl_IndisponivelFinalArea" class="java.math.BigDecimal"/>
+	<field name="vl_IndSdoNegRetArea" class="java.math.BigDecimal"/>
+	<field name="vl_IsentoFinalArea" class="java.math.BigDecimal"/>
+	<field name="vl_PagamentoArea" class="java.math.BigDecimal"/>
+	<field name="vl_1SemanaNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_2SemanaNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_3SemanaNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_4SemanaNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_5SemanaNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_TotalSemanasNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_AtrasadoNucleo" class="java.math.BigDecimal"/>
+	<field name="qt_NraNucleo" class="java.lang.Integer"/>
+	<field name="vl_ReceitaNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_IndisponivelFinalNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_IndSdoNegRetNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_IsentoFinalNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_PagamentoNucleo" class="java.math.BigDecimal"/>
+	<field name="vl_1SemanaZona" class="java.math.BigDecimal"/>
+	<field name="vl_2SemanaZona" class="java.math.BigDecimal"/>
+	<field name="vl_3SemanaZona" class="java.math.BigDecimal"/>
+	<field name="vl_4SemanaZona" class="java.math.BigDecimal"/>
+	<field name="vl_5SemanaZona" class="java.math.BigDecimal"/>
+	<field name="vl_TotalSemanasZona" class="java.math.BigDecimal"/>
+	<field name="vl_AtrasadoZona" class="java.math.BigDecimal"/>
+	<field name="qt_NraZona" class="java.lang.Integer"/>
+	<field name="vl_ReceitaZona" class="java.math.BigDecimal"/>
+	<field name="vl_IndisponivelFinalZona" class="java.math.BigDecimal"/>
+	<field name="vl_IndSdoNegRetZona" class="java.math.BigDecimal"/>
+	<field name="vl_IsentoFinalZona" class="java.math.BigDecimal"/>
+	<field name="vl_PagamentoZona" class="java.math.BigDecimal"/>
+	<field name="vl_1SemanaGeral" class="java.math.BigDecimal"/>
+	<field name="vl_2SemanaGeral" class="java.math.BigDecimal"/>
+	<field name="vl_3SemanaGeral" class="java.math.BigDecimal"/>
+	<field name="vl_4SemanaGeral" class="java.math.BigDecimal"/>
+	<field name="vl_5SemanaGeral" class="java.math.BigDecimal"/>
+	<field name="vl_TotalSemanasGeral" class="java.math.BigDecimal"/>
+	<field name="vl_AtrasadoGeral" class="java.math.BigDecimal"/>
+	<field name="qt_NraGeral" class="java.lang.Integer"/>
+	<field name="vl_ReceitaGeral" class="java.math.BigDecimal"/>
+	<field name="vl_IndisponivelFinalGeral" class="java.math.BigDecimal"/>
+	<field name="vl_IndSdoNegRetGeral" class="java.math.BigDecimal"/>
+	<field name="vl_IsentoFinalGeral" class="java.math.BigDecimal"/>
+	<field name="vl_PagamentoGeral" class="java.math.BigDecimal"/>
+	<group name="area">
+		<groupHeader>
+			<band height="46">
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="1a6bf030-2506-42a8-8256-8d380c73e920" x="33" y="4" width="56" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_Area}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="80be4d7e-8221-4e91-8890-8c647724559f" x="3" y="4" width="30" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ÁREA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6af21795-eb44-4ae3-a6f2-94cf3561faaa" x="101" y="4" width="34" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pastor:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c73d5d6d-993d-4256-b71f-8a5d814a7a5c" x="0" y="31" width="47" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cod]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d0ffc726-1d6d-40f2-b560-5cf139e6d29c" x="47" y="31" width="201" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Congregação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0bee7ee4-20fb-4507-a900-97790489a200" x="247" y="31" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[1° Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="14f8e786-de43-4f54-81f8-1658cace9060" x="317" y="31" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[2° Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="177d1455-8a12-40a3-844f-b70003682cc1" x="387" y="31" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[3° Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="090c819a-052c-45e9-a78b-8f300748b97b" x="457" y="31" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[4° Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="8dd6ea20-dfb2-4040-8167-0bfa1e1db3f3" x="527" y="31" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[5° Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5ea077e2-3cdf-4167-b177-60b666d9e6c3" x="597" y="31" width="83" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="beacb6d1-5fcc-4c54-b159-6d63abb5a8c1" x="680" y="31" width="64" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Atrasados]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="44b87780-11f8-4832-b0d1-63eb81c70e2c" x="744" y="31" width="48" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[N° RA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="21b11e1d-815e-4310-9d2a-1dc267750509" x="663" y="4" width="27" height="14"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[C/C:]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="5a588176-0ff3-488f-af27-f6f9087639b1" x="1" y="1" width="801" height="2"/>
+				</line>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="47763514-4a90-4d7f-b32a-a97768bdb6a6" x="135" y="4" width="357" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nm_Pastor}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="d121cebf-2aee-4e16-a328-331b5e46df77" x="690" y="4" width="71" height="14"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CC}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="90">
+				<rectangle>
+					<reportElement uuid="68ae009f-8ff2-408c-bf78-d587fad2a2a3" x="3" y="30" width="784" height="35"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="5c3c759c-b320-488e-9cf2-23a7acd1a8f6" x="7" y="40" width="82" height="14"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RESUMO DA ÁREA]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="9ace5cd5-4f3d-421a-bf66-03d0149b3c07" x="88" y="40" width="53" height="14"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_Area}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="9100dd76-7d33-47ee-9bdd-8f34d79ea7b7" x="152" y="31" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de Receitas]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="322f5592-cbb3-4271-b10f-6022d7a44a2d" x="151" y="47" width="636" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="dda87c11-71be-4ea3-bd57-ddac536290f6" x="150" y="30" width="1" height="35"/>
+				</line>
+				<line>
+					<reportElement uuid="faac843f-a3c8-4cf8-9dcb-149f244ff24f" x="278" y="30" width="1" height="35"/>
+				</line>
+				<line>
+					<reportElement uuid="e14da593-6be8-42c7-86ba-c7f851461a28" x="405" y="30" width="1" height="35"/>
+				</line>
+				<line>
+					<reportElement uuid="4f3c814b-9497-4b8e-98f4-04c5eb00e311" x="532" y="30" width="1" height="35"/>
+				</line>
+				<line>
+					<reportElement uuid="bc5dc794-8045-48cc-a9af-dda241022ff0" x="659" y="30" width="1" height="35"/>
+				</line>
+				<staticText>
+					<reportElement uuid="82911c41-8ea6-47cc-9a5f-94c0a1e2f5fb" x="280" y="31" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Indisponível]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e090270a-e7ee-4b29-ac84-dbcc9af36bee" x="406" y="31" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tot Ind Sdo/Ret]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="10d31a2a-38ac-44d0-b6fa-7ff2c1e9c087" x="533" y="31" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Isento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="946355ca-d0b5-4595-8928-f55babc4e39d" x="660" y="31" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Saldo Pagamento]]></text>
+				</staticText>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="8043ac66-2896-4f85-a932-762b030bc707" x="153" y="48" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_ReceitaArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="22050f80-70a2-4ae5-9e50-e1570009393a" x="280" y="48" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_IndisponivelFinalArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="6edc4db3-1651-4839-8a1c-2a9fc6a206ff" x="533" y="48" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_IsentoFinalArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="2a6b7abb-b947-4a0a-90c2-762983e1e96b" x="660" y="47" width="125" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_PagamentoArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="f1e28d87-1ae5-4f0b-8663-ecb0885b8d71" x="412" y="49" width="115" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_IndSdoNegRetGeral}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="e8b7f2a7-8b6a-481f-88b2-0cdeab8a7454" x="1" y="0" width="801" height="2"/>
+				</line>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="2ac9a67b-86d6-4e9c-8efc-e71ddbaf32cc" x="247" y="2" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_1SemanaArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="156258ca-d637-4ea6-a371-bbdcbef04221" x="317" y="2" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_2SemanaArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="1eba4f0b-3d1d-41a4-9df3-1b5a6d4ec6d9" x="387" y="2" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_3SemanaArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="75e72395-dfca-48ed-8f8d-a229808a44df" x="457" y="2" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_4SemanaArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="0c8c5226-44d1-42e2-99bb-0ef06946cca2" x="527" y="2" width="70" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_5SemanaArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="de566df3-7e06-48b9-8707-5354d407c74a" x="597" y="2" width="83" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_TotalSemanasArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="986580bc-70f4-457b-b341-e0c2ad4ca4a1" x="681" y="2" width="63" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vl_AtrasadoArea}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="c5e6d7f5-c967-4ccd-a7ba-b9b6b5cef553" x="744" y="2" width="48" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qt_NraArea}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="63">
+			<staticText>
+				<reportElement uuid="4e8c857b-8cfe-404d-9981-4d663d111498" key="staticText" x="1" y="25" width="454" height="15"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[Rua Duque de Caxias, 340 - Centro - Manaus - AM - Cep:69020-140]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f79fb939-2333-4c05-8b92-79d8d2c2f900" key="staticText" x="1" y="0" width="454" height="24"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Igreja Evangélica Assembléia de Deus no Amazonas]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d871b4ef-0d88-4e97-98c4-662e67d23109" x="33" y="46" width="822" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Demonstrativo de Proventos - " + $P{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d84a840e-7532-4ee3-909e-70f128480cbc" x="693" y="30" width="50" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e159e203-4b67-4862-8d63-955a71c4f10d" x="693" y="15" width="23" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="71a61e50-e197-43a8-9d22-9867ad2dcc25" x="728" y="1" width="68" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="e9be34c9-0da1-417c-8235-1dcc3a0bbcae" x="716" y="15" width="80" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="4eab8b48-e794-4329-911d-7c248651ade2" x="743" y="30" width="53" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e095ab68-d5dc-4279-8404-1bc3868d1718" x="693" y="1" width="35" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Emissão:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="18">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="251d8f90-f672-4428-b84a-9bb9f50d3db7" x="1" y="0" width="46" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_Congregacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="cb0b5af5-3fea-4d6e-a459-6204bceacf0d" x="247" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_1Semana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="79aec7d3-6890-4857-8019-e3c24d90c71d" x="317" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_2Semana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="85ea4bae-b9d1-432b-a2e5-1c07dbbfc2d8" x="387" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_3Semana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="5cc0767a-80e0-4c04-a1b5-c2d0b06f6d6f" x="457" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_4Semana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="6f04a72f-2346-4e46-b37d-5729d566b043" x="527" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_5Semana}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="001502c5-49ea-4049-a159-c2cb483dc328" x="597" y="0" width="83" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_TotalSemanas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="c6c56d49-1449-4314-abba-a319209cf077" x="680" y="0" width="64" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vl_Atrasado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c89cccfc-daf2-47d1-b8af-a474fadc2fd2" x="744" y="0" width="48" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qt_Nra}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9dbd8fb0-38a2-41ea-895a-3ce930436afd" x="47" y="0" width="201" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_Congregacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+</jasperReport>
