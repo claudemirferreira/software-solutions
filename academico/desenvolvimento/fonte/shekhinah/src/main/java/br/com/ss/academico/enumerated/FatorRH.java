@@ -1,4 +1,4 @@
-package br.com.ss.academico.dominio.enumerated;
+package br.com.ss.academico.enumerated;
 
 public enum FatorRH {
 

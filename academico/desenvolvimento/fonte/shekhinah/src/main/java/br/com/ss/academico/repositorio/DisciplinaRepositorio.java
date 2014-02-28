@@ -11,7 +11,7 @@ import br.com.ss.academico.dominio.Disciplina;
 
 @Repository
 public interface DisciplinaRepositorio extends
-		JpaRepository<Disciplina, Integer> {
+		JpaRepository<Disciplina, Long> {
 
 	@Query("select u from Disciplina u where u.nome like :nome")
 	public List<Disciplina> findByNomeLike(@Param("nome") String nome);

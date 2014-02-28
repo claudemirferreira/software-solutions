@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.com.ss.academico.dominio.enumerated.Sexo;
+import br.com.ss.academico.enumerated.Sexo;
 
 @FacesConverter(value = "sexoConverter")
 public class SexoConverter implements Converter {

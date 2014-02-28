@@ -1,0 +1,66 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+
+		<p:growl id="growl" />
+
+		<p:panel header="FORMULÁRIO DE CADASTRO DE TURMA">
+
+			<h:panelGrid id="panelCadastro" columns="4">
+
+				<p:outputLabel value="*Ano:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{turmaControlador.entidade.ano}"
+					panelStyle="width:300px" style="width:100px">
+					<f:selectItems value="#{turmaControlador.anos}" var="ano"
+						itemLabel="#{ano}" itemValue="#{ano}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="*Curso:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{turmaControlador.entidade.curso}"
+					converter="entityConverter" style="width:300px">
+					<f:selectItem itemLabel="Selecione o curso" itemValue="" />
+					<f:selectItems value="#{turmaControlador.cursos}" var="curso"
+						itemLabel="#{curso.nome}" itemValue="#{curso}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="*Turno:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="turno"
+					value="#{turmaControlador.entidade.turno}">
+					<f:selectItems value="#{turmaControlador.turnos}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="*Número de Vagas:"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="numeroVagas"
+					value="#{turmaControlador.entidade.numeroVagas}" required="true"
+					requiredMessage="O numero vagas deve ser informado"
+					style="width:50px;" />
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					immediate="true" action="#{turmaControlador.telaPeaquisa}" />
+
+				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
+					action="#{turmaControlador.salvar}" />
+
+			</f:facet>
+
+		</p:panel>
+
+	</h:form>
+
+</ui:component>
