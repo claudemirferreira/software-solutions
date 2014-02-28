@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import br.com.ss.academico.enumerated.Turno;
 
 /**
  * The persistent class for the iansa_turma database table.
@@ -28,10 +31,13 @@ public class Turma extends AbstractEntity implements Serializable {
 	private Long idTurma;
 
 	@Column(nullable = false, length = 1)
-	private String turno;
+	private Turno turno;
+
+	@Column(nullable = false, length = 4)
+	private Integer ano;
 
 	@Column(nullable = false)
-	private Integer ano;
+	private Integer numeroVagas;
 
 	// //bi-directional many-to-one association to Matricula
 	@OneToMany(mappedBy = "turma")
@@ -74,11 +80,11 @@ public class Turma extends AbstractEntity implements Serializable {
 		this.curso = curso;
 	}
 
-	public String getTurno() {
+	public Turno getTurno() {
 		return turno;
 	}
 
-	public void setTurno(String turno) {
+	public void setTurno(Turno turno) {
 		this.turno = turno;
 	}
 
@@ -88,6 +94,14 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	public void setAno(Integer ano) {
 		this.ano = ano;
+	}
+
+	public Integer getNumeroVagas() {
+		return numeroVagas;
+	}
+
+	public void setNumeroVagas(Integer numeroVagas) {
+		this.numeroVagas = numeroVagas;
 	}
 
 }

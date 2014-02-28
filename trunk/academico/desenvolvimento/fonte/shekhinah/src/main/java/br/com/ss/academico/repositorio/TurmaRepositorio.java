@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.com.ss.academico.dominio.Curso;
+import br.com.ss.academico.dominio.Turma;
 
 @Repository
-public interface CursoRepositorio extends JpaRepository<Curso, Long> {
-
-	@Query("select u from Curso u where u.nome like :nome")
-	public List<Curso> findByNomeLike(@Param("nome") String nome);
+public interface TurmaRepositorio extends JpaRepository<Turma, Long> {
+	
+	@Query("select r from Turma r where r.ano = :ano")
+	public List<Turma> findByAno(@Param("ano") Integer ano);
 
 }

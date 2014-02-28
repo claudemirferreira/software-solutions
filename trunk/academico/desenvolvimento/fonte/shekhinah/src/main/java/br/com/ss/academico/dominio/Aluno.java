@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,6 +67,10 @@ public class Aluno extends AbstractEntity implements Serializable {
 
 	@Column(nullable = false, length = 11)
 	private String grauParentesco;
+
+	@ManyToOne
+	@JoinColumn(name = "id_responsavel")
+	private Responsavel responsavel;
 
 	public Aluno() {
 	}
@@ -184,5 +190,13 @@ public class Aluno extends AbstractEntity implements Serializable {
 
 	public void setGrauParentesco(String grauParentesco) {
 		this.grauParentesco = grauParentesco;
+	}
+
+	public Responsavel getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(Responsavel responsavel) {
+		this.responsavel = responsavel;
 	}
 }

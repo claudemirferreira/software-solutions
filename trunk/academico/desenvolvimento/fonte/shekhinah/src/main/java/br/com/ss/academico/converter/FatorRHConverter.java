@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.com.ss.academico.dominio.enumerated.FatorRH;
+import br.com.ss.academico.enumerated.FatorRH;
 
 @FacesConverter(value = "fatorRHConverter")
 public class FatorRHConverter implements Converter {

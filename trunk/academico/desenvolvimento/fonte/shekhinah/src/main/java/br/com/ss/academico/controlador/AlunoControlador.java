@@ -2,17 +2,19 @@ package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
+import br.com.ss.academico.servico.ResponsavelServico;
 
 @ManagedBean
 @SessionScoped
@@ -24,6 +26,8 @@ public class AlunoControlador implements Serializable {
 
 	private Aluno pesquisa;
 
+	private List<Responsavel> responsaveis;
+
 	private List<Aluno> lista;
 
 	private final String TELA_CADASTRO = "paginas/aluno/cadastro.xhtml";
@@ -32,13 +36,15 @@ public class AlunoControlador implements Serializable {
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico servico;
 
+	@ManagedProperty(value = "#{responsavelServicoImpl}")
+	private ResponsavelServico responsavelServico;
+
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
-	@PostConstruct
 	public void init() {
 		this.lista = servico.listarTodos();
 		telaPesquisa();
@@ -47,6 +53,7 @@ public class AlunoControlador implements Serializable {
 	public AlunoControlador() {
 		this.entidade = new Aluno();
 		this.pesquisa = new Aluno();
+		this.responsaveis = new ArrayList<Responsavel>();
 	}
 
 	public void pesquisar() {
@@ -55,6 +62,7 @@ public class AlunoControlador implements Serializable {
 
 	public void detalhe(Aluno aluno) {
 		this.entidade = aluno;
+		this.responsaveis = responsavelServico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
@@ -68,12 +76,13 @@ public class AlunoControlador implements Serializable {
 	}
 
 	public void excluir(Aluno aluno) {
-		servico.remover(aluno);
+		this.servico.remover(aluno);
 		this.lista = servico.listarTodos();
 	}
 
 	public void novo() {
 		this.entidade = new Aluno();
+		this.responsaveis = responsavelServico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
@@ -82,9 +91,7 @@ public class AlunoControlador implements Serializable {
 	}
 
 	public void imprimir() throws FileNotFoundException {
-
 		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
-
 	}
 
 	public Aluno getEntidade() {
@@ -138,6 +145,22 @@ public class AlunoControlador implements Serializable {
 
 	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
 		this.relatorioUtil = relatorioUtil;
+	}
+
+	public List<Responsavel> getResponsaveis() {
+		return responsaveis;
+	}
+
+	public void setResponsaveis(List<Responsavel> responsaveis) {
+		this.responsaveis = responsaveis;
+	}
+
+	public ResponsavelServico getResponsavelServico() {
+		return responsavelServico;
+	}
+
+	public void setResponsavelServico(ResponsavelServico responsavelServico) {
+		this.responsavelServico = responsavelServico;
 	}
 
 }

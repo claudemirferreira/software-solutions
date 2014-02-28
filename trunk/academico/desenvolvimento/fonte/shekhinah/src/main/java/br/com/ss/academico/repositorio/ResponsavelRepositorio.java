@@ -11,7 +11,7 @@ import br.com.ss.academico.dominio.Responsavel;
 
 @Repository
 public interface ResponsavelRepositorio extends
-		JpaRepository<Responsavel, Integer> {
+		JpaRepository<Responsavel, Long> {
 
 	@Query("select u from Responsavel u where u.nome like :nome")
 	public List<Responsavel> findByNomeLike(@Param("nome") String nome);

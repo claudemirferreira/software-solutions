@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ss.academico.dominio.Professor;
 
 @Repository
-public interface ProfessorRepositorio extends JpaRepository<Professor, Integer> {
+public interface ProfessorRepositorio extends JpaRepository<Professor, Long> {
 
 	@Query("select u from Professor u where u.nome like :nome")
 	public List<Professor> findByNomeLike(@Param("nome") String nome);

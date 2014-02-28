@@ -71,6 +71,28 @@
 					navigator="true" display="inline" required="true"
 					requiredMessage="A data nascimento deve ser informado"
 					value="#{alunoControlador.entidade.dataNascimento}" />
+					
+				<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{alunoControlador.entidade.sexo}"
+					required="true" requiredMessage="O sexo deve ser informado">
+					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
+					<f:selectItem itemLabel="FEMININO" itemValue="F" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Responsavel:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{alunoControlador.entidade.responsavel}"
+					converter="entityConverter" panelStyle="width:300px" effect="fade"
+					var="p" style="width:300px" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Selecione o responsavel" itemValue="" />
+					<f:selectItems value="#{alunoControlador.responsaveis}"
+						var="responsavel" itemLabel="#{responsavel.nome}"
+						itemValue="#{responsavel}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="*Grau Parentesco:" styleClass="ui-priority-primary" />
+				<p:inputText id="grauParentesco" value="#{alunoControlador.entidade.grauParentesco}"
+					style="width:300px;" />
 
 			</h:panelGrid>
 

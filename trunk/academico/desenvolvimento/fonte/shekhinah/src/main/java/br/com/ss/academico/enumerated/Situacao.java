@@ -1,19 +1,19 @@
-package br.com.ss.academico.dominio.enumerated;
+package br.com.ss.academico.enumerated;
 
-public enum Sexo {
+public enum Situacao {
 
-	MASCULINO(0, "Masculino"), FEMININO(1, "Feminino");
+	ATIVO(0, "Ativo"), INATIVO(1, "Inativo");
 
 	private int id;
 	private String descricao;
 
-	private Sexo(int id, String descricao) {
+	private Situacao(int id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public static Sexo getEnum(int id) {
-		for (Sexo sit : Sexo.values()) {
+	public static Situacao getEnum(int id) {
+		for (Situacao sit : Situacao.values()) {
 			if (sit.id == id)
 				return sit;
 		}
