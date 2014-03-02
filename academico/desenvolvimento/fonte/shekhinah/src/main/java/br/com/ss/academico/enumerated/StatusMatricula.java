@@ -1,19 +1,19 @@
 package br.com.ss.academico.enumerated;
 
-public enum Turno {
+public enum StatusMatricula {
 
-	MATUTINO(0, "MATUTINO"), VESPERTINO(1, "VESPERTINO");
+	ATIVA(0, "ATIVA"), INATIVA(1, "INATIVA"), CANCELADA(2, "CANCELADA");
 
 	private int id;
 	private String descricao;
 
-	private Turno(int id, String descricao) {
+	private StatusMatricula(int id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public static Turno getEnum(int id) {
-		for (Turno sit : Turno.values()) {
+	public static StatusMatricula getEnum(int id) {
+		for (StatusMatricula sit : StatusMatricula.values()) {
 			if (sit.id == id)
 				return sit;
 		}

@@ -12,16 +12,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.ss.academico.enumerated.StatusMatricula;
+
 /**
  * The persistent class for the iansa_curso database table.
- * 
  */
 
 @Entity
 @Table(name = "acad_matricula")
 public class Matricula extends AbstractEntity implements Serializable {
 
-	private static final long serialVersionUID = 6105801882375304755L;
+	private static final long serialVersionUID = 8382566065711875093L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +33,9 @@ public class Matricula extends AbstractEntity implements Serializable {
 	private double valor;
 
 	@Column(length = 1, nullable = false)
-	private String status;
+	private StatusMatricula status;
+	
+	private boolean integral; 
 
 	@ManyToOne
 	@JoinColumn(name = "id_turma", nullable = false)
@@ -88,6 +91,22 @@ public class Matricula extends AbstractEntity implements Serializable {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	public StatusMatricula getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusMatricula status) {
+		this.status = status;
+	}
+
+	public boolean isIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(boolean integral) {
+		this.integral = integral;
 	}
 
 }
