@@ -8,23 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.ss.academico.enumerated.StatusPagamento;
 
 /**
  * The persistent class for the iansa_mensalidade database table.
  * 
  */
+
 @Entity
 @Table(name = "acad_mensalidade")
 public class Mensalidade extends AbstractEntity implements Serializable {
 
-	private static final long serialVersionUID = -8538414139775767035L;
+	private static final long serialVersionUID = 73351027590035641L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(unique = true, nullable = false)
 	private Long idMensalidade;
 
 	@Temporal(TemporalType.DATE)
@@ -35,20 +39,32 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	private Date dataVencimento;
 
 	@Column(nullable = false)
-	private int sequencial;
+	private Integer sequencial;
 
 	private double valorPagamento;
 
 	@Column(nullable = false)
 	private double valorVencimento;
 
-	// @ManyToOne
-	// @JoinColumn(name = "matricula_id", nullable = false)
-	// private Matricula matricula;
+	@Column(nullable = false, length = 1)
+	private StatusPagamento status;
+
+	@ManyToOne
+	@JoinColumn(name = "id_matricula", nullable = false)
+	private Matricula matricula;
+
+	@ManyToOne
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuario;
 
 	public Mensalidade() {
+		Matricula matricula = new Matricula();
+		matricula.setAluno(new Aluno());
+		matricula.setTurma(new Turma());
+		this.setMatricula(matricula);
+
 	}
-	
+
 	public Long getId() {
 		return this.idMensalidade;
 	}
@@ -77,11 +93,11 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public int getSequencial() {
+	public Integer getSequencial() {
 		return this.sequencial;
 	}
 
-	public void setSequencial(int sequencial) {
+	public void setSequencial(Integer sequencial) {
 		this.sequencial = sequencial;
 	}
 
@@ -101,12 +117,28 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 		this.valorVencimento = valorVencimento;
 	}
 
-	// public Matricula getMatricula() {
-	// return this.matricula;
-	// }
-	//
-	// public void setMatricula1(Matricula matricula) {
-	// this.matricula = matricula;
-	// }
+	public Matricula getMatricula() {
+		return this.matricula;
+	}
+
+	public StatusPagamento getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPagamento status) {
+		this.status = status;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setMatricula(Matricula matricula) {
+		this.matricula = matricula;
+	}
 
 }

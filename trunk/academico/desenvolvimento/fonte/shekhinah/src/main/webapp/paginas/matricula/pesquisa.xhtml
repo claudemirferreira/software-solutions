@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<p:panel header="FORMULÁRIO DE PESQUISA DE MATRICULA">
+
+			<h:panelGrid id="panelPesquisa" columns="2">
+
+				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{matriculaControlador.pesquisa.aluno}"
+					converter="entityConverter" style="width:300px">
+					<f:selectItem itemLabel="Selecione o aluno" itemValue="" />
+					<f:selectItems value="#{matriculaControlador.alunos}" var="aluno"
+						itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton id="buttonPesquisar" value="Pesquisar"
+					update=":form:gridPesquisa" icon="ui-icon-search"
+					styleClass="ui-priority-primary"
+					action="#{matriculaControlador.pesquisar}" />
+
+				<p:commandButton id="buttonNovo" value="Novo" update=":form"
+					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+					action="#{matriculaControlador.novo}" />
+			</f:facet>
+
+		</p:panel>
+
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{matriculaControlador.lista}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+			
+			<p:column style="text-align:left" headerText="Nome"
+				sortBy="#{item.aluno.nome}">
+				<h:outputText value="#{item.aluno.nome}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Valor"
+				sortBy="#{item.valor}">
+				<h:outputText value="#{item.valor}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Data"
+				sortBy="#{item.data}">
+				<h:outputText value="#{item.data}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Status"
+				sortBy="#{item.status}">
+				<h:outputText value="#{item.status}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Detalhe">
+				<p:commandButton ajax="false"
+					action="#{matriculaControlador.detalhe(item)}"
+					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
+					update=":form" title="Detalhe" />
+
+				<p:commandButton ajax="false"
+					action="#{matriculaControlador.excluir(item)}"
+					styleClass="ui-priority-primary" icon="ui-icon-trash"
+					update=":form:gridPesquisa" title="Detalhe" />
+
+			</p:column>
+
+			<f:facet name="footer">  
+            Total de registros: #{fn:length(matriculaControlador.lista)} matriculas.  
+        </f:facet>
+
+		</p:dataTable>
+
+	</h:form>
+
+</ui:component>
