@@ -11,7 +11,7 @@
 	<h:form id="form">
 		<p:panel header="FORMULÁRIO DE PESQUISA DE MENSALIDADE">
 
-			<h:panelGrid id="panelPesquisa" columns="6">
+			<h:panelGrid id="panelPesquisa" columns="4">
 
 				<h:outputText value="Aluno:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu
@@ -19,19 +19,24 @@
 					converter="entityConverter" style="width:300px">
 					<f:selectItem itemLabel="Selecione o aluno" itemValue="" />
 					<f:selectItems value="#{mensalidadeControlador.alunos}" var="aluno"
-						itemLabel="#{aluno.nome}" itemValue="#{alunocurso}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Turno:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="turno"
-					value="#{mensalidadeControlador.entidade.matricula.turma.turno}">
-					<f:selectItems value="#{mensalidadeControlador.turnos}" />
+						itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Status:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{mensalidadeControlador.entidade.status}">
-					<f:selectItems value="#{mensalidadeControlador.status}" />
+				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.statusPagamento}">
+					<f:selectItems value="#{mensalidadeControlador.statusPagamentos}" />
 				</p:selectOneMenu>
+
+				<p:outputLabel value="*Data Início:"
+					styleClass="ui-priority-primary" />
+				<p:calendar
+					value="#{mensalidadeControlador.parametroRelatorioDTO.dataInicio}"
+					locale="pt" showButtonPanel="true" navigator="true" />
+
+				<p:outputLabel value="*Data Fim:" styleClass="ui-priority-primary" />
+				<p:calendar
+					value="#{mensalidadeControlador.parametroRelatorioDTO.dataFim}"
+					locale="pt" showButtonPanel="true" navigator="true" />
 
 			</h:panelGrid>
 
@@ -72,8 +77,13 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Status"
-				sortBy="#{item.status}">
-				<h:outputText value="#{item.status}" />
+				sortBy="#{item.statusPagamento}">
+				<h:outputText value="#{item.statusPagamento}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Data Vencimento"
+				sortBy="#{item.dataVencimento}">
+				<h:outputText value="#{item.dataVencimento}" />
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Detalhe">

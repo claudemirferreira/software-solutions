@@ -47,14 +47,14 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	private double valorVencimento;
 
 	@Column(nullable = false, length = 1)
-	private StatusPagamento status;
+	private StatusPagamento statusPagamento;
 
 	@ManyToOne
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 
 	@ManyToOne
-	@JoinColumn(name = "id_usuario", nullable = false)
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
 	public Mensalidade() {
@@ -121,12 +121,12 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 		return this.matricula;
 	}
 
-	public StatusPagamento getStatus() {
-		return status;
+	public StatusPagamento getStatusPagamento() {
+		return statusPagamento;
 	}
 
-	public void setStatus(StatusPagamento status) {
-		this.status = status;
+	public void setStatusPagamento(StatusPagamento statusPagamento) {
+		this.statusPagamento = statusPagamento;
 	}
 
 	public Usuario getUsuario() {

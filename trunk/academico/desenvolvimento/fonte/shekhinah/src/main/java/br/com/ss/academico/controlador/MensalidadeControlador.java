@@ -1,5 +1,6 @@
 package br.com.ss.academico.controlador;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,8 +10,9 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Mensalidade;
+import br.com.ss.academico.dto.ParametroRelatorioDTO;
 import br.com.ss.academico.enumerated.StatusPagamento;
-import br.com.ss.academico.enumerated.Turno;
+import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 
@@ -28,9 +30,9 @@ public class MensalidadeControlador implements Serializable {
 
 	private List<Aluno> alunos;
 
-	private Turno[] turnos;
-	
-	private StatusPagamento[] status;
+	private StatusPagamento[] statusPagamentos;
+
+	private ParametroRelatorioDTO parametroRelatorioDTO;
 
 	private final String TELA_CADASTRO = "paginas/mensalidade/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/mensalidade/pesquisa.xhtml";
@@ -43,10 +45,16 @@ public class MensalidadeControlador implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
+	
+	@ManagedProperty(value = "#{relatorioUtil}")
+	private RelatorioUtil relatorioUtil;
 
 	public void init() {
 		this.lista = servico.listarTodos();
 		this.alunos = alunoServico.listarTodos();
+
+		this.parametroRelatorioDTO = new ParametroRelatorioDTO();
+		this.parametroRelatorioDTO.pegarMesCorrente();
 		this.telaPesquisa();
 	}
 
@@ -56,7 +64,11 @@ public class MensalidadeControlador implements Serializable {
 	}
 
 	public void pesquisar() {
-		// this.lista = servico.findByNomeLike(this.pesquisa.getNome());
+		System.out.println(this.pesquisa.getStatusPagamento());
+		this.lista = servico.findByStatusPagamento(
+				this.pesquisa.getStatusPagamento(),
+				this.parametroRelatorioDTO.getDataInicio(),
+				this.parametroRelatorioDTO.getDataFim());
 	}
 
 	public void detalhe(Mensalidade mensalidade) {
@@ -65,6 +77,10 @@ public class MensalidadeControlador implements Serializable {
 	}
 
 	public void salvar() {
+
+		if (this.entidade.getStatusPagamento() == null)
+			this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
+
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
@@ -82,6 +98,10 @@ public class MensalidadeControlador implements Serializable {
 
 	public void telaPeaquisa() {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+	}
+	
+	public void imprimir() throws FileNotFoundException {
+		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
 	}
 
 	public Mensalidade getEntidade() {
@@ -137,14 +157,6 @@ public class MensalidadeControlador implements Serializable {
 		this.alunos = alunos;
 	}
 
-	public Turno[] getTurnos() {
-		return Turno.values();
-	}
-
-	public void setTurnos(Turno[] turnos) {
-		this.turnos = turnos;
-	}
-
 	public AlunoServico getAlunoServico() {
 		return alunoServico;
 	}
@@ -153,8 +165,25 @@ public class MensalidadeControlador implements Serializable {
 		this.alunoServico = alunoServico;
 	}
 
-	public StatusPagamento[] getStatus() {
+	public StatusPagamento[] getStatusPagamentos() {
 		return StatusPagamento.values();
+	}
+
+	public ParametroRelatorioDTO getParametroRelatorioDTO() {
+		return parametroRelatorioDTO;
+	}
+
+	public void setParametroRelatorioDTO(
+			ParametroRelatorioDTO parametroRelatorioDTO) {
+		this.parametroRelatorioDTO = parametroRelatorioDTO;
+	}
+
+	public RelatorioUtil getRelatorioUtil() {
+		return relatorioUtil;
+	}
+
+	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
+		this.relatorioUtil = relatorioUtil;
 	}
 
 }
