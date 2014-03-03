@@ -1,12 +1,14 @@
 package br.com.ss.academico.servico;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Mensalidade;
+import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.repositorio.MensalidadeRepositorio;
 
 @Service
@@ -30,6 +32,13 @@ public class MensalidadeServicoImpl implements MensalidadeServico, Serializable 
 	@Override
 	public void remover(Mensalidade mensalidade) {
 		this.repositorio.delete(mensalidade);
+	}
+
+	@Override
+	public List<Mensalidade> findByStatusPagamento(
+			StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
+		return this.repositorio.findByStatusPagamento(statusPagamento,
+				dataInicio, dataFim);
 	}
 
 }

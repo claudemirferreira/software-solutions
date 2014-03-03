@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
-import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.repositorio.MensalidadeRepositorio;
 
@@ -27,7 +26,7 @@ public class MensalidadeRepositoryTest {
 
 	@Test
 	public void test() {
-		
+
 		Matricula m = new Matricula();
 		m.setIdMatricula(1l);
 		Aluno a = new Aluno();
@@ -38,11 +37,10 @@ public class MensalidadeRepositoryTest {
 		u.setDataVencimento(new Date());
 		u.setValorVencimento(222);
 		u.setSequencial(1);
-		u.setStatus(StatusPagamento.PENDENTE);
-		
+		u.setStatusPagamento(StatusPagamento.PENDENTE);
+
 		repository.save(u);
 
-		
 	}
 
 }

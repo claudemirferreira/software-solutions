@@ -1,0 +1,71 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+
+		<p:growl id="growl" />
+
+		<p:panel header="FORMULÁRIO DE CADASTRO DE MENSALIDADE">
+
+			<h:panelGrid id="panelCadastro" columns="6">
+
+				<p:outputLabel value="Data Pagamento:"
+					styleClass="ui-priority-primary" />
+				<p:calendar value="#{mensalidadeControlador.entidade.dataPagamento}"
+					readonly="true" locale="pt" showButtonPanel="true" navigator="true" />
+
+				<p:outputLabel value="Data Vencimento:"
+					styleClass="ui-priority-primary" />
+				<p:calendar readonly="true"
+					value="#{mensalidadeControlador.entidade.dataVencimento}"
+					locale="pt" showButtonPanel="true" navigator="true" />
+
+				<p:outputLabel value="Matricula:" styleClass="ui-priority-primary" />
+				<p:inputText readonly="true"
+					value="#{mensalidadeControlador.entidade.matricula.idMatricula}" />
+
+				<p:outputLabel value="Valor PG:" styleClass="ui-priority-primary" />
+				<p:inputText
+					value="#{mensalidadeControlador.entidade.valorPagamento}" />
+
+				<p:outputLabel value="Valor Vencimento:"
+					styleClass="ui-priority-primary" />
+				<p:inputText readonly="true"
+					value="#{mensalidadeControlador.entidade.valorVencimento}" />
+
+				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
+				<p:inputText readonly="true"
+					value="#{mensalidadeControlador.entidade.sequencial}" />
+
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					immediate="true" action="#{mensalidadeControlador.telaPeaquisa}" />
+
+				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
+					action="#{mensalidadeControlador.salvar}" />
+					
+				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
+					action="#{mensalidadeControlador.salvar}" />
+
+			</f:facet>
+
+		</p:panel>
+
+	</h:form>
+
+</ui:component>
