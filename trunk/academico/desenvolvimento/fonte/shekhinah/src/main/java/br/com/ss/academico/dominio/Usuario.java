@@ -29,7 +29,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUsuario;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE,
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.REMOVE }, mappedBy = "usuarioPerfilPk.usuario")
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
@@ -47,6 +47,13 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Override
 	public Long getId() {
 		return idUsuario;
+	}
+
+	public Usuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public Usuario() {
 	}
 
 	@Transient
