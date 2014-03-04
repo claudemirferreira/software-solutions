@@ -2,6 +2,7 @@ package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -9,9 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
-import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
-import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.dto.ParametroRelatorioDTO;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
@@ -89,6 +88,8 @@ public class MensalidadeControlador implements Serializable {
 
 //		this.entidade.setUsuario(null);
 
+		entidade.setDataVencimento(new Date());	// TODO remover.. setar a data correta
+		
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);

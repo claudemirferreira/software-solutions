@@ -49,6 +49,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 		return idUsuario;
 	}
 
+	
 	public Usuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
