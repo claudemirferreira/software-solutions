@@ -13,9 +13,23 @@
 
 		<p:growl id="growl" />
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE CURSO">
+		<p:panel header="FORMULÁRIO DE CADASTRO DE MATRÍCULA">
 
 			<h:panelGrid id="panelCadastro" columns="6">
+			
+				
+				<p:outputLabel value="Aluno:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{matriculaControlador.entidade.aluno}"
+					converter="entityConverter" panelStyle="width:300px" effect="fade"
+					var="p" style="width:300px" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItem itemLabel="Selecione o responsavel" itemValue="" />
+					<f:selectItems value="#{alunoControlador.responsaveis}"
+						var="responsavel" itemLabel="#{responsavel.nome}"
+						itemValue="#{responsavel}" />
+				</p:selectOneMenu>
+				
+			
 
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{cursoControlador.entidade.nome}"
@@ -28,6 +42,10 @@
 					style="width:300px;" />
 
 			</h:panelGrid>
+			
+			
+			
+			
 
 			<f:facet name="footer">
 

@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,15 +48,16 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@Column(nullable = false)
 	private double valorVencimento;
 
+	@Enumerated
 	@Column(nullable = false, length = 1)
 	private StatusPagamento statusPagamento;
 
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
 
 	public Mensalidade() {

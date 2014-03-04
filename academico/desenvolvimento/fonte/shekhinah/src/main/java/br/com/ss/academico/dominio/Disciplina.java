@@ -38,6 +38,10 @@ public class Disciplina extends AbstractEntity implements Serializable {
 			CascadeType.REMOVE }, mappedBy = "cursoDisciplinaPk.disciplina")
 	private List<CursoDisciplina> cursoDisciplina = new ArrayList<CursoDisciplina>();
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "turmaDisciplinaPk.disciplina")
+	private List<TurmaDisciplina> turmaDisciplina = new ArrayList<TurmaDisciplina>();
+
 	public Disciplina() {
 	}
 
@@ -76,6 +80,14 @@ public class Disciplina extends AbstractEntity implements Serializable {
 
 	public void setCursoDisciplina(List<CursoDisciplina> cursoDisciplina) {
 		this.cursoDisciplina = cursoDisciplina;
+	}
+
+	public List<TurmaDisciplina> getTurmaDisciplina() {
+		return turmaDisciplina;
+	}
+
+	public void setTurmaDisciplina(List<TurmaDisciplina> turmaDisciplina) {
+		this.turmaDisciplina = turmaDisciplina;
 	}
 
 }
