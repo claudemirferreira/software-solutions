@@ -9,7 +9,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
+import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.dto.ParametroRelatorioDTO;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
@@ -45,7 +47,7 @@ public class MensalidadeControlador implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
-	
+
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
@@ -81,6 +83,12 @@ public class MensalidadeControlador implements Serializable {
 		if (this.entidade.getStatusPagamento() == null)
 			this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
 
+		//
+//		this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
+//				.getIdMatricula()));
+
+//		this.entidade.setUsuario(null);
+
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
@@ -99,7 +107,7 @@ public class MensalidadeControlador implements Serializable {
 	public void telaPeaquisa() {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
-	
+
 	public void imprimir() throws FileNotFoundException {
 		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
 	}
