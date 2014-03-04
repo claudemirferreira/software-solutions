@@ -39,6 +39,10 @@ public class UsuarioPerfil implements Serializable {
 	private Date data;
 
 	
+	@Transient
+	private String nomePerfil;
+	
+	
 	public Perfil getPerfil() {
 		return usuarioPerfilPk.getPerfil();
 	}
@@ -79,6 +83,15 @@ public class UsuarioPerfil implements Serializable {
 	@Override
 	public int hashCode() {
 		return usuarioPerfilPk.hashCode();
+	}
+
+
+	public String getNomePerfil() {
+		return nomePerfil;
+	}
+
+	public void setNomePerfil(String nomePerfil) {
+		this.nomePerfil = nomePerfil;
 	}
 	
 }

@@ -54,7 +54,9 @@ public class UsuarioPerfilControlador {
 			UsuarioPerfil usuarioPerfil = createUsuarioPerfil(perfil, usuario);
 			listaUsuPerfilNotInUsuario.add(usuarioPerfil);
 		}
-		
+		// faz o fetch de UsuarioPerfil
+		List<UsuarioPerfil> usuPerfis = usuarioPerfilServico.findByUsuario(usuario);
+		usuario.setUsuarioPerfil(usuPerfis);
 		dualListPerfil = new DualListModel<UsuarioPerfil>(listaUsuPerfilNotInUsuario, usuario.getUsuarioPerfil());
 	}
 
