@@ -6,15 +6,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Responsavel;
+import br.com.ss.academico.dominio.Turma;
+import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
+import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.ResponsavelServico;
+import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
@@ -39,11 +47,26 @@ public class AlunoControlador implements Serializable {
 	@ManagedProperty(value = "#{responsavelServicoImpl}")
 	private ResponsavelServico responsavelServico;
 
+	@ManagedProperty(value = "#{matriculaServicoImpl}")
+	private MatriculaServico servicoMatricula;
+
+	@ManagedProperty(value = "#{turmaServicoImpl}")
+	private TurmaServico servicoTurma;
+	
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
+
+	private Aluno alunoMatricula;
+	
+	private boolean modalCadastro;
+
+	private Matricula matricula;
+	
+	private List<Turma> turmas;
+	
 
 	public void init() {
 		this.lista = servico.listarTodos();
@@ -94,6 +117,64 @@ public class AlunoControlador implements Serializable {
 		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
 	}
 
+	
+	
+	public void showModalMatricula(Aluno aluno) {
+		
+		alunoMatricula = aluno;
+		
+		List<Matricula> matriculas = servicoMatricula.findByAluno(aluno);
+		alunoMatricula.setMatriculas(matriculas);
+		
+		showModalPesquisaMatricula();
+	}
+	
+	
+	public void showModalPesquisaMatricula() {
+		modalCadastro = false;
+	}
+	
+	public void showModalCadastroMatricula() {
+		modalCadastro = true;
+		matricula = new Matricula();
+		
+		turmas = servicoTurma.listarTodos();
+	}
+	
+	
+	public void selectTurma(Turma turma) {
+		matricula.setValor(turma.getCurso().getValor());
+		matricula.setIntegral(false);
+		
+		Integer vagasDisponiveis = servicoMatricula.countVagasDisponiveis(turma);
+		matricula.getTurma().setVagasDisponiveis(vagasDisponiveis);;
+		
+	}
+	
+	public void salvarMatricula() {
+
+		try {
+			matricula.setAluno(alunoMatricula);
+			servicoMatricula.salvar(matricula);
+			
+			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+		}
+		
+	}
+
+	private void showMessage(String msg, Severity severityInfo) {
+		FacesMessage facesMessage = new FacesMessage();  
+        facesMessage.setSeverity(severityInfo);  
+        facesMessage.setSummary(msg);  
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage); 		
+	}
+
+
+	
 	public Aluno getEntidade() {
 		return entidade;
 	}
@@ -161,6 +242,42 @@ public class AlunoControlador implements Serializable {
 
 	public void setResponsavelServico(ResponsavelServico responsavelServico) {
 		this.responsavelServico = responsavelServico;
+	}
+
+	public Aluno getAlunoMatricula() {
+		return alunoMatricula;
+	}
+
+	public boolean isModalCadastro() {
+		return modalCadastro;
+	}
+
+	public Matricula getMatricula() {
+		return matricula;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
+	public MatriculaServico getServicoMatricula() {
+		return servicoMatricula;
+	}
+
+	public void setServicoMatricula(MatriculaServico servicoMatricula) {
+		this.servicoMatricula = servicoMatricula;
+	}
+
+	public TurmaServico getServicoTurma() {
+		return servicoTurma;
+	}
+
+	public void setServicoTurma(TurmaServico servicoTurma) {
+		this.servicoTurma = servicoTurma;
 	}
 
 }

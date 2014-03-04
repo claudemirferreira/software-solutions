@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.Turno;
 
@@ -56,9 +57,10 @@ public class Turma extends AbstractEntity implements Serializable {
 			CascadeType.REMOVE }, mappedBy = "turmaDisciplinaPk.turma")
 	private List<TurmaDisciplina> turmaDisciplina = new ArrayList<TurmaDisciplina>();
 
-	public Turma() {
-	}
 
+	@Transient
+	private Integer vagasDisponiveis;
+	
 	@Override
 	public Long getId() {
 		return this.idTurma;
@@ -118,6 +120,14 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	public void setTurmaDisciplina(List<TurmaDisciplina> turmaDisciplina) {
 		this.turmaDisciplina = turmaDisciplina;
+	}
+
+	public Integer getVagasDisponiveis() {
+		return vagasDisponiveis;
+	}
+
+	public void setVagasDisponiveis(Integer vagasDisponiveis) {
+		this.vagasDisponiveis = vagasDisponiveis;
 	}
 
 }

@@ -2,7 +2,9 @@ package br.com.ss.academico.servico;
 
 import java.util.List;
 
+import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Turma;
 
 public interface MatriculaServico {
 
@@ -12,4 +14,8 @@ public interface MatriculaServico {
 
 	public void remover(Matricula matricula);
 
+	public List<Matricula> findByAluno(Aluno aluno);
+	
+	public Integer countVagasDisponiveis(Turma turma);
+	
 }

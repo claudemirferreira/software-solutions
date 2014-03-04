@@ -32,13 +32,16 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idMatricula;
 
+	@Column(nullable = false)
 	private Date data;
 
+	@Column(nullable = false)
 	private double valor;
 
 	@Column(length = 1, nullable = false)
 	private StatusMatricula status;
 
+	@Column(nullable = false)
 	private boolean integral;
 
 	@ManyToOne
