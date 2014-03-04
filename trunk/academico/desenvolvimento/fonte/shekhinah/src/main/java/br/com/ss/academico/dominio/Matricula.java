@@ -1,7 +1,9 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.ss.academico.enumerated.StatusMatricula;
@@ -45,6 +48,9 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_aluno", nullable = false)
 	private Aluno aluno;
 
+	@OneToMany(mappedBy = "matricula")
+	private List<Mensalidade> mensalidades = new ArrayList<Mensalidade>();
+	
 	public Matricula() {
 	}
 
@@ -107,6 +113,14 @@ public class Matricula extends AbstractEntity implements Serializable {
 
 	public void setIntegral(boolean integral) {
 		this.integral = integral;
+	}
+
+	public List<Mensalidade> getMensalidades() {
+		return mensalidades;
+	}
+
+	public void setMensalidades(List<Mensalidade> mensalidades) {
+		this.mensalidades = mensalidades;
 	}
 
 }

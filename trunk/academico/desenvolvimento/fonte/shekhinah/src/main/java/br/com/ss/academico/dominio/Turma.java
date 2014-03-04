@@ -1,10 +1,14 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +33,7 @@ public class Turma extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idTurma;
 
+	@Enumerated
 	@Column(nullable = false, length = 1)
 	private Turno turno;
 
@@ -46,6 +51,10 @@ public class Turma extends AbstractEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_curso", nullable = false)
 	private Curso curso;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "turmaDisciplinaPk.turma")
+	private List<TurmaDisciplina> turmaDisciplina = new ArrayList<TurmaDisciplina>();
 
 	public Turma() {
 	}
@@ -101,6 +110,14 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	public void setNumeroVagas(Integer numeroVagas) {
 		this.numeroVagas = numeroVagas;
+	}
+
+	public List<TurmaDisciplina> getTurmaDisciplina() {
+		return turmaDisciplina;
+	}
+
+	public void setTurmaDisciplina(List<TurmaDisciplina> turmaDisciplina) {
+		this.turmaDisciplina = turmaDisciplina;
 	}
 
 }
