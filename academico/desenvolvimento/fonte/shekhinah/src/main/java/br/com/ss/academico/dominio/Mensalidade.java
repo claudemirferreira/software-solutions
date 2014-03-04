@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import br.com.ss.academico.enumerated.StatusPagamento;
 
 /**
@@ -53,12 +56,13 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	private StatusPagamento statusPagamento;
 
 	@ManyToOne( fetch = FetchType.EAGER)
+	@Cascade(value=CascadeType.ALL) 
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 
-	@ManyToOne
-	@JoinColumn(name = "id_usuario", nullable = false)
-	private Usuario usuario;
+//	@ManyToOne
+//	@JoinColumn(name = "id_usuario", nullable = false)
+//	private Usuario usuario;
 
 	public Mensalidade() {
 		Matricula matricula = new Matricula();
@@ -66,6 +70,10 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 		matricula.setTurma(new Turma());
 		this.setMatricula(matricula);
 
+	}
+
+	public Mensalidade(Long idMensalidade) {
+		this.idMensalidade = idMensalidade;
 	}
 
 	public Long getId() {
@@ -132,13 +140,13 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 		this.statusPagamento = statusPagamento;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+//	public Usuario getUsuario() {
+//		return usuario;
+//	}
+//
+//	public void setUsuario(Usuario usuario) {
+//		this.usuario = usuario;
+//	}
 
 	public void setMatricula(Matricula matricula) {
 		this.matricula = matricula;

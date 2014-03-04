@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 import br.com.ss.academico.enumerated.StatusMatricula;
 
@@ -37,8 +40,8 @@ public class Matricula extends AbstractEntity implements Serializable {
 
 	@Column(length = 1, nullable = false)
 	private StatusMatricula status;
-	
-	private boolean integral; 
+
+	private boolean integral;
 
 	@ManyToOne
 	@JoinColumn(name = "id_turma", nullable = false)
@@ -48,10 +51,14 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_aluno", nullable = false)
 	private Aluno aluno;
 
-	@OneToMany(mappedBy = "matricula")
+	@OneToMany(mappedBy = "matricula", cascade=CascadeType.ALL)
 	private List<Mensalidade> mensalidades = new ArrayList<Mensalidade>();
 	
 	public Matricula() {
+	}
+
+	public Matricula(Long idMatricula) {
+		this.idMatricula = idMatricula;
 	}
 
 	@Override
