@@ -37,9 +37,13 @@ public class Curso extends AbstractEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.REMOVE }, mappedBy = "cursoDisciplinaPk.curso")
 	private List<CursoDisciplina> cursoDisciplina = new ArrayList<CursoDisciplina>();
+	
 
-	public Curso() {
-	}
+	@OneToMany(fetch = FetchType.LAZY, 
+				cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
+				mappedBy = "curso")
+	private List<Turma> turmas = new ArrayList<Turma>();
+	
 
 	public Long getId() {
 		return this.idCurso;
@@ -75,6 +79,14 @@ public class Curso extends AbstractEntity implements Serializable {
 
 	public void setCursoDisciplina(List<CursoDisciplina> cursoDisciplina) {
 		this.cursoDisciplina = cursoDisciplina;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
 }

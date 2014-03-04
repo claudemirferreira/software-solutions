@@ -1,0 +1,11 @@
+package br.com.ss.academico.enumerated;
+
+public final class Constants {
+	
+	public static final String MSG_SUCESSO = "Operaçao realizada com sucesso.";
+
+	public static final String MSG_ERRO = "Ocorreu um erro ao executar a operação!";
+
+
+
+}

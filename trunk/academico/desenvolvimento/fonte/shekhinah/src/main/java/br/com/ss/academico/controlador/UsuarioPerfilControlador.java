@@ -28,7 +28,7 @@ public class UsuarioPerfilControlador {
 	private static final String MSG_ADICIONAR = "Perfil adicionado com sucesso.";
 	private static final String MSG_REMOVER = "Perfil removido com sucesso.";
 
-	private static final String MSG_ERRO = "Ocorreu um erro ao executar a opera��o!";
+	private static final String MSG_ERRO = "Ocorreu um erro ao executar a operação!";
 
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
