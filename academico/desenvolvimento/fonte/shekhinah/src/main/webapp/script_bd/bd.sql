@@ -58,8 +58,26 @@ CREATE TABLE `acad_aluno` (
 /*!40000 ALTER TABLE `acad_aluno` DISABLE KEYS */;
 INSERT INTO `acad_aluno` (`id_aluno`,`bairro`,`celular`,`cep`,`cpf`,`data_cadastro`,`data_nascimento`,`email`,`endereco`,`fone_comercial`,`fone_residencial`,`nome`,`rg`,`sexo`,`grau_parentesco`,`id_usuario`,`id_responsavel`) VALUES 
  (1,'YYY','43243242','434343','7878777','2014-02-26 14:54:30',NULL,'EEWEWE','WWWW',NULL,'RWQERWQR','CLAUDEMIR RAMOS FERREIRA','6666','M','',NULL,NULL),
- (2,'43242','43243242','9999','9999','2014-02-27 17:35:48','2014-02-02 00:00:00','EEWEWE','WWWW',NULL,'3232','CLAUDEMIR RAMOS FERREIRA','999','M','',NULL,1);
+ (2,'43242','43243242','9999','9999','2014-02-27 17:35:48','2014-02-02 00:00:00','EEWEWE','WWWW',NULL,'3232','ROBSON RAMOS FERREIRA','999','M','',NULL,1);
 /*!40000 ALTER TABLE `acad_aluno` ENABLE KEYS */;
+
+
+--
+-- Definition of table `acad_boletim`
+--
+
+DROP TABLE IF EXISTS `acad_boletim`;
+CREATE TABLE `acad_boletim` (
+  `id_boletim` bigint(20) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_boletim`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `acad_boletim`
+--
+
+/*!40000 ALTER TABLE `acad_boletim` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acad_boletim` ENABLE KEYS */;
 
 
 --
@@ -170,6 +188,7 @@ CREATE TABLE `acad_matricula` (
   `valor` double NOT NULL,
   `id_aluno` bigint(20) NOT NULL,
   `id_turma` bigint(20) NOT NULL,
+  `integral` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_matricula`),
   KEY `FK_psjpgyxt6vvv2jfsfii1jvpa6` (`id_aluno`),
   KEY `FK_4fr9y18xpqymx6wyobq1ixdn7` (`id_turma`),
@@ -182,8 +201,8 @@ CREATE TABLE `acad_matricula` (
 --
 
 /*!40000 ALTER TABLE `acad_matricula` DISABLE KEYS */;
-INSERT INTO `acad_matricula` (`id_matricula`,`data`,`status`,`valor`,`id_aluno`,`id_turma`) VALUES 
- (1,NULL,'0',22,1,1);
+INSERT INTO `acad_matricula` (`id_matricula`,`data`,`status`,`valor`,`id_aluno`,`id_turma`,`integral`) VALUES 
+ (1,NULL,'0',22,1,1,0);
 /*!40000 ALTER TABLE `acad_matricula` ENABLE KEYS */;
 
 
@@ -199,23 +218,28 @@ CREATE TABLE `acad_mensalidade` (
   `sequencial` int(11) NOT NULL,
   `valor_pagamento` double DEFAULT NULL,
   `valor_vencimento` double NOT NULL,
-  `status` int(11) NOT NULL,
   `id_matricula` bigint(20) NOT NULL,
-  `id_usuario` bigint(20) NOT NULL,
+  `id_usuario` bigint(20) DEFAULT NULL,
+  `status_pagamento` int(11) NOT NULL,
   PRIMARY KEY (`id_mensalidade`),
   KEY `FK_5ohqk2wplxluosa2ixutna7jk` (`id_matricula`),
   KEY `FK_1r9uok0uhbqsqkxiwqiycls8h` (`id_usuario`),
   CONSTRAINT `FK_1r9uok0uhbqsqkxiwqiycls8h` FOREIGN KEY (`id_usuario`) REFERENCES `saa_usuario` (`id_usuario`),
   CONSTRAINT `FK_5ohqk2wplxluosa2ixutna7jk` FOREIGN KEY (`id_matricula`) REFERENCES `acad_matricula` (`id_matricula`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `acad_mensalidade`
 --
 
 /*!40000 ALTER TABLE `acad_mensalidade` DISABLE KEYS */;
-INSERT INTO `acad_mensalidade` (`id_mensalidade`,`data_pagamento`,`data_vencimento`,`sequencial`,`valor_pagamento`,`valor_vencimento`,`status`,`id_matricula`,`id_usuario`) VALUES 
- (1,NULL,NULL,2,222,22,0,1,1);
+INSERT INTO `acad_mensalidade` (`id_mensalidade`,`data_pagamento`,`data_vencimento`,`sequencial`,`valor_pagamento`,`valor_vencimento`,`id_matricula`,`id_usuario`,`status_pagamento`) VALUES 
+ (1,'2014-03-06','2014-03-06',2,2223,22,1,1,0),
+ (2,'2014-03-11','2014-03-02',3,3,3,1,NULL,0),
+ (3,NULL,'2014-03-03',1,0,222,1,NULL,0),
+ (4,NULL,'2014-03-03',1,0,222,1,NULL,0),
+ (5,'2014-03-03','2014-03-03',1,0,222,1,NULL,0),
+ (6,'2014-03-03','2014-03-03',1,0,222,1,NULL,0);
 /*!40000 ALTER TABLE `acad_mensalidade` ENABLE KEYS */;
 
 
@@ -313,6 +337,30 @@ INSERT INTO `acad_turma` (`id_turma`,`ano`,`turno`,`id_curso`,`numero_vagas`) VA
 
 
 --
+-- Definition of table `acad_turma_disciplina`
+--
+
+DROP TABLE IF EXISTS `acad_turma_disciplina`;
+CREATE TABLE `acad_turma_disciplina` (
+  `data` datetime DEFAULT NULL,
+  `id_turma` bigint(20) NOT NULL DEFAULT '0',
+  `id_disciplina` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_disciplina`,`id_turma`),
+  KEY `FK_tgmm7cchb962gh5lvjqdaim3w` (`id_turma`),
+  KEY `FK_tmf6l1l872tifrujdj883egvs` (`id_disciplina`),
+  CONSTRAINT `FK_tmf6l1l872tifrujdj883egvs` FOREIGN KEY (`id_disciplina`) REFERENCES `acad_disciplina` (`id_disciplina`),
+  CONSTRAINT `FK_tgmm7cchb962gh5lvjqdaim3w` FOREIGN KEY (`id_turma`) REFERENCES `acad_turma` (`id_turma`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `acad_turma_disciplina`
+--
+
+/*!40000 ALTER TABLE `acad_turma_disciplina` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acad_turma_disciplina` ENABLE KEYS */;
+
+
+--
 -- Definition of table `saa_perfil`
 --
 
@@ -370,6 +418,7 @@ INSERT INTO `saa_perfil_rotina` (`data`,`id_perfil`,`id_rotina`) VALUES
  (NULL,1,5),
  (NULL,1,9),
  (NULL,1,10),
+ (NULL,1,12),
  (NULL,2,5),
  (NULL,2,11),
  (NULL,4,6),
@@ -393,7 +442,7 @@ CREATE TABLE `saa_rotina` (
   PRIMARY KEY (`id_rotina`),
   KEY `FK_54mvu1oxkbqkwg0ifkj9867ar` (`id_sistema`),
   CONSTRAINT `FK_54mvu1oxkbqkwg0ifkj9867ar` FOREIGN KEY (`id_sistema`) REFERENCES `saa_sistema` (`id_sistema`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `saa_rotina`
@@ -411,7 +460,8 @@ INSERT INTO `saa_rotina` (`id_rotina`,`acao`,`imagem`,`nome`,`status`,`id_sistem
  (8,'usuarioControlador.init','resources/imagens/rotina/usuario.png','USUARIO',0,2),
  (9,'disciplinaControlador.init','resources/imagens/rotina/disciplina.png','DISCIPLINA',0,2),
  (10,'turmaControlador.init','resources/imagens/rotina/turma.png','TURMA',0,2),
- (11,'mensalidadeControlador.init','resources/imagens/rotina/curso.png','MENSALIDADE',0,2);
+ (11,'mensalidadeControlador.init','resources/imagens/rotina/curso.png','MENSALIDADE',0,2),
+ (12,'blockUIController.init','resources/imagens/rotina/curso.png','TESTE',0,2);
 /*!40000 ALTER TABLE `saa_rotina` ENABLE KEYS */;
 
 
