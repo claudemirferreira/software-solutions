@@ -18,7 +18,7 @@ import br.com.ss.academico.repositorio.MensalidadeRepositorio;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
-@Ignore
+//@Ignore
 public class MensalidadeRepositoryTest {
 
 	@Autowired
@@ -35,6 +35,7 @@ public class MensalidadeRepositoryTest {
 		Mensalidade u = new Mensalidade();
 		u.setMatricula(m);
 		u.setDataVencimento(new Date());
+		u.setDataPagamento(new Date());
 		u.setValorVencimento(222);
 		u.setSequencial(1);
 		u.setStatusPagamento(StatusPagamento.PENDENTE);
