@@ -44,10 +44,10 @@ public class MatriculaServicoImpl implements MatriculaServico, Serializable {
 	}
 
 	@Override
-	public Integer countVagasDisponiveis(Turma turma) {
+	public Long countVagasDisponiveis(Turma turma) {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(new Date());
-		Integer count = repositorio.countMatriculas(turma, StatusMatricula.ATIVA, cal.get(Calendar.YEAR));
+		Long count = repositorio.countMatriculas(turma, StatusMatricula.ATIVA, cal.get(Calendar.YEAR));
 		return turma.getNumeroVagas() - count;
 	}
 
