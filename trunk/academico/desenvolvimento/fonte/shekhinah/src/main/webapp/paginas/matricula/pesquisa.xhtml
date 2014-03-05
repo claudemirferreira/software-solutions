@@ -32,6 +32,12 @@
 				<p:commandButton id="buttonNovo" value="Novo" update=":form"
 					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 					action="#{matriculaControlador.novo}" />
+
+				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
+					immediate="true" icon="ui-icon-circle-plus"
+					styleClass="ui-priority-primary"
+					action="#{matriculaControlador.imprimir}" />
+
 			</f:facet>
 
 		</p:panel>
@@ -42,7 +48,7 @@
 			emptyMessage="Nenhum registro encontrado."
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15,20">
-			
+
 			<p:column style="text-align:left" headerText="Nome"
 				sortBy="#{item.aluno.nome}">
 				<h:outputText value="#{item.aluno.nome}" />
@@ -52,12 +58,12 @@
 				sortBy="#{item.valor}">
 				<h:outputText value="#{item.valor}" />
 			</p:column>
-			
+
 			<p:column style="text-align:left" headerText="Data"
 				sortBy="#{item.data}">
 				<h:outputText value="#{item.data}" />
 			</p:column>
-			
+
 			<p:column style="text-align:left" headerText="Status"
 				sortBy="#{item.status}">
 				<h:outputText value="#{item.status}" />

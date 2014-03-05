@@ -23,7 +23,8 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Status:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.statusPagamento}">
+				<p:selectOneMenu
+					value="#{mensalidadeControlador.pesquisa.statusPagamento}">
 					<f:selectItems value="#{mensalidadeControlador.statusPagamentos}" />
 				</p:selectOneMenu>
 
@@ -49,6 +50,15 @@
 				<p:commandButton id="buttonNovo" value="Novo" update=":form"
 					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 					action="#{mensalidadeControlador.novo}" />
+
+				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
+					immediate="true" icon="ui-icon-circle-plus"
+					styleClass="ui-priority-primary"
+					action="#{mensalidadeControlador.imprimir}" />
+
+				<h:commandButton value="Imprimir Contrato"
+					onclick="this.form.target='_blank'"
+					actionListener="#{mensalidadeControlador.imprimir}" />
 
 			</f:facet>
 
@@ -80,7 +90,7 @@
 				sortBy="#{item.statusPagamento}">
 				<h:outputText value="#{item.statusPagamento}" />
 			</p:column>
-			
+
 			<p:column style="text-align:left" headerText="Data Vencimento"
 				sortBy="#{item.dataVencimento}">
 				<h:outputText value="#{item.dataVencimento}" />
