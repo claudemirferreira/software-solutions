@@ -16,6 +16,6 @@ public interface MatriculaServico {
 
 	public List<Matricula> findByAluno(Aluno aluno);
 	
-	public Integer countVagasDisponiveis(Turma turma);
+	public Long countVagasDisponiveis(Turma turma);
 	
 }

@@ -5,7 +5,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
@@ -83,120 +82,8 @@
 	</h:form>
 	
 	
-	<!-- =========== Matricula ============== -->
-
-	<h:form id="formDlg">
-		<p:dialog id="dialogMatricula" header="Matricula" widgetVar="dlgMatricula"
-			 closable="true" draggable="true" resizable="true" >
-		
-			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
-
-			<!-- =========  Pesquisa de Matricula  ========== -->
-			<p:outputPanel id="pnlGridMat" rendered="#{not alunoControlador.modalCadastro}">
-
-				<h4 style="margin-top: 0">Matrículas do Aluno</h4>
-				
-				<p:commandButton id="btnNovaMat" value="Novo" update=":formDlg"
-								icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-								oncomplete="PF('dlgMatricula').show();"
-								action="#{alunoControlador.showModalCadastroMatricula}" />
-				
-				<p:dataTable id="gridMat" var="item" rows="10" paginator="true"
-							value="#{alunoControlador.alunoMatricula.matriculas}" paginatorPosition="bottom"
-							paginatorAlwaysVisible="true"
-							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20">
-		
-					<p:column style="text-align:left" headerText="Curso" sortBy="#{item.turma.curso.nome}">
-						<h:outputText value="#{item.turma.curso.nome}" />
-					</p:column>
-					
-					<p:column style="text-align:left" headerText="Ano" sortBy="#{item.turma.ano}">
-						<h:outputText value="#{item.turma.ano}" />
-					</p:column>
-				
-					<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turma.turno}">
-						<h:outputText value="#{item.turma.turno}" />
-							<!-- TODO converter -->
-					</p:column>
-				
-					<p:column style="text-align:left" headerText="Valor" sortBy="#{item.valor}">
-						<h:outputText value="#{item.valor}" />
-					</p:column>
-				
-					<p:column style="text-align:left" headerText="Hor. Integral?" >
-						<h:outputText value="#{item.integral}" />
-					</p:column>
-					
-				</p:dataTable>
-             
-             	<p:commandButton value="Fechar" onclick="PF('dlgMatricula').hide();" />  
-			
-			</p:outputPanel>
-			
-			
-			<!-- =========  Cadastro de Matricula  ========== -->
-			<p:outputPanel id="pnlCadMat" rendered="#{alunoControlador.modalCadastro}">
-				
-				<p:panel header="FORMULÁRIO DE CADASTRO DE MATRÍCULA">
-
-					<h:panelGrid id="pnlCad" columns="4" cellpadding="6">
-						
-						<p:outputLabel value="Turma:" styleClass="ui-priority-primary" />
-						<p:selectOneMenu value="#{alunoControlador.matricula.turma}"
-									converter="entityConverter" 
-									required="true"
-									panelStyle="width:300px" effect="fade"
-									var="t" style="width:300px" 
-									filter="true"
-									filterMatchMode="startsWith">
-							<f:selectItem itemLabel="Selecione a turma" itemValue="" />
-							<f:selectItems value="#{alunoControlador.turmas}"
-										var="turma" 
-										itemLabel="#{turma.curso.nome} - #{turma.turno} - #{turma.ano}"
-										itemValue="#{turma}" />
-							<p:ajax event="change" update=":formDlg:valor" 
-									listener="#{alunoControlador.selectTurma(turma)}"/>  
-						</p:selectOneMenu>
-						
-						<p:outputLabel value="Vagas Disponíveis:" styleClass="ui-priority-primary" />
-						<pe:inputNumber id="vagas" value="#{alunoControlador.matricula.valor}" />
-								
-						<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
-						<pe:inputNumber id="valor" required="true" value="#{alunoControlador.matricula.valor}" />
-						
-						<p:outputLabel value="Data da Matrícula:" styleClass="ui-priority-primary" />
-						<p:calendar value="#{alunoControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" />
-						
-						<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
-						<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
-				            <f:selectItems value="#{statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-				        </p:selectOneMenu>
-				        
-						<p:outputLabel value="Turno Integral?" styleClass="ui-priority-primary" />
-						<p:selectOneMenu id="cmbInteg" value="#{alunoControlador.matricula.integral}" required="true" effect="fade">
-				            <f:selectItems value="#{naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-				        </p:selectOneMenu>
-						
-					</h:panelGrid>
-					
-				</p:panel>
-			
-				<p:commandButton id="btnRetornar" value="Retornar" update=":formDlg"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					oncomplete="PF('dlgMatricula').show();"
-					action="#{alunoControlador.showModalPesquisaMatricula}" immediate="true" />
-			
-				<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg"
-								icon="ui-icon-disk" styleClass="ui-priority-primary"
-								oncomplete="PF('dlgMatricula').show();"
-								action="#{alunoControlador.salvarMatricula}" />
-             	
-			</p:outputPanel>
-			
-		</p:dialog>
-
-	</h:form>
+	<!-- =========== Modal de Matricula ============== -->
+	<ui:include src="matricula.xhtml" />
+	
 	
 </ui:component>

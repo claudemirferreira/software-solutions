@@ -33,7 +33,7 @@ and tur.ano = 2014      -- ANO
 			+ "where mat.turma = :turma "
 			+ "and mat.status = :status "
 			+ "and tur.ano = :ano " )
-	public Integer countMatriculas( @Param("turma") Turma turma, 
+	public Long countMatriculas( @Param("turma") Turma turma, 
 									@Param("status") StatusMatricula status,
 									@Param("ano") Integer ano );
 	

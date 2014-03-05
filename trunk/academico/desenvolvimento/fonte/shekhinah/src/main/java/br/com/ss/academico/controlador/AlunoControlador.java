@@ -142,12 +142,12 @@ public class AlunoControlador implements Serializable {
 	}
 	
 	
-	public void selectTurma(Turma turma) {
-		matricula.setValor(turma.getCurso().getValor());
+	public void selectTurma() {
+		matricula.setValor(matricula.getTurma().getCurso().getValor());
 		matricula.setIntegral(false);
 		
-		Integer vagasDisponiveis = servicoMatricula.countVagasDisponiveis(turma);
-		matricula.getTurma().setVagasDisponiveis(vagasDisponiveis);;
+		Long vagasDisponiveis = servicoMatricula.countVagasDisponiveis(matricula.getTurma());
+		matricula.getTurma().setVagasDisponiveis(vagasDisponiveis.intValue());
 		
 	}
 	
