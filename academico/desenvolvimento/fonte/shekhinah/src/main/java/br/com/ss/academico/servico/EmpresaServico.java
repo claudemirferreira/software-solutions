@@ -13,5 +13,7 @@ public interface EmpresaServico {
 	public void remover(Empresa empresa);
 
 	public List<Empresa> findByNomeLike(String nome);
+	
+	public Empresa findOne(Long primaryKey);
 
 }

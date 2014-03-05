@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,14 +62,12 @@ public class RelatorioUtil {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
-		// ServletContext servletContext = (ServletContext)
-		// externalContext.getContext();
-		// String arquivo = context.getRealPath("/relatorio/"+nome);
-
-		String arquivo = "c:/relatorio/" + nome;
+		 ServletContext servletContext = (ServletContext) externalContext.getContext();
+		 String arquivo = servletContext.getRealPath("WEB-INF/jasper/"+nome);
+		 
+		 // CARREGA O FILE DA UNIDADE C 
+		 //	String arquivo = "c:/relatorio/" + nome;
 		
-		InputStream stream = new FileInputStream(arquivo);
-
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
 		ServletOutputStream servletOutputStream = null;

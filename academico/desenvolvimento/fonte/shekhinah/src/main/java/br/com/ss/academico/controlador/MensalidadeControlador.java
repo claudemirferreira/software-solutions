@@ -3,18 +3,22 @@ package br.com.ss.academico.controlador;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.dto.ParametroRelatorioDTO;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
+import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 
 @ManagedBean
@@ -35,6 +39,8 @@ public class MensalidadeControlador implements Serializable {
 
 	private ParametroRelatorioDTO parametroRelatorioDTO;
 
+	private final Long ID_EMPRESA = 1L;
+
 	private final String TELA_CADASTRO = "paginas/mensalidade/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/mensalidade/pesquisa.xhtml";
 
@@ -43,6 +49,9 @@ public class MensalidadeControlador implements Serializable {
 
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico alunoServico;
+
+	@ManagedProperty(value = "#{empresaServicoImpl}")
+	private EmpresaServico empresaServico;
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
@@ -83,13 +92,14 @@ public class MensalidadeControlador implements Serializable {
 			this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
 
 		//
-//		this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
-//				.getIdMatricula()));
+		// this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
+		// .getIdMatricula()));
 
-//		this.entidade.setUsuario(null);
+		// this.entidade.setUsuario(null);
 
-		entidade.setDataVencimento(new Date());	// TODO remover.. setar a data correta
-		
+		entidade.setDataVencimento(new Date()); // TODO remover.. setar a data
+												// correta
+
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
@@ -110,7 +120,14 @@ public class MensalidadeControlador implements Serializable {
 	}
 
 	public void imprimir() throws FileNotFoundException {
-		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
+
+		Empresa empresa = empresaServico.findOne(this.ID_EMPRESA);
+
+		Map parametros = new HashMap();
+
+		parametros.put("empresa", empresa);
+
+		relatorioUtil.gerarRelatorioWeb(this.lista, parametros, "mensalidade.jasper");
 	}
 
 	public Mensalidade getEntidade() {
@@ -193,6 +210,14 @@ public class MensalidadeControlador implements Serializable {
 
 	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
 		this.relatorioUtil = relatorioUtil;
+	}
+
+	public EmpresaServico getEmpresaServico() {
+		return empresaServico;
+	}
+
+	public void setEmpresaServico(EmpresaServico empresaServico) {
+		this.empresaServico = empresaServico;
 	}
 
 }

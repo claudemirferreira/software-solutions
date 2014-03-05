@@ -36,4 +36,10 @@ public class EmpresaServicoImpl implements EmpresaServico, Serializable {
 	public List<Empresa> findByNomeLike(String nome) {
 		return this.repositorio.findByNomeLike(nome);
 	}
+
+	@Override
+	public Empresa findOne(Long primaryKey) {
+		return this.repositorio.findOne(primaryKey);
+	}
+
 }
