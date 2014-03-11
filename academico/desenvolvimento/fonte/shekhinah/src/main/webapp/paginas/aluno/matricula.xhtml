@@ -10,8 +10,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <h:form id="formDlg">
-	<p:dialog id="dialogMatricula" header="Matricula" widgetVar="dlgMatricula"
-		 closable="true" draggable="true" resizable="true" >
+	<p:dialog id="dialogMatricula" header="Matriculas do Aluno(a): #{alunoControlador.alunoMatricula.nome}" widgetVar="dlgMatricula" closable="true" draggable="true" resizable="true" >
 	
 		<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
 
@@ -48,10 +47,18 @@
 				<p:column style="text-align:left" headerText="Valor" sortBy="#{item.valor}">
 					<h:outputText value="#{item.valor}" />
 				</p:column>
+				
+				<p:column style="text-align:left" headerText="Situação" >
+					<h:outputText value="#{item.status}" converter="statusMatriculaConverter" />
+				</p:column>
 			
 				<p:column style="text-align:left" headerText="Hor. Integral?" >
 					<h:outputText value="#{item.integral}" />
 				</p:column>
+				
+				<p:commandButton value="Imprimir Contrato"
+								onclick="this.form.target='_blank'"
+								actionListener="#{alunoControlador.imprimirContrato(item)}" />
 				
 			</p:dataTable>
             
@@ -63,7 +70,7 @@
 		<!-- =========  Cadastro de Matricula  ========== -->
 		<p:outputPanel id="pnlCadMat" rendered="#{alunoControlador.modalCadastro}">
 			
-			<p:panel header="FORMULÁRIO DE CADASTRO DE MATRÍCULA">
+			<p:panel header="XXXX">
 
 				<h:panelGrid id="pnlCad" columns="4" cellpadding="6">
 					
@@ -85,7 +92,7 @@
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="Vagas Disponíveis:" styleClass="ui-priority-primary" />
-					<pe:inputNumber id="vagas" value="#{alunoControlador.matricula.turma.vagasDisponiveis}" />
+					<p:inputMask id="vagas" value="#{alunoControlador.matricula.turma.vagasDisponiveis}"  mask="99" />
 							
 					<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
 					<pe:inputNumber id="valor" required="true" value="#{alunoControlador.matricula.valor}" />
@@ -95,13 +102,19 @@
 					
 					<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
 					<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
-			            <f:selectItems value="#{statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+			            <f:selectItems value="#{alunoControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+			        	<p:ajax event="change" update=":formDlg:pnlObservacao" 
+								listener="#{alunoControlador.renderObservacao}"/>  
 			        </p:selectOneMenu>
 			        
 					<p:outputLabel value="Turno Integral?" styleClass="ui-priority-primary" />
 					<p:selectOneMenu id="cmbInteg" value="#{alunoControlador.matricula.integral}" required="true" effect="fade">
-			            <f:selectItems value="#{naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+			            <f:selectItems value="#{alunoControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 			        </p:selectOneMenu>
+					
+					<p:outputPanel id="pnlObservacao" rendered="#{alunoControlador.matricula.status.id ne 0}">	<!-- 0: Ativa -->
+						<p:inputTextarea value="#{alunoControlador.observacaoMatricula}" maxlength="250" />
+					</p:outputPanel>
 					
 				</h:panelGrid>
 				

@@ -12,12 +12,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.Constants;
+import br.com.ss.academico.enumerated.NaoSim;
+import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.MatriculaServico;
@@ -66,10 +70,17 @@ public class AlunoControlador implements Serializable {
 	private Matricula matricula;
 	
 	private List<Turma> turmas;
-	
 
+	private List<SelectItem> naoSimList;
+
+	private List<SelectItem> statusMatriculaList;
+
+	private Observacao observacaoMatricula;
+	
 	public void init() {
-		this.lista = servico.listarTodos();
+		lista = servico.listarTodos();
+		naoSimList = createNaoSimList();;
+		statusMatriculaList = createStatusMatriculaList();
 		telaPesquisa();
 	}
 
@@ -117,7 +128,23 @@ public class AlunoControlador implements Serializable {
 		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
 	}
 
+
+	public void imprimirContrato(Matricula matricula) throws FileNotFoundException {
+		// TODO criar o relatorio..
+		List<Matricula> listMat = new ArrayList<Matricula>();
+		listMat.add(matricula);
+		relatorioUtil.gerarRelatorioWeb(listMat, null, "XXXX.jasper");
+	}
 	
+	public void renderObservacao() {
+		
+		if ( matricula.getStatus() != StatusMatricula.ATIVA
+				&& observacaoMatricula == null) {
+			observacaoMatricula = new Observacao();
+			observacaoMatricula.setMatricula(matricula);
+		}
+		
+	}
 	
 	public void showModalMatricula(Aluno aluno) {
 		
@@ -129,6 +156,21 @@ public class AlunoControlador implements Serializable {
 		showModalPesquisaMatricula();
 	}
 	
+	private List<SelectItem> createNaoSimList() {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for (NaoSim c : NaoSim.values()) {
+			list.add(new SelectItem(c.getValue(), c.getDescricao()));
+		}
+		return list;
+	}
+
+	private List<SelectItem> createStatusMatriculaList() {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for (StatusMatricula c : StatusMatricula.values()) {
+			list.add(new SelectItem(c, c.getDescricao()));
+		}
+		return list;
+	}
 	
 	public void showModalPesquisaMatricula() {
 		modalCadastro = false;
@@ -137,7 +179,7 @@ public class AlunoControlador implements Serializable {
 	public void showModalCadastroMatricula() {
 		modalCadastro = true;
 		matricula = new Matricula();
-		
+		matricula.setData(new Date());
 		turmas = servicoTurma.listarTodos();
 	}
 	
@@ -149,14 +191,23 @@ public class AlunoControlador implements Serializable {
 		Long vagasDisponiveis = servicoMatricula.countVagasDisponiveis(matricula.getTurma());
 		matricula.getTurma().setVagasDisponiveis(vagasDisponiveis.intValue());
 		
+		if ( !(vagasDisponiveis > 0 )) {
+			showMessage("Não há vaga disponível para a turma selecionada.", FacesMessage.SEVERITY_WARN);
+		}
+		
 	}
 	
 	public void salvarMatricula() {
 
 		try {
 			matricula.setAluno(alunoMatricula);
+			if ( matricula.getStatus() != StatusMatricula.ATIVA && observacaoMatricula != null) {
+				matricula.getObservacoes().add(observacaoMatricula);
+			}
+			
 			servicoMatricula.salvar(matricula);
 			
+			showModalPesquisaMatricula();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			
 		} catch (Exception e) {
@@ -278,6 +329,22 @@ public class AlunoControlador implements Serializable {
 
 	public void setServicoTurma(TurmaServico servicoTurma) {
 		this.servicoTurma = servicoTurma;
+	}
+
+	public List<SelectItem> getNaoSimList() {
+		return naoSimList;
+	}
+
+	public List<SelectItem> getStatusMatriculaList() {
+		return statusMatriculaList;
+	}
+
+	public Observacao getObservacaoMatricula() {
+		return observacaoMatricula;
+	}
+
+	public void setObservacaoMatricula(Observacao observacaoMatricula) {
+		this.observacaoMatricula = observacaoMatricula;
 	}
 
 }
