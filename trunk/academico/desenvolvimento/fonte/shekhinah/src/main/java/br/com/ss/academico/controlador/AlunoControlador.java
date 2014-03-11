@@ -14,11 +14,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.dominio.Turma;
+import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.NaoSim;
 import br.com.ss.academico.enumerated.StatusMatricula;
@@ -201,7 +204,11 @@ public class AlunoControlador implements Serializable {
 
 		try {
 			matricula.setAluno(alunoMatricula);
+			
 			if ( matricula.getStatus() != StatusMatricula.ATIVA && observacaoMatricula != null) {
+				// salva a observacao da matricula
+				Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				observacaoMatricula.setUsuario(usuario);
 				matricula.getObservacoes().add(observacaoMatricula);
 			}
 			
