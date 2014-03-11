@@ -28,8 +28,9 @@
 					</h:panelGrid>
 				</div>
 			</p:dataGrid>
-			<p:commandButton action="#{rotinaControlador.telaRotinas(perfil)}"
-				id="home" icon="ui-icon-home" value="Retornar" update=":form" />
+			<p:commandButton
+				action="#{perfilControlador.listaPerfilPorSistemaPorUsuario}"
+				id="home" icon="ui-icon-circle-arrow-w" value="Retornar" update=":form" />
 
 		</p:panel>
 
