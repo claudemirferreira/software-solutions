@@ -1,9 +1,6 @@
 package br.com.ss.academico.servico;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +42,7 @@ public class MatriculaServicoImpl implements MatriculaServico, Serializable {
 
 	@Override
 	public Long countVagasDisponiveis(Turma turma) {
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(new Date());
-		Long count = repositorio.countMatriculas(turma, StatusMatricula.ATIVA, cal.get(Calendar.YEAR));
+		Long count = repositorio.countMatriculas(turma, StatusMatricula.ATIVA, turma.getAno());
 		return turma.getNumeroVagas() - count;
 	}
 

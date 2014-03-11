@@ -54,6 +54,9 @@ public class Matricula extends AbstractEntity implements Serializable {
 
 	@OneToMany(mappedBy = "matricula", cascade=CascadeType.ALL)
 	private List<Mensalidade> mensalidades = new ArrayList<Mensalidade>();
+
+	@OneToMany(mappedBy = "matricula", cascade=CascadeType.ALL)
+	private List<Observacao> observacoes = new ArrayList<Observacao>();
 	
 	public Matricula() {
 	}
@@ -129,6 +132,14 @@ public class Matricula extends AbstractEntity implements Serializable {
 
 	public void setMensalidades(List<Mensalidade> mensalidades) {
 		this.mensalidades = mensalidades;
+	}
+
+	public List<Observacao> getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(List<Observacao> observacoes) {
+		this.observacoes = observacoes;
 	}
 
 }
