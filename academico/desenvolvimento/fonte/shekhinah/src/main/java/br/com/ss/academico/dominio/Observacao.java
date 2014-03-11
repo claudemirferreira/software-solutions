@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,7 +26,10 @@ public class Observacao extends AbstractEntity implements Serializable {
 
 	@ManyToOne
 	private Matricula matricula;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuario;
 	
 	@Override
 	public Long getId() {
@@ -54,6 +58,14 @@ public class Observacao extends AbstractEntity implements Serializable {
 
 	public void setTxObservacao(String txObservacao) {
 		this.txObservacao = txObservacao;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }
