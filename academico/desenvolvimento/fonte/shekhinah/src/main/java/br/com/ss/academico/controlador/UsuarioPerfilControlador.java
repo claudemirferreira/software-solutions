@@ -83,23 +83,15 @@ public class UsuarioPerfilControlador {
 
 		try {
 			String msg;
-			Usuario usuario = usuarioPerfil.getUsuario();
 			
 			if ( add ) {
-				usuario.getUsuarioPerfil().add(usuarioPerfil);
-				
 				usuarioPerfilServico.salvar(usuarioPerfil);
-				
 				msg = MSG_ADICIONAR;
 			} else {
-				usuario.getUsuarioPerfil().remove(usuarioPerfil);
-				
 				usuarioPerfilServico.remover(usuarioPerfil);
-				
 				msg = MSG_REMOVER;		
 			}
 			
-//			this.usuarioServico.salvar(usuario);	// TODO com erro.. 
 			showMessage(msg, FacesMessage.SEVERITY_INFO);
 			
 		} catch (Exception e) {
@@ -116,7 +108,6 @@ public class UsuarioPerfilControlador {
         facesMessage.setSummary(msg);  
         FacesContext.getCurrentInstance().addMessage(null, facesMessage); 		
 	}
-
 
 	/* ---------- Gets/Sets --------------- */
 	
