@@ -1,0 +1,66 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:outputPanel id="pnlGridMat" rendered="#{not alunoControlador.modalCadastro}">
+
+		<p:commandButton id="btnNovaMat" value="Novo" update=":formDlg"
+						icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+						oncomplete="PF('dlgMatricula').show();"
+						action="#{alunoControlador.showModalCadastroMatricula}" />
+		
+		<p:dataTable id="gridMat" var="item" rows="10" paginator="true"
+					value="#{alunoControlador.alunoMatricula.matriculas}" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Curso" sortBy="#{item.turma.curso.nome}">
+				<h:outputText value="#{item.turma.curso.nome}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.turma.ano}">
+				<h:outputText value="#{item.turma.ano}" />
+			</p:column>
+		
+			<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turma.turno}">
+				<h:outputText value="#{item.turma.turno}" />
+			</p:column>
+		
+			<p:column style="text-align:right" headerText="Valor" sortBy="#{item.valor}">
+				<h:outputText value="#{item.valor}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Situação" >
+				<h:outputText value="#{item.status}" converter="statusMatriculaConverter" />
+			</p:column>
+		
+			<p:column style="text-align:center" headerText="Hor. Integral?" >
+				<h:outputText value="#{item.integral}" converter="simNaoConverter" />
+			</p:column>
+			
+			<p:commandButton ajax="false"
+						oncomplete="PF('dlgMatricula').show();"
+						action="#{alunoControlador.showModalCadastroMatricula(item)}"
+						update=":form" title="Detalhe" />
+			
+			<p:commandButton value="Imprimir Contrato"
+							onclick="this.form.target='_blank'"
+							actionListener="#{alunoControlador.imprimirContrato(item)}" />
+			
+		</p:dataTable>
+		
+           
+       	<p:commandButton value="Fechar" onclick="PF('dlgMatricula').hide();" />  
+	
+	</p:outputPanel>
+	
+</ui:component>

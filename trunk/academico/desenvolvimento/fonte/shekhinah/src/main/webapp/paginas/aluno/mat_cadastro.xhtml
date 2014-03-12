@@ -1,0 +1,81 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:outputPanel id="pnlCadMat" rendered="#{alunoControlador.modalCadastro}">
+	
+		<h:panelGrid id="pnlCad" columns="4" cellpadding="6">
+			
+			<p:outputLabel value="Turma:" styleClass="ui-priority-primary" />
+			<p:selectOneMenu value="#{alunoControlador.matricula.turma}"
+						converter="entityConverter" 
+						panelStyle="width:300px" style="width:300px" effect="fade"
+						filterMatchMode="startsWith"
+						required="true" filter="true" >
+				<f:selectItem itemLabel="Selecione a turma" itemValue="" />
+				<f:selectItems value="#{alunoControlador.turmas}"
+							var="turma" 
+							itemLabel="#{turma.curso.nome} - #{turma.turno} - #{turma.ano}"
+							itemValue="#{turma}" />
+				<p:ajax event="change" update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
+						listener="#{alunoControlador.selectTurma}"/>  
+			</p:selectOneMenu>
+			
+			<p:outputLabel value="Vagas Disponíveis:" styleClass="ui-priority-primary" />
+			<p:inputMask id="vagas" value="#{alunoControlador.matricula.turma.vagasDisponiveis}" size="5" readonly="true" />
+
+								
+			<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
+			<pe:inputNumber id="valor" required="true" value="#{alunoControlador.matricula.valor}" />
+			
+			<p:outputLabel value="Data da Matrícula:" styleClass="ui-priority-primary" />
+			<p:calendar value="#{alunoControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" />
+			
+			<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
+			<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+	        	<p:ajax event="change" update=":formDlg:pnlObservacao"
+						listener="#{alunoControlador.renderObservacao}"/>  
+	        </p:selectOneMenu>
+	        
+			<p:outputLabel value="Turno Integral?" styleClass="ui-priority-primary" />
+			<p:selectOneMenu id="cmbInteg" value="#{alunoControlador.matricula.integral}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+	        </p:selectOneMenu>
+	        
+		</h:panelGrid>
+	        
+        <p:outputPanel id="pnlObservacao">
+			<p:fieldset legend="Justificativa" rendered="#{alunoControlador.matricula.status.id ne 0}" >  
+				<p:inputTextarea value="#{alunoControlador.observacaoMatricula.txObservacao}" 
+								maxlength="250" cols="95" rows="4" autoResize="false"
+								required="true" >
+					<p:ajax event="change" update=":formDlg:pnlObservacao" /> 
+				</p:inputTextarea>
+			</p:fieldset>
+		</p:outputPanel>
+		
+		
+		<p:commandButton id="btnRetornar" value="Retornar" update=":formDlg"
+						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+						oncomplete="PF('dlgMatricula').show();"
+						action="#{alunoControlador.showModalPesquisaMatricula}" 
+						immediate="true" />
+	
+		<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg"
+						icon="ui-icon-disk" styleClass="ui-priority-primary"
+						oncomplete="PF('dlgMatricula').show();"
+						action="#{alunoControlador.salvarMatricula}" />
+           	
+		
+	</p:outputPanel>
+		
+</ui:component>

@@ -150,12 +150,7 @@ public class AlunoControlador implements Serializable {
 	}
 	
 	public void showModalMatricula(Aluno aluno) {
-		
 		alunoMatricula = aluno;
-		
-		List<Matricula> matriculas = servicoMatricula.findByAluno(aluno);
-		alunoMatricula.setMatriculas(matriculas);
-		
 		showModalPesquisaMatricula();
 	}
 	
@@ -177,13 +172,29 @@ public class AlunoControlador implements Serializable {
 	
 	public void showModalPesquisaMatricula() {
 		modalCadastro = false;
+
+		List<Matricula> matriculas = servicoMatricula.findByAluno(alunoMatricula);
+		alunoMatricula.setMatriculas(matriculas);
+		
+	}
+	
+	public void showModalCadastroMatricula( Matricula matricula) {
+		this.matricula = matricula;
+		modalCadastro = true;
+		turmas = servicoTurma.listarTodos();
 	}
 	
 	public void showModalCadastroMatricula() {
 		modalCadastro = true;
-		matricula = new Matricula();
-		matricula.setData(new Date());
+		matricula = createMatricula();
 		turmas = servicoTurma.listarTodos();
+	}
+
+	private Matricula createMatricula() {
+		Matricula matricula = new Matricula();
+		matricula.setData(new Date());
+		matricula.setStatus(StatusMatricula.ATIVA);
+		return matricula;
 	}
 	
 	
@@ -203,8 +214,6 @@ public class AlunoControlador implements Serializable {
 	public void salvarMatricula() {
 
 		try {
-			matricula.setAluno(alunoMatricula);
-			
 			if ( matricula.getStatus() != StatusMatricula.ATIVA && observacaoMatricula != null) {
 				// salva a observacao da matricula
 				Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -212,11 +221,13 @@ public class AlunoControlador implements Serializable {
 				matricula.getObservacoes().add(observacaoMatricula);
 			}
 			
+			matricula.setAluno(alunoMatricula);
+			
 			servicoMatricula.salvar(matricula);
 			
 			showModalPesquisaMatricula();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
-			
+			observacaoMatricula = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);

@@ -2,6 +2,7 @@ package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Observacao extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 255)
 	private String txObservacao;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Matricula matricula;
 
 	@ManyToOne
