@@ -47,14 +47,16 @@
 				<h:outputText value="#{item.integral}" converter="simNaoConverter" />
 			</p:column>
 			
-			<p:commandButton ajax="false"
-						oncomplete="PF('dlgMatricula').show();"
-						action="#{alunoControlador.showModalCadastroMatricula(item)}"
-						update=":form" title="Detalhe" />
-			
-			<p:commandButton value="Imprimir Contrato"
-							onclick="this.form.target='_blank'"
-							actionListener="#{alunoControlador.imprimirContrato(item)}" />
+			<p:column style="text-align:center" headerText="Ação" >
+				<p:commandButton icon="ui-icon-folder-collapsed"
+							oncomplete="PF('dlgMatricula').show();"
+							action="#{alunoControlador.showModalCadastroMatricula(item)}"
+							update=":formDlg" title="Detalhe" />
+				
+				<p:commandButton value="Contrato" title="Imprimir Contrato"
+								onclick="this.form.target='_blank'"
+								actionListener="#{alunoControlador.imprimirContrato(item)}" />
+			</p:column>
 			
 		</p:dataTable>
 		

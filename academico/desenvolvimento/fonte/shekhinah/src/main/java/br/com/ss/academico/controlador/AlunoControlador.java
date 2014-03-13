@@ -182,6 +182,7 @@ public class AlunoControlador implements Serializable {
 		this.matricula = matricula;
 		modalCadastro = true;
 		turmas = servicoTurma.listarTodos();
+		selectTurma();
 	}
 	
 	public void showModalCadastroMatricula() {
