@@ -39,16 +39,21 @@
 			<p:outputLabel value="Data da Matrícula:" styleClass="ui-priority-primary" />
 			<p:calendar value="#{alunoControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" size="10" pattern="dd/MM/yyyy" />
 			
-			<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-	        	<p:ajax event="change" update=":formDlg:pnlObservacao"
-						listener="#{alunoControlador.renderObservacao}"/>  
+			<p:outputLabel value="Mensalidades apartir de" styleClass="ui-priority-primary" />
+			<p:selectOneMenu id="cmbMens" value="#{alunoControlador.mesSelecionado}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoControlador.mesesList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 	        </p:selectOneMenu>
 	        
 			<p:outputLabel value="Turno Integral?" styleClass="ui-priority-primary" />
 			<p:selectOneMenu id="cmbInteg" value="#{alunoControlador.matricula.integral}" required="true" effect="fade">
 	            <f:selectItems value="#{alunoControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+	        </p:selectOneMenu>
+	        
+			<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
+			<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+	        	<p:ajax event="change" update=":formDlg:pnlObservacao"
+						listener="#{alunoControlador.renderObservacao}"/>  
 	        </p:selectOneMenu>
 	        
 		</h:panelGrid>
