@@ -3,7 +3,9 @@ package br.com.ss.academico.controlador;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -17,14 +19,18 @@ import javax.faces.model.SelectItem;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.enumerated.Constants;
+import br.com.ss.academico.enumerated.Meses;
 import br.com.ss.academico.enumerated.NaoSim;
 import br.com.ss.academico.enumerated.StatusMatricula;
+import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.MatriculaServico;
@@ -78,13 +84,22 @@ public class AlunoControlador implements Serializable {
 
 	private List<SelectItem> statusMatriculaList;
 
+	private List<SelectItem> mesesList;
+	
+	private Meses mesSelecionado;
+	
 	private Observacao observacaoMatricula;
+	
+	private Configuracao configuracao;	
 	
 	public void init() {
 		lista = servico.listarTodos();
 		naoSimList = createNaoSimList();;
 		statusMatriculaList = createStatusMatriculaList();
+		mesesList = createMesesList();
 		telaPesquisa();
+		carregarDiaVencimento();
+		
 	}
 
 	public AlunoControlador() {
@@ -103,6 +118,13 @@ public class AlunoControlador implements Serializable {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
+	private void carregarDiaVencimento() {
+		
+		// TODO carregar configuracao do contexto
+		configuracao = new Configuracao();
+		configuracao.setDiaVencimento(10);	// TODO remover
+	}
+	
 	public void salvar() {
 		if (this.entidade.getDataCadastro() == null)
 			this.entidade.setDataCadastro(new Date());
@@ -169,6 +191,15 @@ public class AlunoControlador implements Serializable {
 		}
 		return list;
 	}
+
+	private List<SelectItem> createMesesList() {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for (Meses mes : Meses.values()) {
+			list.add(new SelectItem(mes, mes.getDescricao()));
+		}
+		return list;
+	}
+
 	
 	public void showModalPesquisaMatricula() {
 		modalCadastro = false;
@@ -185,10 +216,20 @@ public class AlunoControlador implements Serializable {
 		selectTurma();
 	}
 	
+	/**
+	 * Nova matricula.
+	 */
 	public void showModalCadastroMatricula() {
 		modalCadastro = true;
 		matricula = createMatricula();
 		turmas = servicoTurma.listarTodos();
+		carregarMesSelecionado();
+	}
+
+	private void carregarMesSelecionado() {
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(new Date());
+		mesSelecionado = Meses.getEnum(cal.get(Calendar.MONTH) + 1);
 	}
 
 	private Matricula createMatricula() {
@@ -217,23 +258,61 @@ public class AlunoControlador implements Serializable {
 		try {
 			if ( matricula.getStatus() != StatusMatricula.ATIVA && observacaoMatricula != null) {
 				// salva a observacao da matricula
-				Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				observacaoMatricula.setUsuario(usuario);
-				matricula.getObservacoes().add(observacaoMatricula);
+				cancelarMatricula();
+			} else if ( matricula.getStatus() == StatusMatricula.ATIVA 
+					&& !matricula.isPersistent() ) {
+				// cria as mensalidades
+				gerarMensalidadesMatricula();
 			}
 			
 			matricula.setAluno(alunoMatricula);
-			
 			servicoMatricula.salvar(matricula);
 			
 			showModalPesquisaMatricula();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			observacaoMatricula = null;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 		}
+	}
+
+	
+	private void cancelarMatricula() {
+		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		observacaoMatricula.setUsuario(usuario);
+		matricula.getObservacoes().add(observacaoMatricula);
 		
+		// cancelar as mensalidades
+		for (Mensalidade mens : matricula.getMensalidades() )  {
+			mens.setStatusPagamento(StatusPagamento.CANCELADO);
+		}
+	}
+
+	private void gerarMensalidadesMatricula() {
+		int mesInicial = mesSelecionado.getId();
+		int mesFinal = Constants.DOZE;
+		for (int i = mesInicial; i <= mesFinal; i++) {
+			matricula.getMensalidades().add(createMensalidade(i));
+		}
+	}
+
+
+	private Mensalidade createMensalidade(int mes) {
+		Mensalidade mens = new Mensalidade();
+		mens.setDataVencimento(criarDataVencimento(mes));
+		mens.setMatricula(matricula);
+		mens.setSequencial(mes);
+		mens.setStatusPagamento(StatusPagamento.PENDENTE);
+		return mens;
+	}
+
+	private Date criarDataVencimento(int mes) {
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(new Date());
+		cal.set(cal.get(Calendar.YEAR), mes -1, configuracao.getDiaVencimento() );
+		return cal.getTime();
 	}
 
 	private void showMessage(String msg, Severity severityInfo) {
@@ -364,6 +443,18 @@ public class AlunoControlador implements Serializable {
 
 	public void setObservacaoMatricula(Observacao observacaoMatricula) {
 		this.observacaoMatricula = observacaoMatricula;
+	}
+
+	public List<SelectItem> getMesesList() {
+		return mesesList;
+	}
+
+	public Meses getMesSelecionado() {
+		return mesSelecionado;
+	}
+
+	public void setMesSelecionado(Meses mesSelecionado) {
+		this.mesSelecionado = mesSelecionado;
 	}
 
 }

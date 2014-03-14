@@ -3,6 +3,7 @@ package br.com.ss.academico.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -16,16 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import br.com.ss.academico.enumerated.StatusPagamento;
 
 /**
  * The persistent class for the iansa_mensalidade database table.
- * 
  */
-
 @Entity
 @Table(name = "acad_mensalidade")
 public class Mensalidade extends AbstractEntity implements Serializable {
@@ -55,14 +51,10 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 1)
 	private StatusPagamento statusPagamento;
 
-	@ManyToOne( fetch = FetchType.EAGER)
-	@Cascade(value=CascadeType.ALL) 
+	@ManyToOne( fetch = FetchType.EAGER, 
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
-
-//	@ManyToOne
-//	@JoinColumn(name = "id_usuario", nullable = false)
-//	private Usuario usuario;
 
 	public Mensalidade() {
 		Matricula matricula = new Matricula();
@@ -139,14 +131,6 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	public void setStatusPagamento(StatusPagamento statusPagamento) {
 		this.statusPagamento = statusPagamento;
 	}
-
-//	public Usuario getUsuario() {
-//		return usuario;
-//	}
-//
-//	public void setUsuario(Usuario usuario) {
-//		this.usuario = usuario;
-//	}
 
 	public void setMatricula(Matricula matricula) {
 		this.matricula = matricula;
