@@ -54,6 +54,12 @@
 					action="#{cursoControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
 					update=":form" title="Detalhe" />
+					
+				<p:commandButton value="Disciplina"
+						action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
+						oncomplete="PF('dlgDisciplina').show();"
+						update=":formDlg"
+						 />
 
 				<p:commandButton ajax="false"
 					action="#{cursoControlador.excluir(item)}"
@@ -67,6 +73,43 @@
         </f:facet>
 
 		</p:dataTable>
+
+	</h:form>
+	
+	<h:form id="formDlg">
+		<p:dialog id="dialogDisciplina" header="Disciplina" widgetVar="dlgDisciplina" >
+		
+			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
+
+			<h4 style="margin-top: 0">Selecione as Disciplinas para associar ao Curso</h4>
+
+			<p:pickList id="plUsuPerf" 
+						value="#{cursoDisciplinaControlador.dualListDisciplina}" 
+						effect="bounce"
+						converter="cursoDisciplinaConverter"
+						var="up"
+						itemLabel="#{up.disciplina.nome}" 
+						itemValue="#{up}"
+						showSourceControls="false" 
+						showTargetControls="false" 
+						showCheckbox="false"  
+                    	showSourceFilter="true" 
+                    	showTargetFilter="true" >
+                    	
+                <f:facet name="sourceCaption">Disponíveis</f:facet>  
+        		<f:facet name="targetCaption">Atribuídos</f:facet>  
+                    	
+		        <p:ajax event="transfer" listener="#{cursoDisciplinaControlador.onTransfer}" update="msg" />  
+        
+        		 <p:column style="width:75%;">  
+		            #{up.disciplina.nome}  
+		        </p:column>  
+        
+             </p:pickList>
+             
+             <p:commandButton value="Fechar" onclick="PF('dlgDisciplina').hide();" />  
+	
+		</p:dialog>
 
 	</h:form>
 

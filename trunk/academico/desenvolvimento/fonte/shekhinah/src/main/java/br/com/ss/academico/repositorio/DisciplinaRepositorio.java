@@ -15,5 +15,5 @@ public interface DisciplinaRepositorio extends
 
 	@Query("select u from Disciplina u where u.nome like :nome")
 	public List<Disciplina> findByNomeLike(@Param("nome") String nome);
-
+	
 }
