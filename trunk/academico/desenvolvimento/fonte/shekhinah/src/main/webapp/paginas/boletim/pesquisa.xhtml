@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<p:panel header="PESQUISA DE BOLETIM">
+
+			
+
+		</p:panel>
+
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{boletimControlador.matriculas}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Matricula"
+				sortBy="#{item.id}">
+				<h:outputText value="#{item.id}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Nome"
+				sortBy="#{item.aluno.nome}">
+				<h:outputText value="#{item.aluno.nome}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Detalhe">
+				<p:commandButton ajax="false"
+					action="#{boletimControlador.pesquisarBoletim(item)}"
+					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
+					update=":form" title="Detalhe" />
+
+			</p:column>
+
+			<f:facet name="footer">  
+            Total de registros: #{fn:length(boletimControlador.lista)} boletims.  
+        </f:facet>
+
+		</p:dataTable>
+
+	</h:form>
+
+</ui:component>

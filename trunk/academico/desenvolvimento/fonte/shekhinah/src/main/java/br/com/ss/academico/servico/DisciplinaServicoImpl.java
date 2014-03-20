@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Disciplina;
 import br.com.ss.academico.repositorio.DisciplinaRepositorio;
+import br.com.ss.academico.repositorio.DisciplinaRepositorioSql;
 
 @Service
 public class DisciplinaServicoImpl implements DisciplinaServico, Serializable {
@@ -16,6 +17,9 @@ public class DisciplinaServicoImpl implements DisciplinaServico, Serializable {
 
 	@Autowired
 	private DisciplinaRepositorio repositorio;
+
+	@Autowired
+	private DisciplinaRepositorioSql disciplinaRepositorioSql;
 
 	@Override
 	public List<Disciplina> listarTodos() {
@@ -35,5 +39,10 @@ public class DisciplinaServicoImpl implements DisciplinaServico, Serializable {
 	@Override
 	public List<Disciplina> findByNomeLike(String nome) {
 		return this.repositorio.findByNomeLike(nome);
+	}
+
+	@Override
+	public List<Disciplina> listaDisciplinaPorCurso(Long idCurso) {
+		return this.disciplinaRepositorioSql.listaDisciplinaPorCurso(idCurso);
 	}
 }

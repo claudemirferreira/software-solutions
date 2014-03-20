@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.MatriculaServico;
 
 @ManagedBean
@@ -30,6 +31,9 @@ public class MatriculaControlador implements Serializable {
 
 	@ManagedProperty(value = "#{matriculaServicoImpl}")
 	private MatriculaServico servico;
+	
+	@ManagedProperty(value = "#{boletimServicoImpl}")
+	private BoletimServico boletimServico;
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
@@ -54,7 +58,15 @@ public class MatriculaControlador implements Serializable {
 	}
 
 	public void salvar() {
+		
+		// gerar boletim
+		long gerarBoletim = this.entidade.getIdMatricula();
+		
 		this.servico.salvar(this.entidade);
+		
+		if( gerarBoletim < 1  )
+			this.boletimServico.gerarBoletim(this.entidade);
+		
 		this.lista = servico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
@@ -112,6 +124,14 @@ public class MatriculaControlador implements Serializable {
 
 	public void setServico(MatriculaServico servico) {
 		this.servico = servico;
+	}
+
+	public BoletimServico getBoletimServico() {
+		return boletimServico;
+	}
+
+	public void setBoletimServico(BoletimServico boletimServico) {
+		this.boletimServico = boletimServico;
 	}
 
 	public void telaPesquisa() {
