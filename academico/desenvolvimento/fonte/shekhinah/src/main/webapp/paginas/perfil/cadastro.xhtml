@@ -13,20 +13,16 @@
 
 		<p:growl id="growl" showDetail="true" sticky="true" />
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE PERFIL">
+		<p:panel header="Cadastro de Perfil">
 
 			<h:panelGrid id="panelCadastro" columns="4">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" style="width:300px;" required="true"
 					requiredMessage="O nome deve ser informado"
 					value="#{perfilControlador.entidade.nome}" />
 
-				<p:outputLabel value="Descrição:" styleClass="ui-priority-primary" />
-				<p:inputText id="descricao" style="width:300px;"
-					value="#{perfilControlador.entidade.descricao}" />
-
-				<p:outputLabel value="Imagem:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Imagem" styleClass="ui-priority-primary" />
 				<p:inputText id="imagem" style="width:300px;" required="true"
 					requiredMessage="A imagem deve ser informado"
 					value="#{perfilControlador.entidade.imagem}" />

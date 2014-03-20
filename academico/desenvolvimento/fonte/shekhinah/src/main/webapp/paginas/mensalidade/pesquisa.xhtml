@@ -9,32 +9,33 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE MENSALIDADE">
+		<p:panel header="Mensalidade">
 
-			<h:panelGrid id="panelPesquisa" columns="4">
+			<h:panelGrid id="panelPesquisa" columns="2">
 
-				<h:outputText value="Aluno:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
-					converter="entityConverter" style="width:300px">
+				<h:outputText value="Aluno" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
+							converter="entityConverter" 
+							filterMatchMode="startsWith"
+							filter="true" 
+							style="width:300px" effect="fade">
 					<f:selectItem itemLabel="Selecione o aluno" itemValue="" />
 					<f:selectItems value="#{mensalidadeControlador.alunos}" var="aluno"
 						itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Status:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{mensalidadeControlador.pesquisa.statusPagamento}">
+				<p:outputLabel value="Status" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.statusPagamento}">
+					<f:selectItem itemLabel="-- Selecione um registro --" itemValue="" />
 					<f:selectItems value="#{mensalidadeControlador.statusPagamentos}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="*Data Início:"
-					styleClass="ui-priority-primary" />
+				<p:outputLabel value="Data Início" styleClass="ui-priority-primary" />
 				<p:calendar
 					value="#{mensalidadeControlador.parametroRelatorioDTO.dataInicio}"
 					locale="pt" showButtonPanel="true" navigator="true" />
 
-				<p:outputLabel value="*Data Fim:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Data Fim" styleClass="ui-priority-primary" />
 				<p:calendar
 					value="#{mensalidadeControlador.parametroRelatorioDTO.dataFim}"
 					locale="pt" showButtonPanel="true" navigator="true" />
@@ -96,7 +97,7 @@
 				<h:outputText value="#{item.dataVencimento}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
+			<p:column style="text-align:left" headerText="Ação">
 				<p:commandButton ajax="false"
 					action="#{mensalidadeControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"

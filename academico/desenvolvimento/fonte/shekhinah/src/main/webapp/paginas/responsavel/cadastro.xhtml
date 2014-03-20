@@ -11,76 +11,76 @@
 
 	<h:form id="form">
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE RESPONSAVEL">
+		<p:panel header="Cadastro de Responsável">
 
 			<h:panelGrid id="panelCadastro" columns="6">
 
-				<p:outputLabel value="*Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" required="true"
 					requiredMessage="O nome deve ser informado"
 					value="#{responsavelControlador.entidade.nome}"
 					style="width:300px;" />
 
-				<p:outputLabel value="*Endereço:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Endereço" styleClass="ui-priority-primary" />
 				<p:inputText id="endereco" required="true"
 					requiredMessage="O endereço deve ser informado"
 					value="#{responsavelControlador.entidade.endereco}"
 					style="width:300px;" />
 
-				<p:outputLabel value="*Bairro:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Bairro" styleClass="ui-priority-primary" />
 				<p:inputText id="bairro" required="true"
 					requiredMessage="O bairro deve ser informado"
 					value="#{responsavelControlador.entidade.bairro}"
 					style="width:300px;" />
 
-				<p:outputLabel value="CEP:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="CEP" styleClass="ui-priority-primary" />
 				<p:inputText id="cep" value="#{responsavelControlador.entidade.cep}"
 					style="width:300px;" />
 
-				<p:outputLabel value="Celular:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Celular" styleClass="ui-priority-primary" />
 				<p:inputText id="celular"
 					value="#{responsavelControlador.entidade.celular}"
 					style="width:300px;" />
 
-				<p:outputLabel value="Fone Comercial:"
+				<p:outputLabel value="Fone Comercial"
 					styleClass="ui-priority-primary" />
 				<p:inputText id="foneComercial"
 					value="#{responsavelControlador.entidade.foneComercial}"
 					style="width:300px;" />
 
-				<p:outputLabel value="Fone Residêncial:"
+				<p:outputLabel value="Fone Residêncial"
 					styleClass="ui-priority-primary" />
 				<p:inputText id="foneResidencial"
 					value="#{responsavelControlador.entidade.foneResidencial}"
 					style="width:300px;" />
 
-				<p:outputLabel value="Profissão:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Profissão" styleClass="ui-priority-primary" />
 				<p:inputText id="profissao"
 					value="#{responsavelControlador.entidade.profissao}"
 					style="width:300px;" />
 
-				<p:outputLabel value="E-mail:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="E-mail" styleClass="ui-priority-primary" />
 				<p:inputText id="email"
 					value="#{responsavelControlador.entidade.email}"
 					style="width:300px;" />
 
-				<p:outputLabel value="*CPF:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*CPF" styleClass="ui-priority-primary" />
 				<p:inputText id="cpf" required="true"
 					requiredMessage="O cpf deve ser informado"
 					value="#{responsavelControlador.entidade.cpf}" style="width:300px;" />
 
-				<p:outputLabel value="RG:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* RG" styleClass="ui-priority-primary" />
 				<p:inputText id="rg" required="true"
 					requiredMessage="O rg deve ser informado"
 					value="#{responsavelControlador.entidade.rg}" style="width:300px;" />
 
-				<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{responsavelControlador.entidade.sexo}">
 					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
 					<f:selectItem itemLabel="FEMININO" itemValue="F" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Data Nascimento:"
+				<p:outputLabel value="* Data Nascimento"
 					styleClass="ui-priority-primary" />
 				<p:calendar id="dataNascimento" required="true"
 					requiredMessage="A data de nascimento deve ser informado"

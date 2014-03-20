@@ -10,18 +10,18 @@
 
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE CADASTRO DE USUÁRIO">
+		<p:panel header="Cadastro de Usuário">
 			<h:panelGrid id="panelCadastro" columns="6" cellpadding="6">
 
-				<p:outputLabel value="Login*:" styleClass="ui-priority-primary" />
-				<p:inputText id="login" value="#{usuarioControlador.entidade.login}" />
+				<p:outputLabel value="* Login" styleClass="ui-priority-primary" />
+				<p:inputText id="login" required="true" value="#{usuarioControlador.entidade.login}" />
 
-				<p:outputLabel value="Senha*:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Senha" styleClass="ui-priority-primary" />
 				<p:password id="senha" required="true"
 					requiredMessage="A senha deve ser informada"
 					value="#{usuarioControlador.entidade.senha}" />
 
-				<p:outputLabel value="Situação*:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Situação" styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="Situação"
 					value="#{usuarioControlador.entidade.status}">
 					<f:selectItem itemLabel="ATIVO(A)" itemValue="A" />

@@ -9,9 +9,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE TURMA">
-			<h:panelGrid id="panelPesquisa" columns="1">
-				<h:outputText value="Ano:" styleClass="ui-priority-primary" />
+		<p:panel header="Turma">
+			<h:panelGrid id="panelPesquisa" columns="2">
+				<h:outputText value="Ano" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{turmaControlador.pesquisa.ano}"
 					panelStyle="width:300px" style="width:100px">
 					<f:selectItems value="#{turmaControlador.anos}" var="ano"
@@ -59,16 +59,16 @@
 				<h:outputText value="#{item.numeroVagas}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton  value="Detalhe" title="Detalhe" 
 					action="#{turmaControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
+					icon="	ui-icon-folder-collapsed"
+					update=":form" ajax="false" />
 
-				<p:commandButton ajax="false"
+				<p:commandButton  value="Excluir" title="Excluir"
 					action="#{turmaControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					icon="ui-icon-trash"
+					update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>
 

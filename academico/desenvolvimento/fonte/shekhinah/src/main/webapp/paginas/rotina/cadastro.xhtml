@@ -12,21 +12,21 @@
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" sticky="true" />
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE ROTINA">
+		<p:panel header="Cadastro de Rotina">
 
 			<h:panelGrid id="panelCadastro" columns="4" cellspacing="5">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" style="width:300px;" required="true"
 					requiredMessage="nome deve ser informado"
 					value="#{rotinaControlador.entidade.nome}" />
 
-				<p:outputLabel value="Ação:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Ação" styleClass="ui-priority-primary" />
 				<p:inputText id="acao" style="width:300px;" required="true"
 					requiredMessage="ação deve ser informado"
 					value="#{rotinaControlador.entidade.acao}" />
 
-				<p:outputLabel value="Imagem:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="* Imagem" styleClass="ui-priority-primary" />
 				<p:inputText id="imagem" style="width:300px;" required="true"
 					requiredMessage="imagem deve ser informado"
 					value="#{rotinaControlador.entidade.imagem}" />
@@ -36,7 +36,7 @@
 			<f:facet name="footer">
 
 				<p:commandButton id="buttonRetornar" value="Retornar"
-					update=":form:" icon="ui-icon-circle-arrow-w" immediate="true"
+					update=":form" icon="ui-icon-circle-arrow-w" immediate="true"
 					styleClass="ui-priority-primary"
 					action="#{rotinaControlador.telaPesquisa}" />
 

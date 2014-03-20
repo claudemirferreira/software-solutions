@@ -9,13 +9,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE DISCIPLINA">
+		<p:panel header="Disciplina">
 
-			<h:panelGrid id="panelPesquisa" columns="1">
+			<h:panelGrid id="panelPesquisa" columns="2">
 
-				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
-				<p:inputText id="nome"
-					value="#{disciplinaControlador.pesquisa.nome}" style="width:300px;" />
+				<h:outputText value="Nome" styleClass="ui-priority-primary" />
+				<p:inputText id="nome" value="#{disciplinaControlador.pesquisa.nome}" style="width:300px;" />
 
 			</h:panelGrid>
 
@@ -39,21 +38,20 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15,20">
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.nome}">
+			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton value="Detalhe" title="Detalhe"
 					action="#{disciplinaControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
+					icon="	ui-icon-folder-collapsed"
+					update=":form" ajax="false" />
 
-				<p:commandButton ajax="false"
+				<p:commandButton value="Excluir" title="Excluir" 
 					action="#{disciplinaControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					icon="ui-icon-trash"
+					update=":form:gridPesquisa" ajax="false"/>
 
 			</p:column>
 

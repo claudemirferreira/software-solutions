@@ -9,11 +9,11 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE PERFIL">
+		<p:panel header="Perfil">
 
-			<h:panelGrid id="panelPesquisa" columns="1">
+			<h:panelGrid id="panelPesquisa" columns="2">
 
-				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
+				<h:outputText value="Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{perfilControlador.pesquisa.nome}" />
 
 			</h:panelGrid>
@@ -53,20 +53,21 @@
 				<h:outputText value="#{item.imagem}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton value="Detalhe" title="Detalhe" 
 					action="#{perfilControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
+					icon="ui-icon-folder-collapsed"
+					update=":form" ajax="false" />
 
-				<p:commandButton value="Rotina"
+				<p:commandButton value="Rotina"  title="Rotina" 
 					action="#{perfilRotinaControlador.showModalRotina(item)}"
+					icon="ui-icon-newwin"
 					oncomplete="PF('dlgRotina').show();" update=":formDlg" />
 
-				<p:commandButton ajax="false"
+				<p:commandButton value="Excluir" title="Excluir"
 					action="#{perfilControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					icon="ui-icon-trash"
+					update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>
 
@@ -96,7 +97,7 @@
 				showCheckbox="false" showSourceFilter="true" showTargetFilter="true">
 
 				<f:facet name="sourceCaption">Disponíveis</f:facet>
-				<f:facet name="targetCaption">Atribuídos</f:facet>
+				<f:facet name="targetCaption">Atribuídas</f:facet>
 
 				<p:ajax event="transfer"
 					listener="#{perfilRotinaControlador.onTransfer}" update="msg" />
@@ -107,7 +108,7 @@
 
 			</p:pickList>
 
-			<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();" />
+			<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();" styleClass="ui-priority-primary" />
 
 		</p:dialog>
 

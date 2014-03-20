@@ -9,11 +9,11 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE MEMBRO">
+		<p:panel header="Aluno">
 
-			<h:panelGrid id="panelPesquisa" columns="1">
+			<h:panelGrid id="panelPesquisa" columns="2">
 
-				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
+				<h:outputText value="Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{alunoControlador.pesquisa.nome}"
 					style="width:300px;" />
 
@@ -25,19 +25,14 @@
 					styleClass="ui-priority-primary"
 					action="#{alunoControlador.pesquisar}" />
 
-				<p:commandButton id="buttonImprimir" value="Imprimir"
-					immediate="true" update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{alunoControlador.imprimir}" />
-
-				<h:commandButton value="Imprimir Contrato"
-					onclick="this.form.target='_blank'"
-					actionListener="#{alunoControlador.imprimir}" />
-
-
 				<p:commandButton id="buttonNovo" value="Novo" update=":form"
 					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 					action="#{alunoControlador.novo}" />
+
+				<p:commandButton id="buttonImprimir" value="Imprimir"
+					immediate="true" update=":form:gridPesquisa" 
+					icon="ui-icon-print" styleClass="ui-priority-primary"
+					action="#{alunoControlador.imprimir}" />
 			</f:facet>
 
 		</p:panel>
@@ -54,22 +49,22 @@
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
-					action="#{alunoControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton value="Detalhe" title="Detalhe"
+								action="#{alunoControlador.detalhe(item)}"
+								icon="ui-icon-folder-collapsed"
+								update=":form"  ajax="false"/>
 
-				<p:commandButton value="Matrícula"
-						action="#{alunoControlador.showModalMatricula(item)}"
-						oncomplete="PF('dlgMatricula').show();"
-						update=":formDlg"
-						 />
+				<p:commandButton value="Matrícula" title="Matrícula" 
+								action="#{alunoControlador.showModalMatricula(item)}"
+								oncomplete="PF('dlgMatricula').show();"
+								icon="ui-icon-note"
+								update=":formDlg" />
 					
-				<p:commandButton ajax="false"
+				<p:commandButton value="Excluir" title="Excluir"
 					action="#{alunoControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					icon="ui-icon-trash"
+					ajax="false" update=":form:gridPesquisa"  />
 
 			</p:column>
 
