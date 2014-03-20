@@ -13,5 +13,7 @@ public interface DisciplinaServico {
 	public void remover(Disciplina disciplina);
 
 	public List<Disciplina> findByNomeLike(String nome);
+	
+	public List<Disciplina> listaDisciplinaPorCurso(Long idCurso);
 
 }

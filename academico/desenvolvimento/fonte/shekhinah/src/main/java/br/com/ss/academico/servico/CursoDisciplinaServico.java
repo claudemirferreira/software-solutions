@@ -17,4 +17,5 @@ public interface CursoDisciplinaServico {
 	public List<Disciplina> listaDisciplinaNotInCurso(Long idCurso);
 
 	public List<CursoDisciplina> findByCurso(Curso curso);
+	
 }

@@ -18,15 +18,6 @@ public interface MatriculaRepositorio extends JpaRepository<Matricula, Long> {
 	@Query("select mat from Matricula mat where mat.aluno = :aluno")
 	public List<Matricula> findByAluno( @Param("aluno") Aluno aluno );
 	
-	/*
-	 SELECT count(mat.id_matricula)
-FROM acad_matricula mat
-join acad_turma tur on tur.id_turma = mat.id_turma
-where mat.id_turma = 1  -- TURMA
-and mat.status = 0      -- ATIVO
-and tur.ano = 2014      -- ANO
-;
-	*/
 	@Query( " select count(mat.idMatricula) "
 			+ "from Matricula mat "
 			+ "join mat.turma tur "

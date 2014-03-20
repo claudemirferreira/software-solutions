@@ -20,11 +20,6 @@ public class Boletim extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -6438912749527248323L;
 
-	/*
-	 * TODO validar mapeamento - acho que deve criar uma tabela para lançar as
-	 * notas
-	 */
-
 	private float nota1;
 
 	private float nota2;
