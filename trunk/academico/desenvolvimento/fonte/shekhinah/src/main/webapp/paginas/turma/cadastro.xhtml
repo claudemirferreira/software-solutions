@@ -13,18 +13,18 @@
 
 		<p:growl id="growl" />
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE TURMA">
+		<p:panel header="Cadastro de Turma">
 
 			<h:panelGrid id="panelCadastro" columns="4">
 
-				<p:outputLabel value="*Ano:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Ano" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{turmaControlador.entidade.ano}"
 					panelStyle="width:300px" style="width:100px">
 					<f:selectItems value="#{turmaControlador.anos}" var="ano"
 						itemLabel="#{ano}" itemValue="#{ano}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="*Curso:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Curso" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{turmaControlador.entidade.curso}"
 					converter="entityConverter" style="width:300px">
 					<f:selectItem itemLabel="Selecione o curso" itemValue="" />
@@ -32,13 +32,13 @@
 						itemLabel="#{curso.nome}" itemValue="#{curso}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="*Turno:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Turno" styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="turno"
 					value="#{turmaControlador.entidade.turno}">
 					<f:selectItems value="#{turmaControlador.turnos}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="*Número de Vagas:"
+				<p:outputLabel value="*Número de Vagas"
 					styleClass="ui-priority-primary" />
 				<p:inputText id="numeroVagas"
 					value="#{turmaControlador.entidade.numeroVagas}" required="true"

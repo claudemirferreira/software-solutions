@@ -11,16 +11,16 @@
 
 	<h:form id="form">
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE DISCIPLINA">
+		<p:panel header="Cadastro de Disciplina">
 
 			<h:panelGrid id="panelCadastro" columns="2">
 
-				<p:outputLabel value="*Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="*Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" required="true"
 					requiredMessage="O nome deve ser informado"
 					value="#{disciplinaControlador.entidade.nome}" style="width:300px;" />
 
-				<p:outputLabel value="Descrição:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Descrição" styleClass="ui-priority-primary" />
 				<p:inputTextarea rows="6" cols="33"
 					value="#{disciplinaControlador.entidade.descricao}"
 					style="width:300px;" />

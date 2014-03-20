@@ -9,11 +9,11 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE CURSO">
+		<p:panel header="Curso">
 
-			<h:panelGrid id="panelPesquisa" columns="1">
+			<h:panelGrid id="panelPesquisa" columns="2">
 
-				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
+				<h:outputText value="Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{cursoControlador.pesquisa.nome}"
 					style="width:300px;" />
 
@@ -44,27 +44,27 @@
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Valor"
+			<p:column style="text-align:right" headerText="Valor"
 				sortBy="#{item.valor}">
 				<h:outputText value="#{item.valor}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton  value="Detalhe" title="Detalhe" 
 					action="#{cursoControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
+					icon="	ui-icon-folder-collapsed"
+					update=":form" ajax="false"/>
 					
-				<p:commandButton value="Disciplina"
+				<p:commandButton value="Disciplina" title="Disciplina"
 						action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
 						oncomplete="PF('dlgDisciplina').show();"
-						update=":formDlg"
+						update=":formDlg" icon="ui-icon-document"
 						 />
 
-				<p:commandButton ajax="false"
+				<p:commandButton value="Excluir" title="Excluir"
 					action="#{cursoControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					icon="ui-icon-trash"
+					update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>
 

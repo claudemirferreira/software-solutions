@@ -14,38 +14,38 @@
 
 		<p:growl id="growl" />
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE MENSALIDADE">
+		<p:panel header="Cadastro de Mensalidade">
 
 			<h:panelGrid id="panelCadastro" columns="4" cellpadding="6">
 
-				<p:outputLabel value="Matricula:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Matricula" styleClass="ui-priority-primary" />
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.matricula.idMatricula}" />
 
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Mês" styleClass="ui-priority-primary" />
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.sequencial}" />
 
-				<p:outputLabel value="Aluno:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Aluno" styleClass="ui-priority-primary" />
 				<p:inputText readonly="true" style="width:300px; background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.matricula.aluno.nome}" />
 
-				<p:outputLabel value="Valor Vencimento:"
+				<p:outputLabel value="Valor Vencimento"
 					styleClass="ui-priority-primary" />
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.valorVencimento}" />
 
-				<p:outputLabel value="Data Vencimento:"
+				<p:outputLabel value="Data Vencimento"
 					styleClass="ui-priority-primary" />
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.dataVencimento}" />
 
-				<p:outputLabel value="Data Pagamento:"
+				<p:outputLabel value="Data Pagamento"
 					styleClass="ui-priority-primary" />
 				<p:calendar value="#{mensalidadeControlador.entidade.dataPagamento}"
 					readonly="true" locale="pt" showButtonPanel="true" navigator="true" />
 
-				<p:outputLabel value="Valor Pagamento:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Valor Pagamento" styleClass="ui-priority-primary" />
 				<pe:inputNumber
 					value="#{mensalidadeControlador.entidade.valorPagamento}" />
 

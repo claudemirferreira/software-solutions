@@ -11,11 +11,11 @@
 
 	<h:form id="form">
 
-		<p:panel header="FORMULÁRIO DE PESQUISA DE USUÁRIO">
+		<p:panel header="Usuário">
 
-			<h:panelGrid id="panelPesquisa" columns="1">
+			<h:panelGrid id="panelPesquisa" columns="2">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" style="width:300px" value="#{usuarioControlador.pesquisa.login}" />
 
 			</h:panelGrid>
@@ -60,22 +60,22 @@
 				styleClass="ui-priority-primary" icon="ui-icon-pencil"
 				update=":form" title="Manter Usuário" />
 
-			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false" value="Detalhe"
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton value="Detalhe" title="Detalhe" 
 					action="#{usuarioControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-pencil"
-					update=":form" title="Detalhe" />
+					icon="ui-icon-folder-collapsed"
+					update=":form" ajax="false" />
 					
-				<p:commandButton value="Perfil"
+				<p:commandButton value="Perfil" title="Perfil"
 						action="#{usuarioPerfilControlador.showModalPerfil(item)}"
 						oncomplete="PF('dlgPerfil').show();"
-						update=":formDlg"
-						 />
+						icon="ui-icon-bookmark"
+						update=":formDlg" />
 					
-				<p:commandButton ajax="false" value="Excluir"
+				<p:commandButton  title="Excluir" value="Excluir"
 						action="#{usuarioControlador.excluir(item)}"
-						styleClass="ui-priority-primary" icon="ui-icon-trash"
-						update=":form" title="Excluir" />
+						icon="ui-icon-trash"
+						update=":form" ajax="false"/>
 
 			</p:column>
 
@@ -119,7 +119,7 @@
         
              </p:pickList>
              
-             <p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" />  
+             <p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" styleClass="ui-priority-primary" />  
 	
 		</p:dialog>
 

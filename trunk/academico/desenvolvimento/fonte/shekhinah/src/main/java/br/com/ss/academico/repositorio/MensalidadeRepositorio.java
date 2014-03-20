@@ -17,7 +17,7 @@ public interface MensalidadeRepositorio extends
 
 	@Query("select r from Mensalidade r where r.statusPagamento = :statusPagamento "
 			+ "and r.dataVencimento between :dataInicio and :datafim")
-	public List<Mensalidade> findByStatusPagamento(
+	public List<Mensalidade> findByStatusPagamento(	// TODO statusPagamento com erro
 			@Param("statusPagamento") StatusPagamento statusPagamento,
 			@Param("dataInicio") Date dataInicio, @Param("datafim") Date datafim);
 

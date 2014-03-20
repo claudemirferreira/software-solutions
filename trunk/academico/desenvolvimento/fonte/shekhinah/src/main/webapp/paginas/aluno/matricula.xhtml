@@ -10,7 +10,10 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <h:form id="formDlg">
-	<p:dialog id="dialogMatricula" header="#{not alunoControlador.modalCadastro ? 'MATRÍCULAS' : 'CADASTRO DE MATRÍCULA' }: #{alunoControlador.alunoMatricula.nome}" widgetVar="dlgMatricula" closable="true" draggable="true" resizable="true" >
+	<p:dialog id="dialogMatricula" 
+		width="850"
+		header="#{not alunoControlador.modalCadastro ? 'Matrículas' : 'Cadastro de Matrícula' }: #{alunoControlador.alunoMatricula.nome}" 
+		widgetVar="dlgMatricula" closable="true" draggable="true" resizable="true" >
 	
 		<p:growl id="msg" autoUpdate="true" showDetail="false" escape="false" globalOnly="false"/>
 

@@ -14,7 +14,7 @@
 	
 		<h:panelGrid id="pnlCad" columns="4" cellpadding="6">
 			
-			<p:outputLabel value="Turma:" styleClass="ui-priority-primary" />
+			<p:outputLabel value="Turma" styleClass="ui-priority-primary" />
 			<p:selectOneMenu value="#{alunoControlador.matricula.turma}"
 						converter="entityConverter" 
 						panelStyle="width:300px" style="width:300px" effect="fade"
@@ -29,14 +29,14 @@
 						listener="#{alunoControlador.selectTurma}"/>  
 			</p:selectOneMenu>
 			
-			<p:outputLabel value="Vagas Disponíveis:" styleClass="ui-priority-primary" />
+			<p:outputLabel value="Vagas Disponíveis" styleClass="ui-priority-primary" />
 			<p:inputMask id="vagas" value="#{alunoControlador.matricula.turma.vagasDisponiveis}" size="5" readonly="true" />
 
 								
-			<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
+			<p:outputLabel value="Valor" styleClass="ui-priority-primary" />
 			<pe:inputNumber id="valor" dir="rtl" required="true" value="#{alunoControlador.matricula.valor}" />
 			
-			<p:outputLabel value="Data da Matrícula:" styleClass="ui-priority-primary" />
+			<p:outputLabel value="Data da Matrícula" styleClass="ui-priority-primary" />
 			<p:calendar value="#{alunoControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" size="10" pattern="dd/MM/yyyy" />
 			
 			<p:outputLabel value="Mensalidades apartir de" styleClass="ui-priority-primary" />
@@ -49,7 +49,7 @@
 	            <f:selectItems value="#{alunoControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 	        </p:selectOneMenu>
 	        
-			<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
+			<p:outputLabel value="Situação" styleClass="ui-priority-primary" />
 			<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
 	            <f:selectItems value="#{alunoControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 	        	<p:ajax event="change" update=":formDlg:pnlObservacao"

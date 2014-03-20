@@ -13,16 +13,16 @@
 
 		<p:growl id="growl" />
 
-		<p:panel header="FORMULÁRIO DE CADASTRO DE CURSO">
+		<p:panel header="Cadastro de Curso">
 
-			<h:panelGrid id="panelCadastro" columns="6">
+			<h:panelGrid id="panelCadastro" columns="2">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{cursoControlador.entidade.nome}"
 					required="true" requiredMessage="O nome deve ser informado"
 					style="width:300px;" />
 
-				<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Valor" styleClass="ui-priority-primary" />
 				<p:inputText id="valor" value="#{cursoControlador.entidade.valor}"
 					required="true" requiredMessage="O valor deve ser informado"
 					style="width:300px;" />
