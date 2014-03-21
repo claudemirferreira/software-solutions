@@ -2,7 +2,6 @@ package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +10,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Empresa;
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
+import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.dto.ParametroRelatorioDTO;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
@@ -88,17 +91,14 @@ public class MensalidadeControlador implements Serializable {
 
 	public void salvar() {
 
-		if (this.entidade.getStatusPagamento() == null)
-			this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
+		// if (this.entidade.getStatusPagamento() == null)
+		this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
 
-		//
-		// this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
-		// .getIdMatricula()));
+		this.entidade.setUsuario(new Usuario(((Usuario) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal()).getId()));
 
-		// this.entidade.setUsuario(null);
-
-		entidade.setDataVencimento(new Date()); // TODO remover.. setar a data
-												// correta
+		this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
+				.getIdMatricula()));
 
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
@@ -127,7 +127,8 @@ public class MensalidadeControlador implements Serializable {
 
 		parametros.put("empresa", empresa);
 
-		relatorioUtil.gerarRelatorioWeb(this.lista, parametros, "mensalidade.jasper");
+		relatorioUtil.gerarRelatorioWeb(this.lista, parametros,
+				"mensalidade.jasper");
 	}
 
 	public Mensalidade getEntidade() {

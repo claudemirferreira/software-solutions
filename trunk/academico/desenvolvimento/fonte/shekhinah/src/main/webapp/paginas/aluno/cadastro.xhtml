@@ -71,13 +71,6 @@
 					navigator="true" display="inline" required="true"
 					requiredMessage="A data nascimento deve ser informado"
 					value="#{alunoControlador.entidade.dataNascimento}" />
-					
-				<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{alunoControlador.entidade.sexo}"
-					required="true" requiredMessage="O sexo deve ser informado">
-					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
-					<f:selectItem itemLabel="FEMININO" itemValue="F" />
-				</p:selectOneMenu>
 
 				<p:outputLabel value="Responsavel" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{alunoControlador.entidade.responsavel}"
