@@ -54,19 +54,17 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe" 
+				<p:commandButton value="Detalhe" title="Detalhe"
 					action="#{perfilControlador.detalhe(item)}"
-					icon="ui-icon-folder-collapsed"
-					update=":form" ajax="false" />
+					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
 
-				<p:commandButton value="Rotina"  title="Rotina" 
+				<p:commandButton value="Rotina" title="Rotina"
 					action="#{perfilRotinaControlador.showModalRotina(item)}"
-					icon="ui-icon-newwin"
-					oncomplete="PF('dlgRotina').show();" update=":formDlg" />
+					icon="ui-icon-newwin" oncomplete="PF('dlgRotina').show();"
+					update=":formDlg" />
 
 				<p:commandButton value="Excluir" title="Excluir"
-					action="#{perfilControlador.excluir(item)}"
-					icon="ui-icon-trash"
+					action="#{perfilControlador.excluir(item)}" icon="ui-icon-trash"
 					update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>
@@ -79,10 +77,10 @@
 
 	</h:form>
 
+	<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina"
+		modal="true" appendToBody="true">
 
-	<h:form id="formDlg">
-		<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina">
-
+		<h:form id="formDlg">
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
 
@@ -108,10 +106,11 @@
 
 			</p:pickList>
 
-			<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();" styleClass="ui-priority-primary" />
+			<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();"
+				styleClass="ui-priority-primary" />
 
-		</p:dialog>
+		</h:form>
+	</p:dialog>
 
-	</h:form>
 
 </ui:component>

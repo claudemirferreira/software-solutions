@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form">
+	<h:form id="form" style="width:100%; height=100%">
 		<p:panel
 			header="BOLETIM DO(A) ALUNO(A) #{boletimControlador.matricula.aluno.nome}">
 			<p:panelGrid columns="6">
@@ -31,6 +31,13 @@
 
 				<p:commandButton value="Gerar relatorio" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
+					actionListener="#{boletimControlador.imprimir}" />
+
+				<p:commandButton id="basic" value="Basic" type="button"
+					actionListener="#{boletimControlador.imprimir}"
+					onclick="PF('dlg1').show();" />
+
+				<p:commandButton value="Show" icon="ui-icon-script"
 					actionListener="#{boletimControlador.imprimir}" />
 
 			</f:facet>
@@ -114,14 +121,23 @@
         </f:facet>
 
 		</p:dataTable>
-
-
-
-		<p:panel header="RELATÓRIO GERADO"
-			rendered="#{boletimControlador.streamedContent!=null}">
-			<p:media value="#{boletimControlador.streamedContent}" player="pdf"
-				width="100%" height="300"></p:media>
-		</p:panel>
+		
+		<p:media value="#{boletimControlador.streamedContent}" player="pdf"
+				style="width:100%;" height="700px"></p:media>
 
 	</h:form>
+
+	<h:form>
+
+		<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1"
+			width="100%" height="100%">
+
+			<p:media value="#{boletimControlador.streamedContent}" player="pdf"
+				style="height:100%; width:100%;" width="100%"></p:media>
+		</p:dialog>
+
+
+	</h:form>
+
+
 </ui:component>

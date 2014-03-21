@@ -27,7 +27,8 @@
 					value="#{mensalidadeControlador.entidade.sequencial}" />
 
 				<p:outputLabel value="Aluno" styleClass="ui-priority-primary" />
-				<p:inputText readonly="true" style="width:300px; background: #0099CC;"
+				<p:inputText readonly="true"
+					style="width:300px; background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.matricula.aluno.nome}" />
 
 				<p:outputLabel value="Valor Vencimento"
@@ -45,7 +46,8 @@
 				<p:calendar value="#{mensalidadeControlador.entidade.dataPagamento}"
 					readonly="true" locale="pt" showButtonPanel="true" navigator="true" />
 
-				<p:outputLabel value="Valor Pagamento" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Valor Pagamento"
+					styleClass="ui-priority-primary" />
 				<pe:inputNumber
 					value="#{mensalidadeControlador.entidade.valorPagamento}" />
 
@@ -57,7 +59,7 @@
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 					immediate="true" action="#{mensalidadeControlador.telaPeaquisa}" />
 
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+				<p:commandButton id="buttonCadastro" value="Baixar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
 					action="#{mensalidadeControlador.salvar}" />
 
