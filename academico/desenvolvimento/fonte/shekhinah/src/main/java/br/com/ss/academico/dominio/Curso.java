@@ -45,6 +45,7 @@ public class Curso extends AbstractEntity implements Serializable {
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
 
+	@Override
 	public Long getId() {
 		return this.idCurso;
 	}

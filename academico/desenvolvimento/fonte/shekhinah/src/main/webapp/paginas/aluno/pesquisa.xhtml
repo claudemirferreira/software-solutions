@@ -30,8 +30,8 @@
 					action="#{alunoControlador.novo}" />
 
 				<p:commandButton id="buttonImprimir" value="Imprimir"
-					immediate="true" update=":form:gridPesquisa" 
-					icon="ui-icon-print" styleClass="ui-priority-primary"
+					immediate="true" update=":form:gridPesquisa" icon="ui-icon-print"
+					styleClass="ui-priority-primary"
 					action="#{alunoControlador.imprimir}" />
 			</f:facet>
 
@@ -50,21 +50,18 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-								action="#{alunoControlador.detalhe(item)}"
-								icon="ui-icon-folder-collapsed"
-								update=":form"  ajax="false"/>
+				<p:commandButton value="Detalhe" title="Detalhe" 
+					action="#{alunoControlador.detalhe(item)}"
+					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
 
-				<p:commandButton value="Matrícula" title="Matrícula" 
-								action="#{alunoControlador.showModalMatricula(item)}"
-								oncomplete="PF('dlgMatricula').show();"
-								icon="ui-icon-note"
-								update=":formDlg" />
-					
+				<p:commandButton value="Matrícula" title="Matrícula"
+					action="#{alunoControlador.showModalMatricula(item)}"
+					oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
+					update=":formDlg" />
+
 				<p:commandButton value="Excluir" title="Excluir"
-					action="#{alunoControlador.excluir(item)}"
-					icon="ui-icon-trash"
-					ajax="false" update=":form:gridPesquisa"  />
+					action="#{alunoControlador.excluir(item)}" icon="ui-icon-trash"
+					ajax="false" update=":form:gridPesquisa" />
 
 			</p:column>
 
@@ -74,11 +71,16 @@
 
 		</p:dataTable>
 
+		<p:blockUI block="form" trigger="buttonNovo buttonPesquisar">
+        PROCESSANDO...<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
+
 	</h:form>
-	
-	
+
+
 	<!-- =========== Modal de Matricula ============== -->
 	<ui:include src="matricula.xhtml" />
-	
-	
+
+
 </ui:component>

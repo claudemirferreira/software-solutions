@@ -102,17 +102,17 @@ public class RelatorioUtil {
 		return fis;
 	}
 
-	public void gerarRelatorioWeb(List lista, Map parametros, String nome)
-			throws FileNotFoundException {
+	public void gerarRelatorioWeb(List lista, Map parametros, String nome) {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		ServletContext servletContext = (ServletContext) externalContext
 				.getContext();
-		String arquivo = servletContext.getRealPath("WEB-INF/jasper/" + nome);
+		// String arquivo = servletContext.getRealPath("WEB-INF/jasper/" +
+		// nome);
 
 		// CARREGA O FILE DA UNIDADE C
-		// String arquivo = "c:/relatorio/" + nome;
+		String arquivo = "c:/relatorio/" + nome;
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
@@ -132,8 +132,68 @@ public class RelatorioUtil {
 			servletOutputStream.close();
 			context.renderResponse();
 			context.responseComplete();
-		} catch (Exception e) {
+
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Metodo utilizar para gerar o relatorio e realizar o download do mesmo
+	 * 
+	 * @param lista
+	 * @param parametros
+	 * @param nome
+	 */
+	@SuppressWarnings("unchecked")
+	public void gerarRelatorioComDownload(List lista, Map parametros,
+			String nome) {
+		
+		Empresa empresa = empresaServico.findOne(1l);
+
+		parametros.put("empresa", empresa);
+
+		try {
+			ExternalContext externalContext = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			ServletContext context = (ServletContext) externalContext
+					.getContext();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			// String arquivo =
+			// context.getRealPath("/WEB-INF/reports/tarefa.jasper");
+			// System.out.println(arquivo);
+			String arquivo = "c:/relatorio/contrato.jasper";
+
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) fc
+					.getExternalContext().getResponse();
+
+			response.setContentType("application/pdf");
+			response.addHeader("Content-disposition",
+					"attachment; filename=\"pendencia.pdf\"");
+
+			JasperPrint impressao = JasperFillManager.fillReport(
+					new FileInputStream(new File(arquivo)), parametros,
+					new JRBeanCollectionDataSource(lista, false));
+
+			JasperExportManager.exportReportToPdfStream(impressao,
+					response.getOutputStream());
+
+			facesContext.responseComplete();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+
+		} catch (JRException e) {
+			e.printStackTrace();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
 		}
 	}
 

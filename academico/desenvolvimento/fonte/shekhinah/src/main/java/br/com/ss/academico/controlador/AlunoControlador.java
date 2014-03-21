@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -158,12 +160,22 @@ public class AlunoControlador implements Serializable {
 		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
 	}
 
-	public void imprimirContrato(Matricula matricula)
+	public void imprimirContratoold(Matricula matricula)
 			throws FileNotFoundException {
 		// TODO criar o relatorio..
 		List<Matricula> listMat = new ArrayList<Matricula>();
 		listMat.add(matricula);
-		relatorioUtil.gerarRelatorioWeb(listMat, null, "XXXX.jasper");
+		relatorioUtil.gerarRelatorioWeb(listMat, null, "contrato.jasper");
+	}
+	
+	public void imprimirContrato(Matricula matricula) {
+		List<Matricula> lista = new ArrayList<Matricula>();
+		lista.add(matricula);
+		Map<String, Object> parametros = new HashMap<String, Object>();
+
+		relatorioUtil.gerarRelatorioComDownload(lista, parametros,
+				"contrato.jasper");
+
 	}
 
 	public void renderObservacao() {
