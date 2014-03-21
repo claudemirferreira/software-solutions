@@ -74,18 +74,20 @@
 
 				<p:outputLabel value="Responsavel" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{alunoControlador.entidade.responsavel}"
-							converter="entityConverter" 
-							panelStyle="width:300px" style="width:300px" effect="fade"
-							filterMatchMode="startsWith"
-							filter="true" >
+					converter="entityConverter" panelStyle="width:300px"
+					style="width:300px" effect="fade" filterMatchMode="startsWith"
+					filter="true">
 					<f:selectItem itemLabel="Selecione o responsável" itemValue="" />
 					<f:selectItems value="#{alunoControlador.responsaveis}"
 						var="responsavel" itemLabel="#{responsavel.nome}"
 						itemValue="#{responsavel}" />
 				</p:selectOneMenu>
-				
-				<p:outputLabel value="*Grau Parentesco" styleClass="ui-priority-primary" />
-				<p:inputText id="grauParentesco" value="#{alunoControlador.entidade.grauParentesco}" style="width:300px;" />
+
+				<p:outputLabel value="*Grau Parentesco"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="grauParentesco"
+					value="#{alunoControlador.entidade.grauParentesco}"
+					style="width:300px;" />
 
 			</h:panelGrid>
 
@@ -102,6 +104,11 @@
 			</f:facet>
 
 		</p:panel>
+
+		<p:blockUI block="form" trigger="buttonRetornar buttonCadastro">
+        PROCESSANDO...<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
 
 	</h:form>
 
