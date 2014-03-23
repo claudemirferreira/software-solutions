@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<p:panel header="Perfil">
+
+			<h:panelGrid id="panelPesquisa" columns="2">
+
+				<h:outputText value="Nome" styleClass="ui-priority-primary" />
+				<p:inputText id="nome" value="#{perfilControlador.pesquisa.nome}" />
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
+
+				<p:commandButton id="buttonPesquisar" value="Pesquisar"
+					update=":form:gridPesquisa" icon="ui-icon-search"
+					styleClass="ui-priority-primary"
+					action="#{perfilControlador.pesquisar}" />
+
+				<p:commandButton id="buttonNovo" value="Novo" update=":form"
+					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+					action="#{perfilControlador.novo}" />
+			</f:facet>
+
+		</p:panel>
+
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{perfilControlador.lista}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Nome"
+				sortBy="#{item.nome}">
+				<h:outputText value="#{item.nome}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Imagem"
+				sortBy="#{item.imagem}">
+				<h:outputText value="#{item.imagem}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton value="Detalhe" title="Detalhe"
+					action="#{perfilControlador.detalhe(item)}"
+					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
+
+				<p:commandButton value="Rotina" title="Rotina"
+					action="#{perfilRotinaControlador.showModalRotina(item)}"
+					icon="ui-icon-newwin" oncomplete="PF('dlgRotina').show();"
+					update=":formDlg" />
+
+				<p:commandButton value="Excluir" title="Excluir"
+					action="#{perfilControlador.excluir(item)}" icon="ui-icon-trash"
+					update=":form:gridPesquisa" ajax="false" />
+
+			</p:column>
+
+			<f:facet name="footer">  
+            Total de registros: #{fn:length(perfilControlador.lista)} perfis.  
+        </f:facet>
+
+		</p:dataTable>
+
+	</h:form>
+
+	<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina"
+		modal="true" appendToBody="true">
+
+		<h:form id="formDlg">
+			<p:growl id="msg" showDetail="false" escape="false"
+				globalOnly="false" />
+
+			<h4 style="margin-top: 0">Selecione as Rotinas para associar ao
+				Perfil</h4>
+
+			<p:pickList id="plUsuPerf"
+				value="#{perfilRotinaControlador.dualListRotina}" effect="bounce"
+				converter="perfilRotinaConverter" var="pr"
+				itemLabel="#{pr.rotina.nome}" itemValue="#{pr}"
+				showSourceControls="false" showTargetControls="false"
+				showCheckbox="false" showSourceFilter="true" showTargetFilter="true">
+
+				<f:facet name="sourceCaption">Disponíveis</f:facet>
+				<f:facet name="targetCaption">Atribuídas</f:facet>
+
+				<p:ajax event="transfer"
+					listener="#{perfilRotinaControlador.onTransfer}" update="msg" />
+
+				<p:column style="width:75%;">  
+		            #{pr.rotina.nome}  
+		        </p:column>
+
+			</p:pickList>
+
+			<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();"
+				styleClass="ui-priority-primary" />
+
+		</h:form>
+	</p:dialog>
+
+
+</ui:component>
