@@ -1,10 +1,13 @@
 package br.com.ss.academico.ireport;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -182,6 +188,91 @@ public class RelatorioUtil {
 
 			JasperExportManager.exportReportToPdfStream(impressao,
 					response.getOutputStream());
+
+			facesContext.responseComplete();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+
+		} catch (JRException e) {
+			e.printStackTrace();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+	}
+	
+	/**
+	 * Metodo utilizar para gerar o relatorio e realizar o download do mesmo
+	 * 
+	 * @param lista
+	 * @param parametros
+	 * @param nome
+	 */
+	@SuppressWarnings("unchecked")
+	public void gerarRelatorioDetalheComDownload(List lista, Map parametros,
+			String nome) {
+		
+		Empresa empresa = empresaServico.findOne(1l);
+
+		parametros.put("empresa", empresa);
+		
+		List j = new ArrayList();
+
+		try {
+			ExternalContext externalContext = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			ServletContext context = (ServletContext) externalContext
+					.getContext();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			// String arquivo =
+			// context.getRealPath("/WEB-INF/reports/tarefa.jasper");
+			// System.out.println(arquivo);
+			String arquivo = "c:/relatorio/contrato.jasper";
+
+			FacesContext fc = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) fc
+					.getExternalContext().getResponse();
+
+			response.setContentType("application/pdf");
+			response.addHeader("Content-disposition",
+					"attachment; filename=\"pendencia.pdf\"");
+
+			JasperPrint impressao = JasperFillManager.fillReport(
+					new FileInputStream(new File(arquivo)), parametros,
+					new JRBeanCollectionDataSource(lista, false));
+			
+			j.add(impressao);
+			
+			j.add(impressao);
+			
+			JRPdfExporter exporter = new JRPdfExporter();
+//			HttpServletResponse response = (HttpServletResponse) econtext
+//					.getResponse();
+			FacesContext fcontext = FacesContext.getCurrentInstance();
+			ByteArrayOutputStream retorno = new ByteArrayOutputStream();
+
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, j);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, retorno);
+			exporter.setParameter(
+					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
+					Boolean.TRUE);
+			exporter.exportReport();
+
+			byte[] retornoArray = retorno.toByteArray();
+			
+			response.setContentType("application/pdf");
+			response.setContentLength(retornoArray.length);
+
+			OutputStream output = response.getOutputStream();
+			output.write(retornoArray);
+			output.flush();
+			output.close();
+			
+			
+//			JasperExportManager.exportReportToPdfStream(impressao,
+//					response.getOutputStream());
 
 			facesContext.responseComplete();
 

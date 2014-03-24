@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -20,17 +21,17 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -112,7 +113,7 @@ public class MatriculaControlador implements Serializable {
 		lista.add(matricula);
 		Map<String, Object> parametros = new HashMap<String, Object>();
 
-		relatorioUtil.gerarRelatorioComDownload(lista, parametros,
+		relatorioUtil.gerarRelatorioDetalheComDownload(lista, parametros,
 				"contrato.jasper");
 
 	}
@@ -180,39 +181,112 @@ public class MatriculaControlador implements Serializable {
 
 	}
 
-	public void teste(Matricula matricula) throws IOException, JRException {
+	public void imprimirTeste(Matricula matricula) throws FileNotFoundException {
 
-		Map parametros = new HashMap();
-		parametros.put("empresa", empresaServico.findOne(1l));
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
 
 		List<Matricula> lista = new ArrayList<Matricula>();
+
 		lista.add(matricula);
+
+		JRDataSource jrRS1 = new JRBeanCollectionDataSource(lista);
+
+		JRDataSource jrRS2 = new JRBeanCollectionDataSource(lista);
+
+		JRDataSource jrRS3 = new JRBeanCollectionDataSource(lista);
+
+		JRDataSource jrRS4 = new JRBeanCollectionDataSource(lista);
+
+		JRDataSource jrRS5 = new JRBeanCollectionDataSource(lista);
+
+		ExternalContext econtext = FacesContext.getCurrentInstance()
+				.getExternalContext();
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		HttpServletResponse response = (HttpServletResponse) context
-				.getExternalContext().getResponse();
+		ServletContext servlet = (ServletContext) externalContext.getContext();
 
-		ServletOutputStream responseStream = response.getOutputStream();
+		InputStream stream1 = new FileInputStream(
+				"c:/relatorio/contrato_parte_1.jasper");
+		InputStream stream2 = new FileInputStream(
+				"c:/relatorio/contrato_parte_2.jasper");
+		InputStream stream3 = new FileInputStream(
+				"c:/relatorio/contrato_parte_3.jasper");
+		InputStream stream4 = new FileInputStream(
+				"c:/relatorio/contrato_parte_4.jasper");
+		InputStream stream5 = new FileInputStream(
+				"c:/relatorio/contrato_parte_5.jasper");
 
-		String caminho = "c:/relatorio/contrato.jasper";
+		// InputStream stream1 = new FileInputStream(
+		// "/relatorio/contrato_parte_1.jasper");
+		// InputStream stream2 = new FileInputStream(
+		// "/relatorio/contrato_parte_2.jasper");
+		// InputStream stream3 = new FileInputStream(
+		// "/relatorio/contrato_parte_3.jasper");
+		// InputStream stream4 = new FileInputStream(
+		// "/relatorio/contrato_parte_4.jasper");
+		// InputStream stream5 = new FileInputStream(
+		// "//contrato_parte_5.jasper");
 
-		response.setContentType("application/pdf");
-		response.setHeader("Content-Disposition",
-				"attachment; filename=\"relatorio.pdf\"");
+		List j = new ArrayList();
 
-		// JasperPrint preencher = JasperFillManager.fillReport(caminho,
-		// null,new JRBeanCollectionDataSource(lista));
+		try {
+			Map params = new HashMap();
+			j.add(JasperFillManager.fillReport(stream1, params, jrRS1));
 
-		JasperRunManager.runReportToPdfStream(new FileInputStream(new File(
-				caminho)), response.getOutputStream(), parametros,
-				new JRBeanCollectionDataSource(lista));
+			params = new HashMap();
+			j.add(JasperFillManager.fillReport(stream2, params, jrRS2));
 
-		// JasperExportManager.exportReportToPdfStream(preencher,responseStream);
+			params = new HashMap();
+			j.add(JasperFillManager.fillReport(stream3, params, jrRS3));
 
-		responseStream.flush();
-		responseStream.close();
-		context.renderResponse();
+			params = new HashMap();
+			j.add(JasperFillManager.fillReport(stream4, params, jrRS4));
+
+			params = new HashMap();
+			j.add(JasperFillManager.fillReport(stream5, params, jrRS5));
+
+			JRPdfExporter exporter = new JRPdfExporter();
+			HttpServletResponse response = (HttpServletResponse) econtext
+					.getResponse();
+			FacesContext fcontext = FacesContext.getCurrentInstance();
+			ByteArrayOutputStream retorno = new ByteArrayOutputStream();
+
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, j);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, retorno);
+			exporter.setParameter(
+					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
+					Boolean.TRUE);
+			exporter.exportReport();
+
+			byte[] retornoArray = retorno.toByteArray();
+
+			response.setContentType("application/pdf");
+			response.setContentLength(retornoArray.length);
+
+			OutputStream output = response.getOutputStream();
+			output.write(retornoArray);
+			output.flush();
+			output.close();
+
+		} catch (RuntimeException e) {
+			// logar e tratar exception
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				stream1.close();
+				stream2.close();
+				stream3.close();
+				stream4.close();
+				stream5.close();
+
+			} catch (IOException e) {
+				// logar e tratar exception
+			}
+		}
 		context.responseComplete();
 
 	}

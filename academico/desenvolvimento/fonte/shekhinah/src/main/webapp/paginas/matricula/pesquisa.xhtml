@@ -80,17 +80,8 @@
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
 					update=":form:gridPesquisa" title="Detalhe" />
 
-				<p:commandButton value="Gerar relatorio" ajax="false" update=":form"
-					icon="ui-icon-arrowthichk-s">
-					<p:fileDownload value="#{matriculaControlador.gerar(item)}"></p:fileDownload>
-				</p:commandButton>
-
 				<p:commandButton id="btnPrint" value="Imprimi" icon="ui-icon-print"
 					action="#{matriculaControlador.imprimir(item)}" ajax="false" />
-
-				<p:commandButton value="Contratoqqq" title="Imprimir Contratoqq"
-					onclick="this.form.target='_blank'"
-					actionListener="#{matriculaControlador.teste(item)}" />
 
 			</p:column>
 
