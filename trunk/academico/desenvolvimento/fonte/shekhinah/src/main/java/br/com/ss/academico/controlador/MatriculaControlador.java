@@ -21,6 +21,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -29,6 +30,7 @@ import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
@@ -113,8 +115,8 @@ public class MatriculaControlador implements Serializable {
 		lista.add(matricula);
 		Map<String, Object> parametros = new HashMap<String, Object>();
 
-		relatorioUtil.gerarRelatorioDetalheComDownload(lista, parametros,
-				"contrato.jasper");
+		relatorioUtil.gerarRelatorioComDownload(lista, parametros,
+				"contrato-parte1.jasper");
 
 	}
 
@@ -123,19 +125,20 @@ public class MatriculaControlador implements Serializable {
 		this.lista = servico.listarTodos();
 	}
 
-	public void imprimirContrato(Matricula matricula)
+	public void imprimircontrato(Matricula matricula)
 			throws FileNotFoundException {
 		// TODO criar o relatorio..
 		List<Matricula> listMat = new ArrayList<Matricula>();
 		listMat.add(matricula);
-		relatorioUtil.gerarRelatorioWeb(listMat, null, "contrato.jasper");
+		relatorioUtil
+				.gerarRelatorioWeb(listMat, null, "contrato-parte1.jasper");
 	}
 
 	public void gerar(Matricula matricula) throws MalformedURLException {
 
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		List<Matricula> lista = new ArrayList<Matricula>();
-		String nome = "contrato.jasper";
+		String nome = "contrato-parte1.jasper";
 
 		gerarRelatorio(null, parametros, lista, nome);
 
@@ -153,7 +156,7 @@ public class MatriculaControlador implements Serializable {
 		// String arquivo = contextS.getRealPath("/relatorios/" +
 		// localRelatorio);
 
-		String arquivo = "c:/relatorio/contrato.jasper";
+		String arquivo = "c:/relatorio/contrato-parte1.jasper";
 
 		try {
 
@@ -181,71 +184,73 @@ public class MatriculaControlador implements Serializable {
 
 	}
 
-	public void imprimirTeste(Matricula matricula) throws FileNotFoundException {
+	public void teste(Matricula matricula) throws IOException, JRException {
 
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
+		Map parametros = new HashMap();
+		parametros.put("empresa", empresaServico.findOne(1l));
 
 		List<Matricula> lista = new ArrayList<Matricula>();
-
 		lista.add(matricula);
-
-		JRDataSource jrRS1 = new JRBeanCollectionDataSource(lista);
-
-		JRDataSource jrRS2 = new JRBeanCollectionDataSource(lista);
-
-		JRDataSource jrRS3 = new JRBeanCollectionDataSource(lista);
-
-		JRDataSource jrRS4 = new JRBeanCollectionDataSource(lista);
-
-		JRDataSource jrRS5 = new JRBeanCollectionDataSource(lista);
-
-		ExternalContext econtext = FacesContext.getCurrentInstance()
-				.getExternalContext();
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		ServletContext servlet = (ServletContext) externalContext.getContext();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
 
+		ServletOutputStream responseStream = response.getOutputStream();
+
+		String caminho = "c:/relatorio/contrato-parte1.jasper";
+
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Disposition",
+				"attachment; filename=\"relatorio.pdf\"");
+
+		// JasperPrint preencher = JasperFillManager.fillReport(caminho,
+		// null,new JRBeanCollectionDataSource(lista));
+
+		JasperRunManager.runReportToPdfStream(new FileInputStream(new File(
+				caminho)), response.getOutputStream(), parametros,
+				new JRBeanCollectionDataSource(lista));
+
+		// JasperExportManager.exportReportToPdfStream(preencher,responseStream);
+
+		responseStream.flush();
+		responseStream.close();
+		context.renderResponse();
+		context.responseComplete();
+
+	}
+
+	public void imprimirRelatorio(Matricula matricula) throws FileNotFoundException {
+
+		ExternalContext econtext = FacesContext.getCurrentInstance()
+				.getExternalContext();
 		InputStream stream1 = new FileInputStream(
-				"c:/relatorio/contrato_parte_1.jasper");
+				"C:\\relatorio\\contrato-parte1.jasper");
 		InputStream stream2 = new FileInputStream(
-				"c:/relatorio/contrato_parte_2.jasper");
-		InputStream stream3 = new FileInputStream(
-				"c:/relatorio/contrato_parte_3.jasper");
-		InputStream stream4 = new FileInputStream(
-				"c:/relatorio/contrato_parte_4.jasper");
-		InputStream stream5 = new FileInputStream(
-				"c:/relatorio/contrato_parte_5.jasper");
-
-		// InputStream stream1 = new FileInputStream(
-		// "/relatorio/contrato_parte_1.jasper");
-		// InputStream stream2 = new FileInputStream(
-		// "/relatorio/contrato_parte_2.jasper");
-		// InputStream stream3 = new FileInputStream(
-		// "/relatorio/contrato_parte_3.jasper");
-		// InputStream stream4 = new FileInputStream(
-		// "/relatorio/contrato_parte_4.jasper");
-		// InputStream stream5 = new FileInputStream(
-		// "//contrato_parte_5.jasper");
+				"C:\\relatorio\\contrato-parte2.jasper");
 
 		List j = new ArrayList();
+		
+		List<Matricula> list = new ArrayList<Matricula>();
+		list.add(matricula);
+		
+		JRDataSource jrRS = new JRBeanCollectionDataSource(list);
 
 		try {
-			Map params = new HashMap();
-			j.add(JasperFillManager.fillReport(stream1, params, jrRS1));
+			Map params = new HashMap(); // preenche os parâmetros do relatório 1
+			
+			params.put("empresa", empresaServico.findOne(1l));
+			
+			// stream1 =
+			// econtext.getResourceAsStream("/WEB-INF/reports/rel1.jasper");
+			j.add(JasperFillManager.fillReport(stream1, params, new JRBeanCollectionDataSource(list)));
 
-			params = new HashMap();
-			j.add(JasperFillManager.fillReport(stream2, params, jrRS2));
-
-			params = new HashMap();
-			j.add(JasperFillManager.fillReport(stream3, params, jrRS3));
-
-			params = new HashMap();
-			j.add(JasperFillManager.fillReport(stream4, params, jrRS4));
-
-			params = new HashMap();
-			j.add(JasperFillManager.fillReport(stream5, params, jrRS5));
+			params = new HashMap(); // preenche os parâmetros do relatório 2
+			params.put("empresa", empresaServico.findOne(1l));
+			// stream =
+			// econtext.getResourceAsStream("/WEB-INF/reports/rel2.jasper");
+			j.add(JasperFillManager.fillReport(stream2, params,new JRBeanCollectionDataSource(list) ));
 
 			JRPdfExporter exporter = new JRPdfExporter();
 			HttpServletResponse response = (HttpServletResponse) econtext
@@ -269,6 +274,7 @@ public class MatriculaControlador implements Serializable {
 			output.write(retornoArray);
 			output.flush();
 			output.close();
+			fcontext.responseComplete();
 
 		} catch (RuntimeException e) {
 			// logar e tratar exception
@@ -279,15 +285,10 @@ public class MatriculaControlador implements Serializable {
 			try {
 				stream1.close();
 				stream2.close();
-				stream3.close();
-				stream4.close();
-				stream5.close();
-
 			} catch (IOException e) {
 				// logar e tratar exception
 			}
 		}
-		context.responseComplete();
 
 	}
 

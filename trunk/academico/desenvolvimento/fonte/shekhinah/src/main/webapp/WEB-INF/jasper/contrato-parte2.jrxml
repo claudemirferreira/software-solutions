@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contrato-parte1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00455a14-9539-4c54-a1f0-1693d68558d6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="aluno" class="br.com.ss.academico.dominio.Aluno">
+		<fieldDescription><![CDATA[aluno]]></fieldDescription>
+	</field>
+	<field name="checked" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checked]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="data" class="java.util.Date">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="idMatricula" class="java.lang.Long">
+		<fieldDescription><![CDATA[idMatricula]]></fieldDescription>
+	</field>
+	<field name="integral" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[integral]]></fieldDescription>
+	</field>
+	<field name="mensalidades" class="java.util.List">
+		<fieldDescription><![CDATA[mensalidades]]></fieldDescription>
+	</field>
+	<field name="observacoes" class="java.util.List">
+		<fieldDescription><![CDATA[observacoes]]></fieldDescription>
+	</field>
+	<field name="persistent" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[persistent]]></fieldDescription>
+	</field>
+	<field name="status" class="br.com.ss.academico.enumerated.StatusMatricula">
+		<fieldDescription><![CDATA[status]]></fieldDescription>
+	</field>
+	<field name="turma" class="br.com.ss.academico.dominio.Turma">
+		<fieldDescription><![CDATA[turma]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="286" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="605890f8-0342-49f1-a1c5-71d9a38ca6cf" x="0" y="19" width="555" height="26"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[1. O responsável pela matrícula terá o prazo de 30 dias para entrega de todos os documentos pendentes do aluno (a) a ausência dos mesmos impossibilitará a escola de expedir declarações, recibos, históricos ou transferências.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7dc0f675-5b63-4186-b9e8-5c00bb77938e" x="0" y="0" width="187" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[REGIMENTO ESCOLAR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="80a6fc2c-6671-435a-b44b-f9771c5ea8dc" x="0" y="50" width="555" height="13"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[2. Nenhum documento será entregue a não ser pelo responsável da matrícula.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b58bb70c-f588-415e-91c8-1e175afc02e7" x="0" y="67" width="555" height="13"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[3. O aluno só fará avaliação do 1° bimestre mediante a entrega de transferência do ano anterior.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91daed3b-4948-4379-8c16-567b72a7c3b1" x="0" y="84" width="555" height="13"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[4. No período de avaliações, não teremos os cursos de Balé. Futsal e Informática. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5032448a-5f71-45fd-9c36-645bc8fb386e" x="0" y="104" width="555" height="26"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[5. O aluno será entregue somente ao responsável . Caso outra pessoa venha buscá-lo deve ser comunicado a direção com antecedência. O mesmo deverá apresentar o crachá de identificação do aluno.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="27532c79-919a-4f04-9dd0-6369c719301b" x="0" y="134" width="555" height="26"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[6. Fica na responsabilidade do responsável (pai ou condutor) tirar a criança e o seu material escolar do veículo e entregar na escola.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7691a1c2-6be3-4335-ac76-5703f27aea42" x="0" y="164" width="555" height="26"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[7. A liberação do aluno (a) antes do término das aulas deve ser solicitada à coordenação da escola.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
