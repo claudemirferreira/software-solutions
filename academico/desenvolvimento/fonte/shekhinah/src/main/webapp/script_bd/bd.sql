@@ -15,11 +15,11 @@
 
 
 --
--- Create schema shekhinah
+-- Create schema shekinah
 --
 
-CREATE DATABASE IF NOT EXISTS shekhinah;
-USE shekhinah;
+CREATE DATABASE IF NOT EXISTS shekinah;
+USE shekinah;
 
 --
 -- Definition of table `acad_aluno`

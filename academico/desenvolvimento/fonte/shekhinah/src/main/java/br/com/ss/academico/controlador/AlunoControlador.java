@@ -276,15 +276,20 @@ public class AlunoControlador implements Serializable {
 		try {
 			if (matricula.getStatus() != StatusMatricula.ATIVA
 					&& observacaoMatricula != null) {
+				
 				// salva a observacao da matricula
 				cancelarMatricula();
+				
 			} else if (matricula.getStatus() == StatusMatricula.ATIVA
 					&& !matricula.isPersistent()) {
+				
 				// cria as mensalidades
 				gerarMensalidadesMatricula();
-//				 this.boletimServico.gerarBoletim(matricula);
+				
+				// TODO Peninha: verificar se vai gerar boletim neste momento..
+//				 this.boletimServico.gerarBoletim(matricula);				
 			}
-
+			
 			matricula.setAluno(alunoMatricula);
 			matricula = servicoMatricula.salvar(matricula);
 
@@ -316,17 +321,24 @@ public class AlunoControlador implements Serializable {
 	private void gerarMensalidadesMatricula() {
 		int mesInicial = mesSelecionado.getId();
 		int mesFinal = Constants.DOZE;
+		
+		int qtMensalidades = mesFinal - (mesInicial -1);
+		
+		// calcula o valor da mensalidade dividindo o valor do curso pela quantidade de meses
+		double valorMens = matricula.getValor() / qtMensalidades;
+		
 		for (int i = mesInicial; i <= mesFinal; i++) {
-			matricula.getMensalidades().add(createMensalidade(i));
+			matricula.getMensalidades().add(createMensalidade(i, valorMens));
 		}
 	}
 
-	private Mensalidade createMensalidade(int mes) {
+	private Mensalidade createMensalidade(int mes, double valorVencimento) {
 		Mensalidade mens = new Mensalidade();
 		mens.setDataVencimento(criarDataVencimento(mes));
 		mens.setMatricula(matricula);
 		mens.setSequencial(mes);
 		mens.setStatusPagamento(StatusPagamento.PENDENTE);
+		mens.setValorVencimento(valorVencimento);
 		return mens;
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +39,7 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@Column(nullable = false)
 	private double valor;
 
+	@Enumerated
 	@Column(length = 1, nullable = false)
 	private StatusMatricula status;
 
@@ -52,7 +54,7 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_aluno", nullable = false)
 	private Aluno aluno;
 
-	@OneToMany(mappedBy = "matricula", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL )
 	private List<Mensalidade> mensalidades = new ArrayList<Mensalidade>();
 
 	@OneToMany(mappedBy = "matricula", cascade=CascadeType.ALL)
