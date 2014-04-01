@@ -51,8 +51,7 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 1)
 	private StatusPagamento statusPagamento;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST,
-			CascadeType.MERGE })
+	@ManyToOne( fetch = FetchType.EAGER )
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 

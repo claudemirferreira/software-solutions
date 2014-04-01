@@ -9,12 +9,12 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-
 	<p:dialog id="dialogMatricula" width="850" resizable="true" modal="true" appendToBody="true"
 		header="#{not alunoControlador.modalCadastro ? 'Matrículas' : 'Cadastro de Matrícula' }: #{alunoControlador.alunoMatricula.nome}"
 		widgetVar="dlgMatricula" closable="true" draggable="true">
 
 		<h:form id="formDlg">
+
 
 			<p:growl id="msg" autoUpdate="true" showDetail="false" escape="false"
 				globalOnly="false" />
