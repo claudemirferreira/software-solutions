@@ -55,7 +55,7 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
