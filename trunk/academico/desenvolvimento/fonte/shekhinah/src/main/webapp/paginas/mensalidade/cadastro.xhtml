@@ -50,6 +50,11 @@
 					styleClass="ui-priority-primary" />
 				<pe:inputNumber
 					value="#{mensalidadeControlador.entidade.valorPagamento}" />
+					
+				<p:outputLabel value="Valor Pagamento"
+					styleClass="ui-priority-primary" />
+				<p:inputText
+					value="#{mensalidadeControlador.entidade.statusPagamento}" />
 
 			</h:panelGrid>
 
@@ -61,7 +66,8 @@
 
 				<p:commandButton id="buttonCadastro" value="Baixar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.salvar}" />
+					action="#{mensalidadeControlador.salvar}" 
+					/>
 
 				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"

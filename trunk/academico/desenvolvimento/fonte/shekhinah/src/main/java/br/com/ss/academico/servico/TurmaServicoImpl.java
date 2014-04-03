@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.repositorio.TurmaRepositorio;
 
@@ -35,6 +36,11 @@ public class TurmaServicoImpl implements TurmaServico, Serializable {
 	@Override
 	public List<Turma> findByAno(Integer ano) {
 		return this.repositorio.findByAno(ano);
+	}
+
+	@Override
+	public Turma findByMatricula(Matricula matricula) {
+		return this.repositorio.findByMatricula(matricula);
 	}
 
 }
