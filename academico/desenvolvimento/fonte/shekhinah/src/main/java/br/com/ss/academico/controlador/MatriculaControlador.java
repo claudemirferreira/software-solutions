@@ -44,6 +44,7 @@ import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MatriculaServico;
+import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
@@ -64,6 +65,9 @@ public class MatriculaControlador implements Serializable {
 
 	@ManagedProperty(value = "#{matriculaServicoImpl}")
 	private MatriculaServico servico;
+	
+	@ManagedProperty(value = "#{turmaServicoImpl}")
+	private TurmaServico turmaServico;
 
 	@ManagedProperty(value = "#{boletimServicoImpl}")
 	private BoletimServico boletimServico;
@@ -222,6 +226,8 @@ public class MatriculaControlador implements Serializable {
 	}
 
 	public void imprimirRelatorio(Matricula matricula) throws FileNotFoundException {
+		
+//		matricula.setTurma(	turmaServico.findByMatricula(matricula));
 
 		ExternalContext econtext = FacesContext.getCurrentInstance()
 				.getExternalContext();
@@ -376,6 +382,14 @@ public class MatriculaControlador implements Serializable {
 
 	public void setEmpresaServico(EmpresaServico empresaServico) {
 		this.empresaServico = empresaServico;
+	}
+
+	public TurmaServico getTurmaServico() {
+		return turmaServico;
+	}
+
+	public void setTurmaServico(TurmaServico turmaServico) {
+		this.turmaServico = turmaServico;
 	}
 
 }

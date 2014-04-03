@@ -2,6 +2,7 @@ package br.com.ss.academico.servico;
 
 import java.util.List;
 
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 
 public interface TurmaServico {
@@ -13,5 +14,7 @@ public interface TurmaServico {
 	public void remover(Turma turma);
 
 	public List<Turma> findByAno(Integer ano);
+
+	public Turma findByMatricula(Matricula matricula);
 
 }

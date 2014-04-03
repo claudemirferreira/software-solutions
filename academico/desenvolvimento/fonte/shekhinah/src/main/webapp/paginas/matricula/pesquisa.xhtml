@@ -70,18 +70,10 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
-					action="#{matriculaControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
-
-				<p:commandButton ajax="false"
-					action="#{matriculaControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
 
 				<p:commandButton id="btnPrint" value="Imprimi" icon="ui-icon-print"
-					action="#{matriculaControlador.imprimirRelatorio(item)}" ajax="false" />
+					action="#{matriculaControlador.imprimirRelatorio(item)}"
+					ajax="false" />
 
 			</p:column>
 

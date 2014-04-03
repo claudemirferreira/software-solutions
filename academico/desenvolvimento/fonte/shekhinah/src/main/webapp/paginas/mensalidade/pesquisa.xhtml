@@ -11,7 +11,7 @@
 	<h:form id="form">
 		<p:panel header="Mensalidade">
 
-			<h:panelGrid id="panelPesquisa" columns="2">
+			<h:panelGrid id="panelPesquisa" columns="4">
 
 				<h:outputText value="Aluno" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
@@ -53,13 +53,9 @@
 					action="#{mensalidadeControlador.novo}" />
 
 				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
-					immediate="true" icon="ui-icon-circle-plus"
+					immediate="true" ajax="false" icon="ui-icon-circle-plus"
 					styleClass="ui-priority-primary"
 					action="#{mensalidadeControlador.imprimir}" />
-
-				<h:commandButton value="Imprimir Contrato"
-					onclick="this.form.target='_blank'"
-					actionListener="#{mensalidadeControlador.imprimir}" />
 
 			</f:facet>
 

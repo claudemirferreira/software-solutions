@@ -97,8 +97,8 @@ public class MensalidadeControlador implements Serializable {
 		this.entidade.setUsuario(new Usuario(((Usuario) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal()).getId()));
 
-		this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
-				.getIdMatricula()));
+//		this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
+//				.getIdMatricula()));
 
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
