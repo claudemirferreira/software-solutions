@@ -18,6 +18,9 @@
 		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<poi.version>3.7</poi.version>
 		<itext.version>2.1.7</itext.version>
+
+		<tomcat.path>/shekinah</tomcat.path>
+
 	</properties>
 
 	<repositories>
@@ -333,16 +336,16 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 			<version>1.0-SP4</version>
-<!-- 			<scope>provided</scope> -->
+			<!-- <scope>provided</scope> -->
 		</dependency>
 
-
 	</dependencies>
+
 	<build>
 		<finalName>shekinah</finalName>
 		<plugins>
@@ -354,24 +357,73 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+			<!-- 
+				Criar a configuracao: install tomcat7:deploy marcar Skip 
+				links: 
+					http://tomcat.apache.org/maven-plugin-2.2/context-goals.html
+					http://tomcat.apache.org/maven-plugin-trunk/tomcat7-maven-plugin/plugin-info.html
+				
+				=== Configuracao em tomcat/conf/tomcat-users.xml:
+<role rolename="tomcat"/>
+<role rolename="manager-gui"/>
+<role rolename="manager-status"/>
+
+<user username="admin" password="root" roles="tomcat,manager-gui,manager-status"/>
+<user username="admin2" password="root" roles="manager-script"/>
+				
+				=== Configuracao em .m2/settings.xml
+   <servers>				
+    <server>
+      <id>tomcatServer</id>
+      <username>admin2</username>
+      <password>root</password>
+    </server>
+   </servers>		
+			 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+  				<version>2.2</version>
+				<configuration>
+					<url>http://localhost:8080/manager/text</url>
+					<server>tomcatServer</server>
+					<path>${tomcat.path}</path>
+					<username>admin2</username>
+     			 	<password>root</password>
+					<update>true</update>
+				</configuration>
+			</plugin>
+			
+			
 			
 			<!-- Maven Tomcat Plugin -->
+			<!-- Criar a configuracao: install tomcat:deploy tomcat:run marcar Skip 
+				test caso necessario -->
 			<!-- 
-				Criar a configuracao:
-				install tomcat:deploy tomcat:run
-				marcar Skip test caso necessario
-			 -->
-			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
-					<url>http://localhost:8080/manager/text</url>
+					<url>http://localhost:8080/manager</url>
 					<server>TomcatServer</server>
 					<path>/shekinah</path>
 				</configuration>
 			</plugin>
+			 -->
+
+			<!-- mvn compile war:war or mvn compile package
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<outputDirectory>${tomcat.path}</outputDirectory>
+				</configuration>
+			</plugin>
+ 			-->
 			
 		</plugins>
 	</build>
+	
 </project>
