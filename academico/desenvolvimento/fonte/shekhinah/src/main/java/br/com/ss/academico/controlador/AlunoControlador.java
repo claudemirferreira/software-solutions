@@ -98,15 +98,18 @@ public class AlunoControlador implements Serializable {
 
 	private Configuracao configuracao;
 
+	private Usuario usuarioLogado;
+	
 	public void init() {
 		lista = servico.listarTodos();
 		naoSimList = createNaoSimList();
-		;
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
 		telaPesquisa();
 		carregarDiaVencimento();
 
+		usuarioLogado = (Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 	}
 
 	public AlunoControlador() {
@@ -307,9 +310,7 @@ public class AlunoControlador implements Serializable {
 	}
 
 	private void cancelarMatricula() {
-		Usuario usuario = (Usuario) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		observacaoMatricula.setUsuario(usuario);
+		observacaoMatricula.setUsuario(usuarioLogado);
 		matricula.getObservacoes().add(observacaoMatricula);
 
 		// cancelar as mensalidades
@@ -339,6 +340,7 @@ public class AlunoControlador implements Serializable {
 		mens.setSequencial(mes);
 		mens.setStatusPagamento(StatusPagamento.PENDENTE);
 		mens.setValorVencimento(valorVencimento);
+		mens.setUsuario(usuarioLogado);
 		return mens;
 	}
 
