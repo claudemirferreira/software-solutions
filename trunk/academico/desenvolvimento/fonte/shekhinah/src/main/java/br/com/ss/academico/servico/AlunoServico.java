@@ -4,13 +4,7 @@ import java.util.List;
 
 import br.com.ss.academico.dominio.Aluno;
 
-public interface AlunoServico {
-
-	public List<Aluno> listarTodos();
-
-	public Aluno salvar(Aluno aluno);
-
-	public void remover(Aluno aluno);
+public interface AlunoServico extends IService<Aluno> {
 
 	public List<Aluno> findByNomeLike(String nome);
 

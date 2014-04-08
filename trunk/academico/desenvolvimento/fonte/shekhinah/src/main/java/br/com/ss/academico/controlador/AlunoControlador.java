@@ -1,7 +1,6 @@
 package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,11 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,23 +33,18 @@ import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.BoletimServico;
+import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.ResponsavelServico;
 import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
-public class AlunoControlador implements Serializable {
+public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	private static final long serialVersionUID = -6832271293709421841L;
 
-	private Aluno entidade;
-
-	private Aluno pesquisa;
-
 	private List<Responsavel> responsaveis;
-
-	private List<Aluno> lista;
 
 	private final String TELA_CADASTRO = "paginas/aluno/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/aluno/pesquisa.xhtml";
@@ -72,11 +64,6 @@ public class AlunoControlador implements Serializable {
 	@ManagedProperty(value = "#{boletimServicoImpl}")
 	private BoletimServico boletimServico;
 
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
-
-	@ManagedProperty(value = "#{relatorioUtil}")
-	private RelatorioUtil relatorioUtil;
 
 	private Aluno alunoMatricula;
 
@@ -100,78 +87,82 @@ public class AlunoControlador implements Serializable {
 
 	private Usuario usuarioLogado;
 	
+	/* --------- Overrides ------------------ */
+
+	@Override
 	public void init() {
-		lista = servico.listarTodos();
 		naoSimList = createNaoSimList();
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
-		telaPesquisa();
+		setPaginaCentral(TELA_PESQUISA);
 		carregarDiaVencimento();
 
 		usuarioLogado = (Usuario) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 	}
 
-	public AlunoControlador() {
+	@Override
+	protected void initEntity() {
 		this.entidade = new Aluno();
 		this.pesquisa = new Aluno();
 		this.responsaveis = new ArrayList<Responsavel>();
 	}
 
-	public void pesquisar() {
-		this.lista = servico.findByNomeLike(this.pesquisa.getNome());
+	@Override
+	protected String getPaginaPesquisa() {
+		return TELA_PESQUISA;
+	}
+
+	@Override
+	protected String getPaginaCadastro() {
+		return TELA_CADASTRO;
+	}
+
+	@Override
+	protected IService<Aluno> getService() {
+		return servico;
+	}
+
+	@Override
+	public String getNomeRelatorio() {
+		return "aluno.jasper";
+	}
+	
+
+	public void novo() {
+		super.novo();
+		this.responsaveis = responsavelServico.listarTodos();
 	}
 
 	public void detalhe(Aluno aluno) {
-		this.entidade = aluno;
+		super.detalhe(aluno);
 		this.responsaveis = responsavelServico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	private void carregarDiaVencimento() {
-
-		// TODO carregar configuracao do contexto
+		// FIXME carregar configuracao do contexto
 		configuracao = new Configuracao();
-		configuracao.setDiaVencimento(10); // TODO remover
+		configuracao.setDiaVencimento(10); // FIXME recuperar a data da configuracao
 	}
 
 	public void salvar() {
-		if (this.entidade.getDataCadastro() == null)
+		if (this.entidade.getDataCadastro() == null) {
 			this.entidade.setDataCadastro(new Date());
-
-		this.servico.salvar(this.entidade);
-		this.lista = servico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+		}
+		super.salvar();
 	}
 
-	public void excluir(Aluno aluno) {
-		this.servico.remover(aluno);
-		this.lista = servico.listarTodos();
-	}
-
-	public void novo() {
-		this.entidade = new Aluno();
-		this.responsaveis = responsavelServico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-	}
-
-	public void telaPeaquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public void imprimir() throws FileNotFoundException {
-		relatorioUtil.gerarRelatorioWeb(this.lista, null, "aluno.jasper");
-	}
 
 	public void imprimirContratoold(Matricula matricula)
 			throws FileNotFoundException {
-		// TODO criar o relatorio..
+		// FIXME #Peninha validar/remover se nao precisar mais desse metodo
 		List<Matricula> listMat = new ArrayList<Matricula>();
 		listMat.add(matricula);
 		relatorioUtil.gerarRelatorioWeb(listMat, null, "contrato.jasper");
 	}
 	
 	public void imprimirContrato(Matricula matricula) {
+		// FIXME #Peninha criar o relatorio..
 		List<Matricula> lista = new ArrayList<Matricula>();
 		lista.add(matricula);
 		Map<String, Object> parametros = new HashMap<String, Object>();
@@ -289,7 +280,7 @@ public class AlunoControlador implements Serializable {
 				// cria as mensalidades
 				gerarMensalidadesMatricula();
 				
-				// TODO Peninha: verificar se vai gerar boletim neste momento..
+				// FIXME #Peninha: verificar se vai gerar boletim neste momento..
 //				 this.boletimServico.gerarBoletim(matricula);				
 			}
 			
@@ -352,13 +343,7 @@ public class AlunoControlador implements Serializable {
 		return cal.getTime();
 	}
 
-	private void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();
-		facesMessage.setSeverity(severityInfo);
-		facesMessage.setSummary(msg);
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-	}
-
+	
 	public Aluno getEntidade() {
 		return entidade;
 	}
@@ -375,20 +360,11 @@ public class AlunoControlador implements Serializable {
 		this.pesquisa = pesquisa;
 	}
 
-	public List<Aluno> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Aluno> lista) {
-		this.lista = lista;
-	}
-
 	public PaginaCentralControlador getPaginaCentralControlador() {
 		return paginaCentralControlador;
 	}
 
-	public void setPaginaCentralControlador(
-			PaginaCentralControlador paginaCentralControlador) {
+	public void setPaginaCentralControlador( PaginaCentralControlador paginaCentralControlador) {
 		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
@@ -400,9 +376,6 @@ public class AlunoControlador implements Serializable {
 		this.servico = servico;
 	}
 
-	public void telaPesquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
 
 	public RelatorioUtil getRelatorioUtil() {
 		return relatorioUtil;

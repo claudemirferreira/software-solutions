@@ -36,4 +36,10 @@ public class AlunoServicoImpl implements AlunoServico, Serializable {
 	public List<Aluno> findByNomeLike(String nome) {
 		return this.repositorio.findByNomeLike(nome);
 	}
+
+	@Override
+	public List<Aluno> pesquisar(Aluno entity) {
+		// FIXME implementar
+		return null;
+	}
 }
