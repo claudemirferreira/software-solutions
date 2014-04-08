@@ -30,12 +30,12 @@
 					<f:selectItems value="#{mensalidadeControlador.statusPagamentos}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Data Início" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Periodo inicial" styleClass="ui-priority-primary" />
 				<p:calendar
 					value="#{mensalidadeControlador.parametroRelatorioDTO.dataInicio}"
 					locale="pt" showButtonPanel="true" navigator="true" />
 
-				<p:outputLabel value="Data Fim" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Periodo final" styleClass="ui-priority-primary" />
 				<p:calendar
 					value="#{mensalidadeControlador.parametroRelatorioDTO.dataFim}"
 					locale="pt" showButtonPanel="true" navigator="true" />
@@ -98,11 +98,6 @@
 					action="#{mensalidadeControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
 					update=":form" title="Detalhe" />
-
-				<p:commandButton ajax="false"
-					action="#{mensalidadeControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
 
 			</p:column>
 

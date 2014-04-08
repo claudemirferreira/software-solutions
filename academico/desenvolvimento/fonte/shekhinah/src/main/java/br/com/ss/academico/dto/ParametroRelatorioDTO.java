@@ -6,11 +6,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import br.com.ss.academico.enumerated.DataPesquisa;
+import br.com.ss.academico.enumerated.StatusPagamento;
+
 public class ParametroRelatorioDTO {
 
 	private Date dataInicio;
 
 	private Date dataFim;
+	
+	private DataPesquisa dataPesquisa;
+	
+	private DataPesquisa[] dataPesquisas;
 
 	public Date getDataInicio() {
 		return dataInicio;
@@ -26,6 +33,10 @@ public class ParametroRelatorioDTO {
 
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
+	}
+
+	public DataPesquisa[] getDataPesquisas() {
+		return this.dataPesquisa.values();
 	}
 
 	public void pegarMesCorrente() {
