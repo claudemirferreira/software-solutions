@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Empresa;
-import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.dto.ParametroRelatorioDTO;
@@ -89,16 +88,19 @@ public class MensalidadeControlador implements Serializable {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
-	public void salvar() {
+	public void cancelar() {
+		this.entidade.setStatusPagamento(StatusPagamento.CANCELADO);
+		this.salvar();
+	}
 
-		// if (this.entidade.getStatusPagamento() == null)
+	public void baixar() {
 		this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
+		this.salvar();
+	}
 
+	private void salvar() {
 		this.entidade.setUsuario(new Usuario(((Usuario) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal()).getId()));
-
-//		this.entidade.setMatricula(new Matricula(this.entidade.getMatricula()
-//				.getIdMatricula()));
 
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();

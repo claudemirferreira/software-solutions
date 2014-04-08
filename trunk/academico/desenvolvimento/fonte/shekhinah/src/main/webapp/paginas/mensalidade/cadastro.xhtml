@@ -44,17 +44,24 @@
 				<p:outputLabel value="Data Pagamento"
 					styleClass="ui-priority-primary" />
 				<p:calendar value="#{mensalidadeControlador.entidade.dataPagamento}"
-					readonly="true" locale="pt" showButtonPanel="true" navigator="true" />
+					readonly="true" locale="pt" showButtonPanel="true" navigator="true"
+					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
 
 				<p:outputLabel value="Valor Pagamento"
 					styleClass="ui-priority-primary" />
 				<pe:inputNumber
-					value="#{mensalidadeControlador.entidade.valorPagamento}" />
-					
+					value="#{mensalidadeControlador.entidade.valorPagamento}"
+					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
+
 				<p:outputLabel value="Valor Pagamento"
 					styleClass="ui-priority-primary" />
 				<p:inputText
-					value="#{mensalidadeControlador.entidade.statusPagamento}" />
+					value="#{mensalidadeControlador.entidade.statusPagamento}"
+					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
+
+				<p:outputLabel value="Usuário" styleClass="ui-priority-primary" />
+				<p:inputText value="#{mensalidadeControlador.entidade.usuario.nome}"
+					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
 
 			</h:panelGrid>
 
@@ -64,10 +71,16 @@
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 					immediate="true" action="#{mensalidadeControlador.telaPeaquisa}" />
 
-				<p:commandButton id="buttonCadastro" value="Baixar" update=":form"
+				<p:commandButton id="buttonBaixar" value="Baixar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.salvar}" 
-					/>
+					action="#{mensalidadeControlador.baixar}"
+					rendered="#{mensalidadeControlador.entidade.statusPagamento ne 'PENDENTE' and 
+					mensalidadeControlador.entidade.statusPagamento ne 'CANCELADO'}" />
+
+				<p:commandButton value="Cancelar" update=":form" icon="ui-icon-disk"
+					styleClass="ui-priority-primary"
+					action="#{mensalidadeControlador.cancelar}"
+					rendered="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
 
 				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
