@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
@@ -25,6 +26,7 @@ public class MensalidadeServicoImpl implements MensalidadeServico, Serializable 
 	}
 
 	@Override
+	@Transactional
 	public Mensalidade salvar(Mensalidade mensalidade) {
 		return this.repositorio.save(mensalidade);
 	}
@@ -37,7 +39,14 @@ public class MensalidadeServicoImpl implements MensalidadeServico, Serializable 
 	@Override
 	public List<Mensalidade> findByStatusPagamento(
 			StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
-		return this.repositorio.findByStatusPagamento(statusPagamento,
+		return this.repositorio.findByStatusAndDataPagamento(statusPagamento,
+				dataInicio, dataFim);
+	}
+
+	@Override
+	public List<Mensalidade> findByStatusAndDataVencimento(
+			StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
+		return this.repositorio.findByStatusAndDataVencimento(statusPagamento,
 				dataInicio, dataFim);
 	}
 

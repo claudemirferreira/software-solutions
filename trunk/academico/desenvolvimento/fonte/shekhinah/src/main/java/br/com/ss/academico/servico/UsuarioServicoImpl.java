@@ -47,4 +47,9 @@ public class UsuarioServicoImpl implements UsuarioServico {
 		return this.usuarioRepositorio.findByNomeLike(nome);
 	}
 
+	@Override
+	public Usuario findOne(Long id) {
+		return this.usuarioRepositorio.findOne(id);
+	}
+
 }

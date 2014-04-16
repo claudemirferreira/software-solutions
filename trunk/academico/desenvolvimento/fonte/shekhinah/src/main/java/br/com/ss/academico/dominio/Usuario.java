@@ -29,8 +29,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUsuario;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.REMOVE }, mappedBy = "usuarioPerfilPk.usuario")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioPerfilPk.usuario")
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
 	@Column(nullable = false, length = 30)

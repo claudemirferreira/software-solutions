@@ -16,5 +16,8 @@ public interface MensalidadeServico {
 
 	public List<Mensalidade> findByStatusPagamento(
 			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);
-
+	
+	public List<Mensalidade> findByStatusAndDataVencimento(
+			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);
+	
 }
