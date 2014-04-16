@@ -3,7 +3,6 @@ package br.com.ss.academico.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -51,11 +50,11 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 1)
 	private StatusPagamento statusPagamento;
 
-	@ManyToOne( fetch = FetchType.EAGER )
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 

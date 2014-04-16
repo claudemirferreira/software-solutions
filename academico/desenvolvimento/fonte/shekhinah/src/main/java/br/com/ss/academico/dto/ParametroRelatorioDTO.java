@@ -7,16 +7,15 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import br.com.ss.academico.enumerated.DataPesquisa;
-import br.com.ss.academico.enumerated.StatusPagamento;
 
 public class ParametroRelatorioDTO {
 
 	private Date dataInicio;
 
 	private Date dataFim;
-	
+
 	private DataPesquisa dataPesquisa;
-	
+
 	private DataPesquisa[] dataPesquisas;
 
 	public Date getDataInicio() {
@@ -35,6 +34,14 @@ public class ParametroRelatorioDTO {
 		this.dataFim = dataFim;
 	}
 
+	public DataPesquisa getDataPesquisa() {
+		return dataPesquisa;
+	}
+
+	public void setDataPesquisa(DataPesquisa dataPesquisa) {
+		this.dataPesquisa = dataPesquisa;
+	}
+
 	public DataPesquisa[] getDataPesquisas() {
 		return this.dataPesquisa.values();
 	}
@@ -50,8 +57,8 @@ public class ParametroRelatorioDTO {
 		try {
 			this.dataInicio = (new SimpleDateFormat("dd/MM/yyyy")).parse("01/"
 					+ mes + "/" + ano);
-			this.dataFim = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia
-					+ "/" + mes + "/" + ano);
+			this.dataFim = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia + "/"
+					+ mes + "/" + ano);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

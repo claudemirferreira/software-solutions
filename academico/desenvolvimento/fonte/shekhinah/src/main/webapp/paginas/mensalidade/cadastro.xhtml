@@ -14,55 +14,51 @@
 
 		<p:growl id="growl" />
 
-		<p:panel header="Cadastro de Mensalidade">
+		<p:panel header="Cadastro de Mensalidade #{mensalidadeControlador.entidade.matricula.aluno.nome} ">
 
 			<h:panelGrid id="panelCadastro" columns="4" cellpadding="6">
 
 				<p:outputLabel value="Matricula" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Mês" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Aluno" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Status" styleClass="ui-priority-primary" />
+
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.matricula.idMatricula}" />
-
-				<p:outputLabel value="Mês" styleClass="ui-priority-primary" />
+					
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.sequencial}" />
-
-				<p:outputLabel value="Aluno" styleClass="ui-priority-primary" />
-				<p:inputText readonly="true"
+					
+				<p:inputText readonly="true" 
 					style="width:300px; background: #0099CC;"
-					value="#{mensalidadeControlador.entidade.matricula.aluno.nome}" />
-
-				<p:outputLabel value="Valor Vencimento"
-					styleClass="ui-priority-primary" />
+					value="#{mensalidadeControlador.entidade.usuario.nome}" />
+					
 				<p:inputText readonly="true" style="background: #0099CC;"
-					value="#{mensalidadeControlador.entidade.valorVencimento}" />
+					value="#{mensalidadeControlador.entidade.statusPagamento}" />
 
 				<p:outputLabel value="Data Vencimento"
 					styleClass="ui-priority-primary" />
+				<p:outputLabel value="Valor Vencimento"
+					styleClass="ui-priority-primary" />
+				<p:outputLabel value="Data Pagamento"
+					styleClass="ui-priority-primary" />
+				<p:outputLabel value="Valor Pagamento"
+					styleClass="ui-priority-primary" />
+					
 				<p:inputText readonly="true" style="background: #0099CC;"
 					value="#{mensalidadeControlador.entidade.dataVencimento}" />
 
-				<p:outputLabel value="Data Pagamento"
-					styleClass="ui-priority-primary" />
+				<p:inputText readonly="true" style="background: #0099CC;"
+					value="#{mensalidadeControlador.entidade.valorVencimento}" />
+				
 				<p:calendar value="#{mensalidadeControlador.entidade.dataPagamento}"
 					readonly="true" locale="pt" showButtonPanel="true" navigator="true"
 					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
-
-				<p:outputLabel value="Valor Pagamento"
-					styleClass="ui-priority-primary" />
+				
 				<pe:inputNumber
 					value="#{mensalidadeControlador.entidade.valorPagamento}"
 					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
-
-				<p:outputLabel value="Valor Pagamento"
-					styleClass="ui-priority-primary" />
-				<p:inputText
-					value="#{mensalidadeControlador.entidade.statusPagamento}"
-					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
-
-				<p:outputLabel value="Usuário" styleClass="ui-priority-primary" />
-				<p:inputText value="#{mensalidadeControlador.entidade.usuario.nome}"
-					disabled="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
-
+					
 			</h:panelGrid>
 
 			<f:facet name="footer">
@@ -74,17 +70,12 @@
 				<p:commandButton id="buttonBaixar" value="Baixar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
 					action="#{mensalidadeControlador.baixar}"
-					rendered="#{mensalidadeControlador.entidade.statusPagamento ne 'PENDENTE' and 
-					mensalidadeControlador.entidade.statusPagamento ne 'CANCELADO'}" />
+					rendered="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE' }" />
 
 				<p:commandButton value="Cancelar" update=":form" icon="ui-icon-disk"
 					styleClass="ui-priority-primary"
 					action="#{mensalidadeControlador.cancelar}"
 					rendered="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
-
-				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.salvar}" />
 
 			</f:facet>
 

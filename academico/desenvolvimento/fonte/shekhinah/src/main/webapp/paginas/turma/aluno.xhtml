@@ -60,16 +60,14 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
+				<p:commandButton  value="Detalhe" title="Detalhe" 
 					action="#{turmaControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed" update=":form" ajax="false" />
+					icon="	ui-icon-folder-collapsed"
+					update=":form" ajax="false" />
 
-				<p:commandButton value="Alunos" title="Detalhe"
-					action="#{turmaControlador.listarAlunos(item)}"
-					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
-
-				<p:commandButton value="Excluir" title="Excluir"
-					action="#{turmaControlador.excluir(item)}" icon="ui-icon-trash"
+				<p:commandButton  value="Excluir" title="Excluir"
+					action="#{turmaControlador.excluir(item)}"
+					icon="ui-icon-trash"
 					update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.repositorio.AlunoRepositorio;
 
 @Service
@@ -35,6 +36,11 @@ public class AlunoServicoImpl implements AlunoServico, Serializable {
 	@Override
 	public List<Aluno> findByNomeLike(String nome) {
 		return this.repositorio.findByNomeLike(nome);
+	}
+	
+	@Override
+	public List<Aluno> findByTurma(Turma turma) {
+		return this.repositorio.findByTurma(turma);
 	}
 
 	@Override

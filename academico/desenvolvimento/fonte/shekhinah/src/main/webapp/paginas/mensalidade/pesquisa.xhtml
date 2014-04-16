@@ -26,7 +26,6 @@
 
 				<p:outputLabel value="Status" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.statusPagamento}">
-					<f:selectItem itemLabel="-- Selecione um registro --" itemValue="" />
 					<f:selectItems value="#{mensalidadeControlador.statusPagamentos}" />
 				</p:selectOneMenu>
 
@@ -39,6 +38,11 @@
 				<p:calendar
 					value="#{mensalidadeControlador.parametroRelatorioDTO.dataFim}"
 					locale="pt" showButtonPanel="true" navigator="true" />
+					
+				<p:outputLabel value="Pesquisar por" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{mensalidadeControlador.parametroRelatorioDTO.dataPesquisa}">
+					<f:selectItems value="#{mensalidadeControlador.parametroRelatorioDTO.dataPesquisas}" />
+				</p:selectOneMenu>
 
 			</h:panelGrid>
 

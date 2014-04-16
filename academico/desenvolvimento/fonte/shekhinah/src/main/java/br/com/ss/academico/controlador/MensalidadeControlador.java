@@ -22,6 +22,7 @@ import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
+import br.com.ss.academico.servico.UsuarioServico;
 
 @ManagedBean
 @SessionScoped
@@ -48,6 +49,9 @@ public class MensalidadeControlador implements Serializable {
 
 	@ManagedProperty(value = "#{mensalidadeServicoImpl}")
 	private MensalidadeServico servico;
+	
+	@ManagedProperty(value = "#{usuarioServicoImpl}")
+	private UsuarioServico usuarioServico;
 
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico alunoServico;
@@ -94,14 +98,15 @@ public class MensalidadeControlador implements Serializable {
 	}
 
 	public void baixar() {
-		this.entidade.setStatusPagamento(StatusPagamento.PENDENTE);
+		this.entidade.setStatusPagamento(StatusPagamento.PAGO);
 		this.salvar();
 	}
 
 	private void salvar() {
-		this.entidade.setUsuario(new Usuario(((Usuario) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal()).getId()));
-
+		Usuario temp =((Usuario) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal());
+		
+		this.entidade.setUsuario(temp);
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
@@ -221,6 +226,14 @@ public class MensalidadeControlador implements Serializable {
 
 	public void setEmpresaServico(EmpresaServico empresaServico) {
 		this.empresaServico = empresaServico;
+	}
+
+	public UsuarioServico getUsuarioServico() {
+		return usuarioServico;
+	}
+
+	public void setUsuarioServico(UsuarioServico usuarioServico) {
+		this.usuarioServico = usuarioServico;
 	}
 
 }

@@ -8,9 +8,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.componentes.Util;
+import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.Turno;
+import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.TurmaServico;
 
@@ -26,6 +28,8 @@ public class TurmaControlador implements Serializable {
 
 	private List<Turma> lista;
 	
+	private List<Aluno> listaAluno;
+	
 	private List<Curso> cursos;
 	
 	private Turno[] turnos;
@@ -37,6 +41,9 @@ public class TurmaControlador implements Serializable {
 
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico servico;
+	
+	@ManagedProperty(value = "#{alunoServicoImpl}")
+	private AlunoServico alunoServico;
 	
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico cursoServico;
@@ -80,6 +87,11 @@ public class TurmaControlador implements Serializable {
 		this.entidade = new Turma();
 		this.cursos = cursoServico.listarTodos();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
+	}
+	
+	public void listarAlunos(Turma turma){
+		this.listaAluno = alunoServico.findByTurma(turma);
+		
 	}
 
 	public void telaPeaquisa() {
@@ -157,6 +169,22 @@ public class TurmaControlador implements Serializable {
 
 	public void setAnos(List<Integer> anos) {
 		this.anos = anos;
+	}
+
+	public List<Aluno> getListaAluno() {
+		return listaAluno;
+	}
+
+	public void setListaAluno(List<Aluno> listaAluno) {
+		this.listaAluno = listaAluno;
+	}
+
+	public AlunoServico getAlunoServico() {
+		return alunoServico;
+	}
+
+	public void setAlunoServico(AlunoServico alunoServico) {
+		this.alunoServico = alunoServico;
 	}
 
 }
