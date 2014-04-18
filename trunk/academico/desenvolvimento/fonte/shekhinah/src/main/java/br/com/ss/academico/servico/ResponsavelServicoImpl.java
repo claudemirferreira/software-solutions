@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.repositorio.ResponsavelRepositorio;
+import br.com.ss.academico.repositorio.ResponsavelRepositorioJPA;
 
 @Service
 public class ResponsavelServicoImpl implements ResponsavelServico, Serializable {
@@ -16,6 +17,9 @@ public class ResponsavelServicoImpl implements ResponsavelServico, Serializable 
 
 	@Autowired
 	private ResponsavelRepositorio repositorio;
+
+	@Autowired
+	private ResponsavelRepositorioJPA repositorioJpa;
 
 	@Override
 	public List<Responsavel> listarTodos() {
@@ -34,6 +38,6 @@ public class ResponsavelServicoImpl implements ResponsavelServico, Serializable 
 
 	@Override
 	public List<Responsavel> findByNomeLike(String nome) {
-		return this.repositorio.findByNomeLike(nome);
+		return this.repositorioJpa.findByNomeLike(nome);
 	}
 }

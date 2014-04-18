@@ -272,7 +272,7 @@ img.right {
 }
 
 .input_label {
-    width:70px;
+    width:150px;
     padding:4px;
 }
 
@@ -280,6 +280,11 @@ img.right {
 /*    width:80%; */
     padding:2px;
 }
+
+.filtroPesquisa {
+	
+}
+
 
 .grid {
     width:100%;
