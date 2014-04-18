@@ -46,7 +46,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	private String cpf;
 
 	@Column(nullable = false, length = 1)
-	private int sexo;
+	private Integer sexo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
@@ -126,11 +126,11 @@ public class Aluno extends AbstractEntity implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public int getSexo() {
+	public Integer getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(int sexo) {
+	public void setSexo(Integer sexo) {
 		this.sexo = sexo;
 	}
 
