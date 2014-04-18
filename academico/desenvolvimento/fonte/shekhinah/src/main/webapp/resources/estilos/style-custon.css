@@ -370,12 +370,14 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
 	border-top: 0;
 	overflow: auto;
 }
+/* comentado..
 .ui-autocomplete {
 	position: absolute;
 	top: 0;
 	left: 0;
 	cursor: default;
 }
+*/
 .ui-button {
 	display: inline-block;
 	position: relative;

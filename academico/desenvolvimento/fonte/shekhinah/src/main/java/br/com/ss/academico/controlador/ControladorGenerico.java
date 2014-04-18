@@ -2,6 +2,7 @@ package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,10 +10,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
 import br.com.ss.academico.dominio.AbstractEntity;
 import br.com.ss.academico.enumerated.Constants;
+import br.com.ss.academico.enumerated.Sexo;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.IService;
 
@@ -40,6 +43,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	protected RelatorioUtil relatorioUtil;
+
+	// FIXME deve ficar no contexto de app - criar classe
+	protected List<SelectItem> sexoList;
 	
 	/* ---------- Metodos ----------------------- */
 
@@ -47,7 +53,17 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	protected void setup() {
 		initEntity();
 		init();
+		initCommons();
 		pesquisar();
+	}
+
+	private void initCommons() {
+		
+		sexoList = new ArrayList<SelectItem>();
+		for (Sexo c : Sexo.values()) {
+			sexoList.add(new SelectItem(c.getId(), c.getDescricao()));
+		}
+		
 	}
 
 	protected abstract void init();
@@ -68,7 +84,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	
 
 	public void pesquisar() {
-		this.listaPesquisa = getService().pesquisar(pesquisa);
+		this.listaPesquisa = 
+//				getService().pesquisar(pesquisa);	// FIXME implementar
+				getService().listarTodos();
 	}
 
 	public void salvar() {
@@ -133,10 +151,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	}
 
 	/**
-	 * Metodo utilizado para editar uma entidade.
+	 * Metodo utilizado para cancelar uma edicao e retornar para a pg de inicial.
 	 * @return string.
 	 */
-	public void cancel() {
+	public void cancelar() {
 		init();
 		setPaginaCentral(getPaginaPesquisa());
 	}
@@ -157,7 +175,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 
 	/* ---------- Gets/Sets ------------- */
-
 
 	public T getItemToRemove() {
 		return itemToRemove;
@@ -181,6 +198,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	public List<T> getListaPesquisa() {
 		return listaPesquisa;
+	}
+
+	public List<SelectItem> getSexoList() {
+		return sexoList;
 	}
 	
 }

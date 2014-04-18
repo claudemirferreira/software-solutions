@@ -127,7 +127,15 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	public String getNomeRelatorio() {
 		return "aluno.jasper";
 	}
+
 	
+	/**
+	 * Lista os Responsaveis - para a lista do auto-complete da tela de pesquisa.
+	 */
+	public List<Responsavel> listarResponsavel(String nome) {
+		return responsavelServico.findByNomeLike(nome);
+	}
+
 
 	public void novo() {
 		super.novo();
