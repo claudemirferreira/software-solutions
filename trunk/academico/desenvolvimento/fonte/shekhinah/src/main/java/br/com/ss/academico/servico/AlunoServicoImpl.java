@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.repositorio.AlunoRepositorio;
+import br.com.ss.academico.repositorio.AlunoRepositorioJPA;
 
 @Service
 public class AlunoServicoImpl implements AlunoServico, Serializable {
@@ -18,6 +19,9 @@ public class AlunoServicoImpl implements AlunoServico, Serializable {
 	@Autowired
 	private AlunoRepositorio repositorio;
 
+	@Autowired
+	private AlunoRepositorioJPA repositorioJpa;
+	
 	@Override
 	public List<Aluno> listarTodos() {
 		return this.repositorio.findAll();
@@ -45,7 +49,6 @@ public class AlunoServicoImpl implements AlunoServico, Serializable {
 
 	@Override
 	public List<Aluno> pesquisar(Aluno entity) {
-		// FIXME implementar
-		return null;
+		return repositorioJpa.findByNomeLike(entity);
 	}
 }

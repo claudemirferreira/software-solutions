@@ -84,9 +84,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	
 
 	public void pesquisar() {
-		this.listaPesquisa = 
-//				getService().pesquisar(pesquisa);	// FIXME implementar
-				getService().listarTodos();
+		this.listaPesquisa = getService().pesquisar(pesquisa);
 	}
 
 	public void salvar() {

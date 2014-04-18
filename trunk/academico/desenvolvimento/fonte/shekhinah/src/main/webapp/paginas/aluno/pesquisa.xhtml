@@ -19,8 +19,8 @@
 						
 				<ss:input id="nome" label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
 	
-				<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" 
-							list="#{alunoControlador.sexoList}" />
+				<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" >
+				</ss:comboBox>
 				
 		        <ss:input id="resp" 
 		        			label="Responsável"
@@ -32,7 +32,8 @@
 		                    itemLabel="#{item.nome}" 
 		                    itemValue="#{item}" 
 		                    converter="responsavelConverter"
-		                    size="20"
+		                    size="40"
+		                    immediate="true"
 		                    forceSelection="true" />
 		
 			</h:panelGrid>
@@ -66,6 +67,11 @@
 				sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
+			
+			<p:column style="text-align:left" headerText="Responsável" sortBy="#{item.responsavel.nome}">
+				<h:outputText value="#{item.responsavel.nome}" />
+			</p:column>
+			
 
 			<p:column style="text-align:left" headerText="Ação">
 				<p:commandButton value="Detalhe" title="Detalhe" 

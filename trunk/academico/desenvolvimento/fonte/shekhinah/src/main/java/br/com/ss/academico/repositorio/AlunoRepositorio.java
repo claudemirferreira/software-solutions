@@ -20,7 +20,7 @@ public interface AlunoRepositorio extends JpaRepository<Aluno, Long> {
 			+ " where t = :turma ")
 	public List<Aluno> findByTurma(@Param("turma") Turma turma);
 
-}//	@Query(	"   select a from Aluno a "
+//	@Query(	"   select a from Aluno a "
 //			+ " where lower( a.nome ) like :lower(aluno.nome) "
 //			)
 //	public List<Aluno> findByAluno(@Param("aluno") Aluno aluno);

@@ -63,6 +63,17 @@ public class StringUtil {
     }
 
     /**
+     * Identifica se o Objeto informado é válido.
+     * @param str
+     * @return
+     */
+    public static boolean notEmpty( Object obj ) {
+    	if ( obj instanceof String )
+    		return notEmpty( ( String ) obj);
+        return obj != null;
+    }
+
+    /**
      * Verifica se as duas strings sao iguais, ja valiando valores nulos.
      * 
      * @param tx1
