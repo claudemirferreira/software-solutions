@@ -15,32 +15,33 @@
 			<p:accordionPanel > <!-- FIXME add style para destacar o filtro -->
 				<p:tab title="Filtro de Pesquisa" titleStyleClass="outputLabel">  
 		
-			<h:panelGrid cellpadding="5">
-						
-				<ss:input id="nome" label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
-	
-				<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" >
-				</ss:comboBox>
-				
-		        <ss:input id="resp" 
-		        			label="Responsável"
-		        			type="autoComplete"
-		       				value="#{alunoControlador.pesquisa.responsavel}"
-		       				bean="#{alunoControlador}"
-		       				completeMethod="listarResponsavel"
-		                    var="item"
-		                    itemLabel="#{item.nome}" 
-		                    itemValue="#{item}" 
-		                    converter="responsavelConverter"
-		                    size="40"
-		                    immediate="true"
-		                    forceSelection="true" />
-		
-			</h:panelGrid>
+					<h:panelGrid styleClass="filtroPesquisa">
+								
+						<ss:input label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
 			
+						<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" />
+						
+				        <ss:input id="resp" 
+				        			label="Responsável"
+				        			type="autoComplete"
+				       				value="#{alunoControlador.pesquisa.responsavel}"
+				       				bean="#{alunoControlador}"
+				       				completeMethod="listarResponsavel"
+				                    var="item"
+				                    itemLabel="#{item.nome}" 
+				                    itemValue="#{item}" 
+				                    converter="responsavelConverter"
+				                    size="40"
+				                    immediate="true"
+				                    forceSelection="true" />
+				
+					</h:panelGrid>
+					
 				</p:tab>
 			</p:accordionPanel>
 
+
+			<!-- FIXME criar region para os botoes -->
 			<f:facet name="footer">
 				<p:commandButton id="buttonPesquisar" value="Pesquisar"
 					update=":form:gridPesquisa" icon="ui-icon-search"
@@ -56,6 +57,8 @@
 
 		</p:panel>
 
+		<!-- FIXME criar region para o grid -->
+			
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
 			value="#{alunoControlador.listaPesquisa}" paginatorPosition="bottom"
 			paginatorAlwaysVisible="true"
@@ -95,6 +98,8 @@
 
 		</p:dataTable>
 
+
+		<!-- FIXME adicionar no template -->
 		<p:blockUI block="form" trigger="buttonNovo buttonPesquisar">
         PROCESSANDO...<br />
 			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />

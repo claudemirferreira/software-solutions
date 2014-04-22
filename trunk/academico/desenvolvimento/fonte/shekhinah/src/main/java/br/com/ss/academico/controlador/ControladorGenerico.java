@@ -61,7 +61,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		
 		sexoList = new ArrayList<SelectItem>();
 		for (Sexo c : Sexo.values()) {
-			sexoList.add(new SelectItem(c.getId(), c.getDescricao()));
+			sexoList.add(new SelectItem(c, c.getDescricao()));
 		}
 		
 	}

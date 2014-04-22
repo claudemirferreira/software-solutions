@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.ss.academico.enumerated.GrauParentesco;
+import br.com.ss.academico.enumerated.Sexo;
 
 /**
  * The persistent class for the iansa_aluno database table.
@@ -45,8 +49,9 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 11)
 	private String cpf;
 
+	@Enumerated
 	@Column(nullable = false, length = 1)
-	private Integer sexo;
+	private Sexo sexo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
@@ -70,16 +75,16 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 11)
 	private String rg;
 
-	@Column(nullable = false, length = 11)
-	private String grauParentesco;
+	@Enumerated
+	@Column(nullable = false, length = 1)
+	private GrauParentesco grauParentesco;
 
 	@ManyToOne
 	@JoinColumn(name = "id_responsavel")
 	private Responsavel responsavel;
 
-	@OneToMany(mappedBy = "aluno", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Matricula> matriculas = new ArrayList<Matricula>();
-	
 
 	@Override
 	public Long getId() {
@@ -126,11 +131,11 @@ public class Aluno extends AbstractEntity implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public Integer getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(Integer sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 
@@ -190,11 +195,11 @@ public class Aluno extends AbstractEntity implements Serializable {
 		this.rg = rg;
 	}
 
-	public String getGrauParentesco() {
+	public GrauParentesco getGrauParentesco() {
 		return grauParentesco;
 	}
 
-	public void setGrauParentesco(String grauParentesco) {
+	public void setGrauParentesco(GrauParentesco grauParentesco) {
 		this.grauParentesco = grauParentesco;
 	}
 
