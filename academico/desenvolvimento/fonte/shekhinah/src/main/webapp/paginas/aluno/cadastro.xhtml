@@ -34,11 +34,11 @@
 
 				<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" />
 
-				<ss:input id="rg" ajax="true" label="RG" value="#{alunoControlador.entidade.rg}" />
+				<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" />
 					 
 				<ss:comboBox id="sexo" label="Sexo" required="true" selectOne="true" value="#{alunoControlador.entidade.sexo}" list="#{alunoControlador.sexoList}" />
 
-				<ss:input id="dataNasc" ajax="true"  type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
+				<ss:input id="dataNasc" type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
 
 		        <ss:input id="resp"
 		        			label="Responsável"
