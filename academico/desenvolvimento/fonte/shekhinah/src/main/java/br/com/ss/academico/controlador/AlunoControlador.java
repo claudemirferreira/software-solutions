@@ -26,6 +26,7 @@ import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.enumerated.Constants;
+import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.academico.enumerated.Meses;
 import br.com.ss.academico.enumerated.NaoSim;
 import br.com.ss.academico.enumerated.StatusMatricula;
@@ -74,6 +75,8 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	private List<Turma> turmas;
 
 	private List<SelectItem> naoSimList;
+	
+	private List<SelectItem> grauParentescoList;
 
 	private List<SelectItem> statusMatriculaList;
 
@@ -92,6 +95,7 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	@Override
 	public void init() {
 		naoSimList = createNaoSimList();
+		grauParentescoList = createGrauParentescoList();
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
 		setPaginaCentral(TELA_PESQUISA);
@@ -214,6 +218,14 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	private List<SelectItem> createMesesList() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
 		for (Meses mes : Meses.values()) {
+			list.add(new SelectItem(mes, mes.getDescricao()));
+		}
+		return list;
+	}
+
+	private List<SelectItem> createGrauParentescoList() {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for (GrauParentesco mes : GrauParentesco.values()) {
 			list.add(new SelectItem(mes, mes.getDescricao()));
 		}
 		return list;
@@ -479,6 +491,10 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	public void setBoletimServico(BoletimServico boletimServico) {
 		this.boletimServico = boletimServico;
+	}
+
+	public List<SelectItem> getGrauParentescoList() {
+		return grauParentescoList;
 	}
 
 }

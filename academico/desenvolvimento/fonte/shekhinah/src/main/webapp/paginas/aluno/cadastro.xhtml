@@ -7,87 +7,57 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form">
+	<h:form id="form" prependId="false">
 
 		<p:panel header="Cadastro de Aluno">
 
 			<p:growl id="growl" />
 
-			<h:panelGrid id="panelCadastro" columns="6">
+			<h:panelGrid id="panelCadastro" columns="2">
+				
+				<ss:input id="nome" label="Nome" required="true" value="#{alunoControlador.entidade.nome}" />
+			
+				<ss:input id="endereco" label="Endereço" required="true" value="#{alunoControlador.entidade.endereco}" />
+				
+				<ss:input id="bairro" label="Bairro" required="true" value="#{alunoControlador.entidade.bairro}" />
 
-				<p:outputLabel value="*Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{alunoControlador.entidade.nome}"
-					required="true" requiredMessage="O nome deve ser informado"
-					style="width:300px;" />
+				<ss:input id="cep" label="CEP" required="true" value="#{alunoControlador.entidade.cep}"/>
 
-				<p:outputLabel value="*Endereço" styleClass="ui-priority-primary" />
-				<p:inputText id="endereco" required="true"
-					requiredMessage="O endereço deve ser informado"
-					value="#{alunoControlador.entidade.endereco}" style="width:300px;" />
+				<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}"/>
 
-				<p:outputLabel value="*Bairro" styleClass="ui-priority-primary" />
-				<p:inputText id="bairro" required="true"
-					requiredMessage="O bairro deve ser informado"
-					value="#{alunoControlador.entidade.bairro}" style="width:300px;" />
+				<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}"/>
 
-				<p:outputLabel value="CEP" styleClass="ui-priority-primary" />
-				<p:inputText id="cep" value="#{alunoControlador.entidade.cep}"
-					style="width:300px;" />
+				<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" />
 
-				<p:outputLabel value="Celular" styleClass="ui-priority-primary" />
-				<p:inputText id="celular"
-					value="#{alunoControlador.entidade.celular}" style="width:300px;" />
+				<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" />
 
-				<p:outputLabel value="Fone Residencial"
-					styleClass="ui-priority-primary" />
-				<p:inputText id="foneResidencial"
-					value="#{alunoControlador.entidade.foneResidencial}"
-					style="width:300px;" />
+				<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" />
+					 
+				<ss:comboBox id="sexo" label="Sexo" required="true" selectOne="true" value="#{alunoControlador.entidade.sexo}" list="#{alunoControlador.sexoList}" />
 
-				<p:outputLabel value="E-mail" styleClass="ui-priority-primary" />
-				<p:inputText id="email" value="#{alunoControlador.entidade.email}"
-					style="width:300px;" />
+				<ss:input id="dataNasc" ajax="true"  type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
 
-				<p:outputLabel value="CPF" styleClass="ui-priority-primary" />
-				<p:inputText id="cpf" value="#{alunoControlador.entidade.cpf}"
-					style="width:300px;" />
-
-				<p:outputLabel value="RG" styleClass="ui-priority-primary" />
-				<p:inputText id="rg" value="#{alunoControlador.entidade.rg}"
-					style="width:300px;" />
-
-				<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{alunoControlador.entidade.sexo}"
-					required="true" requiredMessage="O sexo deve ser informado">
-					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
-					<f:selectItem itemLabel="FEMININO" itemValue="F" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="*Data Nascimento"
-					styleClass="ui-priority-primary" />
-				<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
-					navigator="true" display="inline" required="true"
-					requiredMessage="A data nascimento deve ser informado"
-					value="#{alunoControlador.entidade.dataNascimento}" />
-
-				<p:outputLabel value="Responsavel" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{alunoControlador.entidade.responsavel}"
-					converter="entityConverter" panelStyle="width:300px"
-					style="width:300px" effect="fade" filterMatchMode="startsWith"
-					filter="true">
-					<f:selectItem itemLabel="Selecione o responsável" itemValue="" />
-					<f:selectItems value="#{alunoControlador.responsaveis}"
-						var="responsavel" itemLabel="#{responsavel.nome}"
-						itemValue="#{responsavel}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="*Grau Parentesco"
-					styleClass="ui-priority-primary" />
-				<p:inputText id="grauParentesco"
-					value="#{alunoControlador.entidade.grauParentesco}"
-					style="width:300px;" />
+		        <ss:input id="resp"
+		        			label="Responsável"
+		        			type="autoComplete"
+		       				value="#{alunoControlador.entidade.responsavel}"
+		       				bean="#{alunoControlador}"
+		       				completeMethod="listarResponsavel"
+		                    required="true"
+		                    ajax="true" 
+		                    eventName="itemSelect"
+		                    var="item"
+		                    itemLabel="#{item.nome}" 
+		                    itemValue="#{item}" 
+		                    converter="responsavelConverter"
+		                    immediate="true"
+		                    title="Informe o nome do responsável"
+		                    forceSelection="true" />
+		
+				<ss:comboBox id="grauParentesco" label="Grau de Parentesco" required="true" selectOne="true" value="#{alunoControlador.entidade.grauParentesco}" list="#{alunoControlador.grauParentescoList}"/>
 
 			</h:panelGrid>
 
