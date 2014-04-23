@@ -14,4 +14,5 @@ public interface ResponsavelServico {
 
 	public List<Responsavel> findByNomeLike(String nome);
 
+	public Responsavel findByNome(String nome);
 }
