@@ -40,4 +40,10 @@ public class ResponsavelServicoImpl implements ResponsavelServico, Serializable 
 	public List<Responsavel> findByNomeLike(String nome) {
 		return this.repositorioJpa.findByNomeLike(nome);
 	}
+
+	@Override
+	public Responsavel findByNome(String nome) {
+		return this.repositorioJpa.findByNome(nome);
+	}
+	
 }

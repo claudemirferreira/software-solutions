@@ -29,5 +29,19 @@ public class ResponsavelRepositorioJPAImpl implements ResponsavelRepositorioJPA 
 		
 		return query.getResultList();
 	}
+	
+
+	@Override
+	public Responsavel findByNome(String nome) {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select res from Responsavel res ");
+		sb.append(" where lower( res.nome ) = :nome ");
+		
+		Query query = entityManager.createQuery(sb.toString());
+		query.setParameter("nome", nome.trim().toLowerCase());
+		
+		return (Responsavel) query.getSingleResult();
+	}
 
 }

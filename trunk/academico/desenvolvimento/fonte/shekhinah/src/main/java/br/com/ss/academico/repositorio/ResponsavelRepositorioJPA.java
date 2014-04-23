@@ -8,4 +8,6 @@ public interface ResponsavelRepositorioJPA {
 
 	List<Responsavel> findByNomeLike(String nome);
 
+	Responsavel findByNome(String nome);
+
 }
