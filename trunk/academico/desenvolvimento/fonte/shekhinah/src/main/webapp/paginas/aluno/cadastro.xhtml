@@ -57,6 +57,23 @@
 		                    title="Informe o nome do responsável"
 		                    forceSelection="true" />
 		                    
+		         <p:autoComplete id="ac_xxx"
+		                        required="true"
+								requiredMessage="XXXXXXXXXX"
+	            				value="#{alunoControlador.entidade.responsavel}"
+	            				title="Informe o nome do responsável" 
+	            				completeMethod="#{alunoControlador.listarResponsavel}"  
+		                        var="item"
+		                        itemLabel="#{item.nome}" 
+		                        itemValue="#{item}" 
+		                        size="30" 
+		                        converter="responsavelConverter"
+		                        forceSelection="true" >
+		                    <!-- converter="responsavelConverter"
+		                    	immediate="true" -->       
+<!-- 							<p:ajax event="itemSelect" update="ac_xxx" />   -->
+						
+                    </p:autoComplete>      
 				<ss:comboBox id="grauParentesco" label="Grau de Parentesco" required="true" selectOne="true" value="#{alunoControlador.entidade.grauParentesco}" list="#{alunoControlador.grauParentescoList}"/>
 
 			</h:panelGrid>
