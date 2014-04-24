@@ -10,57 +10,57 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<p:outputPanel id="pnlCadMat" rendered="#{alunoControlador.modalCadastro}">
+	<p:outputPanel id="pnlCadMat" rendered="#{alunoMatriculaControlador.modalCadastro}">
 	
 		<h:panelGrid id="pnlCad" columns="4" cellpadding="6">
 			
 			<p:outputLabel value="Turma" styleClass="ui-priority-primary" />
-			<p:selectOneMenu value="#{alunoControlador.matricula.turma}"
+			<p:selectOneMenu value="#{alunoMatriculaControlador.matricula.turma}"
 						converter="entityConverter" 
 						panelStyle="width:300px" style="width:300px" effect="fade"
 						filterMatchMode="startsWith"
 						required="true" filter="true" >
 				<f:selectItem itemLabel="Selecione a turma" itemValue="" />
-				<f:selectItems value="#{alunoControlador.turmas}"
+				<f:selectItems value="#{alunoMatriculaControlador.turmas}"
 							var="turma" 
 							itemLabel="#{turma.curso.nome} - #{turma.turno} - #{turma.ano}"
 							itemValue="#{turma}" />
 				<p:ajax event="change" update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
-						listener="#{alunoControlador.selectTurma}"/>  
+						listener="#{alunoMatriculaControlador.selectTurma}"/>  
 			</p:selectOneMenu>
 			
 			<p:outputLabel value="Vagas Disponíveis" styleClass="ui-priority-primary" />
-			<p:inputMask id="vagas" value="#{alunoControlador.matricula.turma.vagasDisponiveis}" size="5" readonly="true" />
+			<p:inputMask id="vagas" value="#{alunoMatriculaControlador.matricula.turma.vagasDisponiveis}" size="5" readonly="true" />
 
 								
 			<p:outputLabel value="Valor" styleClass="ui-priority-primary" />
-			<pe:inputNumber id="valor" dir="rtl" required="true" value="#{alunoControlador.matricula.valor}" />
+			<pe:inputNumber id="valor" dir="rtl" required="true" value="#{alunoMatriculaControlador.matricula.valor}" />
 			
 			<p:outputLabel value="Data da Matrícula" styleClass="ui-priority-primary" />
-			<p:calendar value="#{alunoControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" size="10" pattern="dd/MM/yyyy" />
+			<p:calendar value="#{alunoMatriculaControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" size="10" pattern="dd/MM/yyyy" />
 			
 			<p:outputLabel value="Mensalidades apartir de" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbMens" value="#{alunoControlador.mesSelecionado}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoControlador.mesesList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+			<p:selectOneMenu id="cmbMens" value="#{alunoMatriculaControlador.mesSelecionado}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoMatriculaControlador.mesesList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 	        </p:selectOneMenu>
 	        
 			<p:outputLabel value="Turno Integral?" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbInteg" value="#{alunoControlador.matricula.integral}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+			<p:selectOneMenu id="cmbInteg" value="#{alunoMatriculaControlador.matricula.integral}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoMatriculaControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 	        </p:selectOneMenu>
 	        
 			<p:outputLabel value="Situação" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbSit" value="#{alunoControlador.matricula.status}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
+			<p:selectOneMenu id="cmbSit" value="#{alunoMatriculaControlador.matricula.status}" required="true" effect="fade">
+	            <f:selectItems value="#{alunoMatriculaControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 	        	<p:ajax event="change" update=":formDlg:pnlObservacao"
-						listener="#{alunoControlador.renderObservacao}"/>  
+						listener="#{alunoMatriculaControlador.renderObservacao}"/>  
 	        </p:selectOneMenu>
 	        
 		</h:panelGrid>
 		
         <p:outputPanel id="pnlObservacao">
-			<p:fieldset legend="Justificativa" rendered="#{alunoControlador.matricula.status.id ne 0}" >  
-				<p:inputTextarea value="#{alunoControlador.observacaoMatricula.txObservacao}" 
+			<p:fieldset legend="Justificativa" rendered="#{alunoMatriculaControlador.matricula.status.id ne 0}" >  
+				<p:inputTextarea value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
 								maxlength="250" cols="95" rows="4" autoResize="false"
 								required="true" >
 					<p:ajax event="change" update=":formDlg:pnlObservacao" /> 
@@ -72,13 +72,13 @@
 		<p:commandButton id="btnRetornar" value="Retornar" update=":formDlg"
 						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 						oncomplete="PF('dlgMatricula').show();"
-						action="#{alunoControlador.showModalPesquisaMatricula}" 
+						action="#{alunoMatriculaControlador.showModalPesquisaMatricula}" 
 						immediate="true" />
 	
 		<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg"
 						icon="ui-icon-disk" styleClass="ui-priority-primary"
 						oncomplete="PF('dlgMatricula').show();"
-						action="#{alunoControlador.salvarMatricula}" />
+						action="#{alunoMatriculaControlador.salvarMatricula}" />
            	
 		
 	</p:outputPanel>

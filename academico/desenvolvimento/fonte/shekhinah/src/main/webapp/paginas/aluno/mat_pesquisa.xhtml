@@ -9,15 +9,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<p:outputPanel id="pnlGridMat" rendered="#{not alunoControlador.modalCadastro}">
+	<p:outputPanel id="pnlGridMat" rendered="#{not alunoMatriculaControlador.modalCadastro}">
 
 		<p:commandButton id="btnNovaMat" value="Novo" update=":formDlg"
 						icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 						oncomplete="PF('dlgMatricula').show();"
-						action="#{alunoControlador.showModalCadastroMatricula}" />
+						action="#{alunoMatriculaControlador.showModalCadastroMatricula}" />
 		
 		<p:dataTable id="gridMat" var="item" rows="10" paginator="true"
-					value="#{alunoControlador.alunoMatricula.matriculas}" paginatorPosition="bottom"
+					value="#{alunoMatriculaControlador.alunoMatricula.matriculas}" paginatorPosition="bottom"
 					paginatorAlwaysVisible="true"
 					emptyMessage="Nenhum registro encontrado."
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -50,12 +50,12 @@
 			<p:column style="text-align:center" headerText="Ação" >
 				<p:commandButton icon="ui-icon-folder-collapsed"
 							oncomplete="PF('dlgMatricula').show();"
-							action="#{alunoControlador.showModalCadastroMatricula(item)}"
+							action="#{alunoMatriculaControlador.showModalCadastroMatricula(item)}"
 							update=":formDlg" title="Detalhe" />
 				
 				<p:commandButton value="Contrato" title="Imprimir Contrato"
 								onclick="this.form.target='_blank'"
-								actionListener="#{alunoControlador.imprimirContrato(item)}" />
+								actionListener="#{alunoMatriculaControlador.imprimirContrato(item)}" />
 			</p:column>
 			
 		</p:dataTable>
