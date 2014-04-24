@@ -89,6 +89,8 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	private Configuracao configuracao;
 
 	private Usuario usuarioLogado;
+
+	private List<Responsavel> responsavelList;
 	
 	/* --------- Overrides ------------------ */
 
@@ -137,7 +139,8 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	 * Lista os Responsaveis - para a lista do auto-complete da tela de pesquisa.
 	 */
 	public List<Responsavel> listarResponsavel(String nome) {
-		return responsavelServico.findByNomeLike(nome);
+		responsavelList = responsavelServico.findByNomeLike(nome);
+		return responsavelList;
 	}
 
 
@@ -495,6 +498,10 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	public List<SelectItem> getGrauParentescoList() {
 		return grauParentescoList;
+	}
+
+	public List<Responsavel> getResponsavelList() {
+		return responsavelList;
 	}
 
 }
