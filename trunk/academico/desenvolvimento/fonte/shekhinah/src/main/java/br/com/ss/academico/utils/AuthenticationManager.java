@@ -18,7 +18,7 @@ import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.servico.UsuarioServico;
 
 @Component
-public class IEADAMAuthenticationManager implements AuthenticationProvider {
+public class AuthenticationManager implements AuthenticationProvider {
 
 	@Autowired
 	private UsuarioServico usuarioServico;

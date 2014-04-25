@@ -19,7 +19,7 @@ import br.com.ss.academico.dominio.Sistema;
 import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.servico.SistemaServico;
 import br.com.ss.academico.servico.UsuarioServico;
-import br.com.ss.academico.utils.IEADAMAuthenticationManager;
+import br.com.ss.academico.utils.AuthenticationManager;
 
 @ManagedBean
 @SessionScoped
@@ -51,14 +51,14 @@ public class UsuarioControlador {
 
 	private int colunas;
 
-	@ManagedProperty(value = "#{IEADAMAuthenticationManager}")
-	private IEADAMAuthenticationManager IEADAMAuthenticationManager;
+	@ManagedProperty(value = "#{authenticationManager}")
+	private AuthenticationManager authenticationManager;
 
 	private final String TELA_CADASTRO = "paginas/usuario/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
 
 	public void init() {
-		this.sistema = sistemaServico.findByCodigo("IEADAM");
+		this.sistema = sistemaServico.findByCodigo("IEADAM");	// FIXME mudar codigo do sistema (IEADAM)
 		this.lista = servico.listarTodos();
 		this.telaPesquisa();
 
@@ -138,7 +138,7 @@ public class UsuarioControlador {
 
 	public String logar() {
 
-		Authentication authenticatedUser = this.IEADAMAuthenticationManager
+		Authentication authenticatedUser = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(
 						this.usuario.getLogin(), this.usuario.getSenha()));
 
@@ -198,13 +198,12 @@ public class UsuarioControlador {
 		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
-	public IEADAMAuthenticationManager getIEADAMAuthenticationManager() {
-		return IEADAMAuthenticationManager;
+	public AuthenticationManager getAuthenticationManager() {
+		return authenticationManager;
 	}
 
-	public void setIEADAMAuthenticationManager(
-			IEADAMAuthenticationManager iEADAMAuthenticationManager) {
-		IEADAMAuthenticationManager = iEADAMAuthenticationManager;
+	public void setAuthenticationManager( AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
 	}
 
 	public List<Perfil> getPerfis() {
