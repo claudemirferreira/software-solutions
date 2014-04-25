@@ -209,11 +209,10 @@ public class AlunoMatriculaControlador {
 				// salva a observacao da matricula
 				cancelarMatricula();
 				
-			} else if (matricula.getStatus() == StatusMatricula.ATIVA
-					&& !matricula.isPersistent()) {
+			} else if (matricula.getStatus() == StatusMatricula.ATIVA ) {
 				
-				// cria as mensalidades
-				gerarMensalidadesMatricula();
+				// cria ou atualiza as mensalidades
+				gerarMensalidadesMatricula(matricula.isPersistent());
 				
 				// FIXME #Peninha: verificar se vai gerar boletim neste momento..
 //				 this.boletimServico.gerarBoletim(matricula);				
@@ -245,7 +244,7 @@ public class AlunoMatriculaControlador {
 		}
 	}
 
-	private void gerarMensalidadesMatricula() {
+	private void gerarMensalidadesMatricula( boolean atualizarMatricula ) {
 		int mesInicial = mesSelecionado.getId();
 		int mesFinal = Constants.DOZE;
 		
@@ -253,6 +252,11 @@ public class AlunoMatriculaControlador {
 		
 		// calcula o valor da mensalidade dividindo o valor do curso pela quantidade de meses
 		double valorMens = matricula.getValor() / qtMensalidades;
+		
+		if (atualizarMatricula) {
+			// se for atualizar limpa a lista e recria novas.
+			matricula.getMensalidades().clear();
+		}
 		
 		for (int i = mesInicial; i <= mesFinal; i++) {
 			matricula.getMensalidades().add(createMensalidade(i, valorMens));
