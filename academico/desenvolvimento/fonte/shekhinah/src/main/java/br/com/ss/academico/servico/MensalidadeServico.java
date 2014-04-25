@@ -19,5 +19,7 @@ public interface MensalidadeServico {
 	
 	public List<Mensalidade> findByStatusAndDataVencimento(
 			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);
+
+	List<Mensalidade> loadMensalidades(Long idMatricula);
 	
 }

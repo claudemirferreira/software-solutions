@@ -45,5 +45,10 @@ public class MatriculaServicoImpl implements MatriculaServico, Serializable {
 		Long count = repositorio.countMatriculas(turma, StatusMatricula.ATIVA, turma.getAno());
 		return turma.getNumeroVagas() - count;
 	}
+	
+	@Override
+	public Matricula loadMatriculaMensalidades(Matricula matricula) {
+		return this.repositorio.loadMatriculaMensalidades(matricula);
+	}
 
 }

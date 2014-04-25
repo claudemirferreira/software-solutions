@@ -22,13 +22,12 @@
 
 		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml" />
 
-		<custom-filter ref="ieadamFiltro" after="SECURITY_CONTEXT_FILTER" />
+		<custom-filter ref="requestFilter" after="SECURITY_CONTEXT_FILTER" />
 	</http>
 
-	<beans:bean id="ieadamFiltro" class="br.com.ss.academico.utils.IEADAMFiltro" />
+	<beans:bean id="requestFilter" class="br.com.ss.academico.filter.RequestFilter" />
 
-	<beans:bean id="IEADAMAuthenticationProvider"
-		class="br.com.ss.academico.utils.IEADAMAuthenticationManager" />
+	<beans:bean id="AuthenticationProvider" class="br.com.ss.academico.utils.AuthenticationManager" />
 
 	<authentication-manager>
 		<authentication-provider>
@@ -36,7 +35,7 @@
 				<user name="user" password="user1" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
-		<authentication-provider ref="IEADAMAuthenticationProvider" />
+		<authentication-provider ref="AuthenticationProvider" />
 	</authentication-manager>
 
 </beans:beans>

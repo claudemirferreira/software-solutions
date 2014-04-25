@@ -1,4 +1,4 @@
-package br.com.ss.academico.utils;
+package br.com.ss.academico.filter;
 
 import java.io.IOException;
 
@@ -11,11 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class IEADAMFiltro implements Filter {
-	
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+public class RequestFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -39,8 +35,11 @@ public class IEADAMFiltro implements Filter {
 		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><partial-response><redirect url=\""
 				+ "j_spring_security_logout?faces-redirect=true" + "\"></redirect></partial-response>";
 	}
-
+	
 	@Override
-	public void destroy() {
-	}
+	public void init(FilterConfig filterConfig) throws ServletException { }
+	
+	@Override
+	public void destroy() { }
+	
 }

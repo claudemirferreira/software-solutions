@@ -26,7 +26,7 @@
 							itemLabel="#{turma.curso.nome} - #{turma.turno} - #{turma.ano}"
 							itemValue="#{turma}" />
 				<p:ajax event="change" update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
-						listener="#{alunoMatriculaControlador.selectTurma}"/>  
+						listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
 			</p:selectOneMenu>
 			
 			<p:outputLabel value="Vagas Disponíveis" styleClass="ui-priority-primary" />

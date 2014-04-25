@@ -43,10 +43,10 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(length = 8)
 	private String celular;
 
-	@Column(nullable = false, length = 8)
+	@Column(length = 8)
 	private String cep;
 
-	@Column(nullable = false, length = 11)
+	@Column(length = 11)
 	private String cpf;
 
 	@Enumerated
@@ -72,7 +72,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String nome;
 
-	@Column(nullable = false, length = 11)
+	@Column(length = 11)
 	private String rg;
 
 	@Enumerated

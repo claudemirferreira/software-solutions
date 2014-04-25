@@ -34,15 +34,19 @@ import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.MatriculaServico;
+import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
 public class AlunoMatriculaControlador {
 
+	@ManagedProperty(value = "#{mensalidadeServicoImpl}")
+	private MensalidadeServico servicoMensalidade;
+
 	@ManagedProperty(value = "#{matriculaServicoImpl}")
 	private MatriculaServico servicoMatricula;
-
+	
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico servicoTurma;
 	
@@ -150,10 +154,11 @@ public class AlunoMatriculaControlador {
 	}
 
 	public void showModalCadastroMatricula(Matricula matricula) {
-		this.matricula = matricula;
+		// faz o load das mensalidades (fetch)
+		this.matricula = servicoMatricula.loadMatriculaMensalidades(matricula);
 		modalCadastro = true;
 		turmas = servicoTurma.listarTodos();
-		selectTurma();
+		selectTurma(!matricula.isPersistent());
 	}
 
 	/**
@@ -179,8 +184,12 @@ public class AlunoMatriculaControlador {
 		return matricula;
 	}
 
-	public void selectTurma() {
-		matricula.setValor(matricula.getTurma().getCurso().getValor());
+	public void selectTurma(boolean atualizarValor) {
+		
+		if (atualizarValor) {
+			// atualiza o valor da matricula pelo valor do curso selecionado
+			matricula.setValor(matricula.getTurma().getCurso().getValor());
+		}
 		matricula.setIntegral(false);
 
 		Long vagasDisponiveis = servicoMatricula
@@ -253,6 +262,11 @@ public class AlunoMatriculaControlador {
 		// calcula o valor da mensalidade dividindo o valor do curso pela quantidade de meses
 		double valorMens = matricula.getValor() / qtMensalidades;
 		
+		// FIXME #Peninha: validar a regra de geracao das mensalidades 
+		/*
+		 * Regra:
+		 * Mensalidade = Valor_Curso / Qtde_Meses
+		 * */
 		if (atualizarMatricula) {
 			// se for atualizar limpa a lista e recria novas.
 			matricula.getMensalidades().clear();
@@ -362,6 +376,14 @@ public class AlunoMatriculaControlador {
 
 	public void setBoletimServico(BoletimServico boletimServico) {
 		this.boletimServico = boletimServico;
+	}
+
+	public MensalidadeServico getServicoMensalidade() {
+		return servicoMensalidade;
+	}
+
+	public void setServicoMensalidade(MensalidadeServico servicoMensalidade) {
+		this.servicoMensalidade = servicoMensalidade;
 	}
 
 }

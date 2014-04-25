@@ -50,4 +50,8 @@ public class MensalidadeServicoImpl implements MensalidadeServico, Serializable 
 				dataInicio, dataFim);
 	}
 
+	@Override
+	public List<Mensalidade> loadMensalidades( Long idMatricula ) {
+		return this.repositorio.loadMensalidades(idMatricula);
+	}
 }
