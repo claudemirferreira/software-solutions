@@ -21,20 +21,14 @@
 			
 						<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" />
 						
-				        <ss:input id="resp" 
-				        			label="Responsável"
-				        			type="autoComplete"
-				       				value="#{alunoControlador.pesquisa.responsavel}"
-				       				bean="#{alunoControlador}"
-				       				completeMethod="listarResponsavel"
-				                    var="item"
-				                    itemLabel="#{item.nome}" 
-				                    itemValue="#{item}" 
-				                    converter="responsavelConverter"
-				                    size="40"
-				                    immediate="true"
-				                    forceSelection="true" />
-				
+				        <ss:autoComplete id="resp" 
+					        			label="Responsável"
+					       				value="#{alunoControlador.pesquisa.responsavel}"
+					       				bean="#{alunoControlador}"
+					       				completeMethod="listarResponsavel"
+					                    itemLabel="#{item.nome}" 
+					                    size="50" />
+				         
 					</h:panelGrid>
 					
 				</p:tab>

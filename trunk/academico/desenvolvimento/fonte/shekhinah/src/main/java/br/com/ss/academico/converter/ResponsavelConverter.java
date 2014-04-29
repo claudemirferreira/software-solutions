@@ -19,6 +19,8 @@ import br.com.ss.academico.dominio.Responsavel;
 @FacesConverter(value = "responsavelConverter")
 public class ResponsavelConverter implements Converter {
 
+	// FIXME validar se ainda é necessário - utilizar o genericConverter
+	
 	public Object getAsObject(FacesContext facesContext, UIComponent uicomp,
 			String submittedValue) {
 		if (submittedValue.trim().equals("")) {

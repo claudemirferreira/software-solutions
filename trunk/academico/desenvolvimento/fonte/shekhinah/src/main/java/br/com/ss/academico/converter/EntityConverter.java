@@ -21,6 +21,8 @@ import br.com.ss.academico.utils.StringUtil;
 @FacesConverter(value = "entityConverter")
 public class EntityConverter implements Converter {
 
+	// FIXME validar se ainda é necessário - utilizar o genericConverter
+	
 	private int index;
 
 	@SuppressWarnings("unchecked")

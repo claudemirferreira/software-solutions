@@ -40,31 +40,12 @@
 
 				<ss:input id="dataNasc" type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
 				
-				
-				<h:panelGrid  width="500" columnClasses="input_label, input_required">
-		 		
-			 		<p:column width="150">
-						<h:outputLabel value="Responsável" for="ac_resp"/>
-				 		<h:outputText value="  * " styleClass="input_required" rendered="true" />
-			 		</p:column>
-			 		<p:column>
-				        <p:autoComplete id="ac_resp"
-				                        required="true"
-										requiredMessage="Preencher campos obrigatórios (*)"
-			            				value="#{alunoControlador.entidade.responsavel}"
-			            				title="Informe o nome do responsável" 
-			            				completeMethod="#{alunoControlador.listarResponsavel}"  
-				                        var="item"
-				                        itemLabel="#{item.nome}" 
-				                        itemValue="#{item}" 
-				                        size="30" 
-				                        converter="responsavelConverter"
-				                        forceSelection="true" >
-				                    <!--  immediate="true" -->       
-		<!-- 					<p:ajax event="itemSelect" update="ac_xxx" />   -->
-		                    </p:autoComplete> 
-	                    </p:column>
-                    </h:panelGrid>
+		        <ss:autoComplete id="resp"
+			        			label="Responsável"
+			       				value="#{alunoControlador.entidade.responsavel}"
+			       				bean="#{alunoControlador}"
+			       				completeMethod="listarResponsavel"
+			                    itemLabel="#{item.nome}" />
 		                    
 				<ss:comboBox id="grauParentesco" label="Grau de Parentesco" required="true" selectOne="true" value="#{alunoControlador.entidade.grauParentesco}" list="#{alunoControlador.grauParentescoList}"/>
 
