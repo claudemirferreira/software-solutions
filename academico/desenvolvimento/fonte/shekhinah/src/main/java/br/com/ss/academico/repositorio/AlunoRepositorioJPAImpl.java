@@ -48,7 +48,7 @@ public class AlunoRepositorioJPAImpl extends RepositorioGenerico implements Alun
 				query.setParameter("sexo", aluno.getSexo());
 			}
 			if ( notEmpty(aluno.getResponsavel())) {
-				query.setParameter("responsavel", "%" + aluno.getResponsavel().getNome() + "%");
+				query.setParameter("responsavel", aluno.getResponsavel() );
 			}
 		}
 		

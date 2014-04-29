@@ -11,32 +11,20 @@
 
 	<cc:interface>
 	
-		<cc:attribute name="id" required="false" default="id" />
-		<cc:attribute name="label" required="false" />	
 		<cc:attribute name="value" required="true" />
-		<cc:attribute name="required" required="false" default="false" />
-		
+		<cc:attribute name="id" required="false" default="id" />
+		<cc:attribute name="label" />	
+		<cc:attribute name="required" default="false" />
+		<cc:attribute name="requiredMessage" default="Preencher campos obrigatórios (*)" />
+		<cc:attribute name="title" default="Informar valor" />
 		<cc:attribute name="size" default="30"  />
-		<cc:attribute name="align" default="left" />
-		<cc:attribute name="maxlength" required="false" default="50" />
-		
-		<!-- types: text, number, calendar(date), autoComplete -->
-		<cc:attribute name="type" default="text" required="false"  />
-		<cc:attribute name="title" default="#{cc.attrs.type eq 'date' ? 'Informar data' : 'Informar valor'}" required="false" />
-		<cc:attribute name="requiredMessage" default="Preencher campos obrigatórios (*)" required="false" />
 		
 		<!-- autoComplete params -->
-		<cc:attribute name="bean" required="false"  />
-		<cc:attribute name="completeMethod" required="false"  />
-		<cc:attribute name="var" required="true"  />
-		<cc:attribute name="itemValue" required="true"  />
-		<cc:attribute name="itemLabel" required="true"  />
-		<cc:attribute name="immediate" required="false" default="false"  />
-		
-		<!-- events -->
-		<cc:attribute name="ajax" default="false" required="false"  />
-		<!-- FIXME corrigir eventName, está dando erro, nao obtem o valor definido -->
-		<cc:attribute name="eventName" default="#{cc.attrs.type eq 'date' ? 'dateSelect' : 'blur'}" required="false"  />
+		<cc:attribute name="itemLabel" required="true" shortDescription="#{item} - Atributo de iteração utilizado no componente." />
+		<cc:attribute name="bean" required="true"  />
+		<cc:attribute name="completeMethod" required="true" />
+		<cc:attribute name="forceSelection" default="true"  />
+		<cc:attribute name="queryDelay" default="700" />
 		
 	</cc:interface>
 	
@@ -45,31 +33,30 @@
 		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" width="500" columnClasses="input_label, input_required">
 		 		
 	 		<p:column width="150" rendered="#{not empty cc.attrs.label}" >
-				<h:outputLabel value="#{cc.attrs.label}" for="#{cc.attrs.id}"/>
+				<h:outputLabel value="#{cc.attrs.label}" for="ac_#{cc.attrs.id}"/>
 		 		<h:outputText value="  * " styleClass="input_required" rendered="#{cc.attrs.required}" />
 	 		</p:column>
 	 		
 	 		<p:column>
-	 			<!-- Input AutoComplete -->
-				<p:autoComplete id="ac_#{cc.attrs.id}"
-		                        required="#{cc.attrs.required}"
-								requiredMessage="#{cc.attrs.requiredMessage}"
-	            				value="#{cc.attrs.value}"
-	            				title="#{cc.attrs.title}" 
-	            				completeMethod="#{cc.attrs.bean[cc.attrs.completeMethod]}"  
-		                        var="item"
-		                        itemLabel="#{cc.attrs.itemLabel}" 
-		                        itemValue="#{cc.attrs.item}" 
-		                        size="#{cc.attrs.size}" 
-		                        immediate="#{cc.attrs.immediate}"
-		                        forceSelection="true" >
-						<ui:insert />
-						<c:if test="#{cc.attrs.ajax}">
-							<p:ajax event="itemSelect" update="ac_#{cc.attrs.id}" />  
-						</c:if>
-						
-                     </p:autoComplete>
-				<h:message for="#{cc.attrs.id}" styleClass="error"  />
+		        <p:autoComplete id="ac_#{cc.attrs.id}"
+		        			completeMethod="#{cc.attrs.bean[cc.attrs.completeMethod]}"
+            				value="#{cc.attrs.value}"
+	                        var="item"
+		                    itemValue="#{item}" 
+		                    itemLabel="#{cc.attrs.itemLabel}" 
+	                        cache="true"
+	                        queryDelay="#{cc.attrs.queryDelay}"
+	                        forceSelection="#{cc.attrs.forceSelection}" 
+	                        title="#{cc.attrs.title}" 
+	                        size="#{cc.attrs.size}"
+	                        required="#{cc.attrs.required}"
+	                        requiredMessage="#{cc.attrs.requiredMessage}"
+	                        converter="genericConverter"
+	                        >
+						<p:ajax event="itemSelect" process="@this" update="ac_#{cc.attrs.id}" />  
+                </p:autoComplete>          
+			
+				<h:message for="ac_#{cc.attrs.id}" styleClass="error" />
 	 		
 	 		</p:column>
 	 		
