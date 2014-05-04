@@ -47,6 +47,16 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> sexoList;
 	
+	/**
+	 * Alias para redirecionar para a tela de cadastro.
+	 */
+	public static final String CADASTRO = "cadastro.xhtml";
+
+	/**
+	 * Alias para redirecionar para a tela de pesquisa. */
+	public static final String PESQUISA = "pesquisa.xhtml";
+	
+	
 	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
@@ -87,15 +97,17 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		this.listaPesquisa = getService().pesquisar(pesquisa);
 	}
 
-	public void salvar() {
+	public String salvar() {
 		try {
 			getService().salvar(entidade);
 			setup();
 			setPaginaCentral(getPaginaPesquisa());
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+			return PESQUISA;
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+			return null;
 		}
 	}
 
@@ -133,9 +145,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * Metodo utilizado para ir para a tela de cadastra da entidade.
 	 * @return string.
 	 */
-	public void novo() {
+	public String novo() {
 		this.initEntity();
-		setPaginaCentral(getPaginaCadastro());
+//		setPaginaCentral(getPaginaCadastro());	// FIXME remover, usar redirect
+		return CADASTRO;
 	}
 
 	/**
@@ -152,9 +165,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * Metodo utilizado para cancelar uma edicao e retornar para a pg de inicial.
 	 * @return string.
 	 */
-	public void cancelar() {
+	public String cancelar() {
 		init();
-		setPaginaCentral(getPaginaPesquisa());
+//		setPaginaCentral(getPaginaPesquisa());	// FIXME remover, usar redirect
+		return PESQUISA;
 	}
 
 	
