@@ -1,58 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="Aluno">
+	<ui:param name="pageTitle" value="Aluno"/>
+	<ui:param name="pageHeader" value="Aluno"/>
+	<ui:param name="managedBean" value="#{alunoControlador}"/>
+	
+	
+	<ui:define name="search_filter">
 		
-			<p:accordionPanel > <!-- FIXME add style para destacar o filtro -->
-				<p:tab title="Filtro de Pesquisa" titleStyleClass="outputLabel">  
-		
-					<h:panelGrid styleClass="filtroPesquisa">
-								
-						<ss:input label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
-			
-						<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" />
+		<ss:input label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
+	
+		<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" />
+	
+		<ss:autoComplete id="resp" 
+	        			label="Responsável"
+	       				value="#{alunoControlador.pesquisa.responsavel}"
+	       				bean="#{alunoControlador}"
+	       				completeMethod="listarResponsavel"
+	                    itemLabel="#{item.nome}" 
+	                    size="40" />
 						
-				        <ss:autoComplete id="resp" 
-					        			label="Responsável"
-					       				value="#{alunoControlador.pesquisa.responsavel}"
-					       				bean="#{alunoControlador}"
-					       				completeMethod="listarResponsavel"
-					                    itemLabel="#{item.nome}" 
-					                    size="50" />
-				         
-					</h:panelGrid>
-					
-				</p:tab>
-			</p:accordionPanel>
-
-
-			<!-- FIXME criar region para os botoes -->
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{alunoControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{alunoControlador.novo}" />
-
-				
-			</f:facet>
-
-		</p:panel>
-
-		<!-- FIXME criar region para o grid -->
-			
+	</ui:define>
+	
+	
+	<!-- ==== Grid ======= -->
+	<ui:define name="grid_region">	
+ 		
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
 			value="#{alunoControlador.listaPesquisa}" paginatorPosition="bottom"
 			paginatorAlwaysVisible="true"
@@ -60,8 +42,7 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15,20">
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.nome}">
+			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 			
@@ -69,7 +50,6 @@
 				<h:outputText value="#{item.responsavel.nome}" />
 			</p:column>
 			
-
 			<p:column style="text-align:left" headerText="Ação">
 				<p:commandButton value="Detalhe" title="Detalhe" 
 					action="#{alunoControlador.detalhe(item)}"
@@ -79,7 +59,7 @@
 					action="#{alunoMatriculaControlador.showModalMatricula(item)}"
 					oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
 					update=":formDlg" />
-
+				
 				<p:commandButton value="Excluir" title="Excluir"
 					action="#{alunoControlador.excluir(item)}" icon="ui-icon-trash"
 					ajax="false" update=":form:gridPesquisa" />
@@ -87,23 +67,20 @@
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(alunoControlador.listaPesquisa)} alunos.  
-        </f:facet>
+            	Total de registros: #{fn:length(alunoControlador.listaPesquisa)} alunos.  
+        	</f:facet>
 
 		</p:dataTable>
-
-
-		<!-- FIXME adicionar no template -->
-		<p:blockUI block="form" trigger="buttonNovo buttonPesquisar">
-        PROCESSANDO...<br />
-			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-		</p:blockUI>
-
-	</h:form>
-
-
-	<!-- =========== Modal de Matricula ============== -->
-	<ui:include src="matricula.xhtml" />
-
-
-</ui:component>
+	    
+	</ui:define>
+	
+	
+	<!-- ==== Grid ======= -->
+	<ui:define name="modal_region">
+		
+		<!-- =========== Modal de Matricula ============== -->
+		<ui:include src="matricula.xhtml" />
+		
+	</ui:define>
+	
+</ui:composition>

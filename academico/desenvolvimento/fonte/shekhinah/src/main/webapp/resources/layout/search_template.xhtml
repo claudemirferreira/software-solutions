@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+				xmlns:p="http://primefaces.org/ui"
+	  			xmlns:pe="http://primefaces.org/ui/extensions"
+				template="/resources/layout/template.xhtml">
+	  
+	  <ui:define name="content">
+	  	
+  		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
+		
+		
+		<h:form id="form" prependId="false">
+		
+			 <h1 class="title ui-widget-header ui-corner-all">#{pageHeader}</h1>
+		
+			<!-- ===== Msg ============ -->
+			<h:panelGrid cellpadding="0" cellspacing="0" >
+				<p:messages	id="msg" />
+				<p:growl 	id="msgGrowl" />
+			</h:panelGrid>
+			
+			
+			<!-- ==== Filtro ===== -->
+			<p:accordionPanel styleClass="filtro_pesquisa">
+				<p:tab title="Filtro de Pesquisa:" titleStyleClass="outputLabel" >
+					<h:panelGrid cellpadding="0" width="600">
+						
+						<ui:insert name="search_filter" />
+						
+						<!-- ==== Button ======= -->
+						<h:panelGrid columns="2" cellpadding="2">
+		                    
+		                    <p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.pesquisar}" update=":form:panelGrid :form:msg" icon="ui-icon-search" styleClass="ui-priority-primary"/>
+								
+							<p:commandButton id="btnNew" value="Novo" action="#{managedBean.novo}" ajax="false" icon="ui-icon-circle-plus" styleClass="ui-priority-primary"/>
+						
+							<p:defaultCommand target="btnSearh" />
+							
+						</h:panelGrid>
+						
+					</h:panelGrid>
+   				
+			<p:blockUI block=":form:" trigger="btnNew btnSearh">
+	       	 	PROCESSANDO...<br />
+				<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+			</p:blockUI>
+			
+				</p:tab>
+			</p:accordionPanel>
+   			
+			<!-- ==== Grid ======= -->
+			<h:panelGrid id="panelGrid" width="100%">
+				
+				<ui:insert name="grid_region" />
+			
+			</h:panelGrid>
+			
+		</h:form>
+		
+		
+		<!-- ======== Aditional area - for modals e extra forms ========= -->
+		
+		<ui:insert name="modal_region" />
+			
+	</ui:define>
+
+</ui:composition>
+	  		
