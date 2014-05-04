@@ -11,6 +11,11 @@
 	  
 	  <ui:define name="content">
 	  	
+	  	<!-- ====== Params ================ -->
+  		<!-- 
+  			. Obrigatorio: 
+  				- managedBean
+  		 -->
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
 		
 		
@@ -28,7 +33,7 @@
 			<!-- ==== Filtro ===== -->
 			<p:accordionPanel styleClass="filtro_pesquisa">
 				<p:tab title="Filtro de Pesquisa:" titleStyleClass="outputLabel" >
-					<h:panelGrid cellpadding="0" width="600">
+					<h:panelGrid cellpadding="0">
 						
 						<ui:insert name="search_filter" />
 						
