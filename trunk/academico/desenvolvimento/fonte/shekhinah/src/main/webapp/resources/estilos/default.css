@@ -277,14 +277,13 @@ img.right {
 }
 
 .input_value {
-/*    width:80%; */
     padding:2px;
 }
 
-.filtroPesquisa {
+.filtro_pesquisa {
 	padding: 0px;
+    width: 700px;
 }
-
 
 .grid {
     width:100%;
