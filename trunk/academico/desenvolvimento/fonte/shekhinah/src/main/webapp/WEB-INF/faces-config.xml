@@ -6,11 +6,11 @@
 
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-		
+
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
-		
+
 		<resource-bundle>
 			<base-name>messages</base-name>
 			<var>msg</var>
@@ -22,5 +22,25 @@
 		<converter-for-class>java.lang.Enum</converter-for-class>
 		<converter-class>javax.faces.convert.EnumConverter</converter-class>
 	</converter>
+
+
+	<navigation-rule>
+		<from-view-id>/paginas/aluno/pesquisa.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cadastro</from-outcome>
+			<to-view-id>/paginas/aluno/cadastro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/paginas/aluno/cadastro.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>pesquisa</from-outcome>
+			<to-view-id>/paginas/aluno/pesquisa.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
 
 </faces-config>
