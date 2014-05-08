@@ -85,9 +85,9 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	}
 
 
-	public void novo() {
-		super.novo();
+	public String novo() {
 		this.responsaveis = responsavelServico.listarTodos();
+		return super.novo();
 	}
 
 	public void detalhe(Aluno aluno) {
@@ -96,11 +96,11 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	}
 
 
-	public void salvar() {
+	public String salvar() {
 		if (this.entidade.getDataCadastro() == null) {
 			this.entidade.setDataCadastro(new Date());
 		}
-		super.salvar();
+		return super.salvar();
 	}
 
 
