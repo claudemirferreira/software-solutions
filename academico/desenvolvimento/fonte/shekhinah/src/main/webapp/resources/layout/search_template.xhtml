@@ -41,7 +41,7 @@
 						<h:panelGrid columns="2" cellpadding="2">
 		                    
 		                    <p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.pesquisar}" update=":form:panelGrid :form:msg" icon="ui-icon-search" styleClass="ui-priority-primary"/>
-								
+													<!-- /paginas/aluno/cadastro.xhtml?faces-redirect=true -->
 							<p:commandButton id="btnNew" value="Novo" action="#{managedBean.novo}" ajax="false" icon="ui-icon-circle-plus" styleClass="ui-priority-primary"/>
 						
 							<p:defaultCommand target="btnSearh" />
@@ -50,11 +50,12 @@
 						
 					</h:panelGrid>
    				
-			<p:blockUI block=":form:" trigger="btnNew btnSearh">
-	       	 	PROCESSANDO...<br />
-				<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-			</p:blockUI>
-			
+   				
+					<p:blockUI block=":form:" trigger="btnNew btnSearh">
+			       	 	PROCESSANDO...<br />
+						<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+					</p:blockUI>
+					
 				</p:tab>
 			</p:accordionPanel>
    			

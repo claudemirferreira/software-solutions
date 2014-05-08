@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import br.com.ss.academico.dominio.AbstractEntity;
 import br.com.ss.academico.enumerated.Constants;
@@ -50,11 +51,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	/**
 	 * Alias para redirecionar para a tela de cadastro.
 	 */
-	public static final String CADASTRO = "cadastro.xhtml";
+	public static final String CADASTRO = "cadastro"; // "cadastro.xhtml";
 
 	/**
 	 * Alias para redirecionar para a tela de pesquisa. */
-	public static final String PESQUISA = "pesquisa.xhtml";
+	public static final String PESQUISA = "pesquisa"; // "pesquisa.xhtml";
 	
 	
 	/* ---------- Metodos ----------------------- */
@@ -148,7 +149,20 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	public String novo() {
 		this.initEntity();
 //		setPaginaCentral(getPaginaCadastro());	// FIXME remover, usar redirect
+		
 		return CADASTRO;
+		
+//		String path = getRequest().getContextPath() + "/";
+//		return path + "paginas/aluno/cadastro.xhtml";
+	}
+
+	/**
+	 * Retorna a instancia de HttpServletRequest.
+	 */
+	protected HttpServletRequest getRequest() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		return request;
 	}
 
 	/**
