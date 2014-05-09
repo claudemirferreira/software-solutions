@@ -1,64 +1,57 @@
-
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
 
-	<ui:param name="pageTitle" value="Cadastro de Aluno"/>
 	<ui:param name="pageHeader" value="Cadastro de Aluno"/>
+	<ui:param name="pageTitle" value="Cadastro de Aluno"/>
 	<ui:param name="managedBean" value="#{alunoControlador}"/>
-	
-	
-	XXXXXXXX
+	<ui:param name="widthContainer" value="950px"/>
 
 	<ui:define name="register_region">
 	
-	WWWWWWWWW
-	
-		<p:panel header="Cadastro de Aluno">
-
-			<h:panelGrid id="panelCadastro" columns="2">
-				
-				<ss:input id="nome" label="Nome" required="true" value="#{alunoControlador.entidade.nome}" />
+		<h:panelGrid id="panelCadastro" columns="2">
 			
-				<ss:input id="endereco" label="Endereço" required="true" value="#{alunoControlador.entidade.endereco}" />
-				
-				<ss:input id="bairro" label="Bairro" required="true" value="#{alunoControlador.entidade.bairro}" />
+			<ss:input id="nome" label="Nome" required="true" value="#{alunoControlador.entidade.nome}" />
+		
+			<ss:input id="endereco" label="Endereço" required="true" value="#{alunoControlador.entidade.endereco}" />
+			
+			<ss:input id="bairro" label="Bairro" required="true" value="#{alunoControlador.entidade.bairro}" />
 
-				<ss:input id="cep" label="CEP" value="#{alunoControlador.entidade.cep}"/>
+			<ss:input id="cep" label="CEP" value="#{alunoControlador.entidade.cep}"/>
 
-				<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}"/>
+			<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}"/>
 
-				<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}"/>
+			<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}"/>
 
-				<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" />
+			<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" />
 
-				<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" />
+			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" />
 
-				<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" />
-					 
-				<ss:comboBox id="sexo" label="Sexo" required="true" selectOne="true" value="#{alunoControlador.entidade.sexo}" list="#{alunoControlador.sexoList}" />
+			<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" />
+				 
+			<ss:comboBox id="sexo" label="Sexo" required="true" selectOne="true" value="#{alunoControlador.entidade.sexo}" list="#{alunoControlador.sexoList}" />
 
-				<ss:input id="dataNasc" type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
-				
-		        <ss:autoComplete id="resp"
-			        			label="Responsável"
-			       				value="#{alunoControlador.entidade.responsavel}"
-			       				bean="#{alunoControlador}"
-			       				completeMethod="listarResponsavel"
-			                    itemLabel="#{item.nome}" />
-		                    
-				<ss:comboBox id="grauParentesco" label="Grau de Parentesco" required="true" selectOne="true" value="#{alunoControlador.entidade.grauParentesco}" list="#{alunoControlador.grauParentescoList}"/>
+			<ss:input id="dataNasc" type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
+			
+	        <ss:autoComplete id="resp"
+		        			label="Responsável"
+		       				value="#{alunoControlador.entidade.responsavel}"
+		       				bean="#{alunoControlador}"
+		       				completeMethod="listarResponsavel"
+		                    itemLabel="#{item.nome}" />
+	                    
+			<ss:comboBox id="grauParentesco" label="Grau de Parentesco" required="true" selectOne="true" value="#{alunoControlador.entidade.grauParentesco}" list="#{alunoControlador.grauParentescoList}"/>
 
-			</h:panelGrid>
-
-		</p:panel>
+		</h:panelGrid>
 
 	</ui:define>
 
-</ui:component>
+</ui:composition>

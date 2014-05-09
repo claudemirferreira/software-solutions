@@ -15,7 +15,7 @@
 		<cc:attribute name="id" required="false" default="id" />
 		<cc:attribute name="label" />	
 		<cc:attribute name="required" default="false" />
-		<cc:attribute name="requiredMessage" default="Preencher campos obrigatórios (*)" />
+		<cc:attribute name="requiredMessage" default="Campo obrigatório" />
 		<cc:attribute name="title" default="Informar valor" />
 		<cc:attribute name="size" default="30"  />
 		
@@ -55,9 +55,8 @@
 	                        >
 						<p:ajax event="itemSelect" process="@this" update="ac_#{cc.attrs.id}" />  
                 </p:autoComplete>          
-			
+				<br />
 				<h:message for="ac_#{cc.attrs.id}" styleClass="error" />
-	 		
 	 		</p:column>
 	 		
 		</h:panelGrid>
