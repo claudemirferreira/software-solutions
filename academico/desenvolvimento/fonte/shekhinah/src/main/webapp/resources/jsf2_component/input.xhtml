@@ -23,7 +23,7 @@
 		<!-- types: text, number, calendar(date) -->
 		<cc:attribute name="type" default="text" required="false"  />
 		<cc:attribute name="title" default="#{cc.attrs.type eq 'date' ? 'Informar data' : 'Informar valor'}" required="false" />
-		<cc:attribute name="requiredMessage" default="Preencher campos obrigatórios (*)" required="false" />
+		<cc:attribute name="requiredMessage" default="Campo obrigatório" required="false" />
 		
 		<!-- events -->
 		<cc:attribute name="ajax" default="false" required="false"  />
@@ -51,6 +51,7 @@
 							<p:ajax event="blur" update="#{idComp}" />  
 						</c:if>
 					</p:inputText>
+					<br />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		
@@ -63,6 +64,7 @@
 							<p:ajax event="blur" update="#{idComp}" />  
 						</c:if>
 		 			</pe:inputNumber> 
+					<br />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		
@@ -83,6 +85,7 @@
 							<p:ajax event="dateSelect" update="#{idComp}" />  
 						</c:if>
 					</p:calendar>
+					<br />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		

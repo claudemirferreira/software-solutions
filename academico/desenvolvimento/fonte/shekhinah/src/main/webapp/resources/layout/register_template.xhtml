@@ -9,38 +9,30 @@
 				xmlns:p="http://primefaces.org/ui"
 	  			xmlns:pe="http://primefaces.org/ui/extensions"
 				template="/resources/layout/template.xhtml">
-	  
-	  ssssss
+  	
+		<!--  ====== Params ================ 
+			. Obrigatorios: 
+				- managedBean
+		 -->
 	  
 	  <ui:define name="content">
-	  
-	  rrrrrrrrrr
-	  	
-	  	<!-- ====== Params ================ -->
-  		<!-- 
-  			. Obrigatorios: 
-  				- managedBean
-  		 -->
-  		 
-  		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
   		
   		<c:if test="#{empty widthContainer}" >
   			<c:set var="widthContainer" value="700px" />
   		</c:if>
+  		 
+  		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
 		
 		<h:form id="form" prependId="false">
 		
 			 <h1 class="title ui-widget-header ui-corner-all">#{pageHeader}</h1>
 		
-			<!-- ===== Msg ============ -->
 			<h:panelGrid cellpadding="0" cellspacing="0" >
-				<p:messages id="msg"  />
-				<p:growl 	id="msgGrowl" />
+				<p:messages id="msg" 		globalOnly="true" />
+				<p:growl 	id="msgGrowl"	globalOnly="true" />
 			</h:panelGrid>
 			
-			<h:messages errorClass="error"/>
-			
-			<h:panelGrid columnClasses="grid"> 
+			<h:panelGrid columnClasses="grid" style="padding: 2px 0px 0px 4px;"> 
 				
 				<p:panel footer="* Campos obrigatórios" style="width:#{widthContainer}">  
                 
@@ -50,19 +42,16 @@
 				
 			</h:panelGrid>
 				
-			
 			<!-- ==== Button ======= -->
-			<f:facet name="footer">
+			<h:panelGrid columns="2" cellpadding="2" style="padding: 2px 0px 0px 4px;">
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 					action="#{managedBean.cancelar}" immediate="true" />
 
-				<!-- FIXME testar rerender da msg -->
 				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
 					action="#{managedBean.salvar}" />
-
-			</f:facet>
+			</h:panelGrid>
 			
 			<p:blockUI block="form" trigger="buttonRetornar buttonCadastro">
 	        	PROCESSANDO...<br />
