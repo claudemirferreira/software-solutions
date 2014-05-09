@@ -9,40 +9,32 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-<!-- 	<h:form id="form">  FIXME estah dando erro com form -->
+	<p:panel>
+		<p:dataGrid id="rotinaousel"
+			value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
+			headerText="Administrativo" columns="#{usuarioControlador.colunas}"
+			style="width:100%; height:100%; ">
+			
+			<div align="center">
+			
+				<h:panelGrid id="panelRelatorio">
 
-		<p:panel>
-			<p:dataGrid id="rotinaousel"
-				value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
-				headerText="Administrativo" columns="#{usuarioControlador.colunas}"
-				style="width:100%; height:100%; ">
-				<div align="center">
-					<h:panelGrid id="panelRelatorio">
+					<h:commandLink
+						actionListener="#{rotinaControlador.telaRotinas(perfil)}"
+						title="#{perfil.nome}" update=":form"
+						onstart="PF('blockUIWidget').block()"
+						oncomplete="PF('blockUIWidget').unblock()">
+						<p:graphicImage width="100px" height="100px"
+							value="#{perfil.imagem}" />
+					</h:commandLink>
 
-						<h:commandLink
-							actionListener="#{rotinaControlador.telaRotinas(perfil)}"
-							title="#{perfil.nome}" update=":form"
-							onstart="PF('blockUIWidget').block()"
-							oncomplete="PF('blockUIWidget').unblock()">
-							<p:graphicImage width="100px" height="100px"
-								value="#{perfil.imagem}" />
-						</h:commandLink>
+				</h:panelGrid>
+				
+			</div>
+		</p:dataGrid>
+		<p:commandButton
+			action="#{perfilControlador.listaPerfilPorSistemaPorUsuario}"
+			id="home" icon="ui-icon-home" value="Retornar" update=":form" />
+	</p:panel>
 
-					</h:panelGrid>
-				</div>
-			</p:dataGrid>
-			<p:commandButton
-				action="#{perfilControlador.listaPerfilPorSistemaPorUsuario}"
-				id="home" icon="ui-icon-home" value="Retornar" update=":form" />
-		</p:panel>
-
-<!-- 	</h:form> -->
-
-<!-- 	<pe:blockUI widgetVar="blockUIWidget">		FIXME add block component no template.xhtml e remover dos search e register template			 -->
-<!-- 		<h:panelGrid columns="2"> -->
-<!-- 			<h:graphicImage value="ajax-loader.gif" -->
-<!-- 				style="margin-right: 12px; vertical-align: middle;" /> -->
-<!-- 			<h:outputText value="Please wait..." style="white-space: nowrap;" /> -->
-<!-- 		</h:panelGrid> -->
-<!-- 	</pe:blockUI> -->
 </ui:component>
