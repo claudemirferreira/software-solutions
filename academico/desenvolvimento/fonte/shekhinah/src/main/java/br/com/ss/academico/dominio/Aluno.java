@@ -20,8 +20,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
+
 import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.academico.enumerated.Sexo;
+import br.com.ss.core.web.annotation.Cep;
 
 /**
  * The persistent class for the iansa_aluno database table.
@@ -43,10 +47,12 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(length = 8)
 	private String celular;
 
+	@Cep
 	@Column(length = 8)
 	private String cep;
 
-	@Column(length = 11)
+	@CPF(message="CPF inválido")
+	@Column(length = 11, nullable = true)
 	private String cpf;
 
 	@Enumerated
@@ -60,7 +66,8 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
-	@Column(length = 60)
+	@Email(message="E-mail inválido", regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+	@Column(length = 60, nullable = true)
 	private String email;
 
 	@Column(nullable = false, length = 60)

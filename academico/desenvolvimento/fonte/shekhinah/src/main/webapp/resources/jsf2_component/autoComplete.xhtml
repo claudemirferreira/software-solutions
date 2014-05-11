@@ -16,8 +16,12 @@
 		<cc:attribute name="label" />	
 		<cc:attribute name="required" default="false" />
 		<cc:attribute name="requiredMessage" default="Campo obrigatório" />
+		<cc:attribute name="validatorMessage" default="Valor inválido" required="false" />
+		
 		<cc:attribute name="title" default="Informar valor" />
 		<cc:attribute name="size" default="30"  />
+		
+		<cc:attribute name="watermark" required="false"  />
 		
 		<!-- autoComplete params -->
 		<cc:attribute name="itemLabel" required="true" shortDescription="#{item} - Atributo de iteração utilizado no componente." />
@@ -51,11 +55,13 @@
 	                        size="#{cc.attrs.size}"
 	                        required="#{cc.attrs.required}"
 	                        requiredMessage="#{cc.attrs.requiredMessage}"
+	                        validatorMessage="#{cc.attrs.validatorMessage}"
 	                        converter="genericConverter"
 	                        >
 						<p:ajax event="itemSelect" process="@this" update="ac_#{cc.attrs.id}" />  
                 </p:autoComplete>          
 				<br />
+				<p:watermark for="ac_#{cc.attrs.id}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
 				<h:message for="ac_#{cc.attrs.id}" styleClass="error" />
 	 		</p:column>
 	 		

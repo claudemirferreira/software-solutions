@@ -20,10 +20,16 @@
 		<cc:attribute name="align" default="left" />
 		<cc:attribute name="maxlength" required="false" default="50" />
 		
-		<!-- types: text, number, calendar(date) -->
+		<!-- types: text, mask, number, calendar(date) -->
 		<cc:attribute name="type" default="text" required="false"  />
 		<cc:attribute name="title" default="#{cc.attrs.type eq 'date' ? 'Informar data' : 'Informar valor'}" required="false" />
 		<cc:attribute name="requiredMessage" default="Campo obrigatório" required="false" />
+		<cc:attribute name="validatorMessage" required="false" />
+		
+		<cc:attribute name="watermark" required="false"  />
+		
+		<cc:attribute name="email" default="false" required="false"  />
+		<cc:attribute name="emailValidatorMessage" default="E-mail inválido" required="false" />
 		
 		<!-- events -->
 		<cc:attribute name="ajax" default="false" required="false"  />
@@ -42,29 +48,51 @@
 	 		</p:column>
 	 		
 	 		<p:column>
+	 		
+ 				<c:set var="msgValidator" value="#{cc.attrs.email ? cc.attrs.emailValidatorMessage : cc.attrs.validatorMessage}"/>
+	 			
 	 			<c:if test="#{cc.attrs.type eq 'text'}">
 	 				<c:set var="idComp" value="tx_#{cc.attrs.id}"/>
 		 			<!-- Input Text -->
-					<p:inputText id="#{idComp}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" >
+					<p:inputText id="#{idComp}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{msgValidator}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" >
 						<ui:insert />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="blur" update="#{idComp}" />  
 						</c:if>
+						<c:if test="#{cc.attrs.email}">
+							<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</c:if>
 					</p:inputText>
 					<br />
+					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
+					<h:message for="#{idComp}" styleClass="error"  />
+	 			</c:if>
+	 		
+	 			<c:if test="#{cc.attrs.type eq 'mask'}">
+	 				<c:set var="idComp" value="ms_#{cc.attrs.id}"/>
+		 			<!-- Input Mask -->
+					<p:inputMask id="#{idComp}" value="#{cc.attrs.value}" mask="#{cc.attrs.mask}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" >
+						<ui:insert />
+						<c:if test="#{cc.attrs.ajax}">
+							<p:ajax event="blur" update="#{idComp}" />  
+						</c:if>
+					</p:inputMask>
+					<br />
+					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		
 	 			<c:if test="#{cc.attrs.type eq 'number'}">
 	 				<c:set var="idComp" value="nb_#{cc.attrs.id}"/>
 		 			<!-- Input Number -->
-		 			<pe:inputNumber id="#{idComp}" value="#{cc.attrs.value}" decimalSeparator="," thousandSeparator="."  dir="RTL" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" immediate="#{cc.attrs.immediate}" >
+		 			<pe:inputNumber id="#{idComp}" value="#{cc.attrs.value}" decimalPlaces="2" decimalSeparator="," thousandSeparator="."  dir="RTL" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" immediate="#{cc.attrs.immediate}" >
 		 				<ui:insert />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="blur" update="#{idComp}" />  
 						</c:if>
 		 			</pe:inputNumber> 
 					<br />
+					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		
@@ -77,6 +105,7 @@
 								immediate="#{cc.attrs.immediate}" 
 								required="#{cc.attrs.required}"
 								requiredMessage="#{cc.attrs.requiredMessage}"
+								validatorMessage="Data inválida"
 								value="#{cc.attrs.value}"
 								title="#{cc.attrs.title}" 
 								mask="99/99/9999" >
@@ -86,6 +115,7 @@
 						</c:if>
 					</p:calendar>
 					<br />
+					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		

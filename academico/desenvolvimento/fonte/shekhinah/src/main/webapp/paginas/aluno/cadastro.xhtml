@@ -19,27 +19,27 @@
 	
 		<h:panelGrid id="panelCadastro" columns="2">
 			
-			<ss:input id="nome" label="Nome" required="true" value="#{alunoControlador.entidade.nome}" />
+			<ss:input id="nome" label="Nome" watermark="" required="true" value="#{alunoControlador.entidade.nome}" />
 		
 			<ss:input id="endereco" label="Endereço" required="true" value="#{alunoControlador.entidade.endereco}" />
 			
 			<ss:input id="bairro" label="Bairro" required="true" value="#{alunoControlador.entidade.bairro}" />
 
-			<ss:input id="cep" label="CEP" value="#{alunoControlador.entidade.cep}"/>
+			<ss:input id="cep" label="CEP" value="#{alunoControlador.entidade.cep}" type="mask" mask="99999-999" watermark="99999-999" maxlength="9" />
 
-			<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}"/>
+			<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}" type="mask" mask="9999-9999" watermark="9999-9999" />
 
-			<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}"/>
+			<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" />
 
-			<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" />
+			<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" email="true" />
+			
+			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" type="mask" watermark="999.999.999-99" mask="999.999.999-99"  />
 
-			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" />
-
-			<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" />
+			<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" type="mask" watermark="99999999-99" mask="99999999-99"  />
 				 
 			<ss:comboBox id="sexo" label="Sexo" required="true" selectOne="true" value="#{alunoControlador.entidade.sexo}" list="#{alunoControlador.sexoList}" />
 
-			<ss:input id="dataNasc" type="date" label="Data Nascimento" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
+			<ss:input id="dataNasc" type="date" label="Data Nascimento" watermark="99/99/99" required="true" value="#{alunoControlador.entidade.dataNascimento}" />
 			
 	        <ss:autoComplete id="resp"
 		        			label="Responsável"
