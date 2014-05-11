@@ -18,7 +18,7 @@
 	  <ui:define name="content">
   		
   		<c:if test="#{empty widthContainer}" >
-  			<c:set var="widthContainer" value="700px" />
+  			<c:set var="widthContainer" value="100%" />
   		</c:if>
   		 
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
@@ -29,7 +29,7 @@
 		
 			<h:panelGrid cellpadding="0" cellspacing="0" >
 				<p:messages id="msg" 		globalOnly="true" />
-				<p:growl 	id="msgGrowl"	globalOnly="true" />
+				<p:growl 	id="msgGrowl"	globalOnly="true" showDetail="true" />
 			</h:panelGrid>
 			
 			<h:panelGrid columnClasses="grid" style="padding: 2px 0px 0px 4px;"> 
@@ -44,16 +44,21 @@
 				
 			<!-- ==== Button ======= -->
 			<h:panelGrid columns="2" cellpadding="2" style="padding: 2px 0px 0px 4px;">
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					action="#{managedBean.cancelar}" immediate="true" />
+				<p:commandButton id="btnRetornar" 
+								value="Retornar" 
+								update=":form"
+								icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+								action="#{managedBean.cancelar}" 
+								immediate="true" />
 
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{managedBean.salvar}" />
+				<p:commandButton id="btnSalvar" 
+								value="Salvar" 
+								update=":form :form:msg"
+								icon="ui-icon-disk" styleClass="ui-priority-primary"
+								action="#{managedBean.salvar}" />
 			</h:panelGrid>
 			
-			<p:blockUI block="form" trigger="buttonRetornar buttonCadastro">
+			<p:blockUI block="form" trigger="btnRetornar btnSalvar">
 	        	PROCESSANDO...<br />
 				<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
 			</p:blockUI>

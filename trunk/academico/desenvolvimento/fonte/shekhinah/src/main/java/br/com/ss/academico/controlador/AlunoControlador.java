@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -13,6 +14,7 @@ import javax.faces.model.SelectItem;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Responsavel;
+import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
@@ -26,9 +28,6 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	private static final long serialVersionUID = -6832271293709421841L;
 
 	private List<Responsavel> responsaveis;
-
-	private final String TELA_CADASTRO = "paginas/aluno/cadastro.xhtml";
-	private final String TELA_PESQUISA = "paginas/aluno/pesquisa.xhtml";
 
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico servico;
@@ -46,7 +45,6 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	@Override
 	public void init() {
 		grauParentescoList = createGrauParentescoList();
-		setPaginaCentral(TELA_PESQUISA);
 	}
 
 	@Override
@@ -54,16 +52,6 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		this.entidade = new Aluno();
 		this.pesquisa = new Aluno();
 		this.responsaveis = new ArrayList<Responsavel>();
-	}
-
-	@Override
-	protected String getPaginaPesquisa() {
-		return TELA_PESQUISA;
-	}
-
-	@Override
-	protected String getPaginaCadastro() {
-		return TELA_CADASTRO;
 	}
 
 	@Override
@@ -90,13 +78,19 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		return super.novo();
 	}
 
-	public void detalhe(Aluno aluno) {
-		super.detalhe(aluno);
+	public String detalhe(Aluno aluno) {
 		this.responsaveis = responsavelServico.listarTodos();
+		return super.detalhe(aluno);
 	}
 
 
 	public String salvar() {
+		
+		if (isDataFuturo(entidade.getDataNascimento())) {
+			showMessage(Constants.MSG_WARN_VALIDACAO, "Data de Nascimento é maior que a data atual." , FacesMessage.SEVERITY_WARN);
+			return null;
+		}
+		
 		if (this.entidade.getDataCadastro() == null) {
 			this.entidade.setDataCadastro(new Date());
 		}
@@ -137,14 +131,6 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	public void setPesquisa(Aluno pesquisa) {
 		this.pesquisa = pesquisa;
-	}
-
-	public PaginaCentralControlador getPaginaCentralControlador() {
-		return paginaCentralControlador;
-	}
-
-	public void setPaginaCentralControlador( PaginaCentralControlador paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public AlunoServico getServico() {

@@ -3,6 +3,7 @@ package br.com.ss.academico.controlador;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,7 @@ import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.Sexo;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.IService;
+import br.com.ss.academico.utils.DateUtil;
 
 @Named
 public abstract class ControladorGenerico<T extends AbstractEntity> implements Serializable {
@@ -38,9 +40,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	/** Lista com o resultado da pesquisa. */
 	protected List<T> listaPesquisa;
-	
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	protected PaginaCentralControlador paginaCentralControlador;
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	protected RelatorioUtil relatorioUtil;
@@ -51,11 +50,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	/**
 	 * Alias para redirecionar para a tela de cadastro.
 	 */
-	public static final String CADASTRO = "cadastro"; // "cadastro.xhtml";
+	public static final String CADASTRO = "cadastro";
 
 	/**
 	 * Alias para redirecionar para a tela de pesquisa. */
-	public static final String PESQUISA = "pesquisa"; // "pesquisa.xhtml";
+	public static final String PESQUISA = "pesquisa";
 	
 	
 	/* ---------- Metodos ----------------------- */
@@ -68,7 +67,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		pesquisar();
 	}
 
-	private void initCommons() {
+	protected void initCommons() {
 		
 		sexoList = new ArrayList<SelectItem>();
 		for (Sexo c : Sexo.values()) {
@@ -80,12 +79,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	protected abstract void init();
 
 	protected abstract void initEntity();
-
-	/**  Alias para redirecionar para a tela de pesquisa. */
-	protected abstract String getPaginaPesquisa();
-	
-	/**  Alias para redirecionar para a tela de cadastro. */
-	protected abstract String getPaginaCadastro();
 
 	/** Nome do relatorio utilizado na impressao. */
 	protected abstract String getNomeRelatorio();
@@ -102,7 +95,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		try {
 			getService().salvar(entidade);
 			setup();
-			setPaginaCentral(getPaginaPesquisa());
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			return PESQUISA;
 		} catch (Exception e) {
@@ -111,14 +103,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			return null;
 		}
 	}
-
-	protected void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();
-		facesMessage.setSeverity(severityInfo);
-		facesMessage.setSummary(msg);
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-	}
-
+	
 
 	public void excluir(T itemRemove) {
 		itemToRemove = itemRemove;
@@ -148,13 +133,47 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 */
 	public String novo() {
 		this.initEntity();
-//		setPaginaCentral(getPaginaCadastro());	// FIXME remover, usar redirect
-		
 		return CADASTRO;
-		
-//		String path = getRequest().getContextPath() + "/";
-//		return path + "paginas/aluno/cadastro.xhtml";
 	}
+	
+	/**
+	 * Metodo utilizado para editar uma entidade. Sobrescrever este metodo caso
+	 * necessário realizar outras operaçoes.
+	 * @return string.
+	 */
+	public String detalhe(T entidade) {
+		this.entidade = entidade;
+		return CADASTRO;
+	}
+
+	/**
+	 * Metodo utilizado para cancelar uma edicao e retornar para a pg de inicial.
+	 * @return string.
+	 */
+	public String cancelar() {
+		init();
+		return PESQUISA;
+	}
+
+	public void imprimir() throws FileNotFoundException {
+		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
+	}
+
+	
+	/* -------- Metodos utilitarios -------------- */
+
+	protected void showMessage(String msg, Severity severityInfo) {
+		showMessage(msg, null, severityInfo);		
+	}
+
+	protected void showMessage(String msg, String detail, Severity severityInfo) {
+		FacesMessage facesMessage = new FacesMessage();
+		facesMessage.setSeverity(severityInfo);
+		facesMessage.setSummary(msg);
+		facesMessage.setDetail(detail);
+		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	}
+
 
 	/**
 	 * Retorna a instancia de HttpServletRequest.
@@ -165,36 +184,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		return request;
 	}
 
-	/**
-	 * Metodo utilizado para editar uma entidade. Sobrescrever este metodo caso
-	 * necessário realizar outras operaçoes.
-	 * @return string.
-	 */
-	public void detalhe(T entidade) {
-		this.entidade = entidade;
-		setPaginaCentral(getPaginaCadastro());
-	}
-
-	/**
-	 * Metodo utilizado para cancelar uma edicao e retornar para a pg de inicial.
-	 * @return string.
-	 */
-	public String cancelar() {
-		init();
-//		setPaginaCentral(getPaginaPesquisa());	// FIXME remover, usar redirect
-		return PESQUISA;
-	}
-
 	
-	protected void setPaginaCentral(String pagina) {
-		this.paginaCentralControlador.setPaginaCentral(pagina);
+	protected boolean isDataFuturo(Date date) {
+		return DateUtil.isDataFuturo(date);
 	}
-	
-
-	public void imprimir() throws FileNotFoundException {
-		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
-	}
-	
 
 	/* ---------- Others ------------- */
 
