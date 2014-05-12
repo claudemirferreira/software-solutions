@@ -20,6 +20,7 @@
 		
 		<cc:attribute name="title" default="Informar valor" />
 		<cc:attribute name="size" default="30"  />
+		<cc:attribute name="dir" default="ltr"  />
 		
 		<cc:attribute name="watermark" required="false"  />
 		
@@ -49,6 +50,7 @@
 		                    itemValue="#{item}" 
 		                    itemLabel="#{cc.attrs.itemLabel}" 
 	                        cache="true"
+	                        dir="#{cc.attrs.dir}" 
 	                        queryDelay="#{cc.attrs.queryDelay}"
 	                        forceSelection="#{cc.attrs.forceSelection}" 
 	                        title="#{cc.attrs.title}" 
