@@ -7,54 +7,47 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<p:outputPanel id="pnlCadMat" rendered="#{alunoMatriculaControlador.modalCadastro}">
 	
-		<h:panelGrid id="pnlCad" columns="4" cellpadding="6">
+		<h:panelGrid id="pnlCad" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
 			
-			<p:outputLabel value="Turma" styleClass="ui-priority-primary" />
-			<p:selectOneMenu value="#{alunoMatriculaControlador.matricula.turma}"
-						converter="entityConverter" 
-						panelStyle="width:300px" style="width:300px" effect="fade"
-						filterMatchMode="startsWith"
-						required="true" filter="true" >
-				<f:selectItem itemLabel="Selecione a turma" itemValue="" />
-				<f:selectItems value="#{alunoMatriculaControlador.turmas}"
-							var="turma" 
-							itemLabel="#{turma.curso.nome} - #{turma.turno} - #{turma.ano}"
-							itemValue="#{turma}" />
-				<p:ajax event="change" update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
+			<ss:comboBox id="turma" label="Turma" required="true" foreignKey="true" selectOne="true"
+						value="#{alunoMatriculaControlador.matricula.turma}"
+						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
+						list="#{alunoMatriculaControlador.turmas}" >
+						
+						<!-- FIXME event no componente -->
+				<p:ajax event="change" 
+						update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
 						listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
-			</p:selectOneMenu>
+			</ss:comboBox>
 			
-			<p:outputLabel value="Vagas Disponíveis" styleClass="ui-priority-primary" />
-			<p:inputMask id="vagas" value="#{alunoMatriculaControlador.matricula.turma.vagasDisponiveis}" size="5" readonly="true" />
-
-								
-			<p:outputLabel value="Valor" styleClass="ui-priority-primary" />
-			<pe:inputNumber id="valor" dir="rtl" required="true" value="#{alunoMatriculaControlador.matricula.valor}" />
+			<ss:input id="vagas" label="Vagas Disponíveis"
+						size="5" readonly="true" type="number"
+						value="#{alunoMatriculaControlador.matricula.turma.vagasDisponiveis}" />
 			
-			<p:outputLabel value="Data da Matrícula" styleClass="ui-priority-primary" />
-			<p:calendar value="#{alunoMatriculaControlador.matricula.data}" required="true" locale="pt" showButtonPanel="true" navigator="true" size="10" pattern="dd/MM/yyyy" />
+			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.matricula.valor}" dir="rtl" />
 			
-			<p:outputLabel value="Mensalidades apartir de" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbMens" value="#{alunoMatriculaControlador.mesSelecionado}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoMatriculaControlador.mesesList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-	        </p:selectOneMenu>
+			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.matricula.data}" dir="rtl" />
+			
+			<ss:comboBox label="Mensalidades apartir de" required="true" selectOne="true" 
+						value="#{alunoMatriculaControlador.mesSelecionado}" 
+						list="#{alunoMatriculaControlador.mesesList}" />
 	        
-			<p:outputLabel value="Turno Integral?" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbInteg" value="#{alunoMatriculaControlador.matricula.integral}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoMatriculaControlador.naoSimList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-	        </p:selectOneMenu>
+	        <ss:comboBox label="Turno Integral?" required="true" selectOne="true" 
+						value="#{alunoMatriculaControlador.matricula.integral}"
+						list="#{alunoMatriculaControlador.naoSimList}" />
 	        
-			<p:outputLabel value="Situação" styleClass="ui-priority-primary" />
-			<p:selectOneMenu id="cmbSit" value="#{alunoMatriculaControlador.matricula.status}" required="true" effect="fade">
-	            <f:selectItems value="#{alunoMatriculaControlador.statusMatriculaList}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
-	        	<p:ajax event="change" update=":formDlg:pnlObservacao"
+	        <ss:comboBox label="Situação" required="true" selectOne="true" 
+						value="#{alunoMatriculaControlador.matricula.status}"
+						list="#{alunoMatriculaControlador.statusMatriculaList}" >
+				<p:ajax event="change" update=":formDlg:pnlObservacao"
 						listener="#{alunoMatriculaControlador.renderObservacao}"/>  
-	        </p:selectOneMenu>
+			</ss:comboBox>
 	        
 		</h:panelGrid>
 		

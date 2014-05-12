@@ -20,6 +20,10 @@
 		<cc:attribute name="align" default="left" />
 		<cc:attribute name="maxlength" required="false" default="50" />
 		
+		<cc:attribute name="readonly" default="false"  />
+		<cc:attribute name="dir" default="ltr"  />
+		
+		
 		<!-- types: text, mask, number, calendar(date) -->
 		<cc:attribute name="type" default="text" required="false"  />
 		<cc:attribute name="title" default="#{cc.attrs.type eq 'date' ? 'Informar data' : 'Informar valor'}" required="false" />
@@ -54,7 +58,7 @@
 	 			<c:if test="#{cc.attrs.type eq 'text'}">
 	 				<c:set var="idComp" value="tx_#{cc.attrs.id}"/>
 		 			<!-- Input Text -->
-					<p:inputText id="#{idComp}" value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{msgValidator}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" >
+					<p:inputText id="#{idComp}" value="#{cc.attrs.value}" readonly="#{cc.attrs.readonly}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{msgValidator}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" dir="#{cc.attrs.dir}" >
 						<ui:insert />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="blur" update="#{idComp}" />  
@@ -71,7 +75,7 @@
 	 			<c:if test="#{cc.attrs.type eq 'mask'}">
 	 				<c:set var="idComp" value="ms_#{cc.attrs.id}"/>
 		 			<!-- Input Mask -->
-					<p:inputMask id="#{idComp}" value="#{cc.attrs.value}" mask="#{cc.attrs.mask}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" >
+					<p:inputMask id="#{idComp}" value="#{cc.attrs.value}" readonly="#{cc.attrs.readonly}" mask="#{cc.attrs.mask}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}" dir="#{cc.attrs.dir}">
 						<ui:insert />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="blur" update="#{idComp}" />  
@@ -85,7 +89,7 @@
 	 			<c:if test="#{cc.attrs.type eq 'number'}">
 	 				<c:set var="idComp" value="nb_#{cc.attrs.id}"/>
 		 			<!-- Input Number -->
-		 			<pe:inputNumber id="#{idComp}" value="#{cc.attrs.value}" decimalPlaces="2" decimalSeparator="," thousandSeparator="."  dir="RTL" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" immediate="#{cc.attrs.immediate}" >
+		 			<pe:inputNumber id="#{idComp}" value="#{cc.attrs.value}" readonly="#{cc.attrs.readonly}" decimalPlaces="2" decimalSeparator="," thousandSeparator="." required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" immediate="#{cc.attrs.immediate}" dir="#{cc.attrs.dir}" >
 		 				<ui:insert />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="blur" update="#{idComp}" />  
@@ -101,14 +105,19 @@
 		 			<!-- Calendar -->
 		 			<p:calendar id="#{idComp}"
 		 						maxlength="10"
-								size="12" 
+								size="12"
+								locale="pt"
+								showButtonPanel="true" 
+								navigator="true" 
+								dir="#{cc.attrs.dir}" 
 								immediate="#{cc.attrs.immediate}" 
+								readonly="#{cc.attrs.readonly}"
 								required="#{cc.attrs.required}"
 								requiredMessage="#{cc.attrs.requiredMessage}"
 								validatorMessage="Data inválida"
 								value="#{cc.attrs.value}"
-								title="#{cc.attrs.title}" 
-								mask="99/99/9999" >
+								title="#{cc.attrs.title}"
+								pattern="99/99/9999" >
 						<ui:insert />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="dateSelect" update="#{idComp}" />  
