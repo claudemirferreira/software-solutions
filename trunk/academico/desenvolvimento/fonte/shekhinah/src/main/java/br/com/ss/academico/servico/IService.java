@@ -1,8 +1,9 @@
 package br.com.ss.academico.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface IService<T> {
+public interface IService<T, ID extends Serializable> {
 
 	public List<T> listarTodos();
 

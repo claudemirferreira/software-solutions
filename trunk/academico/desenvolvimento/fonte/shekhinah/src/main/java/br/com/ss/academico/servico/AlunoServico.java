@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Turma;
 
-public interface AlunoServico extends IService<Aluno> {
+public interface AlunoServico extends IService<Aluno, Long> {
 
 	public List<Aluno> findByNomeLike(String nome);
 

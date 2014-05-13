@@ -23,7 +23,29 @@
 		<converter-class>javax.faces.convert.EnumConverter</converter-class>
 	</converter>
 
+	<!-- Perfil -->
+	<navigation-rule>
+		<from-view-id>/paginas/perfil/lista.xhtml</from-view-id>
+		<!-- FIXME: passar a url direto no link com ?redirect-true -->
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/paginas/perfil/pesquisa.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cadastro</from-outcome>
+			<to-view-id>/paginas/perfil/cadastro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/paginas/perfil/pesquisa.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>pesquisa</from-outcome>
+			<to-view-id>/paginas/perfil/cadastro.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
+	<!-- Aluno -->
 	<navigation-rule>
 		<from-view-id>/paginas/aluno/pesquisa.xhtml</from-view-id>
 		<navigation-case>
@@ -32,7 +54,6 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
 	<navigation-rule>
 		<from-view-id>/paginas/aluno/cadastro.xhtml</from-view-id>
 		<navigation-case>

@@ -1,9 +1,9 @@
 package br.com.ss.academico.servico;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -12,31 +12,22 @@ import br.com.ss.academico.repositorio.AlunoRepositorio;
 import br.com.ss.academico.repositorio.AlunoRepositorioJPA;
 
 @Service
-public class AlunoServicoImpl implements AlunoServico, Serializable {
+public class AlunoServicoImpl extends ServicoImpl<Aluno, Long> implements AlunoServico {
 
 	private static final long serialVersionUID = -4305564891244729963L;
 
 	@Autowired
 	private AlunoRepositorio repositorio;
-
+	
 	@Autowired
 	private AlunoRepositorioJPA repositorioJpa;
+
+	@Override
+	protected JpaRepository<Aluno, Long> getRepository() {
+		return repositorio;
+	}
 	
-	@Override
-	public List<Aluno> listarTodos() {
-		return this.repositorio.findAll();
-	}
-
-	@Override
-	public Aluno salvar(Aluno aluno) {
-		return this.repositorio.save(aluno);
-	}
-
-	@Override
-	public void remover(Aluno aluno) {
-		this.repositorio.delete(aluno);
-	}
-
+	
 	@Override
 	public List<Aluno> findByNomeLike(String nome) {
 		return this.repositorio.findByNomeLike(nome);
@@ -51,4 +42,5 @@ public class AlunoServicoImpl implements AlunoServico, Serializable {
 	public List<Aluno> pesquisar(Aluno entity) {
 		return repositorioJpa.findByNomeLike(entity);
 	}
+
 }

@@ -1,6 +1,5 @@
 package br.com.ss.academico.controlador;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -10,43 +9,25 @@ import javax.faces.bean.SessionScoped;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ss.academico.dominio.Perfil;
-import br.com.ss.academico.dominio.Rotina;
-import br.com.ss.academico.dominio.Sistema;
 import br.com.ss.academico.dominio.Usuario;
+import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.PerfilServico;
 import br.com.ss.academico.servico.RotinaServico;
 
 @ManagedBean
 @SessionScoped
-public class PerfilControlador implements Serializable {
-
-	private static final int SISTEMA_IEADAM = 2;
-
+public class PerfilControlador extends ControladorGenerico<Perfil> {
+	
 	private static final long serialVersionUID = -6832271293709421841L;
 
-	private Perfil perfil;
+	private static final int SISTEMA_IEADAM = 2;	// FIXME #Peninha: verificar regra 'SISTEMA_IEADAM'
 
-	private List<Rotina> rotinas;
-
-	private Perfil entidade;
-
-	private Perfil pesquisa;
-
-	private List<Perfil> lista;
-
+	/** Lista exibida na tela inicial (lista.xhtml). */
 	private List<Perfil> listaPerfilUsuario;
 
 	private Usuario usuario;
 
-	private Sistema sistema;
-
-	private int colunas;
-
-	private String TELA_LISTA = "paginas/perfil/lista.xhtml";
-
-	private final String TELA_CADASTRO = "paginas/perfil/cadastro.xhtml";
-
-	private final String TELA_PESQUISA = "paginas/perfil/pesquisa.xhtml";
+	private int colunas;	// FIXME #Peninha: é necessário?
 
 	@ManagedProperty(value = "#{perfilServicoImpl}")
 	private PerfilServico servico;
@@ -54,83 +35,50 @@ public class PerfilControlador implements Serializable {
 	@ManagedProperty(value = "#{rotinaServicoImpl}")
 	private RotinaServico rotinaServico;
 
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
 
+	/* --------- Overrides ------------------ */
+
+	@Override
 	public void init() {
-		this.lista = servico.listarTodos();
 		this.listaPerfilPorSistemaPorUsuario();
-		telaPesquisa();
 	}
 	
-	public PerfilControlador() {
+
+	@Override
+	protected void initEntity() {
 		this.entidade = new Perfil();
 		this.pesquisa = new Perfil();
 	}
 
-	public void pesquisar() {
-		// this.lista =
-		// servico.findBySistemaByNomeLike(this.sistema,this.pesquisa.getNome());
+	@Override
+	protected String getNomeRelatorio() {
+		// FIXME #Peninha
+		return null;
 	}
 
-	public void detalhe(Perfil perfil) {
-		this.entidade = perfil;
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
+	@Override
+	protected IService<Perfil, Long> getService() {
+		return servico;
+	}
+	
+	@Override
+	public String detalhe(Perfil perfil) {
+		return super.detalhe(perfil);
 	}
 
-	public void salvar() {
-		this.servico.salvar(this.entidade);
-		this.lista = servico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+	public String salvar() {
+		return super.salvar();
 	}
 
-	public void excluir(Perfil perfil) {
-		servico.remover(perfil);
-		this.lista = servico.listarTodos();
-	}
 
-	public void novo() {
-		this.entidade = new Perfil();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-
-	}
-
-	public void retornar() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public void telaPerfis() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_LISTA);
-	}
 
 	public void listaPerfilPorSistemaPorUsuario() {
 		this.usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
-
-		this.telaPerfis();
-
 	}
 
-	public void telaPesquisa() {
-		 paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
 
-	public Perfil getPerfil() {
-		return perfil;
-	}
-
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
-	}
-
-	public PaginaCentralControlador getPaginaCentralControlador() {
-		return paginaCentralControlador;
-	}
-
-	public void setPaginaCentralControlador(
-			PaginaCentralControlador paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
-	}
+	/* --------------- Gets/Sets ----------------------*/
 
 	public PerfilServico getServico() {
 		return servico;
@@ -146,22 +94,6 @@ public class PerfilControlador implements Serializable {
 
 	public void setRotinaServico(RotinaServico rotinaServico) {
 		this.rotinaServico = rotinaServico;
-	}
-
-	public List<Rotina> getRotinas() {
-		return rotinas;
-	}
-
-	public void setRotinas(List<Rotina> rotinas) {
-		this.rotinas = rotinas;
-	}
-
-	public List<Perfil> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Perfil> lista) {
-		this.lista = lista;
 	}
 
 	public int getColunas() {
