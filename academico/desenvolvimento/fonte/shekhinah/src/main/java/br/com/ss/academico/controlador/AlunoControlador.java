@@ -16,7 +16,6 @@ import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.GrauParentesco;
-import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.ResponsavelServico;
@@ -55,7 +54,7 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	}
 
 	@Override
-	protected IService<Aluno> getService() {
+	protected IService<Aluno, Long> getService() {
 		return servico;
 	}
 
@@ -139,14 +138,6 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	public void setServico(AlunoServico servico) {
 		this.servico = servico;
-	}
-
-	public RelatorioUtil getRelatorioUtil() {
-		return relatorioUtil;
-	}
-
-	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
-		this.relatorioUtil = relatorioUtil;
 	}
 
 	public List<Responsavel> getResponsaveis() {

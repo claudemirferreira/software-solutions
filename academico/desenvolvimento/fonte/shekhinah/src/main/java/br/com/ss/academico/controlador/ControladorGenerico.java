@@ -84,7 +84,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	protected abstract String getNomeRelatorio();
 	
 	/** Retornar o serviço da entidade. */
-	protected abstract IService<T> getService();
+	protected abstract IService<T, Long> getService();
 	
 
 	public void pesquisar() {
@@ -115,7 +115,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			executarExcluir(itemToRemove);
 			pesquisar();
 			setItemToRemove(null);
-			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);	// FIXME validar: nao exibe msg
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
@@ -222,5 +222,14 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	public List<SelectItem> getSexoList() {
 		return sexoList;
 	}
+
+	public RelatorioUtil getRelatorioUtil() {
+		return relatorioUtil;
+	}
+
+	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
+		this.relatorioUtil = relatorioUtil;
+	}
+
 	
 }

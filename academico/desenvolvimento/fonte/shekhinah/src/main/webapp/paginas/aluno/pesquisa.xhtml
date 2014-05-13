@@ -15,6 +15,7 @@
 	<ui:param name="managedBean" value="#{alunoControlador}"/>
 	
 	
+	<!-- ==== Filtro de pesquisa ======= -->
 	<ui:define name="search_filter">
 		
 		<ss:input label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
@@ -75,10 +76,9 @@
 	</ui:define>
 	
 	
-	<!-- ==== Grid ======= -->
+	<!-- ===== Modals ========= -->
 	<ui:define name="modal_region">
 		
-		<!-- =========== Modal de Matricula ============== -->
 		<ui:include src="matricula.xhtml" />
 		
 	</ui:define>

@@ -47,7 +47,7 @@ public class UsuarioControlador {
 	private SistemaServico sistemaServico;
 
 	@ManagedProperty(value = "#{perfilControlador}")
-	private PerfilControlador perfilControlador;
+	private PerfilControlador perfilControlador;	// FIXME evitar injetar um bean dentro de outro.. bad pattern
 
 	private int colunas;
 

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,9 @@ import br.com.ss.academico.servico.EmpresaServico;
 
 @ManagedBean
 @SessionScoped
-public class RelatorioUtil {
+public class RelatorioUtil implements Serializable {
+
+	private static final long serialVersionUID = 7268492679002219059L;
 
 	@ManagedProperty(value = "#{dataSource}")
 	private DriverManagerDataSource dataSource;

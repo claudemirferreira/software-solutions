@@ -3,6 +3,7 @@ package br.com.ss.academico.servico;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Perfil;
@@ -10,7 +11,9 @@ import br.com.ss.academico.repositorio.PerfilRepositorio;
 import br.com.ss.academico.repositorio.PerfilRepositorioSql;
 
 @Service
-public class PerfilServicoImpl implements PerfilServico {
+public class PerfilServicoImpl extends ServicoImpl<Perfil, Long> implements PerfilServico {
+
+	private static final long serialVersionUID = 6281856438650886521L;
 
 	@Autowired
 	private PerfilRepositorio perfilRepositorio;
@@ -19,29 +22,26 @@ public class PerfilServicoImpl implements PerfilServico {
 	private PerfilRepositorioSql perfilRepositorioSql;
 
 	@Override
-	public List<Perfil> listarTodos() {
-		return this.perfilRepositorio.findAll();
+	protected JpaRepository<Perfil, Long> getRepository() {
+		return perfilRepositorio;
 	}
 
 	@Override
-	public Perfil salvar(Perfil perfil) {
-		return this.perfilRepositorio.save(perfil);
+	public List<Perfil> pesquisar(Perfil entity) {
+		
+		// FIXME implementar
+		
+		return null;
 	}
-
-	@Override
-	public void remover(Perfil perfil) {
-		this.perfilRepositorio.delete(perfil);
-	}
-
+	
 	@Override
 	public List<Perfil> findByNomeLike(String nome) {
 		return this.perfilRepositorio.findByNomeLike(nome);
 	}
 
 	@Override
-	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId,
-			Long usuarioId) {
-		return this.perfilRepositorioSql.listaPerfilPorSistemaPorUsuario(
-				sistemaId, usuarioId);
+	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId, Long usuarioId) {
+		return this.perfilRepositorioSql.listaPerfilPorSistemaPorUsuario( sistemaId, usuarioId);
 	}
+
 }
