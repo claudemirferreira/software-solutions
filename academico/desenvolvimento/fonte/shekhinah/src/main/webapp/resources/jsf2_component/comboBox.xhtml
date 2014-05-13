@@ -56,11 +56,10 @@
 				        	</c:if>
 				            <f:selectItems value="#{cc.attrs.list}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 				            
-							<c:if test="#{cc.attrs.ajax}">
-								<p:ajax event="change" update="#{idComp}" />  
-							</c:if>
+				            <ui:insert name="aditional" />
 				            
-				            <ui:insert />
+<!-- 				     <cc:insertChildren /> -->
+				            
 				        </p:selectOneMenu>
      					<br />
 						<h:message for="#{idComp}" styleClass="error" />
@@ -75,10 +74,14 @@
 					        	<f:selectItem itemLabel="#{cc.attrs.selectAllMsg}" itemValue="" />
 				        	</c:if>
 				            <f:selectItems value="#{cc.attrs.list}" var="item" itemLabel="#{cc.attrs.atributo}" itemValue="#{item}"/>
-				            <ui:insert />
+				            
+				            <ui:insert name="aditional" />
+				            
+<!-- 			            <cc:insertChildren /> -->
+				            
 				        </p:selectOneMenu>
 						<br />
-						<h:message for="#{cc.attrs.id}" styleClass="error" />
+						<h:message for="#{idComp}" styleClass="error" />
 			        </c:if>
 		 		</p:column>
 		 		

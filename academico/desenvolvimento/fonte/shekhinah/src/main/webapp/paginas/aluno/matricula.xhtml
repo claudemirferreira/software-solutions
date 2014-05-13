@@ -9,7 +9,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<p:dialog id="dialogMatricula" width="850" resizable="true" modal="true" appendToBody="true"
+	<p:dialog id="dialogMatricula" width="1050" resizable="true" modal="true" appendToBody="true"
 		header="#{not alunoMatriculaControlador.modalCadastro ? 'Matrículas' : 'Cadastro de Matrícula' }: #{alunoMatriculaControlador.alunoMatricula.nome}"
 		widgetVar="dlgMatricula" closable="true" draggable="true">
 
@@ -17,7 +17,6 @@
 
 			<!-- =========  Pesquisa de Matricula  ========== -->
 			<ui:include src="mat_pesquisa.xhtml" />
-
 
 			<!-- =========  Cadastro de Matricula  ========== -->
 			<ui:include src="mat_cadastro.xhtml" />

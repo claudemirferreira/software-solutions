@@ -1,7 +1,4 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,28 +8,48 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<p:outputPanel id="pnlCadMat" rendered="#{alunoMatriculaControlador.modalCadastro}">
+	<p:panel id="pnlCadMat" rendered="#{alunoMatriculaControlador.modalCadastro}">
 	
-		<h:panelGrid id="pnlCad" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
+		<f:facet name="footer">      		
+			       		
+			<p:commandButton id="btnRetornar" value="Retornar" update=":formDlg"
+							icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+							oncomplete="PF('dlgMatricula').show();"
+							action="#{alunoMatriculaControlador.showModalPesquisaMatricula}" 
+							immediate="true" />
+		
+			<p:spacer width="5px" />
+			
+			<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg"
+							icon="ui-icon-disk" styleClass="ui-priority-primary"
+							oncomplete="PF('dlgMatricula').show();"
+							action="#{alunoMatriculaControlador.salvarMatricula}" />
+		</f:facet>
+
+	
+		<h:panelGrid id="pnlCad" columns="2" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
 			
 			<ss:comboBox id="turma" label="Turma" required="true" foreignKey="true" selectOne="true"
+						ajax="true"
 						value="#{alunoMatriculaControlador.matricula.turma}"
 						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
 						list="#{alunoMatriculaControlador.turmas}" >
-						
-						<!-- FIXME event no componente -->
-				<p:ajax event="change" 
-						update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
-						listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
+				
+				<!-- FIXME event no componente -->
+					
+				<ui:define name="aditional" >
+					<p:ajax event="change" 
+							update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
+							listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
+				</ui:define>
 			</ss:comboBox>
 			
-			<ss:input id="vagas" label="Vagas Disponíveis"
-						size="5" readonly="true" type="number"
+			<ss:input id="vagas" label="Vagas Disponíveis" style="width: 40px;" readonly="true" type="number" dir="rtl" decimalPlaces="0"
 						value="#{alunoMatriculaControlador.matricula.turma.vagasDisponiveis}" />
 			
-			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.matricula.valor}" dir="rtl" />
+			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.matricula.valor}" type="number" style="width: 70px;" dir="rtl" />
 			
-			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.matricula.data}" dir="rtl" />
+			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.matricula.data}" dir="rtl" size="40" />
 			
 			<ss:comboBox label="Mensalidades apartir de" required="true" selectOne="true" 
 						value="#{alunoMatriculaControlador.mesSelecionado}" 
@@ -45,8 +62,12 @@
 	        <ss:comboBox label="Situação" required="true" selectOne="true" 
 						value="#{alunoMatriculaControlador.matricula.status}"
 						list="#{alunoMatriculaControlador.statusMatriculaList}" >
-				<p:ajax event="change" update=":formDlg:pnlObservacao"
-						listener="#{alunoMatriculaControlador.renderObservacao}"/>  
+				
+				<!-- FIXME event no componente -->		
+				<ui:define name="aditional" >
+					<p:ajax event="change" update=":formDlg:pnlObservacao"
+							listener="#{alunoMatriculaControlador.renderObservacao}"/>  
+				</ui:define>
 			</ss:comboBox>
 	        
 		</h:panelGrid>
@@ -61,19 +82,6 @@
 			</p:fieldset>
 		</p:outputPanel>
 		
-		
-		<p:commandButton id="btnRetornar" value="Retornar" update=":formDlg"
-						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-						oncomplete="PF('dlgMatricula').show();"
-						action="#{alunoMatriculaControlador.showModalPesquisaMatricula}" 
-						immediate="true" />
+	</p:panel>
 	
-		<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg"
-						icon="ui-icon-disk" styleClass="ui-priority-primary"
-						oncomplete="PF('dlgMatricula').show();"
-						action="#{alunoMatriculaControlador.salvarMatricula}" />
-           	
-		
-	</p:outputPanel>
-		
 </ui:component>
