@@ -35,6 +35,8 @@
 	
 	<!-- ==== Grid ======= -->
 	<ui:define name="grid_region">	
+	
+		<!-- FIXME so exibir o grid se houver dados, se nao, exibir msg sem registros -->
  		
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
 			value="#{alunoControlador.listaPesquisa}" paginatorPosition="bottom"

@@ -73,8 +73,11 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 
 	public void listaPerfilPorSistemaPorUsuario() {
-		this.usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
+		Object userSession = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if ( userSession instanceof Usuario ) {
+			this.usuario = (Usuario) userSession ;
+			this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
+		}
 	}
 
 
