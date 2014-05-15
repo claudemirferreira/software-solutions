@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
@@ -9,7 +7,6 @@
 
 	<h:form id="menuForm">
 
-
 		<!-- FIXME add componente para mostrar a navegacao -->
 
 		<p:toolbar>
@@ -17,18 +14,14 @@
 				<h:outputLabel value="Shekinah - Sistema de Contole Acadêmico" style="font-weight: normal; color: #FFD700; font-size: large;"/>
 			</p:toolbarGroup>
 
-
 			<p:toolbarGroup align="right">
-
 				<p:separator />
-				<p:commandButton value="Home" action="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" id="home" icon="ui-icon-home" update=":form" />
+				<p:commandButton value="Home" action="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" id="home" icon="ui-icon-home" update=":form" />
 					
 				<p:separator />
-				<p:commandButton value="Logout" action="#{usuarioControlador.logout}" id="logoff" icon="ui-icon-closethick"  update=":form" />
-			
+				<p:commandButton value="Logout" action="/login.xhtml?faces-redirect=true" actionListener="#{usuarioControlador.logout}" id="logoff" icon="ui-icon-closethick"  update=":form" />
 			</p:toolbarGroup>
 		</p:toolbar>
 
 	</h:form>
-
 </ui:component>

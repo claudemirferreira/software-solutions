@@ -5,8 +5,8 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean
-@SessionScoped
+//@ManagedBean
+//@SessionScoped	FIXME remover
 public class PaginaCentralControlador implements Serializable{
 
 	private static final long serialVersionUID = -1155931039018244331L;
