@@ -40,8 +40,8 @@ public class UsuarioControlador {
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
 	private UsuarioServico servico;
 
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
+//	@ManagedProperty(value = "#{paginaCentralControlador}")
+//	private PaginaCentralControlador paginaCentralControlador;
 
 	@ManagedProperty(value = "#{sistemaServicoImpl}")
 	private SistemaServico sistemaServico;
@@ -54,8 +54,8 @@ public class UsuarioControlador {
 	@ManagedProperty(value = "#{authenticationManager}")
 	private AuthenticationManager authenticationManager;
 
-	private final String TELA_CADASTRO = "paginas/usuario/cadastro.xhtml";
-	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
+//	private final String TELA_CADASTRO = "paginas/usuario/cadastro.xhtml";
+//	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
 
 	public void init() {
 		this.sistema = sistemaServico.findByCodigo("IEADAM");	// FIXME mudar codigo do sistema (IEADAM)
@@ -97,11 +97,11 @@ public class UsuarioControlador {
 	}
 
 	public void telaCadastro() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
+//		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);	//FIXME
 	}
 
 	public void telaPesquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+//		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public Usuario getEntidade() {
@@ -170,15 +170,15 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
-		this.paginaCentralControlador
-				.setPaginaCentral("paginacentral.xhtml");
+//		this.paginaCentralControlador
+//				.setPaginaCentral("paginacentral.xhtml");
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
 		request.getSession().invalidate();
 
-		return "login.xhtml?faces-redirect=true";
+		return "logout";
 	}
 
 	public Usuario getUsuario() {
@@ -187,15 +187,6 @@ public class UsuarioControlador {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public PaginaCentralControlador getPaginaCentralControlador() {
-		return paginaCentralControlador;
-	}
-
-	public void setPaginaCentralControlador(
-			PaginaCentralControlador paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public AuthenticationManager getAuthenticationManager() {

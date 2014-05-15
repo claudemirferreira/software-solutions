@@ -16,6 +16,8 @@ import br.com.ss.academico.servico.RotinaServico;
 
 @ManagedBean
 @SessionScoped
+// FIXME nao estah redirecionando para o login quando ainda nao logou.. so deve criar o bean se estiver logado
+// estah chamando o metodo listaPerfilPorSistemaPorUsuario ao entrar na tela de login
 public class PerfilControlador extends ControladorGenerico<Perfil> {
 	
 	private static final long serialVersionUID = -6832271293709421841L;
@@ -69,7 +71,6 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 	public String salvar() {
 		return super.salvar();
 	}
-
 
 
 	public void listaPerfilPorSistemaPorUsuario() {

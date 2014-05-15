@@ -1,9 +1,9 @@
 package br.com.ss.academico.servico;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Rotina;
@@ -11,11 +11,8 @@ import br.com.ss.academico.repositorio.RotinaRepositorio;
 import br.com.ss.academico.repositorio.RotinaRepositorioSql;
 
 @Service
-public class RotinaServicoImpl implements RotinaServico, Serializable {
-
-	/**
-	 * 
-	 */
+public class RotinaServicoImpl  extends ServicoImpl<Rotina, Long> implements RotinaServico {
+	
 	private static final long serialVersionUID = -4128328556228022891L;
 
 	@Autowired
@@ -24,22 +21,18 @@ public class RotinaServicoImpl implements RotinaServico, Serializable {
 	@Autowired
 	private RotinaRepositorioSql rotinaRepositorioSql;
 
+
 	@Override
-	public List<Rotina> listarTodos() {
-		return this.rotinaRepositorio.findAll();
+	public List<Rotina> pesquisar(Rotina entity) {
+		// FIXME implementar
+		return null;
 	}
 
 	@Override
-	public Rotina salvar(Rotina rotina) {
-		return this.rotinaRepositorio.save(rotina);
+	protected JpaRepository<Rotina, Long> getRepository() {
+		return rotinaRepositorio;
 	}
-
-	@Override
-	public void remover(Rotina rotina) {
-		this.rotinaRepositorio.delete(rotina);
-
-	}
-
+	
 	@Override
 	public List<Rotina> listaRotinasPorPerfil(Long id) {
 		return rotinaRepositorioSql.listaRotinasPorPerfil(id);
@@ -49,4 +42,5 @@ public class RotinaServicoImpl implements RotinaServico, Serializable {
 	public List<Rotina> findByNomeLike(String nome) {
 		return this.rotinaRepositorio.findByNomeLike(nome);
 	}
+
 }

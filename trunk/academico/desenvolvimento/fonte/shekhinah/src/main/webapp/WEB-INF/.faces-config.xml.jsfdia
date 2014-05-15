@@ -1,43 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#paginas#aluno#pesquisa.xhtml"
-  PATH="/paginas/aluno/pesquisa.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#paginas#aluno#pesquisa.xhtml:0" NAME="item"
-   PATH="/paginas/aluno/pesquisa.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="cadastro::#paginas#aluno#cadastro.xhtml"
-    NAME="output" PATH="/paginas/aluno/cadastro.xhtml"
-    TARGET="rules:#paginas#aluno#cadastro.xhtml" TITLE="cadastro" model-entity="JSFProcessItemOutput"/>
+ <PROCESS-ITEM NAME="rules:#paginas#rotina#lista.xhtml"
+  PATH="/paginas/rotina/lista.xhtml" SHAPE="240,289,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="32,353,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
+   PATH="/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="listar_rotinas::#paginas#rotina#lista.xhtml"
+    NAME="output" PATH="/paginas/rotina/lista.xhtml"
+    TARGET="rules:#paginas#rotina#lista.xhtml" TITLE="listar_rotinas" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#paginas#aluno#cadastro.xhtml"
-  PATH="/paginas/aluno/cadastro.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#paginas#aluno#cadastro.xhtml:0" NAME="item"
-   PATH="/paginas/aluno/cadastro.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="pesquisa::#paginas#aluno#pesquisa.xhtml"
-    NAME="output" PATH="/paginas/aluno/pesquisa.xhtml"
-    TARGET="rules:#paginas#aluno#pesquisa.xhtml" TITLE="pesquisa" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#paginas#perfil#lista.xhtml"
-  PATH="/paginas/perfil/lista.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#paginas#perfil#lista.xhtml:0" NAME="item"
-   PATH="/paginas/perfil/lista.xhtml" model-entity="JSFProcessItem"/>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#paginas#perfil#pesquisa.xhtml"
-  PATH="/paginas/perfil/pesquisa.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#paginas#perfil#pesquisa.xhtml:0" NAME="item"
-   PATH="/paginas/perfil/pesquisa.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="cadastro::#paginas#perfil#cadastro.xhtml"
-    NAME="output" PATH="/paginas/perfil/cadastro.xhtml"
-    TARGET="rules:#paginas#perfil#cadastro.xhtml" TITLE="cadastro" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
-  <PROCESS-ITEM ID="rules:#paginas#perfil#pesquisa.xhtml:1" NAME="item1"
-   PATH="/paginas/perfil/pesquisa.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="pesquisa::#paginas#perfil#cadastro.xhtml"
-    NAME="output" PATH="/paginas/perfil/cadastro.xhtml"
-    TARGET="rules:#paginas#perfil#cadastro.xhtml" TITLE="pesquisa" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#paginas#perfil#cadastro.xhtml"
-  PATH="/paginas/perfil/cadastro.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>
