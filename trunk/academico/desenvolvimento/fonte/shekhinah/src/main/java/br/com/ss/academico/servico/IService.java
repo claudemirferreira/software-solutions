@@ -7,6 +7,8 @@ public interface IService<T, ID extends Serializable> {
 
 	public List<T> listarTodos();
 
+	public T findByPrimaryKey(Long id);
+	
 	public List<T> pesquisar(T entity);
 	
 	public T salvar(T entity);

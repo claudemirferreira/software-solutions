@@ -8,4 +8,6 @@ public interface RotinaRepositorioSql {
 
 	public List<Rotina> listaRotinasPorPerfil(Long id);
 
+	public List<Rotina> pesquisar(Rotina entity);
+
 }

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import br.com.ss.academico.enumerated.StatusUsuario;
 
 /**
  * 
@@ -40,8 +42,9 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	private String senha;
 
-	@Column(name = "status", length = 1, columnDefinition = "CHAR(1)", nullable = false)
-	private String status;
+	@Enumerated
+	@Column(name = "status", length = 1, nullable = false)
+	private StatusUsuario status;
 
 	@Override
 	public Long getId() {
@@ -103,11 +106,11 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getStatus() {
+	public StatusUsuario getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusUsuario status) {
 		this.status = status;
 	}
 

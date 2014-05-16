@@ -34,7 +34,10 @@ public class Rotina extends AbstractEntity implements Serializable {
 
 	@Column(length = 100, nullable = false)
 	private String acao;
-
+	
+	@Column(length = 100, nullable = false)
+	private String link;	// FIXME atualizar base de dados: ex: /paginas/aluno/pesquisa.xhtml
+	
 	@Column(length = 1, nullable = false)
 	private byte status;
 
@@ -107,12 +110,12 @@ public class Rotina extends AbstractEntity implements Serializable {
 		this.acao = acao;
 	}
 
-	// public List<RotinaRotina> getRotinaRotina() {
-	// return perfilRotina;
-	// }
-	//
-	// public void setRotinaRotina(List<RotinaRotina> perfilRotina) {
-	// this.perfilRotina = perfilRotina;
-	// }
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
 
 }

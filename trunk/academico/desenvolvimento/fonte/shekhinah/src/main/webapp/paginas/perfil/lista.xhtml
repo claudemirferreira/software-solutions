@@ -26,8 +26,7 @@
 				
 					<h:panelGrid id="panelRelatorio">
 	
-						<h:commandLink action="listar_rotinas" 
-									actionLister="#{rotinaControlador.listarRotinas(perfil)}"
+						<h:commandLink action="#{rotinaControlador.listarRotinas(perfil)}" 
 									title="#{perfil.nome}" update=":form"
 									onstart="PF('blockUIWidget').block()"
 									oncomplete="PF('blockUIWidget').unblock()">

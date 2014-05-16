@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.ss.academico.dominio.Rotina;
 
-public interface RotinaServico  extends IService<Rotina, Long> {
+public interface RotinaServico extends IService<Rotina, Long> {
 
 	public List<Rotina> listaRotinasPorPerfil(Long id);
 

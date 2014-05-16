@@ -1,19 +1,21 @@
 package br.com.ss.academico.enumerated;
 
-public enum Situacao {
+public enum StatusUsuario {
 
-	ATIVO(0, "ATIVO"), INATIVO(1, "INATIVO");
+	ATIVA(0, "ATIVO"), 
+	INATIVA(1, "INATIVO"), 
+	BLOQUEADO(2, "BLOQUEADO");
 
 	private int id;
 	private String descricao;
 
-	private Situacao(int id, String descricao) {
+	private StatusUsuario(int id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public static Situacao getEnum(int id) {
-		for (Situacao sit : Situacao.values()) {
+	public static StatusUsuario getEnum(int id) {
+		for (StatusUsuario sit : StatusUsuario.values()) {
 			if (sit.id == id)
 				return sit;
 		}

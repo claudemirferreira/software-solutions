@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.com.ss.academico.dominio.Rotina;
+
 @ManagedBean
 @RequestScoped
 public class PageController {
@@ -18,9 +20,9 @@ public class PageController {
 		
 	}
 	
-	public String parseUrl(Object obj) {
+	public String parseUrl( Rotina rotina ) {
 
-		String urlStr = String.valueOf(obj);
+		String urlStr = rotina.getAcao();
 		String bean = urlStr.substring(0, urlStr.indexOf("."));
 		String method = urlStr.substring(urlStr.indexOf(".") + 1, urlStr.length());
 		
@@ -42,15 +44,7 @@ public class PageController {
 
 		}
 
-		return "";
+		return rotina.getLink() + "?faces-redirect=true";
 	}
-	
-	
-	public static void main(String[] args) {
-		
-		String path = "br.com.ieadam.dominio.Rotina@45389082.path()";
-		
-	}
-	
 	
 }

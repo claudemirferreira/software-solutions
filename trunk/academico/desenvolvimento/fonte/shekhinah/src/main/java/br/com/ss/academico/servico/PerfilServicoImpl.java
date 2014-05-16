@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Perfil;
 import br.com.ss.academico.repositorio.PerfilRepositorio;
-import br.com.ss.academico.repositorio.PerfilRepositorioSql;
+import br.com.ss.academico.repositorio.PerfilRepositorioSqlHql;
 
 @Service
 public class PerfilServicoImpl extends ServicoImpl<Perfil, Long> implements PerfilServico {
@@ -19,7 +19,7 @@ public class PerfilServicoImpl extends ServicoImpl<Perfil, Long> implements Perf
 	private PerfilRepositorio perfilRepositorio;
 
 	@Autowired
-	private PerfilRepositorioSql perfilRepositorioSql;
+	private PerfilRepositorioSqlHql perfilRepositorioSql;
 
 	@Override
 	protected JpaRepository<Perfil, Long> getRepository() {
@@ -28,10 +28,7 @@ public class PerfilServicoImpl extends ServicoImpl<Perfil, Long> implements Perf
 
 	@Override
 	public List<Perfil> pesquisar(Perfil entity) {
-		
-		// FIXME implementar
-		
-		return null;
+		return perfilRepositorioSql.listaPerfil(entity);
 	}
 	
 	@Override
