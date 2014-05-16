@@ -27,5 +27,9 @@ public abstract class ServicoImpl<T, ID extends Serializable> implements IServic
 		getRepository().delete(entity);
 	}
 
+	@Override
+	public T findByPrimaryKey(Long id) {
+		return getRepository().findOne(id);
+	}
 	
 }

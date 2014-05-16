@@ -11,7 +11,7 @@ import br.com.ss.academico.repositorio.RotinaRepositorio;
 import br.com.ss.academico.repositorio.RotinaRepositorioSql;
 
 @Service
-public class RotinaServicoImpl  extends ServicoImpl<Rotina, Long> implements RotinaServico {
+public class RotinaServicoImpl extends ServicoImpl<Rotina, Long> implements RotinaServico {
 	
 	private static final long serialVersionUID = -4128328556228022891L;
 
@@ -24,8 +24,7 @@ public class RotinaServicoImpl  extends ServicoImpl<Rotina, Long> implements Rot
 
 	@Override
 	public List<Rotina> pesquisar(Rotina entity) {
-		// FIXME implementar
-		return null;
+		return rotinaRepositorioSql.pesquisar(entity);
 	}
 
 	@Override

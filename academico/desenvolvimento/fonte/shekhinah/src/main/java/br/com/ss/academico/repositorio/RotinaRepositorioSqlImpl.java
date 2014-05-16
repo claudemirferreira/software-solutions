@@ -1,21 +1,23 @@
 package br.com.ss.academico.repositorio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Rotina;
 
+@SuppressWarnings("unchecked")
 @Repository
-public class RotinaRepositorioSqlImpl implements RotinaRepositorioSql {
+public class RotinaRepositorioSqlImpl extends RepositorioGenerico implements RotinaRepositorioSql {
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Rotina> listaRotinasPorPerfil(Long id) {
 		return entityManager
@@ -24,4 +26,31 @@ public class RotinaRepositorioSqlImpl implements RotinaRepositorioSql {
 						Rotina.class).getResultList();
 
 	}
+
+	@Override
+	public List<Rotina> pesquisar(Rotina entity) {
+		StringBuilder sb = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+		
+		sb.append(" select rot from Rotina rot ");
+		
+		if ( notEmpty(entity.getSistema()) ) {
+			condictions.add(" rot.sistema = :sistema ");
+		}
+		if ( notEmpty(entity.getNome()) ) {
+			condictions.add(" rot.nome like :nome ");
+		}
+		String orderBy = " order by rot.nome ";
+		
+		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
+		if ( notEmpty(entity.getSistema()) ) {
+			query.setParameter("sistema", entity.getSistema());
+		}
+		if ( notEmpty(entity.getNome())) {
+			query.setParameter("nome", "%" + entity.getNome() + "%");
+		}
+		return query.getResultList();
+	}
+	
+	
 }

@@ -5,20 +5,26 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.repositorio.UsuarioRepositorio;
+import br.com.ss.academico.repositorio.UsuarioRepositorioHql;
 
 @Service
-public class UsuarioServicoImpl implements UsuarioServico {
+public class UsuarioServicoImpl extends ServicoImpl<Usuario, Long> implements UsuarioServico {
 
+	private static final long serialVersionUID = -530498056582804371L;
+	
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 
+	@Autowired
+	private UsuarioRepositorioHql usuarioRepositorioHql;
+
 	@Override
-	public Usuario findByLoginAndSenha(String login, String senha)
-			throws NoResultException {
+	public Usuario findByLoginAndSenha(String login, String senha) throws NoResultException {
 		return this.usuarioRepositorio.findByLoginAndSenha(login, senha);
 	}
 
@@ -28,28 +34,18 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	}
 
 	@Override
-	public List<Usuario> listarTodos() {
-		return this.usuarioRepositorio.findAll();
-	}
-
-	@Override
-	public Usuario salvar(Usuario usuario) {
-		return this.usuarioRepositorio.save(usuario);
-	}
-
-	@Override
-	public void remover(Usuario usuario) {
-		this.usuarioRepositorio.delete(usuario);
-	}
-
-	@Override
 	public List<Usuario> findByNomeLike(String nome) throws NoResultException {
 		return this.usuarioRepositorio.findByNomeLike(nome);
 	}
 
 	@Override
-	public Usuario findOne(Long id) {
-		return this.usuarioRepositorio.findOne(id);
+	public List<Usuario> pesquisar(Usuario entity) {
+		return usuarioRepositorioHql.pesquisar(entity);
+	}
+
+	@Override
+	protected JpaRepository<Usuario, Long> getRepository() {
+		return usuarioRepositorio;
 	}
 
 }

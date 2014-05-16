@@ -1,79 +1,67 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
+	<ui:param name="pageTitle" value="Usuário"/>
+	<ui:param name="pageHeader" value="Usuário"/>
+	<ui:param name="managedBean" value="#{usuarioControlador}"/>
 
-		<p:panel header="Usuário">
+	<ui:define name="search_filter">
+	
+		<ss:input label="Long" value="#{usuarioControlador.pesquisa.login}" />
+	
+		<ss:input label="Nome" value="#{usuarioControlador.pesquisa.nome}" />
+		
+		<ss:comboBox label="Situação" value="#{usuarioControlador.pesquisa.status}" list="#{usuarioControlador.statusUsuarioList}" />
+		
+	</ui:define>
+	
+	<ui:define name="grid_region">
 
-			<h:panelGrid id="panelPesquisa" columns="2">
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true" paginatorPosition="bottom"
+					value="#{usuarioControlador.listaPesquisa}" 
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 
-				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" style="width:300px"
-					value="#{usuarioControlador.pesquisa.login}" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
-
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{usuarioControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{usuarioControlador.novo}" />
-			</f:facet>
-
-		</p:panel>
-
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{usuarioControlador.lista}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
-
-			<p:column style="text-align:left" headerText="Login"
-				sortBy="#{item.login}">
+			<p:column style="text-align:left" headerText="Login" sortBy="#{item.login}">
 				<h:outputText value="#{item.login}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Status"
-				sortBy="#{item.status}">
+			<p:column style="text-align:left" headerText="Status" sortBy="#{item.status}">
 				<h:outputText value="#{item.status}" />
 			</p:column>
+			
+			
+			<!-- FIXME validar/refatorar os metodos ausentes: usuarioPerfilControlador.manterUsuario(item) -->
 
 			<p:commandButton ajax="false" value="Detalhe"
-				action="#{usuarioPerfilControlador.manterUsuario(item)}"
-				styleClass="ui-priority-primary" icon="ui-icon-pencil"
-				update=":form" title="Manter Usuário" />
+							action="#{usuarioPerfilControlador.manterUsuario(item)}"
+							styleClass="ui-priority-primary" icon="ui-icon-pencil"
+							update=":form" title="Manter Usuário" />
 
 			<p:column style="text-align:left" headerText="Ação">
 				<p:commandButton value="Detalhe" title="Detalhe"
-					action="#{usuarioControlador.detalhe(item)}"
-					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
+									action="#{usuarioControlador.detalhe(item)}"
+									icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
 
 				<p:commandButton value="Perfil" title="Perfil"
-					action="#{usuarioPerfilControlador.showModalPerfil(item)}"
-					oncomplete="PF('dlgPerfil').show();" icon="ui-icon-bookmark"
-					update=":formDlg" />
+								action="#{usuarioPerfilControlador.showModalPerfil(item)}"
+								oncomplete="PF('dlgPerfil').show();" icon="ui-icon-bookmark"
+								update=":formDlg" />
 
 				<p:commandButton title="Excluir" value="Excluir"
-					action="#{usuarioControlador.excluir(item)}" icon="ui-icon-trash"
-					update=":form" ajax="false" />
+								action="#{usuarioControlador.excluir(item)}" icon="ui-icon-trash"
+								update=":form" ajax="false" />
 
 			</p:column>
 
@@ -83,43 +71,43 @@
 
 		</p:dataTable>
 
-	</h:form>
+	</ui:define>
+	
+	
+	<ui:define name="modal_region">
+	
+		<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" modal="true" appendToBody="true">
+			<h:form id="formDlg">
+			
+				<h4 style="margin-top: 0">Selecione os Perfis para associar ao Usuário</h4>
+	
+				<p:pickList id="plUsuPerf"
+								value="#{usuarioPerfilControlador.dualListPerfil}" 
+								effect="bounce"
+								converter="usuarioPerfilConverter" 
+								var="up"
+								itemLabel="#{up.perfil.nome}" 
+								itemValue="#{up}"
+								showSourceControls="false" 
+								showTargetControls="false"
+								showCheckbox="false" 
+								showSourceFilter="true" 
+								showTargetFilter="true">
+	
+					<f:facet name="sourceCaption">Disponíveis</f:facet>
+					<f:facet name="targetCaption">Atribuídos</f:facet>
+	
+					<p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update="msg" />
+	
+					<p:column style="width:75%;"> #{up.perfil.nome}</p:column>
+	
+				</p:pickList>
+	
+				<p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" styleClass="ui-priority-primary" />
+	
+			</h:form>
+		</p:dialog>
+		
+	</ui:define>
 
-	<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" modal="true" appendToBody="true">
-		<h:form id="formDlg">
-
-
-			<p:growl id="msg" showDetail="false" escape="false"
-				globalOnly="false" />
-
-			<h4 style="margin-top: 0">Selecione os Perfis para associar ao
-				Usuário</h4>
-
-			<p:pickList id="plUsuPerf"
-				value="#{usuarioPerfilControlador.dualListPerfil}" effect="bounce"
-				converter="usuarioPerfilConverter" var="up"
-				itemLabel="#{up.perfil.nome}" itemValue="#{up}"
-				showSourceControls="false" showTargetControls="false"
-				showCheckbox="false" showSourceFilter="true" showTargetFilter="true">
-
-				<f:facet name="sourceCaption">Disponíveis</f:facet>
-				<f:facet name="targetCaption">Atribuídos</f:facet>
-
-				<p:ajax event="transfer"
-					listener="#{usuarioPerfilControlador.onTransfer}" update="msg" />
-
-				<p:column style="width:75%;">  
-		            #{up.perfil.nome}  
-		        </p:column>
-
-			</p:pickList>
-
-			<p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();"
-				styleClass="ui-priority-primary" />
-
-
-
-		</h:form>
-	</p:dialog>
-
-</ui:component>
+</ui:composition>
