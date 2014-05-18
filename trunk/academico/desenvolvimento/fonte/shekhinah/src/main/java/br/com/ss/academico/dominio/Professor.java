@@ -30,7 +30,7 @@ public class Professor extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(length = 8)
+	@Column(length = 9)
 	private String celular;
 
 	@Column(nullable = false, length = 8)
@@ -47,6 +47,7 @@ public class Professor extends AbstractEntity implements Serializable {
 	private Date dataCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
 	private Date dataNascimento;
 
 	@Column(length = 60)
@@ -55,10 +56,10 @@ public class Professor extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(length = 8)
+	@Column(length = 9)
 	private String foneComercial;
 
-	@Column(length = 8)
+	@Column(length = 9)
 	private String foneResidencial;
 
 	@Column(nullable = false, length = 60)

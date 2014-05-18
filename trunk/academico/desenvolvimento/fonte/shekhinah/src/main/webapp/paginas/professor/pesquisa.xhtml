@@ -1,39 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="Professor">
-
-			<h:panelGrid id="panelPesquisa" columns="2">
-
-				<h:outputText value="Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{professorControlador.pesquisa.nome}"
-					style="width:300px;" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{professorControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{professorControlador.novo}" />
-			</f:facet>
-
-		</p:panel>
+	<ui:param name="pageTitle" value="Professor"/>
+	<ui:param name="pageHeader" value="Professor"/>
+	<ui:param name="managedBean" value="#{professorControlador}"/>
+	
+	<ui:define name="search_filter">
+	
+		<ss:input label="Nome" value="#{professorControlador.pesquisa.nome}" />
+	
+	</ui:define>
+	
+	<ui:define name="grid_region">
 
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{professorControlador.lista}" paginatorPosition="bottom"
+			value="#{professorControlador.listaPesquisa}" paginatorPosition="bottom"
 			paginatorAlwaysVisible="true"
 			emptyMessage="Nenhum registro encontrado."
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -67,11 +57,11 @@
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(professorControlador.lista)} professors.  
-        </f:facet>
+	            Total de registros: #{fn:length(professorControlador.listaPesquisa)} professores.  
+       		</f:facet>
 
 		</p:dataTable>
+	
+	</ui:define>
 
-	</h:form>
-
-</ui:component>
+</ui:composition>

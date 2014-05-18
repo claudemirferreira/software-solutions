@@ -18,11 +18,8 @@ public class CursoControlador extends ControladorGenerico<Curso> {
 	private CursoServico servico;
 
 	@Override
-	public void init() { }
-
-	@Override
 	protected String getNomeRelatorio() {
-		// TODO #Peninha ver relatorio
+		// FIXME #Peninha ver relatorio
 		return null;
 	}
 
