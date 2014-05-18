@@ -47,12 +47,6 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 	
 
 	@Override
-	protected void initEntity() {
-		this.entidade = new Perfil();
-		this.pesquisa = new Perfil();
-	}
-
-	@Override
 	protected String getNomeRelatorio() {
 		// FIXME #Peninha
 		return null;

@@ -44,14 +44,9 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	@Override
 	public void init() {
 		grauParentescoList = createGrauParentescoList();
-	}
-
-	@Override
-	protected void initEntity() {
-		this.entidade = new Aluno();
-		this.pesquisa = new Aluno();
 		this.responsaveis = new ArrayList<Responsavel>();
 	}
+
 
 	@Override
 	protected IService<Aluno, Long> getService() {
