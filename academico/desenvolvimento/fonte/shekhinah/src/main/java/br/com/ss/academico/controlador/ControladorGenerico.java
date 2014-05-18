@@ -78,7 +78,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	protected abstract void init();
 
-	protected abstract void initEntity();
+	protected abstract void initEntity();		// FIXME refatorar usar reflexao
 
 	/** Nome do relatorio utilizado na impressao. */
 	protected abstract String getNomeRelatorio();
