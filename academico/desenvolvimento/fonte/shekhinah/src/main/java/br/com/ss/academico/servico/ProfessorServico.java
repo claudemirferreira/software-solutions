@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.ss.academico.dominio.Professor;
 
-public interface ProfessorServico {
+public interface ProfessorServico extends IService<Professor, Long>  {
 
 	public List<Professor> listarTodos();
 
