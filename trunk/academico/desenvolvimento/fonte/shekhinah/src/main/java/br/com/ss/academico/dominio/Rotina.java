@@ -35,9 +35,6 @@ public class Rotina extends AbstractEntity implements Serializable {
 	@Column(length = 100, nullable = false)
 	private String acao;
 	
-	@Column(length = 100, nullable = false)
-	private String link;	// FIXME atualizar base de dados: ex: /paginas/aluno/pesquisa.xhtml
-	
 	@Column(length = 1, nullable = false)
 	private byte status;
 
@@ -109,13 +106,4 @@ public class Rotina extends AbstractEntity implements Serializable {
 	public void setAcao(String acao) {
 		this.acao = acao;
 	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
 }
