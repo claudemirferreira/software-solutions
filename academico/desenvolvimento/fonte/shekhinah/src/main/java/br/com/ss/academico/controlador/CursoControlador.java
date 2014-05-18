@@ -21,12 +21,6 @@ public class CursoControlador extends ControladorGenerico<Curso> {
 	public void init() { }
 
 	@Override
-	protected void initEntity() {
-		this.entidade = new Curso();
-		this.pesquisa = new Curso();
-	}
-
-	@Override
 	protected String getNomeRelatorio() {
 		// TODO #Peninha ver relatorio
 		return null;

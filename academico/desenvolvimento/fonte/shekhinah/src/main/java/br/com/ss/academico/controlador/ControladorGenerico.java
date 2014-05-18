@@ -2,6 +2,7 @@ package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import br.com.ss.academico.enumerated.Sexo;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.utils.DateUtil;
+import br.com.ss.academico.utils.ReflectionsUtil;
 
 @Named
 public abstract class ControladorGenerico<T extends AbstractEntity> implements Serializable {
@@ -76,9 +78,25 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		
 	}
 
-	protected abstract void init();
+	protected void init(){
+		// Sobrescrever caso necessario
+	}
 
-	protected abstract void initEntity();		// FIXME refatorar usar reflexao
+	@SuppressWarnings("unchecked")
+	protected void initEntity(){
+		try {
+			Class<T> clazz  = resolverClass();
+			pesquisa = (T) ReflectionsUtil.callConstructor(clazz);
+			entidade = (T) ReflectionsUtil.callConstructor(clazz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Class<T> resolverClass() {
+		 return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
 
 	/** Nome do relatorio utilizado na impressao. */
 	protected abstract String getNomeRelatorio();

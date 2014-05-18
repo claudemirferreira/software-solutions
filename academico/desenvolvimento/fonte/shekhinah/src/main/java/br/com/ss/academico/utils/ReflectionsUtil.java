@@ -2,8 +2,11 @@ package br.com.ss.academico.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.ss.academico.dominio.Curso;
 
 public class ReflectionsUtil {
 
@@ -27,5 +30,38 @@ public class ReflectionsUtil {
 	    Field field = clazz.getDeclaredField(fieldName);
 	    return field.getAnnotation(annotationClass);
 	  }
+	  
+	  
+	  public static Object callConstructor(Class<?> clazz ) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		  return clazz.getConstructor().newInstance();
+	  }
+	  
+	  public static void main(String[] args) {
+		  
+		  try {
+			  
+			  Object obj = callConstructor(Curso.class );
+			  System.out.println(obj);
+			  
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	  
 }

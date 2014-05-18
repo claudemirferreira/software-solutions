@@ -26,15 +26,9 @@ public class RotinaControlador extends ControladorGenerico<Rotina> {
 
 	@Override
 	public void init() {
-		
-	}
-
-	@Override
-	protected void initEntity() {
-		this.entidade = new Rotina();
-		this.pesquisa = new Rotina();
 		this.perfil = new Perfil();
 	}
+
 
 	@Override
 	protected String getNomeRelatorio() {

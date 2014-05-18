@@ -56,12 +56,6 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	}
 
 	@Override
-	protected void initEntity() {
-		this.entidade = new Usuario();
-		this.pesquisa = new Usuario();		
-	}
-
-	@Override
 	protected String getNomeRelatorio() {
 		// FIXME #Peninha: relatorio
 		return null;
