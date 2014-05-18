@@ -1,116 +1,108 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="Curso">
-
-			<h:panelGrid id="panelPesquisa" columns="2">
-
-				<h:outputText value="Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{cursoControlador.pesquisa.nome}"
-					style="width:300px;" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{cursoControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{cursoControlador.novo}" />
-			</f:facet>
-
-		</p:panel>
+	<ui:param name="pageTitle" value="Curso"/>
+	<ui:param name="pageHeader" value="Curso"/>
+	<ui:param name="managedBean" value="#{cursoControlador}"/>
+	
+	<ui:define name="search_filter">
+	
+		<ss:input label="Nome" value="#{cursoControlador.pesquisa.nome}" />
+	
+	</ui:define>
+	
+	<ui:define name="grid_region">
 
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{cursoControlador.lista}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
+					value="#{cursoControlador.listaPesquisa}" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.nome}">
+			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
-			<p:column style="text-align:right" headerText="Valor"
-				sortBy="#{item.valor}">
+			<p:column style="text-align:right" headerText="Valor" sortBy="#{item.valor}">
 				<h:outputText value="#{item.valor}" />
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
 				<p:commandButton  value="Detalhe" title="Detalhe" 
-					action="#{cursoControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed"
-					update=":form" ajax="false"/>
+								action="#{cursoControlador.detalhe(item)}"
+								icon="	ui-icon-folder-collapsed"
+								update=":form" ajax="false"/>
 					
 				<p:commandButton value="Disciplina" title="Disciplina"
-						action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
-						oncomplete="PF('dlgDisciplina').show();"
-						update=":formDlg" icon="ui-icon-document"
+								action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
+								oncomplete="PF('dlgDisciplina').show();"
+								update=":formDlg" icon="ui-icon-document"
 						 />
 
 				<p:commandButton value="Excluir" title="Excluir"
-					action="#{cursoControlador.excluir(item)}"
-					icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false" />
+								action="#{cursoControlador.excluir(item)}"
+								icon="ui-icon-trash"
+								update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(cursoControlador.lista)} cursos.  
-        </f:facet>
+           	 	Total de registros: #{fn:length(cursoControlador.listaPesquisa)} cursos.  
+       		</f:facet>
 
 		</p:dataTable>
 
-	</h:form>
+	</ui:define>
 	
-	<h:form id="formDlg">
-		<p:dialog id="dialogDisciplina" header="Disciplina" widgetVar="dlgDisciplina" >
+	<ui:define name="modal_region">
+	
+		<h:form id="formDlg">
+			<p:dialog id="dialogDisciplina" header="Disciplina" widgetVar="dlgDisciplina" >
+			
+				<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
+	
+				<h4 style="margin-top: 0">Selecione as Disciplinas para associar ao Curso</h4>
+	
+				<p:pickList id="plUsuPerf" 
+							value="#{cursoDisciplinaControlador.dualListDisciplina}" 
+							effect="bounce"
+							converter="cursoDisciplinaConverter"
+							var="up"
+							itemLabel="#{up.disciplina.nome}" 
+							itemValue="#{up}"
+							showSourceControls="false" 
+							showTargetControls="false" 
+							showCheckbox="false"  
+	                    	showSourceFilter="true" 
+	                    	showTargetFilter="true" >
+	                    	
+	                <f:facet name="sourceCaption">Disponíveis</f:facet>  
+	        		<f:facet name="targetCaption">Atribuídos</f:facet>  
+	                    	
+			        <p:ajax event="transfer" listener="#{cursoDisciplinaControlador.onTransfer}" update="msg" />  
+	        
+	        		 <p:column style="width:75%;">  
+			            #{up.disciplina.nome}  
+			        </p:column>  
+	        
+	             </p:pickList>
+	             
+	             <p:commandButton value="Fechar" onclick="PF('dlgDisciplina').hide();" />  
 		
-			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
-
-			<h4 style="margin-top: 0">Selecione as Disciplinas para associar ao Curso</h4>
-
-			<p:pickList id="plUsuPerf" 
-						value="#{cursoDisciplinaControlador.dualListDisciplina}" 
-						effect="bounce"
-						converter="cursoDisciplinaConverter"
-						var="up"
-						itemLabel="#{up.disciplina.nome}" 
-						itemValue="#{up}"
-						showSourceControls="false" 
-						showTargetControls="false" 
-						showCheckbox="false"  
-                    	showSourceFilter="true" 
-                    	showTargetFilter="true" >
-                    	
-                <f:facet name="sourceCaption">Disponíveis</f:facet>  
-        		<f:facet name="targetCaption">Atribuídos</f:facet>  
-                    	
-		        <p:ajax event="transfer" listener="#{cursoDisciplinaControlador.onTransfer}" update="msg" />  
-        
-        		 <p:column style="width:75%;">  
-		            #{up.disciplina.nome}  
-		        </p:column>  
-        
-             </p:pickList>
-             
-             <p:commandButton value="Fechar" onclick="PF('dlgDisciplina').hide();" />  
+			</p:dialog>
 	
-		</p:dialog>
+		</h:form>
+		
+	</ui:define>
 
-	</h:form>
-
-</ui:component>
+</ui:composition>

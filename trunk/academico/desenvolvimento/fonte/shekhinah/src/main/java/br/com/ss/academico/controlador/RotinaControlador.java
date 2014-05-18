@@ -22,12 +22,7 @@ public class RotinaControlador extends ControladorGenerico<Rotina> {
 
 	private int colunas;
 
-//	private final String TELA_CADASTRO = "paginas/rotina/cadastro.xhtml";
-//	private final String TELA_PESQUISA = "paginas/rotina/pesquisa.xhtml";
 	private final String LISTAR_ROTINAS = "listar_rotinas";
-
-//	private String TELA_LISTA_ROTINAS = "paginas/rotina/lista.xhtml";
-//	private final String TELA_ROTINA_PERFIL = "paginas/rotina/rotinaperfil.xhtml";
 
 	@Override
 	public void init() {
@@ -65,7 +60,7 @@ public class RotinaControlador extends ControladorGenerico<Rotina> {
 	}
 
 	public String telaRelatorio(Rotina rotina) {
-		return rotina.getAcao() ;	// FIXME validar navegacao - add redirect=true na url
+		return rotina.getAcao() ;
 	}
 
 

@@ -1,48 +1,26 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/register_template.xhtml">
 
-	<h:form id="form">
+	<ui:param name="pageHeader" value="Cadastro de Curso"/>
+	<ui:param name="pageTitle" value="Cadastro de Curso"/>
+	<ui:param name="managedBean" value="#{cursoControlador}"/>
+	<ui:param name="widthContainer" value="950px"/>
 
-		<p:growl id="growl" />
-
-		<p:panel header="Cadastro de Curso">
-
-			<h:panelGrid id="panelCadastro" columns="2">
-
-				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{cursoControlador.entidade.nome}"
-					required="true" requiredMessage="O nome deve ser informado"
-					style="width:300px;" />
-
-				<p:outputLabel value="Valor" styleClass="ui-priority-primary" />
-				<p:inputText id="valor" value="#{cursoControlador.entidade.valor}"
-					required="true" requiredMessage="O valor deve ser informado"
-					style="width:300px;" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					immediate="true" action="#{cursoControlador.telaPeaquisa}" />
-
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{cursoControlador.salvar}" />
-
-			</f:facet>
-
-		</p:panel>
-
-	</h:form>
-
-</ui:component>
+	<ui:define name="register_region">
+	
+		<ss:input id="nome" label="Nome" required="true" value="#{cursoControlador.entidade.nome}" />
+		
+		<ss:input id="valor" label="Valor" type="number" required="true" value="#{cursoControlador.entidade.valor}" />
+		
+	</ui:define>
+	
+</ui:composition>
