@@ -1,66 +1,30 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/register_template.xhtml">
 
-	<h:form id="form">
+	<ui:param name="pageHeader" value="Cadastro de Curso"/>
+	<ui:param name="pageTitle" value="Cadastro de Curso"/>
+	<ui:param name="managedBean" value="#{cursoControlador}"/>
+	<ui:param name="widthContainer" value="950px"/>
 
-		<p:growl id="growl" />
-
-		<p:panel header="Cadastro de Turma">
-
-			<h:panelGrid id="panelCadastro" columns="4">
-
-				<p:outputLabel value="*Ano" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{turmaControlador.entidade.ano}"
-					panelStyle="width:300px" style="width:100px">
-					<f:selectItems value="#{turmaControlador.anos}" var="ano"
-						itemLabel="#{ano}" itemValue="#{ano}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="*Curso" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{turmaControlador.entidade.curso}"
-					converter="entityConverter" style="width:300px">
-					<f:selectItem itemLabel="Selecione o curso" itemValue="" />
-					<f:selectItems value="#{turmaControlador.cursos}" var="curso"
-						itemLabel="#{curso.nome}" itemValue="#{curso}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="*Turno" styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="turno"
-					value="#{turmaControlador.entidade.turno}">
-					<f:selectItems value="#{turmaControlador.turnos}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="*Número de Vagas"
-					styleClass="ui-priority-primary" />
-				<p:inputText id="numeroVagas"
-					value="#{turmaControlador.entidade.numeroVagas}" required="true"
-					requiredMessage="O numero vagas deve ser informado"
-					style="width:50px;" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					immediate="true" action="#{turmaControlador.telaPeaquisa}" />
-
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{turmaControlador.salvar}" />
-
-			</f:facet>
-
-		</p:panel>
-
-	</h:form>
-
-</ui:component>
+	<ui:define name="register_region">
+	
+		<ss:comboBox label="Ano" required="true" value="#{turmaControlador.entidade.ano}" selectOne="true" list="#{turmaControlador.anos}" />
+		 
+		<ss:comboBox label="Turno" required="true" value="#{turmaControlador.entidade.turno}" selectOne="true" list="#{turmaControlador.turnos}" />
+	
+		<ss:comboBox label="Curso" required="true" foreignKey="true" atributo="#{item.nome}" selectOne="true" value="#{turmaControlador.entidade.curso}" list="#{turmaControlador.cursos}" />
+		
+		<ss:input label="Número de Vagas" type="number" decimalPlaces="0" required="true" value="#{turmaControlador.entidade.numeroVagas}" />
+		
+	</ui:define>
+	
+</ui:composition>

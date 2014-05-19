@@ -1,85 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="Turma">
-			<h:panelGrid id="panelPesquisa" columns="2">
-				<h:outputText value="Ano" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{turmaControlador.pesquisa.ano}"
-					panelStyle="width:300px" style="width:100px">
-					<f:selectItems value="#{turmaControlador.anos}" var="ano"
-						itemLabel="#{ano}" itemValue="#{ano}" />
-				</p:selectOneMenu>
-			</h:panelGrid>
+	<ui:param name="pageTitle" value="Turma"/>
+	<ui:param name="pageHeader" value="Turma"/>
+	<ui:param name="managedBean" value="#{turmaControlador}"/>
+	
+	<ui:define name="search_filter">
 
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{turmaControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{turmaControlador.novo}" />
-			</f:facet>
-
-		</p:panel>
+		<ss:comboBox label="Ano" value="#{turmaControlador.pesquisa.ano}" list="#{turmaControlador.anos}" />
+		 
+		<ss:comboBox label="Turno" value="#{turmaControlador.pesquisa.turno}" list="#{turmaControlador.turnos}" />
+	
+	</ui:define>
+	
+	<ui:define name="grid_region">
 
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{turmaControlador.lista}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
+					value="#{turmaControlador.listaPesquisa}" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 
-			<p:column style="text-align:left" headerText="Ano"
-				sortBy="#{item.ano}">
+			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.ano}">
 				<h:outputText value="#{item.ano}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Curso"
-				sortBy="#{item.curso.nome}">
+			<p:column style="text-align:left" headerText="Curso" sortBy="#{item.curso.nome}">
 				<h:outputText value="#{item.curso.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Turno"
-				sortBy="#{item.turno}">
+			<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turno}">
 				<h:outputText value="#{item.turno}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Número de Vagas"
-				sortBy="#{item.numeroVagas}">
+			<p:column style="text-align:left" headerText="Número de Vagas" sortBy="#{item.numeroVagas}">
 				<h:outputText value="#{item.numeroVagas}" />
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
 				<p:commandButton value="Detalhe" title="Detalhe"
-					action="#{turmaControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed" update=":form" ajax="false" />
+								action="#{turmaControlador.detalhe(item)}"
+								icon="	ui-icon-folder-collapsed" update=":form" ajax="false" />
 
 				<p:commandButton value="Alunos" title="Detalhe"
-					action="#{turmaControlador.listarAlunos(item)}"
-					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
+								action="#{turmaControlador.listarAlunos(item)}"
+								icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
 
 				<p:commandButton value="Excluir" title="Excluir"
-					action="#{turmaControlador.excluir(item)}" icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false" />
+								action="#{turmaControlador.excluir(item)}" icon="ui-icon-trash"
+								update=":form:gridPesquisa" ajax="false" />
 
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(turmaControlador.lista)} turmas.  
-        </f:facet>
+	            Total de registros: #{fn:length(turmaControlador.listaPesquisa)} turmas.  
+	        </f:facet>
 
 		</p:dataTable>
 
-	</h:form>
-
-</ui:component>
+	</ui:define>
+	
+</ui:composition>

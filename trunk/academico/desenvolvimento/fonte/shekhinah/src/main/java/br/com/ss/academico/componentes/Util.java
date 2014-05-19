@@ -19,7 +19,6 @@ public class Util {
 
 	public static List<Integer> pegarAnos() {
 		List<Integer> anos = new ArrayList<Integer>();
-		Integer ano;
 		Calendar cal = Calendar.getInstance();
 		anos.add(cal.get(Calendar.YEAR) + 1);
 		anos.add(cal.get(Calendar.YEAR));
