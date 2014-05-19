@@ -1,11 +1,12 @@
 package br.com.ss.academico.controlador;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.componentes.Util;
 import br.com.ss.academico.dominio.Aluno;
@@ -14,30 +15,22 @@ import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
+import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
-public class TurmaControlador implements Serializable {
+public class TurmaControlador extends ControladorGenerico<Turma> {
 
 	private static final long serialVersionUID = -6832271293709421841L;
 
-	private Turma entidade;
-
-	private Turma pesquisa;
-
-	private List<Turma> lista;
-	
 	private List<Aluno> listaAluno;
 	
 	private List<Curso> cursos;
 	
-	private Turno[] turnos;
+	private List<SelectItem> turnos;
 	
-	private List<Integer> anos;
-
-	private final String TELA_CADASTRO = "paginas/turma/cadastro.xhtml";
-	private final String TELA_PESQUISA = "paginas/turma/pesquisa.xhtml";
+	private List<SelectItem> anos;
 
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico servico;
@@ -48,88 +41,39 @@ public class TurmaControlador implements Serializable {
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico cursoServico;
 
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
 
-	public void init() {
-		this.lista = servico.listarTodos();
-		telaPesquisa();
-	}
-
-	public TurmaControlador() {
-		this.entidade = new Turma();
-		this.pesquisa = new Turma();
-		this.anos = Util.pegarAnos();
-	}
-
-	public void pesquisar() {
-		 this.lista = servico.findByAno(this.pesquisa.getAno());
-	}
-
-	public void detalhe(Turma turma) {
-		this.entidade = turma;
+	@Override
+	protected void init() {
+		this.anos = new ArrayList<SelectItem>();
+		for (Integer ano : Util.pegarAnos() ) {
+			anos.add(new SelectItem(ano, ano.toString()));
+		}
+		turnos = new ArrayList<SelectItem>();
+		for (Turno t : Turno.values()) {
+			turnos.add(new SelectItem(t, t.getDescricao()));
+		}
 		this.cursos = cursoServico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
+	}
+	
+	@Override
+	protected String getNomeRelatorio() {
+		// FIXME #Peninha
+		return null;
 	}
 
-	public void salvar() {
-		this.servico.salvar(this.entidade);
-		this.lista = servico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+	@Override
+	protected IService<Turma, Long> getService() {
+		return servico;
 	}
 
-	public void excluir(Turma turma) {
-		servico.remover(turma);
-		this.lista = servico.listarTodos();
-	}
-
-	public void novo() {
-		this.entidade = new Turma();
-		this.cursos = cursoServico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-	}
 	
 	public void listarAlunos(Turma turma){
 		this.listaAluno = alunoServico.findByTurma(turma);
-		
 	}
 
-	public void telaPeaquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public Turma getEntidade() {
-		return entidade;
-	}
-
-	public void setEntidade(Turma entidade) {
-		this.entidade = entidade;
-	}
-
-	public Turma getPesquisa() {
-		return pesquisa;
-	}
-
-	public void setPesquisa(Turma pesquisa) {
-		this.pesquisa = pesquisa;
-	}
-
-	public List<Turma> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Turma> lista) {
-		this.lista = lista;
-	}
-
-	public PaginaCentralControlador getPaginaCentralControlador() {
-		return paginaCentralControlador;
-	}
-
-	public void setPaginaCentralControlador(
-			PaginaCentralControlador paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
-	}
+	
+	
+	/* ---------- Gets/Sets ------------- */
 
 	public TurmaServico getServico() {
 		return servico;
@@ -143,10 +87,6 @@ public class TurmaControlador implements Serializable {
 		return cursos;
 	}
 
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
-	}
-
 	public CursoServico getCursoServico() {
 		return cursoServico;
 	}
@@ -155,20 +95,8 @@ public class TurmaControlador implements Serializable {
 		this.cursoServico = cursoServico;
 	}
 
-	public void telaPesquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public Turno[] getTurnos() {
-		return Turno.values();
-	}
-
-	public List<Integer> getAnos() {
+	public List<SelectItem> getAnos() {
 		return anos;
-	}
-
-	public void setAnos(List<Integer> anos) {
-		this.anos = anos;
 	}
 
 	public List<Aluno> getListaAluno() {
@@ -187,4 +115,7 @@ public class TurmaControlador implements Serializable {
 		this.alunoServico = alunoServico;
 	}
 
+	public List<SelectItem> getTurnos() {
+		return turnos;
+	}
 }
