@@ -2,18 +2,12 @@ package br.com.ss.academico.repositorio;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Disciplina;
 
 @Repository
-public class DisciplinaRepositorioSqlImpl implements DisciplinaRepositorioSql {
-
-	@PersistenceContext
-	private EntityManager entityManager;
+public class DisciplinaRepositorioSqlImpl extends RepositorioGenerico implements DisciplinaRepositorioSql {
 
 	@SuppressWarnings("unchecked")
 	@Override

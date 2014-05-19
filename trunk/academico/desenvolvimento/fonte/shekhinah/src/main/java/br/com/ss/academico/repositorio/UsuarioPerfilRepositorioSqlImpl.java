@@ -2,20 +2,12 @@ package br.com.ss.academico.repositorio;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Perfil;
-import br.com.ss.academico.dominio.UsuarioPerfil;
 
 @Repository
-public class UsuarioPerfilRepositorioSqlImpl implements
-		UsuarioPerfilRepositorioSql {
-
-	@PersistenceContext
-	private EntityManager entityManager;
+public class UsuarioPerfilRepositorioSqlImpl extends RepositorioGenerico implements UsuarioPerfilRepositorioSql {
 
 	@SuppressWarnings("unchecked")
 	@Override

@@ -2,10 +2,15 @@ package br.com.ss.academico.repositorio;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import br.com.ss.academico.utils.StringUtil;
 
 public abstract class RepositorioGenerico {
 	
+	@PersistenceContext
+	protected EntityManager entityManager;
 	
 	protected boolean notEmpty(Object obj ) {
 		return StringUtil.notEmpty(obj);

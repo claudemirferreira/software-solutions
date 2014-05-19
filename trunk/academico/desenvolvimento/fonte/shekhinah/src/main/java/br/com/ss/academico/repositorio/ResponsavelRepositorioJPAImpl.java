@@ -2,8 +2,6 @@ package br.com.ss.academico.repositorio;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -11,10 +9,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ss.academico.dominio.Responsavel;
 
 @Repository
-public class ResponsavelRepositorioJPAImpl implements ResponsavelRepositorioJPA {
-	
-	@PersistenceContext
-	private EntityManager entityManager;
+public class ResponsavelRepositorioJPAImpl extends RepositorioGenerico implements ResponsavelRepositorioJPA {
 
 	@Override
 	@SuppressWarnings("unchecked")

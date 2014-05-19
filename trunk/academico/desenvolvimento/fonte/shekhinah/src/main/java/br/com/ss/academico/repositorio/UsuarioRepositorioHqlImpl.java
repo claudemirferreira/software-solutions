@@ -3,8 +3,6 @@ package br.com.ss.academico.repositorio;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -14,9 +12,6 @@ import br.com.ss.academico.dominio.Usuario;
 @SuppressWarnings("unchecked")
 @Repository
 public class UsuarioRepositorioHqlImpl extends RepositorioGenerico implements UsuarioRepositorioHql {
-
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	@Override
 	public List<Usuario> pesquisar(Usuario entity) {
