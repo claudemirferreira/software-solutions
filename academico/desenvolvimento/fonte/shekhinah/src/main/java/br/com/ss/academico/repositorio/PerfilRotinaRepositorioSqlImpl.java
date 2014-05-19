@@ -2,19 +2,12 @@ package br.com.ss.academico.repositorio;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Rotina;
 
 @Repository
-public class PerfilRotinaRepositorioSqlImpl implements
-		PerfilRotinaRepositorioSql {
-
-	@PersistenceContext
-	private EntityManager entityManager;
+public class PerfilRotinaRepositorioSqlImpl extends RepositorioGenerico implements PerfilRotinaRepositorioSql {
 
 	@SuppressWarnings("unchecked")
 	@Override
