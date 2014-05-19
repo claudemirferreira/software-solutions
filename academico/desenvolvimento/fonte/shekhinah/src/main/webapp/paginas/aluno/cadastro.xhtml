@@ -19,23 +19,23 @@
 	
 		<h:panelGrid id="panelCadastro" columns="2">
 			
-			<ss:input id="nome" label="Nome" required="true" value="#{alunoControlador.entidade.nome}" />
+			<ss:input id="nome" label="Nome" required="true" value="#{alunoControlador.entidade.nome}" maxlength="60" />
 		
-			<ss:input id="endereco" label="Endereço" required="true" value="#{alunoControlador.entidade.endereco}" />
+			<ss:input id="endereco" label="Endereço" required="true" value="#{alunoControlador.entidade.endereco}" maxlength="60" />
 			
-			<ss:input id="bairro" label="Bairro" required="true" value="#{alunoControlador.entidade.bairro}" />
+			<ss:input id="bairro" label="Bairro" required="true" value="#{alunoControlador.entidade.bairro}" maxlength="60" />
 
 			<ss:input id="cep" label="CEP" value="#{alunoControlador.entidade.cep}" type="mask" mask="99999-999" watermark="99999-999" maxlength="9" />
 
-			<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}" type="mask" mask="9999-9999" watermark="9999-9999" />
+			<ss:input id="foneResidencial" label="Fone Residencial" value="#{alunoControlador.entidade.foneResidencial}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 
-			<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" />
+			<ss:input id="celular" label="Celular" value="#{alunoControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 
-			<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" email="true" />
+			<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" email="true" maxlength="60" />
 			
-			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" type="mask" watermark="999.999.999-99" mask="999.999.999-99"  />
+			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" type="mask" watermark="999.999.999-99" mask="999.999.999-99" maxlength="14" />
 
-			<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" type="mask" watermark="99999999-9" mask="99999999-9"  />
+			<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" type="mask" watermark="99999999-9" mask="99999999-9" maxlength="10" />
 				 
 			<ss:comboBox id="sexo" label="Sexo" required="true" selectOne="true" value="#{alunoControlador.entidade.sexo}" list="#{alunoControlador.sexoList}" />
 

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,11 +13,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
+
+import br.com.ss.academico.enumerated.Sexo;
+
 /**
  * The persistent class for the iansa_aluno database table.
- * 
  */
-
 @Entity
 @Table(name = "acad_professor")
 public class Professor extends AbstractEntity implements Serializable {
@@ -33,14 +37,16 @@ public class Professor extends AbstractEntity implements Serializable {
 	@Column(length = 9)
 	private String celular;
 
-	@Column(nullable = false, length = 8)
+	@Column(nullable = false, length = 9)
 	private String cep;
 
-	@Column(nullable = false, length = 11)
+	@CPF(message="CPF inválido")
+	@Column(nullable = false, length = 14)
 	private String cpf;
 
+	@Enumerated
 	@Column(nullable = false, length = 1)
-	private String sexo;
+	private Sexo sexo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
@@ -50,6 +56,7 @@ public class Professor extends AbstractEntity implements Serializable {
 	@Column(nullable = false)
 	private Date dataNascimento;
 
+	@Email(message="E-mail inválido", regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	@Column(length = 60)
 	private String email;
 
@@ -65,7 +72,7 @@ public class Professor extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String nome;
 
-	@Column(nullable = false, length = 11)
+	@Column(nullable = false, length = 10)
 	private String rg;
 
 	public Professor() {
@@ -116,11 +123,11 @@ public class Professor extends AbstractEntity implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

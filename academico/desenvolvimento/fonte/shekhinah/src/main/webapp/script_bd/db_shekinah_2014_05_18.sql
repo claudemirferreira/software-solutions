@@ -29,19 +29,19 @@ DROP TABLE IF EXISTS `acad_aluno`;
 CREATE TABLE `acad_aluno` (
   `id_aluno` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(8) DEFAULT NULL,
-  `cep` varchar(8) NOT NULL,
-  `cpf` varchar(11) NOT NULL,
+  `celular` varchar(9) DEFAULT NULL,
+  `cep` varchar(9) NOT NULL,
+  `cpf` varchar(14) NOT NULL,
   `data_cadastro` datetime NOT NULL,
   `data_nascimento` datetime DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_comercial` varchar(8) DEFAULT NULL,
-  `fone_residencial` varchar(8) DEFAULT NULL,
+  `fone_comercial` varchar(9) DEFAULT NULL,
+  `fone_residencial` varchar(9) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
-  `rg` varchar(11) NOT NULL,
-  `sexo` varchar(1) NOT NULL,
-  `grau_parentesco` varchar(11) NOT NULL,
+  `rg` varchar(10) NOT NULL,
+  `sexo` smallint(1) unsigned NOT NULL,
+  `grau_parentesco` smallint(1) unsigned NOT NULL,
   `id_usuario` bigint(20) DEFAULT NULL,
   `id_responsavel` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
@@ -57,10 +57,10 @@ CREATE TABLE `acad_aluno` (
 
 /*!40000 ALTER TABLE `acad_aluno` DISABLE KEYS */;
 INSERT INTO `acad_aluno` (`id_aluno`,`bairro`,`celular`,`cep`,`cpf`,`data_cadastro`,`data_nascimento`,`email`,`endereco`,`fone_comercial`,`fone_residencial`,`nome`,`rg`,`sexo`,`grau_parentesco`,`id_usuario`,`id_responsavel`) VALUES 
- (1,'YYY','43243242','434343','7878777','2014-02-26 14:54:30','2014-05-01 00:00:00','EEWEWE','WWWW',NULL,'RWQERWQR','CLAUDEMIR RAMOS FERREIRA','6666','0','1',NULL,NULL),
- (2,'43242','43243242','1111','9999','2014-02-27 17:35:48','2014-02-02 00:00:00','EEWEWE','WWWW',NULL,'3232','ROBSON RAMOS FERREIRA','999','0','0',NULL,1),
- (3,'test','','234234','','2014-04-09 22:00:33','2014-04-09 00:00:00','','teste',NULL,'','teste','','1','1',NULL,2),
- (4,'afd','','','','2014-04-20 14:12:32','2014-04-07 00:00:00','asaa@ssss.sss','adfadfsaf',NULL,'','dfa','','1','0',NULL,1);
+ (1,'YYY','4324-3242','12345-648','661.065.162-00','2014-02-26 14:54:30','2014-05-01 00:00:00','EEWEWE@ssss.sss','WWWW',NULL,'1234-5678','CLAUDEMIR RAMOS FERREIRA','12345678-9',0,1,NULL,1),
+ (2,'43242','43243242','1111','9999','2014-02-27 17:35:48','2014-02-02 00:00:00','EEWEWE','WWWW',NULL,'3232','ROBSON RAMOS FERREIRA','999',0,0,NULL,1),
+ (3,'test','','234234','','2014-04-09 22:00:33','2014-04-09 00:00:00','','teste',NULL,'','teste','',1,1,NULL,2),
+ (4,'afd','','','','2014-04-20 14:12:32','2014-04-07 00:00:00','asaa@ssss.sss','adfadfsaf',NULL,'','dfa','',1,0,NULL,1);
 /*!40000 ALTER TABLE `acad_aluno` ENABLE KEYS */;
 
 
@@ -130,7 +130,7 @@ CREATE TABLE `acad_curso` (
   `nome` varchar(50) NOT NULL,
   `valor` double NOT NULL,
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `acad_curso`
@@ -138,7 +138,8 @@ CREATE TABLE `acad_curso` (
 
 /*!40000 ALTER TABLE `acad_curso` DISABLE KEYS */;
 INSERT INTO `acad_curso` (`id_curso`,`nome`,`valor`) VALUES 
- (1,'1 ANO',150);
+ (1,'1º ANO',1500),
+ (2,'2º ANO',2000);
 /*!40000 ALTER TABLE `acad_curso` ENABLE KEYS */;
 
 
@@ -376,20 +377,20 @@ DROP TABLE IF EXISTS `acad_professor`;
 CREATE TABLE `acad_professor` (
   `id_professor` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(8) DEFAULT NULL,
-  `cep` varchar(8) NOT NULL,
-  `cpf` varchar(11) NOT NULL,
+  `celular` varchar(9) DEFAULT NULL,
+  `cep` varchar(9) NOT NULL,
+  `cpf` varchar(14) NOT NULL,
   `data_cadastro` datetime NOT NULL,
   `data_nascimento` datetime DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_comercial` varchar(8) DEFAULT NULL,
-  `fone_residencial` varchar(8) DEFAULT NULL,
+  `fone_comercial` varchar(9) DEFAULT NULL,
+  `fone_residencial` varchar(9) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
-  `rg` varchar(11) NOT NULL,
-  `sexo` varchar(1) NOT NULL,
-  PRIMARY KEY (`id_professor`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `rg` varchar(10) NOT NULL,
+  `sexo` smallint(1) unsigned NOT NULL,
+  PRIMARY KEY (`id_professor`,`cpf`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `acad_professor`
@@ -397,7 +398,8 @@ CREATE TABLE `acad_professor` (
 
 /*!40000 ALTER TABLE `acad_professor` DISABLE KEYS */;
 INSERT INTO `acad_professor` (`id_professor`,`bairro`,`celular`,`cep`,`cpf`,`data_cadastro`,`data_nascimento`,`email`,`endereco`,`fone_comercial`,`fone_residencial`,`nome`,`rg`,`sexo`) VALUES 
- (1,'YYY','43243242','434343','4323243','2014-02-26 16:22:14','2014-02-12 00:00:00','EEWEWE','WWWW','999','RWQERWQR','ROBSON RAMOS FERREIRA','6666','M');
+ (1,'YYY','4324-3242','12345-678','123.456.789-12','2014-02-26 16:22:14','2014-02-12 00:00:00','EEWEWE@ssss.sss','WWWW','1234-5678','1234-5678','ROBSON RAMOS FERREIRA','12345678-9',0),
+ (2,'aaaa','1234-5678','12345-678','661.065.162-00','2014-05-18 23:01:43','2014-05-02 00:00:00','EEWEWE@ssss.sss','adfa adfasfasdfdsa f','1234-5678','1234-5678','Claudemir Ramos Ferreira','12345678-9',0);
 /*!40000 ALTER TABLE `acad_professor` ENABLE KEYS */;
 
 
@@ -583,7 +585,7 @@ INSERT INTO `saa_rotina` (`id_rotina`,`acao`,`imagem`,`nome`,`status`,`id_sistem
  (5,'/paginas/matricula/pesquisa.xhtml','/resources/imagens/rotina/turma.png','MATRICULA',0,2),
  (6,'/paginas/rotina/pesquisa.xhtml','/resources/imagens/rotina/rotina.png','ROTINAS',0,2),
  (7,'/paginas/perfil/pesquisa.xhtml','/resources/imagens/rotina/perfil.png','PERFIL',0,2),
- (8,'/paginas/usuario/pesquisa.xhtml','resources/imagens/rotina/usuario.png','USUARIO',0,2),
+ (8,'/paginas/usuario/pesquisa.xhtml','/resources/imagens/rotina/usuario.png','USUARIO',0,2),
  (9,'/paginas/disciplina/pesquisa.xhtml','/resources/imagens/rotina/disciplina.png','DISCIPLINA',0,2),
  (10,'/paginas/turma/pesquisa.xhtml','/resources/imagens/rotina/turma.png','TURMA',0,2),
  (11,'/paginas/mensalidade/pesquisa.xhtml','/resources/imagens/rotina/curso.png','MENSALIDADE',0,2),

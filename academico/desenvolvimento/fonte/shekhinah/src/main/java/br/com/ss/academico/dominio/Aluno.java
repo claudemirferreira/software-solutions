@@ -48,11 +48,11 @@ public class Aluno extends AbstractEntity implements Serializable {
 	private String celular;
 
 	@Cep
-	@Column(length = 8)
+	@Column(length = 9)
 	private String cep;
 
 	@CPF(message="CPF inválido")
-	@Column(length = 11, nullable = true)
+	@Column(length = 14, nullable = true)
 	private String cpf;
 
 	@Enumerated
@@ -79,7 +79,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String nome;
 
-	@Column(length = 11)
+	@Column(length = 10)
 	private String rg;
 
 	@Enumerated
