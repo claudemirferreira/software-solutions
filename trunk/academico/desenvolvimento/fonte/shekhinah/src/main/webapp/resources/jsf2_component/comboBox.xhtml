@@ -26,7 +26,7 @@
 		<cc:attribute name="filterMatchMode" default="startsWith" />
 		
 		<cc:attribute name="foreignKey" required="false" default="false" shortDescription="Indica se o item é uma entidade ou não. Caso, false o item deve ser do tipo SelectItem." />
-		<cc:attribute name="atributo" required="false" shortDescription="Usado quando foreignKey for true" />
+		<cc:attribute name="atributo" required="#{not empty foreignKey}" shortDescription="Usado para descrição do item do combo. Obrigatório quando  foreignKey for true" />
 		
 		<cc:attribute name="value" required="true" />
 		<cc:attribute name="list" required="true" />
@@ -56,8 +56,7 @@
 				        	</c:if>
 				            <f:selectItems value="#{cc.attrs.list}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 				            
-				            <ui:insert name="aditional" />
-				            
+				            <ui:insert name="aditional" />	<!-- FIXME add inner components -->
 <!-- 				     <cc:insertChildren /> -->
 				            
 				        </p:selectOneMenu>
