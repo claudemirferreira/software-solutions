@@ -6,13 +6,7 @@ import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 
-public interface MatriculaServico {
-
-	public List<Matricula> listarTodos();
-
-	public Matricula salvar(Matricula matricula);
-
-	public void remover(Matricula matricula);
+public interface MatriculaServico extends IService<Matricula, Long>  {
 
 	public List<Matricula> findByAluno(Aluno aluno);
 	

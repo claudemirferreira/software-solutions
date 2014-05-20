@@ -6,6 +6,6 @@ import br.com.ss.academico.dominio.Aluno;
 
 public interface AlunoRepositorioJPA {
 
-	List<Aluno> findByNomeLike(Aluno aluno);
+	List<Aluno> findByEntity(Aluno aluno);
 
 }

@@ -48,19 +48,16 @@ public class BoletimServicoImpl implements BoletimServico, Serializable {
 		Boletim boletim;
 
 		List<Disciplina> disciplinas = disciplinaRepositorioSql
-				.listaDisciplinaPorCurso(matricula.getTurma().getCurso()
-						.getId());
+				.listaDisciplinaPorCurso(matricula.getTurma().getCurso().getId());
 
 		for (Disciplina disciplina : disciplinas) {
-
+			// FIXME validar se Boletim está atendendo toda a regra paa o mesmo
 			boletim = new Boletim();
 
 			boletim.setMatricula(matricula);
 			boletim.setDisciplina(disciplina);
 
 			this.repositorio.save(boletim);
-
-			System.out.println(disciplina.getNome());
 
 		}
 

@@ -115,7 +115,7 @@ public class RelatorioUtil implements Serializable {
 		// nome);
 
 		// CARREGA O FILE DA UNIDADE C
-		String arquivo = "c:/relatorio/" + nome;
+		String arquivo = "c:/relatorio/" + nome;	// FIXME criar uma pasta para a app e colocar tudo o que precisa nela
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 

@@ -7,8 +7,6 @@ import br.com.ss.academico.dominio.Turma;
 
 public interface AlunoServico extends IService<Aluno, Long> {
 
-	public List<Aluno> findByNomeLike(String nome);
-
 	public List<Aluno> findByTurma(Turma turma);
 
 }

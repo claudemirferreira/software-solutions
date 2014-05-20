@@ -27,12 +27,6 @@ public class AlunoServicoImpl extends ServicoImpl<Aluno, Long> implements AlunoS
 		return repositorio;
 	}
 	
-	
-	@Override
-	public List<Aluno> findByNomeLike(String nome) {
-		return this.repositorio.findByNomeLike(nome);
-	}
-	
 	@Override
 	public List<Aluno> findByTurma(Turma turma) {
 		return this.repositorio.findByTurma(turma);
@@ -40,7 +34,7 @@ public class AlunoServicoImpl extends ServicoImpl<Aluno, Long> implements AlunoS
 
 	@Override
 	public List<Aluno> pesquisar(Aluno entity) {
-		return repositorioJpa.findByNomeLike(entity);
+		return repositorioJpa.findByEntity(entity);
 	}
 
 }

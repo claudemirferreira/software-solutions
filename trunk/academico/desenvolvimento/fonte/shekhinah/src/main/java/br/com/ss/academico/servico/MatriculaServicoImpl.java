@@ -1,9 +1,9 @@
 package br.com.ss.academico.servico;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -11,28 +11,23 @@ import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.repositorio.MatriculaRepositorio;
+import br.com.ss.academico.repositorio.MatriculaRepositorioHql;
 
 @Service
-public class MatriculaServicoImpl implements MatriculaServico, Serializable {
+public class MatriculaServicoImpl extends ServicoImpl<Matricula, Long> implements MatriculaServico {
 
 	private static final long serialVersionUID = -4305564891244729963L;
 
 	@Autowired
 	private MatriculaRepositorio repositorio;
 
-	@Override
-	public List<Matricula> listarTodos() {
-		return this.repositorio.findAll();
-	}
+	@Autowired
+	private MatriculaRepositorioHql repositorioHql;
+
 
 	@Override
-	public Matricula salvar(Matricula matricula) {
-		return this.repositorio.save(matricula);
-	}
-
-	@Override
-	public void remover(Matricula matricula) {
-		this.repositorio.delete(matricula);
+	protected JpaRepository<Matricula, Long> getRepository() {
+		return repositorio;
 	}
 
 	@Override
@@ -49,6 +44,11 @@ public class MatriculaServicoImpl implements MatriculaServico, Serializable {
 	@Override
 	public Matricula loadMatriculaMensalidades(Matricula matricula) {
 		return this.repositorio.loadMatriculaMensalidades(matricula);
+	}
+
+	@Override
+	public List<Matricula> pesquisar(Matricula entity) {
+		return repositorioHql.pesquisar(entity);
 	}
 
 }
