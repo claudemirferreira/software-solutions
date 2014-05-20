@@ -24,7 +24,11 @@
 	                    itemLabel="#{item.nome}" 
 	                    size="40" />
 		
-		<!-- FIXME add outros filtros -->
+		<ss:comboBox label="Situação" value="#{matriculaControlador.pesquisa.status}" list="#{matriculaControlador.statusList}" />
+		
+		<ss:input label="Ano da Turma" value="#{matriculaControlador.pesquisa.turma.ano}" type="number" style="width: 70px;" dir="rtl" />
+		
+		<ss:comboBox label="Turno da Turma" value="#{matriculaControlador.pesquisa.turma.turno}" list="#{matriculaControlador.turnoList}" />
 	
 	</ui:define>
 	
@@ -36,38 +40,56 @@
 					paginatorAlwaysVisible="true"
 					emptyMessage="Nenhum registro encontrado."
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15,20">
+					rowsPerPageTemplate="10,20,30">
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.aluno.nome}">
+			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.aluno.nome}">
 				<h:outputText value="#{item.aluno.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Valor"
-				sortBy="#{item.valor}">
+			<p:column style="text-align:left" headerText="Curso" sortBy="#{item.turma.curso.nome}">
+				<h:outputText value="#{item.turma.curso.nome}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.turma.ano}">
+				<h:outputText value="#{item.turma.ano}" />
+			</p:column>
+		
+			<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turma.turno}">
+				<h:outputText value="#{item.turma.turno}" />
+			</p:column>
+		
+			<p:column style="text-align:right" headerText="Valor" sortBy="#{item.valor}">
 				<h:outputText value="#{item.valor}" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="Data"
-				sortBy="#{item.data}">
+			
+			<p:column style="text-align:left" headerText="Data" sortBy="#{item.data}">
 				<h:outputText value="#{item.data}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Status"
-				sortBy="#{item.status}">
-				<h:outputText value="#{item.status}" />
+			<p:column style="text-align:center" headerText="Hor. Integral?" >
+				<h:outputText value="#{item.integral}" converter="simNaoConverter" />
 			</p:column>
-
+			
+			<p:column style="text-align:left" headerText="Situação" >
+				<h:outputText value="#{item.status}" converter="statusMatriculaConverter" />
+			</p:column>
+			
 			<p:column style="text-align:left" headerText="Detalhe">
-
-				<p:commandButton id="btnPrint" value="Imprimi" icon="ui-icon-print"
-					action="#{matriculaControlador.imprimirRelatorio(item)}"
-					ajax="false" />
+				
+				<!-- FIXME #Peninha: rever essa funcionalidade - nao entendi o proposito do relatorio.. nao seria para imprimir a matricula? -->
+				<p:commandButton id="btnPrint" value="Imprimir" icon="ui-icon-print"
+								action="#{matriculaControlador.imprimirRelatorio(item)}"
+								ajax="false" />
+								
+				<!-- FIXME #Peninha: add implementacao do botao para imprimir a matricula -->	
+				<p:commandButton value="Imprimir" title="Imprimir"
+								onclick="this.form.target='_blank'"
+								actionListener="#{matriculaControlador.imprimir(item)}" />			
 
 			</p:column>
 
 			<f:facet name="footer">  
-	            Total de registros: #{fn:length(matriculaControlador.listaPesquisa)} matriculas.  
+	            Total de registros: #{fn:length(matriculaControlador.listaPesquisa)} matriculas.
 	        </f:facet>
 
 		</p:dataTable>

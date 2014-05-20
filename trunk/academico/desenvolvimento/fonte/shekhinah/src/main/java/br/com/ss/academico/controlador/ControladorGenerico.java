@@ -173,6 +173,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		return PESQUISA;
 	}
 
+	public void imprimir(T entity ) {
+		// FIXME #Peninha: implementar: metodo para imprimir do grid de pesquisa
+		// usar em telas como: matricula, aluno..
+	}
+	
 	public void imprimir() throws FileNotFoundException {
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
 	}
