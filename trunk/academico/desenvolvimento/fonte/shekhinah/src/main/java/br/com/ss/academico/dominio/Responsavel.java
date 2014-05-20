@@ -1,21 +1,29 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.Email;
+
+import br.com.ss.academico.enumerated.Sexo;
+
 /**
  * The persistent class for the acad_responsavel database table.
- * 
  */
 @Entity
 @Table(name = "acad_responsavel")
@@ -33,37 +41,39 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Column(length = 8)
 	private String celular;
 
-	@Column(nullable = false, length = 8)
+	@Column(nullable = true, length = 9)
 	private String cep;
 
-	@Column(nullable = false, length = 11)
+	@Column(nullable = false, length = 14)
 	private String cpf;
 
+	@Enumerated
 	@Column(nullable = false, length = 1)
-	private String sexo;
+	private Sexo sexo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
+	@Email(message="E-mail inválido", regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	@Column(length = 60)
 	private String email;
 
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(length = 8)
+	@Column(length = 9)
 	private String foneComercial;
 
-	@Column(length = 8)
+	@Column(length = 9)
 	private String foneResidencial;
 
 	@Column(nullable = false, length = 60)
 	private String nome;
 
-	@Column(length = 30)
+	@Column(nullable = false, length = 30)
 	private String profissao;
 
-	@Column(nullable = false, length = 11)
+	@Column(nullable = false, length = 10)
 	private String rg;
 
 	@Transient
@@ -75,9 +85,10 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Transient
 	private String dataNascimentoFormatada;
 
-	public Responsavel() {
-	}
-
+	@OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY)
+	private List<Aluno> alunos = new ArrayList<Aluno>();
+	
+	
 	@Override
 	public Long getId() {
 		return idResponsavel;
@@ -123,11 +134,11 @@ public class Responsavel extends AbstractEntity implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 
@@ -217,6 +228,14 @@ public class Responsavel extends AbstractEntity implements Serializable {
 
 	public void setDataNascimentoFormatada(String dataNascimentoFormatada) {
 		this.dataNascimentoFormatada = dataNascimentoFormatada;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 
 }

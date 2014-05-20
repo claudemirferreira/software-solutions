@@ -1,108 +1,52 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/register_template.xhtml">
 
-	<h:form id="form">
+	<ui:param name="pageHeader" value="Cadastro de Responsável"/>
+	<ui:param name="pageTitle" value="Cadastro de Responsável"/>
+	<ui:param name="managedBean" value="#{responsavelControlador}"/>
+	<ui:param name="widthContainer" value="950px"/>
 
-		<p:panel header="Cadastro de Responsável">
+	<ui:define name="register_region">
+	
+		<h:panelGrid id="panelCadastro" columns="2">
 
-			<h:panelGrid id="panelCadastro" columns="6">
+			<ss:input label="Nome" required="true" value="#{responsavelControlador.entidade.nome}" maxlength="60" />
+		
+			<ss:input label="Endereço" required="true" value="#{responsavelControlador.entidade.endereco}" maxlength="60" />
+			
+			<ss:input label="Bairro" required="true" value="#{responsavelControlador.entidade.bairro}" maxlength="60" />
 
-				<p:outputLabel value="*Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" required="true"
-					requiredMessage="O nome deve ser informado"
-					value="#{responsavelControlador.entidade.nome}"
-					style="width:300px;" />
+			<ss:input label="CEP" value="#{responsavelControlador.entidade.cep}" type="mask" mask="99999-999" watermark="99999-999" maxlength="9" />
 
-				<p:outputLabel value="*Endereço" styleClass="ui-priority-primary" />
-				<p:inputText id="endereco" required="true"
-					requiredMessage="O endereço deve ser informado"
-					value="#{responsavelControlador.entidade.endereco}"
-					style="width:300px;" />
+			<ss:input label="Fone Residencial" value="#{responsavelControlador.entidade.foneResidencial}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 
-				<p:outputLabel value="*Bairro" styleClass="ui-priority-primary" />
-				<p:inputText id="bairro" required="true"
-					requiredMessage="O bairro deve ser informado"
-					value="#{responsavelControlador.entidade.bairro}"
-					style="width:300px;" />
+			<ss:input label="Fone Residencial" value="#{responsavelControlador.entidade.foneComercial}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 
-				<p:outputLabel value="CEP" styleClass="ui-priority-primary" />
-				<p:inputText id="cep" value="#{responsavelControlador.entidade.cep}"
-					style="width:300px;" />
+			<ss:input label="Celular" value="#{responsavelControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 
-				<p:outputLabel value="Celular" styleClass="ui-priority-primary" />
-				<p:inputText id="celular"
-					value="#{responsavelControlador.entidade.celular}"
-					style="width:300px;" />
+			<ss:input label="Profissão" required="true" value="#{responsavelControlador.entidade.profissao}" maxlength="30" />
+		
+			<ss:input label="E-mail" value="#{responsavelControlador.entidade.email}" email="true" maxlength="60" />
+			
+			<ss:input label="CPF" required="true" value="#{responsavelControlador.entidade.cpf}" type="mask" watermark="999.999.999-99" mask="999.999.999-99" maxlength="14" />
 
-				<p:outputLabel value="Fone Comercial"
-					styleClass="ui-priority-primary" />
-				<p:inputText id="foneComercial"
-					value="#{responsavelControlador.entidade.foneComercial}"
-					style="width:300px;" />
+			<ss:input label="RG" required="true" value="#{responsavelControlador.entidade.rg}" type="mask" watermark="99999999-9" mask="99999999-9" maxlength="10" />
+				 
+			<ss:comboBox label="Sexo" required="true" selectOne="true" value="#{responsavelControlador.entidade.sexo}" list="#{responsavelControlador.sexoList}" />
 
-				<p:outputLabel value="Fone Residêncial"
-					styleClass="ui-priority-primary" />
-				<p:inputText id="foneResidencial"
-					value="#{responsavelControlador.entidade.foneResidencial}"
-					style="width:300px;" />
+			<ss:input type="date" label="Data Nascimento" watermark="99/99/99" required="true" value="#{responsavelControlador.entidade.dataNascimento}" />
 
-				<p:outputLabel value="Profissão" styleClass="ui-priority-primary" />
-				<p:inputText id="profissao"
-					value="#{responsavelControlador.entidade.profissao}"
-					style="width:300px;" />
+		</h:panelGrid>
 
-				<p:outputLabel value="E-mail" styleClass="ui-priority-primary" />
-				<p:inputText id="email"
-					value="#{responsavelControlador.entidade.email}"
-					style="width:300px;" />
+	</ui:define>
 
-				<p:outputLabel value="*CPF" styleClass="ui-priority-primary" />
-				<p:inputText id="cpf" required="true"
-					requiredMessage="O cpf deve ser informado"
-					value="#{responsavelControlador.entidade.cpf}" style="width:300px;" />
-
-				<p:outputLabel value="* RG" styleClass="ui-priority-primary" />
-				<p:inputText id="rg" required="true"
-					requiredMessage="O rg deve ser informado"
-					value="#{responsavelControlador.entidade.rg}" style="width:300px;" />
-
-				<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{responsavelControlador.entidade.sexo}">
-					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
-					<f:selectItem itemLabel="FEMININO" itemValue="F" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="* Data Nascimento"
-					styleClass="ui-priority-primary" />
-				<p:calendar id="dataNascimento" required="true"
-					requiredMessage="A data de nascimento deve ser informado"
-					pattern="dd/MM/yyyy" navigator="true" display="inline"
-					value="#{responsavelControlador.entidade.dataNascimento}" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					action="#{responsavelControlador.telaPeaquisa}" immediate="true" />
-
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{responsavelControlador.salvar}" />
-
-			</f:facet>
-
-		</p:panel>
-
-	</h:form>
-
-</ui:component>
+</ui:composition>

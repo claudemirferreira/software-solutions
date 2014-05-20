@@ -4,15 +4,11 @@ import java.util.List;
 
 import br.com.ss.academico.dominio.Responsavel;
 
-public interface ResponsavelServico {
-
-	public List<Responsavel> listarTodos();
-
-	public Responsavel salvar(Responsavel responsavel);
-
-	public void remover(Responsavel responsavel);
+public interface ResponsavelServico extends IService<Responsavel, Long>  {
 
 	public List<Responsavel> findByNomeLike(String nome);
 
 	public Responsavel findByNome(String nome);
+
+	public List<Responsavel> pesquisar(Responsavel pesquisa, String nome);
 }

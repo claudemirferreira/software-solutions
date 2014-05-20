@@ -10,4 +10,6 @@ public interface ResponsavelRepositorioJPA {
 
 	Responsavel findByNome(String nome);
 
+	List<Responsavel> pesquisar(Responsavel entity, String nomeAluno);
+
 }

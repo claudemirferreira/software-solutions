@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Responsavel;
@@ -11,7 +12,7 @@ import br.com.ss.academico.repositorio.ResponsavelRepositorio;
 import br.com.ss.academico.repositorio.ResponsavelRepositorioJPA;
 
 @Service
-public class ResponsavelServicoImpl implements ResponsavelServico, Serializable {
+public class ResponsavelServicoImpl extends ServicoImpl<Responsavel, Long> implements ResponsavelServico, Serializable {
 
 	private static final long serialVersionUID = -4305564891244729963L;
 
@@ -22,18 +23,8 @@ public class ResponsavelServicoImpl implements ResponsavelServico, Serializable 
 	private ResponsavelRepositorioJPA repositorioJpa;
 
 	@Override
-	public List<Responsavel> listarTodos() {
-		return this.repositorio.findAll();
-	}
-
-	@Override
-	public Responsavel salvar(Responsavel responsavel) {
-		return this.repositorio.save(responsavel);
-	}
-
-	@Override
-	public void remover(Responsavel responsavel) {
-		this.repositorio.delete(responsavel);
+	protected JpaRepository<Responsavel, Long> getRepository() {
+		return repositorio;
 	}
 
 	@Override
@@ -45,5 +36,16 @@ public class ResponsavelServicoImpl implements ResponsavelServico, Serializable 
 	public Responsavel findByNome(String nome) {
 		return this.repositorioJpa.findByNome(nome);
 	}
-	
+
+	@Override
+	public List<Responsavel> pesquisar(Responsavel entity) {
+		return pesquisar(entity, null);
+	}
+
+	@Override
+	public List<Responsavel> pesquisar(Responsavel entity, String nomeAluno) {
+		return repositorioJpa.pesquisar(entity, nomeAluno);
+	}
+
+
 }
