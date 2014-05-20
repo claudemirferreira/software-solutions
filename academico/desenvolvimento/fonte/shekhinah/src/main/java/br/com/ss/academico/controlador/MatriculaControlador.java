@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,26 +20,35 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.Constants;
+import br.com.ss.academico.enumerated.StatusMatricula;
+import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.BoletimServico;
+import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
+import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
@@ -54,6 +65,25 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	@ManagedProperty(value = "#{boletimServicoImpl}")
 	private BoletimServico boletimServico;
 
+	@ManagedProperty(value = "#{empresaServicoImpl}")
+	private EmpresaServico empresaServico;
+	
+	private List<SelectItem> statusList;
+
+	private List<SelectItem> turnoList;
+	
+	@Override
+	protected void init() {
+		statusList = new ArrayList<SelectItem>();
+		for (StatusMatricula sm : StatusMatricula.values()) {
+			statusList.add(new SelectItem(sm, sm.getDescricao()));
+		}
+		turnoList = new ArrayList<SelectItem>();
+		for (Turno t : Turno.values()) {
+			statusList.add(new SelectItem(t, t.getDescricao()));
+		}
+		pesquisa.setTurma(new Turma());
+	}
 
 	@Override
 	protected String getNomeRelatorio() {
@@ -150,9 +180,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 	
 	/* FIXME remover metodos de teste..
-	 
-	@ManagedProperty(value = "#{empresaServicoImpl}")
-	private EmpresaServico empresaServico;
 	
 	public void teste(Matricula matricula) throws IOException, JRException {
 
@@ -192,10 +219,11 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 	*/
 	
-	/*
 	 
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico turmaServico;
+	
+	// FIXME #Peninha: refatorar esse metodo
 	
 	public void imprimirRelatorio(Matricula matricula) throws FileNotFoundException {
 		
@@ -267,7 +295,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 
 	}
-	 */
 
 	/* -------------- Gets/Sets --------------------- */
 	public MatriculaServico getServico() {
@@ -300,6 +327,30 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setServicoAluno(AlunoServico servicoAluno) {
 		this.servicoAluno = servicoAluno;
+	}
+
+	public List<SelectItem> getStatusList() {
+		return statusList;
+	}
+
+	public List<SelectItem> getTurnoList() {
+		return turnoList;
+	}
+
+	public EmpresaServico getEmpresaServico() {
+		return empresaServico;
+	}
+
+	public void setEmpresaServico(EmpresaServico empresaServico) {
+		this.empresaServico = empresaServico;
+	}
+
+	public TurmaServico getTurmaServico() {
+		return turmaServico;
+	}
+
+	public void setTurmaServico(TurmaServico turmaServico) {
+		this.turmaServico = turmaServico;
 	}
 
 }
