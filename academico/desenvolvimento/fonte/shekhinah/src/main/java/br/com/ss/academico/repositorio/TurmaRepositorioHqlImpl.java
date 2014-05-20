@@ -26,6 +26,9 @@ public class TurmaRepositorioHqlImpl extends RepositorioGenerico implements Turm
 		if ( notEmpty(entity.getAno() ) && entity.getAno() > 0 ) {
 			condictions.add(" t.ano = :ano ");
 		}
+		if ( notEmpty(entity.getCurso()) ) {
+			condictions.add(" t.curso = :curso ");
+		}
 		String orderBy = " order by t.ano ";
 		
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
@@ -34,6 +37,9 @@ public class TurmaRepositorioHqlImpl extends RepositorioGenerico implements Turm
 		}
 		if ( notEmpty(entity.getAno()) && entity.getAno() > 0) {
 			query.setParameter("ano", entity.getAno());
+		}
+		if ( notEmpty(entity.getCurso()) ) {
+			query.setParameter("curso", entity.getCurso());
 		}
 		return query.getResultList();
 	}

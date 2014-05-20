@@ -10,21 +10,24 @@
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
 
-	<ui:param name="pageHeader" value="Cadastro de Curso"/>
-	<ui:param name="pageTitle" value="Cadastro de Curso"/>
-	<ui:param name="managedBean" value="#{cursoControlador}"/>
+	<ui:param name="pageHeader" value="Cadastro de Turma"/>
+	<ui:param name="pageTitle" value="Cadastro de Turma"/>
+	<ui:param name="managedBean" value="#{turmaControlador}"/>
 	<ui:param name="widthContainer" value="950px"/>
 
 	<ui:define name="register_region">
 	
-		<ss:comboBox label="Ano" required="true" value="#{turmaControlador.entidade.ano}" selectOne="true" list="#{turmaControlador.anos}" />
-		 
-		<ss:comboBox label="Turno" required="true" value="#{turmaControlador.entidade.turno}" selectOne="true" list="#{turmaControlador.turnos}" />
-	
-		<ss:comboBox label="Curso" required="true" foreignKey="true" atributo="#{item.nome}" selectOne="true" value="#{turmaControlador.entidade.curso}" list="#{turmaControlador.cursos}" />
+		<h:panelGrid id="panelCadastro" columns="2">
 		
-		<ss:input label="Número de Vagas" type="number" decimalPlaces="0" required="true" value="#{turmaControlador.entidade.numeroVagas}" />
+			<ss:comboBox label="Ano" required="true" value="#{turmaControlador.entidade.ano}" selectOne="true" list="#{turmaControlador.anos}" />
+			 
+			<ss:comboBox label="Turno" required="true" value="#{turmaControlador.entidade.turno}" selectOne="true" list="#{turmaControlador.turnos}" />
 		
+			<ss:comboBox label="Curso" required="true" foreignKey="true" atributo="#{item.nome}" selectOne="true" value="#{turmaControlador.entidade.curso}" list="#{turmaControlador.cursos}" />
+			
+			<ss:input label="Número de Vagas" type="number" dir="rtl" size="3" decimalPlaces="0" required="true" value="#{turmaControlador.entidade.numeroVagas}" />
+			
+		</h:panelGrid>
 	</ui:define>
 	
 </ui:composition>

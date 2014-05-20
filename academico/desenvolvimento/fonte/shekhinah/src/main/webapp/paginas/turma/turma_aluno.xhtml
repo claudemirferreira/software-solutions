@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:dialog id="dialogAlunos" width="650" resizable="true" modal="true" appendToBody="true"
+		header="Alunos matriculados para a turma: #{turmaControlador.turmaSelecaoModal.curso.nome} - #{turmaControlador.turmaSelecaoModal.ano} (#{turmaControlador.turmaSelecaoModal.turno.descricao})"
+		widgetVar="dlgModal" closable="true" draggable="true">
+
+		<h:form id="formDlg" prependId="false" >
+
+			<p:panel id="pnlModal">
+		
+				<f:facet name="footer">
+			       	<p:commandButton value="Fechar" action="#{turmaControlador.closeModal()}"
+				       		styleClass="ui-priority-primary" icon="ui-icon-circle-close" 
+				       		onclick="PF('dlgModal').hide();" immediate="true"/>  
+				</f:facet>
+			
+				<p:dataTable id="gridAlunos" var="item" rows="10" paginator="true"
+						value="#{turmaControlador.listaAluno}" paginatorPosition="bottom"
+						paginatorAlwaysVisible="true"
+						rendered="#{not empty turmaControlador.listaAluno}"
+						emptyMessage="Nenhum registro encontrado."
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">
+			
+					<p:column style="text-align:left" headerText="Responsável" sortBy="#{item.responsavel.nome}">
+						<h:outputText value="#{item.responsavel.nome}" />
+					</p:column>
+		
+					<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
+						<h:outputText value="#{item.nome}" />
+					</p:column>
+					
+					<f:facet name="footer">  
+			            Total de registros: #{fn:length(turmaControlador.listaAluno)} alunos.  
+			        </f:facet>
+		
+				</p:dataTable>	
+				
+				<p:outputPanel rendered="#{empty turmaControlador.listaAluno}">
+					<h:outputText value="Nenhum aluno matriculado para esta turma." />
+				</p:outputPanel>
+				
+			</p:panel>
+			
+		</h:form>
+
+	</p:dialog>
+
+</ui:component>

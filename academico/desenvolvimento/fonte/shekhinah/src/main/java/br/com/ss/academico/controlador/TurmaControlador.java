@@ -41,6 +41,8 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico cursoServico;
 
+	private Turma turmaSelecaoModal;
+
 
 	@Override
 	protected void init() {
@@ -67,13 +69,25 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	}
 
 	
+	/**
+	 * @param turma
+	 */
 	public void listarAlunos(Turma turma){
+		this.turmaSelecaoModal = turma;
 		this.listaAluno = alunoServico.findByTurma(turma);
 	}
 
 	
+	public void closeModal() {
+		this.turmaSelecaoModal = null;
+	}
+	
 	
 	/* ---------- Gets/Sets ------------- */
+
+	public Turma getTurmaSelecaoModal() {
+		return turmaSelecaoModal;
+	}
 
 	public TurmaServico getServico() {
 		return servico;
