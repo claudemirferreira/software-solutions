@@ -20,6 +20,8 @@
 		 
 		<ss:comboBox label="Turno" value="#{turmaControlador.pesquisa.turno}" list="#{turmaControlador.turnos}" />
 	
+		<ss:comboBox label="Curso" foreignKey="true" atributo="#{item.nome}" value="#{turmaControlador.pesquisa.curso}" list="#{turmaControlador.cursos}" />
+			
 	</ui:define>
 	
 	<ui:define name="grid_region">
@@ -52,9 +54,11 @@
 								action="#{turmaControlador.detalhe(item)}"
 								icon="	ui-icon-folder-collapsed" update=":form" ajax="false" />
 
-				<p:commandButton value="Alunos" title="Detalhe"
+				<p:commandButton value="Alunos" title="Listar alunos"
 								action="#{turmaControlador.listarAlunos(item)}"
-								icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
+								icon="ui-icon-folder-collapsed" 
+								oncomplete="PF('dlgModal').show();" 
+								update=":dialogAlunos" />
 
 				<p:commandButton value="Excluir" title="Excluir"
 								action="#{turmaControlador.excluir(item)}" icon="ui-icon-trash"
@@ -70,4 +74,11 @@
 
 	</ui:define>
 	
+	
+	<!-- ===== Modals ========= -->
+	<ui:define name="modal_region">
+		
+		<ui:include src="turma_aluno.xhtml" />
+		
+	</ui:define>
 </ui:composition>

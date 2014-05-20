@@ -2,7 +2,7 @@ package br.com.ss.academico.enumerated;
 
 public enum Turno {
 
-	MATUTINO(0, "MATUTINO"), VESPERTINO(1, "VESPERTINO");
+	MATUTINO(0, "MATUTINO"), VESPERTINO(1, "VESPERTINO"), INTEGRAL(2, "INTEGRAL");
 
 	private int id;
 	private String descricao;
