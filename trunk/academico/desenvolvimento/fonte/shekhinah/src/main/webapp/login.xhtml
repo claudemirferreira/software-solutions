@@ -9,8 +9,21 @@
 <h:head>
 	<title><ui:insert name="titulo_pagina">Login Sistema</ui:insert>
 	</title>
-	<link type="text/css" rel="stylesheet"
-		href="resources/estilos/style-custon.css" />
+	<link type="text/css" rel="stylesheet" href="resources/estilos/style-custon.css" />
+	
+	
+	<!-- FIXME redirecionar para o home caso ja esteje logado. -->
+<!-- 	<c:if test="#   {identity.loggedIn}"> -->
+		<!-- Redireciona usuario se ja estiver logado -->
+		<script>
+			url = '#{usuarioControlador.validarUsuarioLogado()}';
+			if (url != null) {
+				document.location=;
+			}
+		</script>
+<!-- 	</c:if> -->
+		
+	
 </h:head>
 
 <h:body styleClass="body">
