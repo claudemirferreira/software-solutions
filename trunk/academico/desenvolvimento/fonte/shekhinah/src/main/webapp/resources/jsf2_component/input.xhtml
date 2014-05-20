@@ -95,7 +95,7 @@
 	 			<c:if test="#{cc.attrs.type eq 'number'}">
 	 				<c:set var="idComp" value="nb_#{cc.attrs.id}"/>
 		 			<!-- Input Number -->
-		 			<pe:inputNumber id="#{idComp}" value="#{cc.attrs.value}" style="#{cc.attrs.style}" readonly="#{cc.attrs.readonly}" decimalPlaces="#{cc.attrs.decimalPlaces}" decimalSeparator="," thousandSeparator="." required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" immediate="#{cc.attrs.immediate}" dir="#{cc.attrs.dir}" >
+		 			<pe:inputNumber id="#{idComp}" value="#{cc.attrs.value}" style="#{cc.attrs.style}" size="#{cc.attrs.size}" readonly="#{cc.attrs.readonly}" decimalPlaces="#{cc.attrs.decimalPlaces}" decimalSeparator="," thousandSeparator="." required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" immediate="#{cc.attrs.immediate}" dir="#{cc.attrs.dir}" >
 		 				<cc:insertChildren />
 						<c:if test="#{cc.attrs.ajax}">
 							<p:ajax event="blur" update="#{idComp}" />  
