@@ -1,53 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="FORMULÁRIO DE PESQUISA DE MATRICULA">
-
-			<h:panelGrid id="panelPesquisa" columns="2">
-
-				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{matriculaControlador.pesquisa.aluno}"
-					converter="entityConverter" style="width:300px">
-					<f:selectItem itemLabel="Selecione o aluno" itemValue="" />
-					<f:selectItems value="#{matriculaControlador.alunos}" var="aluno"
-						itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
-				</p:selectOneMenu>
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{matriculaControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{matriculaControlador.novo}" />
-
-				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
-					immediate="true" icon="ui-icon-circle-plus"
-					styleClass="ui-priority-primary"
-					action="#{matriculaControlador.imprimir}" />
-
-			</f:facet>
-
-		</p:panel>
-
+	<ui:param name="pageTitle" value="Matrícula"/>
+	<ui:param name="pageHeader" value="Matrícula"/>
+	<ui:param name="managedBean" value="#{matriculaControlador}"/>
+	
+	<!-- ==== Filtro de pesquisa ======= -->
+	<ui:define name="search_filter">
+		
+		<ss:autoComplete label="Aluno"
+	       				value="#{matriculaControlador.pesquisa.aluno}"
+	       				bean="#{matriculaControlador}"
+	       				completeMethod="listarAlunos"
+	                    itemLabel="#{item.nome}" 
+	                    size="40" />
+		
+		<!-- FIXME add outros filtros -->
+	
+	</ui:define>
+	
+	<!-- ==== Grid ======= -->
+	<ui:define name="grid_region">	
+	
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{matriculaControlador.lista}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
+					value="#{matriculaControlador.listaPesquisa}" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 
 			<p:column style="text-align:left" headerText="Nome"
 				sortBy="#{item.aluno.nome}">
@@ -78,16 +67,11 @@
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(matriculaControlador.lista)} matriculas.  
-        </f:facet>
+	            Total de registros: #{fn:length(matriculaControlador.listaPesquisa)} matriculas.  
+	        </f:facet>
 
 		</p:dataTable>
+		
+	</ui:define>
 
-		<p:blockUI block="form" trigger=":form:buttonNovo">  
-        LOADING<br />
-			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-		</p:blockUI>
-
-	</h:form>
-
-</ui:component>
+</ui:composition>

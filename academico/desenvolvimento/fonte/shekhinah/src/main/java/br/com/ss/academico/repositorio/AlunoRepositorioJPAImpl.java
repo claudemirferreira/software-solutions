@@ -14,7 +14,7 @@ public class AlunoRepositorioJPAImpl extends RepositorioGenerico implements Alun
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Aluno> findByNomeLike(Aluno aluno) {
+	public List<Aluno> findByEntity(Aluno aluno) {
 		
 		StringBuilder sb = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();

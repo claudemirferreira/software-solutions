@@ -5,113 +5,85 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.ireport.RelatorioUtil;
+import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.BoletimServico;
-import br.com.ss.academico.servico.EmpresaServico;
+import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
-import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
-public class MatriculaControlador implements Serializable {
+public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	private static final long serialVersionUID = -6832271293709421841L;
 
-	private Matricula entidade;
-
-	private Matricula pesquisa;
-
-	private List<Matricula> lista;
-
-	private List<Aluno> alunos;
-
-	private final String TELA_CADASTRO = "paginas/matricula/cadastro.xhtml";
-	private final String TELA_PESQUISA = "paginas/matricula/pesquisa.xhtml";
-
 	@ManagedProperty(value = "#{matriculaServicoImpl}")
 	private MatriculaServico servico;
-	
-	@ManagedProperty(value = "#{turmaServicoImpl}")
-	private TurmaServico turmaServico;
+
+	@ManagedProperty(value = "#{alunoServicoImpl}")
+	private AlunoServico servicoAluno;
 
 	@ManagedProperty(value = "#{boletimServicoImpl}")
 	private BoletimServico boletimServico;
 
-	@ManagedProperty(value = "#{relatorioUtil}")
-	private RelatorioUtil relatorioUtil;
 
-	@ManagedProperty(value = "#{empresaServicoImpl}")
-	private EmpresaServico empresaServico;
-
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
-
-	public void init() {
-		this.lista = servico.listarTodos();
-		this.telaPesquisa();
+	@Override
+	protected String getNomeRelatorio() {
+		// FIXME #Peninha
+		return null;
 	}
 
-	public MatriculaControlador() {
-		this.entidade = new Matricula();
-		this.pesquisa = new Matricula();
+	@Override
+	protected IService<Matricula, Long> getService() {
+		return servico;
 	}
 
-	public void pesquisar() {
-		// this.lista = servico.findByNomeLike(this.pesquisa.getNome());
+	/**
+	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
+	 */
+	public List<Aluno> listarAlunos(String nome) {
+		entidade.getAluno().setNome(nome);
+		return servicoAluno.pesquisar(entidade.getAluno());
 	}
 
-	public void detalhe(Matricula matricula) {
-		this.entidade = matricula;
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-	}
 
-	public void salvar() {
+	public String salvar() {
 
 		// gerar boletim
-		long gerarBoletim = this.entidade.getIdMatricula();
-
-		this.servico.salvar(this.entidade);
-
-		if (gerarBoletim < 1)
+		if (this.entidade.getIdMatricula() == null) {
 			this.boletimServico.gerarBoletim(this.entidade);
+		}
+		
+		return super.salvar();
 
-		this.lista = servico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void imprimir(Matricula matricula) {
@@ -119,27 +91,24 @@ public class MatriculaControlador implements Serializable {
 		lista.add(matricula);
 		Map<String, Object> parametros = new HashMap<String, Object>();
 
-		relatorioUtil.gerarRelatorioComDownload(lista, parametros,
-				"contrato-parte1.jasper");
+		relatorioUtil.gerarRelatorioComDownload(lista, parametros, "contrato-parte1.jasper");
+		
+		// FIXME #Peninha padronizar a impressao
 
 	}
 
-	public void excluir(Matricula matricula) {
-		servico.remover(matricula);
-		this.lista = servico.listarTodos();
-	}
-
-	public void imprimircontrato(Matricula matricula)
-			throws FileNotFoundException {
+	public void imprimircontrato(Matricula matricula) throws FileNotFoundException {
 		// TODO criar o relatorio..
 		List<Matricula> listMat = new ArrayList<Matricula>();
 		listMat.add(matricula);
-		relatorioUtil
-				.gerarRelatorioWeb(listMat, null, "contrato-parte1.jasper");
+		relatorioUtil.gerarRelatorioWeb(listMat, null, "contrato-parte1.jasper");
+		
+		// FIXME #Peninha padronizar a impressao
+		
 	}
 
-	public void gerar(Matricula matricula) throws MalformedURLException {
-
+	// FIXME #Peninha, validar se está utilizando este metodo, se nao, remover
+	private void gerar(Matricula matricula) throws MalformedURLException {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		List<Matricula> lista = new ArrayList<Matricula>();
 		String nome = "contrato-parte1.jasper";
@@ -148,21 +117,18 @@ public class MatriculaControlador implements Serializable {
 
 	}
 
-	public StreamedContent gerarRelatorio(String localRelatorio,
-			Map<String, Object> parametros, List<Matricula> lista2,
-			String nomeArquivoSaida) throws MalformedURLException {
+	private StreamedContent gerarRelatorio(String localRelatorio, Map<String, Object> parametros, 
+								List<Matricula> lista2, String nomeArquivoSaida) throws MalformedURLException {
 
-		InputStream relatorio = null;
-		ByteArrayOutputStream relat = new ByteArrayOutputStream();
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		ServletContext contextS = (ServletContext) externalContext.getContext();
-		// String arquivo = contextS.getRealPath("/relatorios/" +
-		// localRelatorio);
-
-		String arquivo = "c:/relatorio/contrato-parte1.jasper";
-
+		InputStream isRelatorio = null;
 		try {
+			ByteArrayOutputStream relat = new ByteArrayOutputStream();
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			ServletContext contextS = (ServletContext) externalContext.getContext();
+			// String arquivo = contextS.getRealPath("/relatorios/" +
+			// localRelatorio);
+			
+			String arquivo = "c:/relatorio/contrato-parte1.jasper";
 
 			JasperPrint print = JasperFillManager.fillReport(
 					new FileInputStream(new File(arquivo)), parametros,
@@ -171,23 +137,23 @@ public class MatriculaControlador implements Serializable {
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, relat);
 			exporter.exportReport();
-			relatorio = new ByteArrayInputStream(relat.toByteArray());
+			isRelatorio = new ByteArrayInputStream(relat.toByteArray());
 
-		} catch (JRException e) {
-			// LOG.error(e.getMessage(), e);
-			e.printStackTrace();
-		} catch (IOException e) {
-			// LOG.error(e.getMessage(), e);
-			e.printStackTrace();
 		} catch (Exception e) {
-			// LOG.error(e.getMessage(), e);
+			e.printStackTrace();
+			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+			return null;
 		}
 
-		return new DefaultStreamedContent(relatorio, "application/pdf",
-				nomeArquivoSaida + ".pdf");
+		return new DefaultStreamedContent(isRelatorio, "application/pdf", nomeArquivoSaida + ".pdf");
 
 	}
-
+	
+	/* FIXME remover metodos de teste..
+	 
+	@ManagedProperty(value = "#{empresaServicoImpl}")
+	private EmpresaServico empresaServico;
+	
 	public void teste(Matricula matricula) throws IOException, JRException {
 
 		Map parametros = new HashMap();
@@ -224,17 +190,21 @@ public class MatriculaControlador implements Serializable {
 		context.responseComplete();
 
 	}
-
+	*/
+	
+	/*
+	 
+	@ManagedProperty(value = "#{turmaServicoImpl}")
+	private TurmaServico turmaServico;
+	
 	public void imprimirRelatorio(Matricula matricula) throws FileNotFoundException {
 		
 //		matricula.setTurma(	turmaServico.findByMatricula(matricula));
 
 		ExternalContext econtext = FacesContext.getCurrentInstance()
 				.getExternalContext();
-		InputStream stream1 = new FileInputStream(
-				"C:\\relatorio\\contrato-parte1.jasper");
-		InputStream stream2 = new FileInputStream(
-				"C:\\relatorio\\contrato-parte2.jasper");
+		InputStream stream1 = new FileInputStream( "C:\\relatorio\\contrato-parte1.jasper");
+		InputStream stream2 = new FileInputStream( "C:\\relatorio\\contrato-parte2.jasper");
 
 		List j = new ArrayList();
 		
@@ -297,49 +267,9 @@ public class MatriculaControlador implements Serializable {
 		}
 
 	}
+	 */
 
-	public void novo() {
-		this.entidade = new Matricula();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-	}
-
-	public void telaPeaquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public Matricula getEntidade() {
-		return entidade;
-	}
-
-	public void setEntidade(Matricula entidade) {
-		this.entidade = entidade;
-	}
-
-	public Matricula getPesquisa() {
-		return pesquisa;
-	}
-
-	public void setPesquisa(Matricula pesquisa) {
-		this.pesquisa = pesquisa;
-	}
-
-	public List<Matricula> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Matricula> lista) {
-		this.lista = lista;
-	}
-
-	public PaginaCentralControlador getPaginaCentralControlador() {
-		return paginaCentralControlador;
-	}
-
-	public void setPaginaCentralControlador(
-			PaginaCentralControlador paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
-	}
-
+	/* -------------- Gets/Sets --------------------- */
 	public MatriculaServico getServico() {
 		return servico;
 	}
@@ -364,32 +294,12 @@ public class MatriculaControlador implements Serializable {
 		this.relatorioUtil = relatorioUtil;
 	}
 
-	public void telaPesquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+	public AlunoServico getServicoAluno() {
+		return servicoAluno;
 	}
 
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
-	}
-
-	public EmpresaServico getEmpresaServico() {
-		return empresaServico;
-	}
-
-	public void setEmpresaServico(EmpresaServico empresaServico) {
-		this.empresaServico = empresaServico;
-	}
-
-	public TurmaServico getTurmaServico() {
-		return turmaServico;
-	}
-
-	public void setTurmaServico(TurmaServico turmaServico) {
-		this.turmaServico = turmaServico;
+	public void setServicoAluno(AlunoServico servicoAluno) {
+		this.servicoAluno = servicoAluno;
 	}
 
 }

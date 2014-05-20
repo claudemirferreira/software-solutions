@@ -1,48 +1,30 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/register_template.xhtml">
 
-	<h:form id="form">
+	<ui:param name="pageHeader" value="Cadastro de Matrícula"/>
+	<ui:param name="pageTitle" value="Cadastro de Matrícula"/>
+	<ui:param name="managedBean" value="#{matriculaControlador}"/>
+	<ui:param name="widthContainer" value="950px"/>
 
-		<p:growl id="growl" />
-
-		<p:panel header="FORMULÁRIO DE CADASTRO DE MATRÍCULA">
-
-			<h:panelGrid id="panelCadastro" columns="6">
-
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{matriculaControlador.entidade.nome}"
-					required="true" requiredMessage="O nome deve ser informado"
-					style="width:300px;" />
-
-				<p:outputLabel value="Valor:" styleClass="ui-priority-primary" />
-				<p:inputText id="valor" value="#{matriculaControlador.entidade.valor}"
-					required="true" requiredMessage="O valor deve ser informado"
-					style="width:300px;" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					immediate="true" action="#{matriculaControlador.telaPeaquisa}" />
-
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{matriculaControlador.salvar}" />
-
-			</f:facet>
-
-		</p:panel>
-
-	</h:form>
-
-</ui:component>
+	<ui:define name="register_region">
+	
+		<h:panelGrid id="panelCadastro" columns="2">
+			
+			<ss:input id="nome" label="Nome" required="true" value="#{matriculaControlador.entidade.nome}" maxlength="60" />
+			
+			<ss:input id="valor" label="Valor" required="true" value="#{matriculaControlador.entidade.valor}" type="number" style="width: 70px;" dir="rtl" />
+		
+		</h:panelGrid>
+		
+	</ui:define>
+	
+</ui:composition>
