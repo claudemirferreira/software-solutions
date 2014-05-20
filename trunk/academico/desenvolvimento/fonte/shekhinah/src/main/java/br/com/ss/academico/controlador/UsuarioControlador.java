@@ -26,6 +26,8 @@ import br.com.ss.academico.utils.AuthenticationManager;
 @SessionScoped
 public class UsuarioControlador extends ControladorGenerico<Usuario> {
 
+	private static final long serialVersionUID = -929165489387258837L;
+
 	private Sistema sistema;
 
 	private List<Perfil> perfis = new ArrayList<Perfil>();
@@ -77,6 +79,9 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 			return "/login.xhtml?faces-redirect=true";
 
 		} else {
+			
+			// FIXME add usuario logado para o escopo de app.. validar ele no login e redirecionar para o home se ja estiver logado..
+			
 			entidade = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			this.colunas = 3;
 			perfilControlador.listaPerfilPorSistemaPorUsuario();	// FIXME deve ser chamado pelo proprio bean ou pg
@@ -91,6 +96,20 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		return "logout";
 	}
 
+	
+	public String validarUsuarioLogado() {
+		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (user instanceof Usuario) {
+			Usuario usuarioLogado = (Usuario) user;
+			if ( usuarioLogado != null ) {
+				
+				// FIXME deve redirecionar para o home..
+//				return getRequest().getContextPath() + "/index.xhtml?faces-redirect=true";
+				return "home";
+			}
+		}
+		return null;
+	}
 	
 	/* --------------- Gets/Sets ----------------------*/
 
