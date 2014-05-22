@@ -69,12 +69,12 @@
 
 				<p:commandButton id="buttonBaixar" value="Baixar" update=":form"
 					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.baixar}"
+					action="#{mensalidadeControlador.baixarMensalidade}"
 					rendered="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE' }" />
 
 				<p:commandButton value="Cancelar" update=":form" icon="ui-icon-disk"
 					styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.cancelar}"
+					action="#{mensalidadeControlador.cancelarMensalidade}"
 					rendered="#{mensalidadeControlador.entidade.statusPagamento eq 'PENDENTE'}" />
 
 			</f:facet>

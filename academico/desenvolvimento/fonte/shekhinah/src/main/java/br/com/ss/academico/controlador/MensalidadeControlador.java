@@ -1,57 +1,37 @@
 package br.com.ss.academico.controlador;
 
-import java.io.FileNotFoundException;
-import java.io.Serializable;
-import java.util.HashMap;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
-import org.springframework.security.core.context.SecurityContextHolder;
+import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.dominio.Aluno;
-import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Mensalidade;
-import br.com.ss.academico.dominio.Usuario;
-import br.com.ss.academico.dto.ParametroRelatorioDTO;
 import br.com.ss.academico.enumerated.StatusPagamento;
-import br.com.ss.academico.ireport.RelatorioUtil;
+import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.EmpresaServico;
+import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MensalidadeServico;
-import br.com.ss.academico.servico.UsuarioServico;
 
 @ManagedBean
 @SessionScoped
-public class MensalidadeControlador implements Serializable {
+public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 
 	private static final long serialVersionUID = -6832271293709421841L;
 
-	private Mensalidade entidade;
-
-	private Mensalidade pesquisa;
-
-	private List<Mensalidade> lista;
-
 	private List<Aluno> alunos;
-
-	private StatusPagamento[] statusPagamentos;
-
-	private ParametroRelatorioDTO parametroRelatorioDTO;
-
-	private final Long ID_EMPRESA = 1L;
-
-	private final String TELA_CADASTRO = "paginas/mensalidade/cadastro.xhtml";
-	private final String TELA_PESQUISA = "paginas/mensalidade/pesquisa.xhtml";
 
 	@ManagedProperty(value = "#{mensalidadeServicoImpl}")
 	private MensalidadeServico servico;
-	
-	@ManagedProperty(value = "#{usuarioServicoImpl}")
-	private UsuarioServico usuarioServico;
 
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico alunoServico;
@@ -59,130 +39,112 @@ public class MensalidadeControlador implements Serializable {
 	@ManagedProperty(value = "#{empresaServicoImpl}")
 	private EmpresaServico empresaServico;
 
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
+	private List<SelectItem> statusList;
 
-	@ManagedProperty(value = "#{relatorioUtil}")
-	private RelatorioUtil relatorioUtil;
+	private Date dataInicio;
 
+	private Date dataFim;
+	
+	private TipoPesquisaData tipoPesquisaData;
+
+	private List<SelectItem> tipoPesquisaDataList;
+
+	
+	@Override
 	public void init() {
-		this.lista = servico.listarTodos();
 		this.alunos = alunoServico.listarTodos();
+		statusList = new ArrayList<SelectItem>();
+		for (StatusPagamento status : StatusPagamento.values()) {
+			statusList.add(new SelectItem(status, status.getDescricao()));
+		}
+		tipoPesquisaDataList = new ArrayList<SelectItem>();
+		for (TipoPesquisaData tipo : TipoPesquisaData.values()) {
+			tipoPesquisaDataList.add(new SelectItem(tipo, tipo.getDescricao()));
+		}
+		tipoPesquisaData = TipoPesquisaData.VECIMENTO;
+		carregarDatas();
+	}
+	
 
-		this.parametroRelatorioDTO = new ParametroRelatorioDTO();
-		this.parametroRelatorioDTO.pegarMesCorrente();
-		this.telaPesquisa();
+	public void carregarDatas() {
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.setTime(new Date());
+		int dia = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int mes = (cal.get(Calendar.MONDAY) + 1);
+		int ano = cal.get(Calendar.YEAR);
+		try {
+			this.dataInicio = (new SimpleDateFormat("dd/MM/yyyy")).parse("01/" + mes + "/" + ano);
+			this.dataFim = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia + "/" + mes + "/" + ano);
+		} catch (ParseException e) { }
 	}
 
-	public MensalidadeControlador() {
-		this.entidade = new Mensalidade();
-		this.pesquisa = new Mensalidade();
+	@Override
+	protected String getNomeRelatorio() {
+		// FIXME #Peninha ver relatorio
+		return null;
 	}
 
-	public void pesquisar() {
-		System.out.println(this.pesquisa.getStatusPagamento());
-		this.lista = servico.findByStatusPagamento(
-				this.pesquisa.getStatusPagamento(),
-				this.parametroRelatorioDTO.getDataInicio(),
-				this.parametroRelatorioDTO.getDataFim());
-	}
-
-	public void detalhe(Mensalidade mensalidade) {
-		this.entidade = mensalidade;
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-	}
-
-	public void cancelar() {
-		this.entidade.setStatusPagamento(StatusPagamento.CANCELADO);
-		this.salvar();
-	}
-
-	public void baixar() {
-		this.entidade.setStatusPagamento(StatusPagamento.PAGO);
-		this.salvar();
-	}
-
-	private void salvar() {
-		Usuario temp =((Usuario) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal());
-		
-		this.entidade.setUsuario(temp);
-		this.servico.salvar(this.entidade);
-		this.lista = servico.listarTodos();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public void excluir(Mensalidade mensalidade) {
-		servico.remover(mensalidade);
-		this.lista = servico.listarTodos();
-	}
-
-	public void novo() {
-		this.entidade = new Mensalidade();
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
-	}
-
-	public void telaPeaquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
-	public void imprimir() throws FileNotFoundException {
-
-		Empresa empresa = empresaServico.findOne(this.ID_EMPRESA);
-
-		Map parametros = new HashMap();
-
-		parametros.put("empresa", empresa);
-
-		relatorioUtil.gerarRelatorioWeb(this.lista, parametros,
-				"mensalidade.jasper");
-	}
-
-	public Mensalidade getEntidade() {
-		return entidade;
-	}
-
-	public void setEntidade(Mensalidade entidade) {
-		this.entidade = entidade;
-	}
-
-	public Mensalidade getPesquisa() {
-		return pesquisa;
-	}
-
-	public void setPesquisa(Mensalidade pesquisa) {
-		this.pesquisa = pesquisa;
-	}
-
-	public List<Mensalidade> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Mensalidade> lista) {
-		this.lista = lista;
-	}
-
-	public PaginaCentralControlador getPaginaCentralControlador() {
-		return paginaCentralControlador;
-	}
-
-	public void setPaginaCentralControlador(
-			PaginaCentralControlador paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
-	}
-
-	public MensalidadeServico getServico() {
+	@Override
+	protected IService<Mensalidade, Long> getService() {
 		return servico;
 	}
 
+	
+	/*
+ 	FIXME #Peninha, verificar relatorio
+ 	
+	private final Long ID_EMPRESA = 1L;	// FIXME #Peninha, recuperar registro da tabela de configuração
+ 	
+	public void imprimir() throws FileNotFoundException {
+		Empresa empresa = empresaServico.findOne(this.ID_EMPRESA);
+		Map parametros = new HashMap();
+		parametros.put("empresa", empresa);
+		relatorioUtil.gerarRelatorioWeb(this.lista, parametros, "mensalidade.jasper");
+	}
+	*/
+
+	public void pesquisar() {
+		this.listaPesquisa = servico.findByStatusPagamento(pesquisa.getStatusPagamento(), dataInicio, dataFim);
+	}
+
+	
+	/**
+	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
+	 */
+	public List<Aluno> listarAlunos(String nome) {
+		Aluno aluno = new Aluno();
+		aluno.setNome(nome);
+		return alunoServico.pesquisar(aluno);
+	}
+
+
+	public String cancelarMensalidade() {
+		this.entidade.setStatusPagamento(StatusPagamento.CANCELADO);
+		return this.salvar();
+	}
+
+	public String baixarMensalidade() {
+		this.entidade.setStatusPagamento(StatusPagamento.PAGO);
+		return this.salvar();
+	}
+
+	
+	public String salvar() {
+		this.entidade.setUsuario(getUsuarioLogado());
+		return super.salvar();
+	}
+
+
+	/* ------------- Gets/Sets ----------------------- */
+	
+	public MensalidadeServico getServico() {
+		return servico;
+	}
+	
 	public void setServico(MensalidadeServico servico) {
 		this.servico = servico;
 	}
-
-	public void telaPesquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
-	}
-
+	
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}
@@ -199,27 +161,6 @@ public class MensalidadeControlador implements Serializable {
 		this.alunoServico = alunoServico;
 	}
 
-	public StatusPagamento[] getStatusPagamentos() {
-		return StatusPagamento.values();
-	}
-
-	public ParametroRelatorioDTO getParametroRelatorioDTO() {
-		return parametroRelatorioDTO;
-	}
-
-	public void setParametroRelatorioDTO(
-			ParametroRelatorioDTO parametroRelatorioDTO) {
-		this.parametroRelatorioDTO = parametroRelatorioDTO;
-	}
-
-	public RelatorioUtil getRelatorioUtil() {
-		return relatorioUtil;
-	}
-
-	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
-		this.relatorioUtil = relatorioUtil;
-	}
-
 	public EmpresaServico getEmpresaServico() {
 		return empresaServico;
 	}
@@ -228,12 +169,40 @@ public class MensalidadeControlador implements Serializable {
 		this.empresaServico = empresaServico;
 	}
 
-	public UsuarioServico getUsuarioServico() {
-		return usuarioServico;
+	public List<SelectItem> getStatusList() {
+		return statusList;
 	}
 
-	public void setUsuarioServico(UsuarioServico usuarioServico) {
-		this.usuarioServico = usuarioServico;
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public TipoPesquisaData getTipoPesquisaData() {
+		return tipoPesquisaData;
+	}
+
+	public void setTipoPesquisaData(TipoPesquisaData tipoPesquisaData) {
+		this.tipoPesquisaData = tipoPesquisaData;
+	}
+
+	public List<SelectItem> getTipoPesquisaDataList() {
+		return tipoPesquisaDataList;
+	}
+
+	public void setTipoPesquisaDataList(List<SelectItem> tipoPesquisaDataList) {
+		this.tipoPesquisaDataList = tipoPesquisaDataList;
 	}
 
 }

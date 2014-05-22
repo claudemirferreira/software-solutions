@@ -1,19 +1,18 @@
 package br.com.ss.academico.servico;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.repositorio.MensalidadeRepositorio;
 
 @Service
-public class MensalidadeServicoImpl implements MensalidadeServico, Serializable {
+public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> implements MensalidadeServico {
 
 	private static final long serialVersionUID = -4305564891244729963L;
 
@@ -21,24 +20,16 @@ public class MensalidadeServicoImpl implements MensalidadeServico, Serializable 
 	private MensalidadeRepositorio repositorio;
 
 	@Override
-	public List<Mensalidade> listarTodos() {
-		return this.repositorio.findAll();
+	protected JpaRepository<Mensalidade, Long> getRepository() {
+		return repositorio;
 	}
-
-	@Override
-	@Transactional
-	public Mensalidade salvar(Mensalidade mensalidade) {
-		return this.repositorio.save(mensalidade);
-	}
-
-	@Override
-	public void remover(Mensalidade mensalidade) {
-		this.repositorio.delete(mensalidade);
-	}
-
+	
 	@Override
 	public List<Mensalidade> findByStatusPagamento(
 			StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
+		
+		// FIXME refazer a pesquisa usando hql ..
+		
 		return this.repositorio.findByStatusAndDataPagamento(statusPagamento,
 				dataInicio, dataFim);
 	}
@@ -54,4 +45,10 @@ public class MensalidadeServicoImpl implements MensalidadeServico, Serializable 
 	public List<Mensalidade> loadMensalidades( Long idMatricula ) {
 		return this.repositorio.loadMensalidades(idMatricula);
 	}
+
+	@Override
+	public List<Mensalidade> pesquisar(Mensalidade entity) {
+		return null;
+	}
+
 }

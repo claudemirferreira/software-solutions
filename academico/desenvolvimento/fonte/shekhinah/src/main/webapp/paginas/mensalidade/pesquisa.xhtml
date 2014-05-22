@@ -1,72 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="Mensalidade">
-
-			<h:panelGrid id="panelPesquisa" columns="4">
-
-				<h:outputText value="Aluno" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
-							converter="entityConverter" 
-							filterMatchMode="startsWith"
-							filter="true" 
-							style="width:300px" effect="fade">
-					<f:selectItem itemLabel="Selecione o aluno" itemValue="" />
-					<f:selectItems value="#{mensalidadeControlador.alunos}" var="aluno"
-						itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Status" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{mensalidadeControlador.pesquisa.statusPagamento}">
-					<f:selectItems value="#{mensalidadeControlador.statusPagamentos}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Periodo inicial" styleClass="ui-priority-primary" />
-				<p:calendar
-					value="#{mensalidadeControlador.parametroRelatorioDTO.dataInicio}"
-					locale="pt" showButtonPanel="true" navigator="true" />
-
-				<p:outputLabel value="Periodo final" styleClass="ui-priority-primary" />
-				<p:calendar
-					value="#{mensalidadeControlador.parametroRelatorioDTO.dataFim}"
-					locale="pt" showButtonPanel="true" navigator="true" />
+	<ui:param name="pageTitle" value="Matrícula"/>
+	<ui:param name="pageHeader" value="Matrícula"/>
+	<ui:param name="managedBean" value="#{mensalidadeControlador}"/>
+	
+	<!-- ==== Filtro de pesquisa ======= -->
+	<ui:define name="search_filter">
+		
+		<ss:autoComplete label="Aluno"
+	       				value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
+	       				bean="#{mensalidadeControlador}"
+	       				completeMethod="listarAlunos"
+	                    itemLabel="#{item.nome}" 
+	                    size="40" />
+		
+		<ss:comboBox label="Situação" value="#{mensalidadeControlador.pesquisa.statusPagamento}" list="#{mensalidadeControlador.statusList}" />
+		
+		<ss:input label="Periodo inicial" type="date" value="#{mensalidadeControlador.dataInicio}" />
+			
+		<ss:input label="Periodo final" type="date" value="#{mensalidadeControlador.dataFim}" />
+		
+		<ss:comboBox label="Pesquisar por" value="#{mensalidadeControlador.tipoPesquisaData}" list="#{mensalidadeControlador.tipoPesquisaData}" />
+			
+	</ui:define>
+				
+	<ui:define name="aditional_buttons">
+	
+		<!-- FIXME padronizar nas telas o botao imprimir -->
+		<p:commandButton value="Imprimir" update=":form :form:msg"
+						immediate="true" ajax="false" 
+						icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+						action="#{mensalidadeControlador.imprimir}" />
 					
-				<p:outputLabel value="Pesquisar por" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{mensalidadeControlador.parametroRelatorioDTO.dataPesquisa}">
-					<f:selectItems value="#{mensalidadeControlador.parametroRelatorioDTO.dataPesquisas}" />
-				</p:selectOneMenu>
+	</ui:define>			
 
-			</h:panelGrid>
-
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.novo}" />
-
-				<p:commandButton id="buttonImprimir" value="Imprimir" update=":form"
-					immediate="true" ajax="false" icon="ui-icon-circle-plus"
-					styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.imprimir}" />
-
-			</f:facet>
-
-		</p:panel>
-
+	<!-- ==== Grid ======= -->
+	<ui:define name="grid_region">	
+	
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{mensalidadeControlador.lista}" paginatorPosition="bottom"
+			value="#{mensalidadeControlador.listaPesquisa}" paginatorPosition="bottom"
 			paginatorAlwaysVisible="true"
 			emptyMessage="Nenhum registro encontrado."
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -106,11 +88,10 @@
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(mensalidadeControlador.lista)} mensalidades.  
-        </f:facet>
+	           Total de registros: #{fn:length(mensalidadeControlador.listaPesquisa)} mensalidades.  
+	       </f:facet>
 
 		</p:dataTable>
+	</ui:define>			
 
-	</h:form>
-
-</ui:component>
+</ui:composition>

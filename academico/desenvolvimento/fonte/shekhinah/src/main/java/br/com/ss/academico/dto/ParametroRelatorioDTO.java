@@ -6,17 +6,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import br.com.ss.academico.enumerated.DataPesquisa;
+import br.com.ss.academico.enumerated.TipoPesquisaData;
 
 public class ParametroRelatorioDTO {
 
+	// FIXME remover classe se nao estiver sendo utilizada
+	
+	
 	private Date dataInicio;
 
 	private Date dataFim;
 
-	private DataPesquisa dataPesquisa;
+	private TipoPesquisaData dataPesquisa;
 
-	private DataPesquisa[] dataPesquisas;
+	private TipoPesquisaData[] dataPesquisas;
 
 	public Date getDataInicio() {
 		return dataInicio;
@@ -34,15 +37,15 @@ public class ParametroRelatorioDTO {
 		this.dataFim = dataFim;
 	}
 
-	public DataPesquisa getDataPesquisa() {
+	public TipoPesquisaData getDataPesquisa() {
 		return dataPesquisa;
 	}
 
-	public void setDataPesquisa(DataPesquisa dataPesquisa) {
+	public void setDataPesquisa(TipoPesquisaData dataPesquisa) {
 		this.dataPesquisa = dataPesquisa;
 	}
 
-	public DataPesquisa[] getDataPesquisas() {
+	public TipoPesquisaData[] getDataPesquisas() {
 		return this.dataPesquisa.values();
 	}
 

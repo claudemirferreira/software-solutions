@@ -6,13 +6,7 @@ import java.util.List;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
 
-public interface MensalidadeServico {
-
-	public List<Mensalidade> listarTodos();
-
-	public Mensalidade salvar(Mensalidade mensalidade);
-
-	public void remover(Mensalidade mensalidade);
+public interface MensalidadeServico extends IService<Mensalidade, Long>{
 
 	public List<Mensalidade> findByStatusPagamento(
 			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);

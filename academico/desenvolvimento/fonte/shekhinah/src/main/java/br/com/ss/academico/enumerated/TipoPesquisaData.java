@@ -1,19 +1,19 @@
 package br.com.ss.academico.enumerated;
 
-public enum DataPesquisa {
+public enum TipoPesquisaData {
 
-	VECIMENTO(0, "Data vencimento"), PAGAMENTO(1, "Data pagamento");
+	VECIMENTO(0, "Data de vencimento"), PAGAMENTO(1, "Data de pagamento");
 
 	private int id;
 	private String descricao;
 
-	private DataPesquisa(int id, String descricao) {
+	private TipoPesquisaData(int id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public static DataPesquisa getEnum(int id) {
-		for (DataPesquisa sit : DataPesquisa.values()) {
+	public static TipoPesquisaData getEnum(int id) {
+		for (TipoPesquisaData sit : TipoPesquisaData.values()) {
 			if (sit.id == id)
 				return sit;
 		}
