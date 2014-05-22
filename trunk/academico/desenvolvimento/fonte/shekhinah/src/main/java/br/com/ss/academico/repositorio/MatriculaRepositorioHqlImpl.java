@@ -35,7 +35,7 @@ public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements 
 				condictions.add(" turma.turno = :turno ");
 			}
 		}
-		String orderBy = " order by mat.data desc mat.aluno.nome asc ";
+		String orderBy = " order by mat.data desc, mat.aluno.nome asc ";
 		
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
 		if ( notEmpty(entity.getAluno()) ) {

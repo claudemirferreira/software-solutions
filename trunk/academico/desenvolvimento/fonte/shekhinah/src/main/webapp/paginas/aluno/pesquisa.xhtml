@@ -17,13 +17,33 @@
 	
 	<!-- ==== Filtro de pesquisa ======= -->
 	<ui:define name="search_filter">
+			
+			<!-- Teste rendered -->
+			<ss:input label="Input 1" render="false" value="#{matriculaControlador.pesquisa.aluno.cep}" />
+		
+			<ss:input label="Input 2" render="#{not matriculaControlador.pesquisa.isPersistent()}" value="#{matriculaControlador.pesquisa.aluno.celular}"  />
+			
+			<ss:checkBox label="Check-box"  rendered="#{not matriculaControlador.pesquisa.isPersistent()}" value="#{matriculaControlador.pesquisa.checked}" />
+			
+			<ss:comboBox label="Combo-box" render="true" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" />
+		
+			<ss:autoComplete render="#{not matriculaControlador.pesquisa.isPersistent()}"
+		        			label="Auto Comp."
+		       				value="#{alunoControlador.pesquisa.responsavel}"
+		       				bean="#{alunoControlador}"
+		       				completeMethod="listarResponsavel"
+		                    itemLabel="#{item.nome}" 
+		                    size="40" />
+		                    
+		                    
+			<!-- x-x-x-x-x-x- -->	                    
+		
 		
 		<ss:input label="Nome" size="40" value="#{alunoControlador.pesquisa.nome}" />
 	
 		<ss:comboBox label="Sexo" value="#{alunoControlador.pesquisa.sexo}" list="#{alunoControlador.sexoList}" />
 	
-		<ss:autoComplete id="resp" 
-	        			label="Responsável"
+		<ss:autoComplete label="Responsável"
 	       				value="#{alunoControlador.pesquisa.responsavel}"
 	       				bean="#{alunoControlador}"
 	       				completeMethod="listarResponsavel"
