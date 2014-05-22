@@ -13,7 +13,7 @@
 		<cc:attribute name="idCk" required="false" default="id" />
 		<cc:attribute name="label" required="false" />	
 		<cc:attribute name="required" required="false" default="false" />
-		<cc:attribute name="rendered" required="false" default="true" />
+		<cc:attribute name="render" required="false" default="true" />
 		
 		<cc:attribute name="value" required="true" />
 		
@@ -21,7 +21,7 @@
 	
 	<cc:implementation>
 
-		<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required">
+		<h:panelGrid columns="2" width="500" rendered="#{cc.attrs.render}" columnClasses="input_label, input_required">
 		  
 		 		<p:column>
 					<h:outputLabel value="#{cc.attrs.label}" for="#{cc.attrs.id}" rendered="#{not empty cc.attrs.label}"/>
@@ -30,7 +30,7 @@
 		 		</p:column>
 		 		
 		 		<p:column>
-					<p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" rendered="#{cc.attrs.rendered}">
+					<p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" >
 						<ui:insert />
 					</p:selectBooleanCheckbox>
 					<br />
