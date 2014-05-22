@@ -55,6 +55,8 @@
 							
 							<p:commandButton id="btnNew" value="Novo" action="#{managedBean.novo}" ajax="false" icon="ui-icon-circle-plus" styleClass="ui-priority-primary"/>
 						
+							<ui:insert name="aditional_buttons" />		<!-- FIXME padronizar nas telas o botao imprimir -->
+						
 							<p:defaultCommand target="btnSearh" />
 							
 						</h:panelGrid>

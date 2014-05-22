@@ -110,6 +110,12 @@
 	 		
 	 			<c:if test="#{cc.attrs.type eq 'date'}">
 	 				<c:set var="idComp" value="dt_#{cc.attrs.id}"/>
+	 				
+	 				<c:set var="watermarkDate" value="#{cc.attrs.watermark}"/>
+	 				<c:if test="#{empty watermarkDate}">
+		 				<c:set var="watermarkDate" value="99/99/99"/>
+	 				</c:if>
+	 				
 		 			<!-- Calendar -->
 		 			<p:calendar id="#{idComp}"
 		 						maxlength="10"
@@ -133,7 +139,7 @@
 						</c:if>
 					</p:calendar>
 					<br />
-					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
+					<p:watermark for="#{idComp}" value="#{watermarkDate}" rendered="#{not empty watermarkDate}" />
 					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		

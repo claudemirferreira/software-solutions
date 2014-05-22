@@ -16,7 +16,10 @@ import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.com.ss.academico.dominio.AbstractEntity;
+import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.Sexo;
 import br.com.ss.academico.ireport.RelatorioUtil;
@@ -195,6 +198,14 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		facesMessage.setSummary(msg);
 		facesMessage.setDetail(detail);
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	}
+
+	/**
+	 * Retorna o usuário logado.
+	 * @return Usuario
+	 */
+	protected Usuario getUsuarioLogado() {
+		return ((Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 	}
 
 
