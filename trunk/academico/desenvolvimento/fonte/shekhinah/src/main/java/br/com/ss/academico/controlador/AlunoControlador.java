@@ -19,6 +19,7 @@ import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.ResponsavelServico;
+import br.com.ss.academico.utils.StringUtil;
 
 @ManagedBean
 @SessionScoped
@@ -87,6 +88,12 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		
 		if (this.entidade.getDataCadastro() == null) {
 			this.entidade.setDataCadastro(new Date());
+		}
+		if (!StringUtil.notEmpty(entidade.getCpf())) {
+			entidade.setCpf(null);
+		}
+		if (!StringUtil.notEmpty(entidade.getEmail())) {
+			entidade.setEmail(null);
 		}
 		return super.salvar();
 	}

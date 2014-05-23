@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
@@ -52,6 +53,7 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	
 	@Override
 	public void init() {
+		pesquisa.setMatricula(new Matricula());
 		this.alunos = alunoServico.listarTodos();
 		statusList = new ArrayList<SelectItem>();
 		for (StatusPagamento status : StatusPagamento.values()) {
@@ -104,7 +106,7 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	*/
 
 	public void pesquisar() {
-		this.listaPesquisa = servico.findByStatusPagamento(pesquisa.getStatusPagamento(), dataInicio, dataFim);
+		this.listaPesquisa = servico.pesquisar(pesquisa, dataInicio, dataFim, tipoPesquisaData);
 	}
 
 	
