@@ -21,16 +21,30 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		StringBuilder sb = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();
 		
-		sb.append(" select men form Mensalidade men ");
+		sb.append(" select men from Mensalidade men ");
+		sb.append(" join fetch men.matricula mat ");
 		
 		if ( notEmpty(entity.getMatricula().getAluno()) ) {
 			condictions.add(" men.matricula.aluno = :aluno ");
 		}
+		if ( notEmpty(entity.getStatusPagamento()) ) {
+			condictions.add(" men.statusPagamento = :statusPagamento ");
+		}
 		if ( notEmpty(tipoPesquisaData)) {
-			if ( tipoPesquisaData == TipoPesquisaData.PAGAMENTO ) {
-				condictions.add(" men.dataPagamento >= :dataPagamento ");
+			if ( tipoPesquisaData == TipoPesquisaData.VECIMENTO ) {
+				if (notEmpty(dataInicio)) {
+					condictions.add(" men.dataVencimento >= :dataInicio ");
+				}
+				if (notEmpty(dataFim)) {
+					condictions.add(" men.dataVencimento <= :dataFim ");
+				}
 			} else {
-				condictions.add(" men.dataVencimento >= :dataVencimento ");
+				if (notEmpty(dataInicio)) {
+					condictions.add(" men.dataPagamento >= :dataInicio ");
+				}
+				if (notEmpty(dataFim)) {
+					condictions.add(" men.dataPagamento <= :dataFim ");
+				}
 			}
 		}
 		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc ";
@@ -39,11 +53,20 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		if ( notEmpty(entity.getMatricula().getAluno()) ) {
 			query.setParameter("aluno", entity.getMatricula().getAluno());
 		}
+		if ( notEmpty(entity.getStatusPagamento()) ) {
+			query.setParameter("statusPagamento", entity.getStatusPagamento());
+		}
 		if ( notEmpty(tipoPesquisaData)) {
-			if ( tipoPesquisaData == TipoPesquisaData.PAGAMENTO ) {
-				query.setParameter("dataPagamento", entity.getDataPagamento());
-			} else {
-				query.setParameter("dataVencimento", entity.getDataVencimento());
+			if ( tipoPesquisaData == TipoPesquisaData.VECIMENTO ) {
+				if (notEmpty(dataInicio)) {
+					query.setParameter("dataInicio", dataInicio);
+				}
+				if (notEmpty(dataFim)) {
+					query.setParameter("dataFim", dataFim);
+				}
+				if (notEmpty(entity.getDataPagamento())) {
+					
+				}
 			}
 		}
 		return query.getResultList();
