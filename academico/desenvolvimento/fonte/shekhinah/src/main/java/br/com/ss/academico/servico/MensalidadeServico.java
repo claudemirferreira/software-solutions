@@ -5,11 +5,12 @@ import java.util.List;
 
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
+import br.com.ss.academico.enumerated.TipoPesquisaData;
 
 public interface MensalidadeServico extends IService<Mensalidade, Long>{
 
-	public List<Mensalidade> findByStatusPagamento(
-			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);
+	List<Mensalidade> pesquisar(Mensalidade entidade, Date dataInicio, Date dataFim, TipoPesquisaData tipoPesquisaData);
+	
 	
 	public List<Mensalidade> findByStatusAndDataVencimento(
 			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);

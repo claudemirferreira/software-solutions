@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
+import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.academico.repositorio.MensalidadeRepositorio;
+import br.com.ss.academico.repositorio.MensalidadeRepositorioHql;
 
 @Service
 public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> implements MensalidadeServico {
@@ -18,6 +20,9 @@ public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> imple
 
 	@Autowired
 	private MensalidadeRepositorio repositorio;
+	
+	@Autowired
+	private MensalidadeRepositorioHql repositorioHql;
 
 	@Override
 	protected JpaRepository<Mensalidade, Long> getRepository() {
@@ -25,13 +30,8 @@ public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> imple
 	}
 	
 	@Override
-	public List<Mensalidade> findByStatusPagamento(
-			StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
-		
-		// FIXME refazer a pesquisa usando hql ..
-		
-		return this.repositorio.findByStatusAndDataPagamento(statusPagamento,
-				dataInicio, dataFim);
+	public List<Mensalidade> pesquisar(Mensalidade entidade, Date dataInicio, Date dataFim, TipoPesquisaData tipoPesquisaData) {
+		return this.repositorioHql.pesquisar(entidade, dataInicio, dataFim, tipoPesquisaData);
 	}
 
 	@Override
