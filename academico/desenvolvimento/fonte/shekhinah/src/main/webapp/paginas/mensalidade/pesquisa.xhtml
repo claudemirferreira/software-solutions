@@ -14,7 +14,6 @@
 	<ui:param name="pageHeader" value="Mensalidade"/>
 	<ui:param name="managedBean" value="#{mensalidadeControlador}"/>
 	
-	<!-- ==== Filtro de pesquisa ======= -->
 	<ui:define name="search_filter">
 		
 		<ss:autoComplete label="Aluno"
@@ -24,13 +23,13 @@
 	                    itemLabel="#{item.nome}" 
 	                    size="40" />
 		
-		<ss:comboBox label="Situação" value="#{mensalidadeControlador.pesquisa.statusPagamento}" list="#{mensalidadeControlador.statusList}" />
+		<ss:comboBox label="Situação" filter="false" value="#{mensalidadeControlador.pesquisa.statusPagamento}" list="#{mensalidadeControlador.statusList}" />
 		
-		<ss:input label="Periodo inicial" type="date" value="#{mensalidadeControlador.dataInicio}" />
+		<ss:input label="Período inicial" type="date" value="#{mensalidadeControlador.dataInicio}" ajax="true" />
 			
-		<ss:input label="Periodo final" type="date" value="#{mensalidadeControlador.dataFim}" />
+		<ss:input label="Período final" type="date" value="#{mensalidadeControlador.dataFim}" ajax="true" />
 		
-		<ss:comboBox label="Pesquisar por" value="#{mensalidadeControlador.tipoPesquisaData}" list="#{mensalidadeControlador.tipoPesquisaData}" />
+		<ss:comboBox label="Pesquisar por" filter="false" value="#{mensalidadeControlador.tipoPesquisaData}" list="#{mensalidadeControlador.tipoPesquisaDataList}" />
 			
 	</ui:define>
 				
@@ -44,47 +43,53 @@
 					
 	</ui:define>			
 
-	<!-- ==== Grid ======= -->
 	<ui:define name="grid_region">	
 	
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{mensalidadeControlador.listaPesquisa}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
-
-			<p:column style="text-align:left" headerText="Valor Vencimento"
-				sortBy="#{item.valorVencimento}">
-				<h:outputText value="#{item.valorVencimento}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Matricula"
-				sortBy="#{item.matricula.id}">
+		<p:dataTable id="gridPesquisa" var="item" 
+					value="#{mensalidadeControlador.listaPesquisa}" 
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					paginatorAlwaysVisible="true"
+					style="width:900px"
+					rows="10" 
+					paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="10,20,30">
+					
+			<p:column headerText="Matrícula" width="80" style="text-align:right" sortBy="#{item.matricula.id}">
 				<h:outputText value="#{item.matricula.id}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.matricula.aluno.nome}">
+			<p:column headerText="Aluno" style="text-align:left" sortBy="#{item.matricula.aluno.nome}">
 				<h:outputText value="#{item.matricula.aluno.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Status"
-				sortBy="#{item.statusPagamento}">
-				<h:outputText value="#{item.statusPagamento}" />
+			<p:column headerText="Valor" width="80" style="text-align:right" sortBy="#{item.valorVencimento}">
+				<h:outputText value="#{item.valorVencimento}" >
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+				</h:outputText>
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Data Vencimento"
-				sortBy="#{item.dataVencimento}">
-				<h:outputText value="#{item.dataVencimento}" />
+			<p:column headerText="Vencimento" style="text-align:center;" width="120" sortBy="#{item.dataVencimento}">
+				<center>
+					<h:outputText value="#{item.dataVencimento}" >
+						<f:convertDateTime dateStyle="medium" />
+					</h:outputText>
+				</center>
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton ajax="false"
-					action="#{mensalidadeControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-					update=":form" title="Detalhe" />
+			<p:column headerText="Situação" style="text-align:center" width="90"  sortBy="#{item.statusPagamento}">
+				<center>
+					<h:outputText value="#{item.statusPagamento}" />
+				</center>
+			</p:column>
 
+			<p:column headerText="Ação" style="text-right" width="60" >
+				<center>
+					<p:commandButton ajax="false"
+									action="#{mensalidadeControlador.detalhe(item)}"
+									styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
+									update=":form" title="Detalhe" />
+				</center>
 			</p:column>
 
 			<f:facet name="footer">  
