@@ -6,23 +6,89 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
 
 	<ui:param name="pageHeader" value="Cadastro de Matrícula"/>
 	<ui:param name="pageTitle" value="Cadastro de Matrícula"/>
-	<ui:param name="managedBean" value="#{matriculaControlador}"/>
+	<ui:param name="managedBean" value="#{alunoMatriculaControlador}"/>
 	<ui:param name="widthContainer" value="950px"/>
 
 	<ui:define name="register_region">
 	
-		<h:panelGrid id="panelCadastro" columns="2">
+		<h:panelGrid columns="2">
 			
+			+++Input+++#{matriculaControlador.entidade.isPersistent()}++++++
+			<c:if test="#{matriculaControlador.entidade.isPersistent()}">
+			<ss:input label="Aluno - Inp" value="#{matriculaControlador.entidade.aluno}" 
+						render="#{matriculaControlador.entidade.isPersistent()}"	disabled="true" required="true" />
+			</c:if>
 			
-			<ss:input id="valor" label="Valor" required="true" value="#{matriculaControlador.entidade.valor}" type="number" style="width: 70px;" dir="rtl" />
+			***A Comp***#{not matriculaControlador.entidade.isPersistent()}********
+			<c:if test="#{not matriculaControlador.entidade.isPersistent()}">
+			<ss:autoComplete label="Aluno - AutoC"
+		       				value="#{matriculaControlador.entidade.aluno}"
+		       				bean="#{matriculaControlador}"
+		       				completeMethod="listarAlunos"
+		                    itemLabel="#{item.nome}" 
+		                   	render="#{not matriculaControlador.entidade.isPersistent()}"
+		                    required="true" />
+			</c:if>
 		
+			<ss:comboBox id="turma" label="Turma" required="true" foreignKey="true" selectOne="true"
+						ajax="true"
+						value="#{alunoMatriculaControlador.entidade.turma}"
+						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
+						list="#{alunoMatriculaControlador.turmas}" >
+				
+					
+				<ui:define name="aditional" >
+					<p:ajax event="change" 
+							update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
+							listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
+				</ui:define>
+			</ss:comboBox>
+			
+			<ss:input id="vagas" label="Vagas Disponíveis" style="width: 40px;" readonly="true" type="number" dir="rtl" decimalPlaces="0"
+						value="#{alunoMatriculaControlador.entidade.turma.vagasDisponiveis}" />
+			
+			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.entidade.valor}" type="number" style="width: 70px;" dir="rtl" />
+			
+			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.entidade.data}" dir="rtl" size="40" />
+			
+			<ss:comboBox label="Mensalidades apartir de" required="true" selectOne="true" 
+						value="#{alunoMatriculaControlador.mesSelecionado}" 
+						list="#{alunoMatriculaControlador.mesesList}" />
+	        
+	        <ss:comboBox label="Turno Integral?" required="true" selectOne="true" 
+						value="#{alunoMatriculaControlador.entidade.integral}"
+						list="#{alunoMatriculaControlador.naoSimList}" />
+	        
+	        <ss:comboBox label="Situação" required="true" selectOne="true" 
+						value="#{alunoMatriculaControlador.entidade.status}"
+						list="#{alunoMatriculaControlador.statusMatriculaList}" >
+				
+				<ui:define name="aditional" >
+					<p:ajax event="change" 
+							listener="#{alunoMatriculaControlador.renderObservacao}" />
+							<!-- update=":formDlg:pnlObservacao" -->  
+				</ui:define>
+			</ss:comboBox>
+	        
 		</h:panelGrid>
+		
+        <p:outputPanel id="pnlObservacao">
+			<p:fieldset legend="Justificativa" rendered="#{alunoMatriculaControlador.entidade.status.id ne 0}" >  
+				<p:inputTextarea value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
+								maxlength="250" cols="95" rows="4" autoResize="false"
+								required="true" >
+					<p:ajax event="change" /> 
+						<!-- update=":formDlg:pnlObservacao"  -->
+				</p:inputTextarea>
+			</p:fieldset>
+		</p:outputPanel>	
 		
 	</ui:define>
 	

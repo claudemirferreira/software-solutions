@@ -33,7 +33,7 @@ public interface MatriculaRepositorio extends JpaRepository<Matricula, Long> {
 	 * @param matricula
 	 * @return
 	 */
-	@Query("select mat from Matricula mat join fetch mat.mensalidades where mat = :matricula")
+	@Query("select mat from Matricula mat left join fetch mat.mensalidades where mat = :matricula")
 	public Matricula loadMatriculaMensalidades(@Param("matricula") Matricula matricula);
 	
 	

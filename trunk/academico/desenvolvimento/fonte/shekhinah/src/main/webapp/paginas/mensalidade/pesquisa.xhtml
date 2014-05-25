@@ -32,16 +32,6 @@
 		<ss:comboBox label="Pesquisar por" filter="false" value="#{mensalidadeControlador.tipoPesquisaData}" list="#{mensalidadeControlador.tipoPesquisaDataList}" />
 			
 	</ui:define>
-				
-	<ui:define name="aditional_buttons">
-	
-		<!-- FIXME padronizar nas telas o botao imprimir -->
-		<p:commandButton value="Imprimir" update=":form :form:msg"
-						immediate="true" ajax="false" 
-						icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-						action="#{mensalidadeControlador.imprimir}" />
-					
-	</ui:define>			
 
 	<ui:define name="grid_region">	
 	
@@ -50,17 +40,21 @@
 					emptyMessage="Nenhum registro encontrado."
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					paginatorAlwaysVisible="true"
-					style="width:900px"
 					rows="10" 
 					paginator="true" paginatorPosition="bottom"
-					rowsPerPageTemplate="10,20,30">
+					rowsPerPageTemplate="10,20,30">	
+					<!-- style="width:900px" -->
 					
 			<p:column headerText="Matrícula" width="80" style="text-align:right" sortBy="#{item.matricula.id}">
 				<h:outputText value="#{item.matricula.id}" />
 			</p:column>
 
-			<p:column headerText="Aluno" style="text-align:left" sortBy="#{item.matricula.aluno.nome}">
+			<p:column headerText="Aluno" style="text-align:left" width="200" sortBy="#{item.matricula.aluno.nome}">
 				<h:outputText value="#{item.matricula.aluno.nome}" />
+			</p:column>
+
+			<p:column headerText="Curso" style="text-align:left" width="120" sortBy="#{item.matricula.aluno.nome}">
+				<h:outputText value="#{item.matricula.turma.curso.nome}" />
 			</p:column>
 
 			<p:column headerText="Valor" width="80" style="text-align:right" sortBy="#{item.valorVencimento}">
@@ -72,6 +66,14 @@
 			<p:column headerText="Vencimento" style="text-align:center;" width="120" sortBy="#{item.dataVencimento}">
 				<center>
 					<h:outputText value="#{item.dataVencimento}" >
+						<f:convertDateTime dateStyle="medium" />
+					</h:outputText>
+				</center>
+			</p:column>
+
+			<p:column headerText="Pagamento" style="text-align:center;" width="120" sortBy="#{item.dataVencimento}">
+				<center>
+					<h:outputText value="#{item.dataPagamento}" >
 						<f:convertDateTime dateStyle="medium" />
 					</h:outputText>
 				</center>

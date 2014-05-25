@@ -85,6 +85,13 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		// Sobrescrever caso necessario
 	}
 
+	/**
+	 * Força o recarregamento da pagina de pesquisa.
+	 */
+	public void reload(){
+		init();
+	}
+
 	@SuppressWarnings("unchecked")
 	protected void initEntity(){
 		try {
@@ -176,11 +183,21 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		return PESQUISA;
 	}
 
+	
+	/**
+	 * Impressao de um item selecionado no grid de pesquisa.
+	 * @param entity
+	 */
 	public void imprimir(T entity ) {
 		// FIXME #Peninha: implementar: metodo para imprimir do grid de pesquisa
 		// usar em telas como: matricula, aluno..
 	}
 	
+	
+	/**
+	 * Usado para imprimir o grid da tela de pesqusia.
+	 * @throws FileNotFoundException
+	 */
 	public void imprimir() throws FileNotFoundException {
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
 	}

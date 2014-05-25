@@ -11,15 +11,13 @@ import br.com.ss.academico.enumerated.Turno;
 public class TurnoConverter implements Converter {
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component,
-			String value) {
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		return Turno.getEnum(new Integer(value));
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component,
-			Object value) {
-		Turno turno = Turno.getEnum(new Integer(value.toString()));
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		Turno turno = (Turno) value;
 		if (turno != null) {
 			return turno.getDescricao();
 		}

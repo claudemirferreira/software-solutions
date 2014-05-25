@@ -24,12 +24,19 @@
 	                    itemLabel="#{item.nome}" 
 	                    size="40" />
 		
-		<ss:comboBox label="Situação" value="#{matriculaControlador.pesquisa.status}" list="#{matriculaControlador.statusList}" />
-		
-		<ss:input label="Ano da Turma" value="#{matriculaControlador.pesquisa.turma.ano}" type="number" style="width: 70px;" dir="rtl" />
+		<ss:autoComplete label="Curso"
+	       				value="#{matriculaControlador.pesquisa.turma.curso}"
+	       				bean="#{matriculaControlador}"
+	       				completeMethod="listarCursos"
+	                    itemLabel="#{item.nome}" 
+	                    size="40" />
+	                    
+		<ss:input label="Ano da Turma" value="#{matriculaControlador.pesquisa.turma.ano}" type="number" decimalPlaces="0" style="width: 70px;" dir="rtl" />
 		
 		<ss:comboBox label="Turno da Turma" value="#{matriculaControlador.pesquisa.turma.turno}" list="#{matriculaControlador.turnoList}" />
 	
+		<ss:comboBox label="Situação" value="#{matriculaControlador.pesquisa.status}" list="#{matriculaControlador.statusList}" />
+		
 	</ui:define>
 	
 	<!-- ==== Grid ======= -->
@@ -50,34 +57,42 @@
 				<h:outputText value="#{item.turma.curso.nome}" />
 			</p:column>
 			
-			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.turma.ano}">
+			<p:column style="text-align:center" headerText="Ano" sortBy="#{item.turma.ano}">
 				<h:outputText value="#{item.turma.ano}" />
 			</p:column>
 		
 			<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turma.turno}">
-				<h:outputText value="#{item.turma.turno}" />
+				<h:outputText value="#{item.turma.turno}" converter="turnoConverter" />
 			</p:column>
 		
 			<p:column style="text-align:right" headerText="Valor" sortBy="#{item.valor}">
-				<h:outputText value="#{item.valor}" />
+				<h:outputText value="#{item.valor}" >
+					<f:convertNumber minFractionDigits="2" type="currency" currencySymbol=" " />
+				</h:outputText>
 			</p:column>
 			
-			<p:column style="text-align:left" headerText="Data" sortBy="#{item.data}">
-				<h:outputText value="#{item.data}" />
+			<p:column style="text-align:right" headerText="Data" sortBy="#{item.data}">
+				<h:outputText value="#{item.data}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
 			</p:column>
 
-			<p:column style="text-align:center" headerText="Hor. Integral?" >
+			<p:column style="text-align:center" headerText="Hor. Integral?" sortBy="#{item.integral}">
 				<h:outputText value="#{item.integral}" converter="simNaoConverter" />
 			</p:column>
 			
-			<p:column style="text-align:left" headerText="Situação" >
+			<p:column style="text-align:center" headerText="Situação" sortBy="#{item.status}">
 				<h:outputText value="#{item.status}" converter="statusMatriculaConverter" />
 			</p:column>
 			
-			<p:column style="text-align:left" headerText="Detalhe">
+			<p:column style="text-align:center" headerText="Ação">
+				
+				<p:commandButton value="Detalhe" title="Detalhe" 
+							action="#{alunoMatriculaControlador.detalhe(item)}"
+							icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
 				
 				<!-- FIXME #Peninha: rever essa funcionalidade - nao entendi o proposito do relatorio.. nao seria para imprimir a matricula? -->
-				<p:commandButton id="btnPrint" value="Imprimir" icon="ui-icon-print"
+				<p:commandButton value="Imprimir" icon="ui-icon-print"
 								action="#{matriculaControlador.imprimirRelatorio(item)}"
 								ajax="false" />
 								
