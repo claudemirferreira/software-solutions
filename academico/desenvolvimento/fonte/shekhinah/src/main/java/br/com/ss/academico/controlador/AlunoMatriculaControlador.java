@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
@@ -33,13 +32,16 @@ import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.BoletimServico;
+import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.academico.servico.TurmaServico;
 
 @ManagedBean
 @SessionScoped
-public class AlunoMatriculaControlador {
+public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
+
+	private static final long serialVersionUID = 2272887087315382335L;
 
 	@ManagedProperty(value = "#{mensalidadeServicoImpl}")
 	private MensalidadeServico servicoMensalidade;
@@ -60,8 +62,6 @@ public class AlunoMatriculaControlador {
 
 	private boolean modalCadastro;
 
-	private Matricula matricula;
-
 	private List<Turma> turmas;
 
 	private List<SelectItem> naoSimList;
@@ -81,7 +81,6 @@ public class AlunoMatriculaControlador {
 	
 	/* --------- Overrides ------------------ */
 
-	@PostConstruct
 	public void init() {
 		alunoMatricula = new Aluno();
 		naoSimList = createNaoSimList();
@@ -89,8 +88,7 @@ public class AlunoMatriculaControlador {
 		mesesList = createMesesList();
 		carregarDiaVencimento();
 
-		usuarioLogado = (Usuario) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
+		usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 	private void carregarDiaVencimento() {
@@ -99,6 +97,29 @@ public class AlunoMatriculaControlador {
 		configuracao.setDiaVencimento(10); // FIXME recuperar a data da configuracao
 	}
 
+	@Override
+	protected String getNomeRelatorio() {
+		// FIXME #Peninha, ver relatorio
+		return null;
+	}
+
+	@Override
+	protected IService<Matricula, Long> getService() {
+		return servicoMatricula;
+	}
+	
+	@Override
+	public void pesquisar() {
+		// não faz pesquisa neste bean.. apenas no MatriculaControlador.
+	}
+	
+	@Override
+	public String detalhe(Matricula entidade) {
+		// carrega as regras da tela de cadastro
+		String page = super.detalhe(entidade);
+		showModalCadastroMatricula(entidade);
+		return page;
+	}
 	
 	public void imprimirContrato(Matricula matricula) {
 		// FIXME #Peninha criar o relatorio..
@@ -111,10 +132,10 @@ public class AlunoMatriculaControlador {
 	}
 
 	public void renderObservacao() {
-		if (matricula.getStatus() != StatusMatricula.ATIVA
+		if (entidade.getStatus() != StatusMatricula.ATIVA
 				&& observacaoMatricula == null) {
 			observacaoMatricula = new Observacao();
-			observacaoMatricula.setMatricula(matricula);
+			observacaoMatricula.setMatricula(entidade);
 		}
 	}
 
@@ -155,7 +176,7 @@ public class AlunoMatriculaControlador {
 
 	public void showModalCadastroMatricula(Matricula matricula) {
 		// faz o load das mensalidades (fetch)
-		this.matricula = servicoMatricula.loadMatriculaMensalidades(matricula);
+		this.entidade = servicoMatricula.loadMatriculaMensalidades(matricula);
 		modalCadastro = true;
 		turmas = servicoTurma.listarTodos();
 		selectTurma(!matricula.isPersistent());
@@ -166,7 +187,7 @@ public class AlunoMatriculaControlador {
 	 */
 	public void showModalCadastroMatricula() {
 		modalCadastro = true;
-		matricula = createMatricula();
+		entidade = createMatricula();
 		turmas = servicoTurma.listarTodos();
 		carregarMesSelecionado();
 	}
@@ -188,13 +209,13 @@ public class AlunoMatriculaControlador {
 		
 		if (atualizarValor) {
 			// atualiza o valor da matricula pelo valor do curso selecionado
-			matricula.setValor(matricula.getTurma().getCurso().getValor());
+			entidade.setValor(entidade.getTurma().getCurso().getValor());
 		}
-		matricula.setIntegral(false);
+		entidade.setIntegral(false);
 
 		Long vagasDisponiveis = servicoMatricula
-				.countVagasDisponiveis(matricula.getTurma());
-		matricula.getTurma().setVagasDisponiveis(vagasDisponiveis.intValue());
+				.countVagasDisponiveis(entidade.getTurma());
+		entidade.getTurma().setVagasDisponiveis(vagasDisponiveis.intValue());
 
 		if (!(vagasDisponiveis > 0)) {
 			showMessage("Não há vaga disponível para a turma selecionada.",
@@ -210,45 +231,54 @@ public class AlunoMatriculaControlador {
 	}
 	
 	public void salvarMatricula() {
+		salvar();
+	}
+	
+	public String salvar() {
 
 		try {
-			if (matricula.getStatus() != StatusMatricula.ATIVA
+			if (entidade.getStatus() != StatusMatricula.ATIVA
 					&& observacaoMatricula != null) {
 				
 				// salva a observacao da matricula
 				cancelarMatricula();
 				
-			} else if (matricula.getStatus() == StatusMatricula.ATIVA ) {
+			} else if (entidade.getStatus() == StatusMatricula.ATIVA ) {
 				
 				// cria ou atualiza as mensalidades
-				gerarMensalidadesMatricula(matricula.isPersistent());
+				gerarMensalidadesMatricula(entidade.isPersistent());
 				
 				// FIXME #Peninha: verificar se vai gerar boletim neste momento..
 //				 this.boletimServico.gerarBoletim(matricula);				
 			}
 			
-			matricula.setAluno(alunoMatricula);
-			matricula = servicoMatricula.salvar(matricula);
+			entidade.setAluno(alunoMatricula);
+			entidade = servicoMatricula.salvar(entidade);
 
 			showModalPesquisaMatricula();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			observacaoMatricula = null;
 
 			// gera o boletim para o aluno matriculado
-			this.boletimServico.gerarBoletim(matricula);
-
+			this.boletimServico.gerarBoletim(entidade);
+			
+			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+			
+			setup();
+			return PESQUISA;
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+			return null;
 		}
 	}
 
 	private void cancelarMatricula() {
 		observacaoMatricula.setUsuario(usuarioLogado);
-		matricula.getObservacoes().add(observacaoMatricula);
+		entidade.getObservacoes().add(observacaoMatricula);
 
 		// cancelar as mensalidades
-		for (Mensalidade mens : matricula.getMensalidades()) {
+		for (Mensalidade mens : entidade.getMensalidades()) {
 			mens.setStatusPagamento(StatusPagamento.CANCELADO);
 		}
 	}
@@ -260,7 +290,7 @@ public class AlunoMatriculaControlador {
 		int qtMensalidades = mesFinal - (mesInicial -1);
 		
 		// calcula o valor da mensalidade dividindo o valor do curso pela quantidade de meses
-		double valorMens = matricula.getValor() / qtMensalidades;
+		double valorMens = entidade.getValor() / qtMensalidades;
 		
 		// FIXME #Peninha: validar a regra de geracao das mensalidades 
 		/*
@@ -269,18 +299,18 @@ public class AlunoMatriculaControlador {
 		 * */
 		if (atualizarMatricula) {
 			// se for atualizar limpa a lista e recria novas.
-			matricula.getMensalidades().clear();
+			entidade.getMensalidades().clear();
 		}
 		
 		for (int i = mesInicial; i <= mesFinal; i++) {
-			matricula.getMensalidades().add(createMensalidade(i, valorMens));
+			entidade.getMensalidades().add(createMensalidade(i, valorMens));
 		}
 	}
 
 	private Mensalidade createMensalidade(int mes, double valorVencimento) {
 		Mensalidade mens = new Mensalidade();
 		mens.setDataVencimento(criarDataVencimento(mes));
-		mens.setMatricula(matricula);
+		mens.setMatricula(entidade);
 		mens.setSequencial(mes);
 		mens.setStatusPagamento(StatusPagamento.PENDENTE);
 		mens.setValorVencimento(valorVencimento);
@@ -315,7 +345,7 @@ public class AlunoMatriculaControlador {
 	}
 
 	public Matricula getMatricula() {
-		return matricula;
+		return entidade;
 	}
 
 	public List<Turma> getTurmas() {

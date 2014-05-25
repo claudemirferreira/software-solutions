@@ -37,6 +37,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.Constants;
@@ -45,6 +46,7 @@ import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.BoletimServico;
+import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
@@ -65,6 +67,9 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	@ManagedProperty(value = "#{boletimServicoImpl}")
 	private BoletimServico boletimServico;
 
+	@ManagedProperty(value = "#{cursoServicoImpl}")
+	private CursoServico servicoCurso;
+	
 	@ManagedProperty(value = "#{empresaServicoImpl}")
 	private EmpresaServico empresaServico;
 	
@@ -80,9 +85,10 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 		turnoList = new ArrayList<SelectItem>();
 		for (Turno t : Turno.values()) {
-			statusList.add(new SelectItem(t, t.getDescricao()));
+			turnoList.add(new SelectItem(t, t.getDescricao()));
 		}
 		pesquisa.setTurma(new Turma());
+		pesquisa.setAluno(new Aluno());
 	}
 
 	@Override
@@ -100,8 +106,16 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
 	 */
 	public List<Aluno> listarAlunos(String nome) {
-		entidade.getAluno().setNome(nome);
-		return servicoAluno.pesquisar(entidade.getAluno());
+		pesquisa.setAluno(new Aluno());
+		pesquisa.getAluno().setNome(nome);
+		return servicoAluno.pesquisar(pesquisa.getAluno());
+	}
+
+	/**
+	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
+	 */
+	public List<Curso> listarCursos(String nome) {
+		return servicoCurso.findByNomeLike(nome);
 	}
 
 
@@ -351,6 +365,14 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setTurmaServico(TurmaServico turmaServico) {
 		this.turmaServico = turmaServico;
+	}
+
+	public CursoServico getServicoCurso() {
+		return servicoCurso;
+	}
+
+	public void setServicoCurso(CursoServico servicoCurso) {
+		this.servicoCurso = servicoCurso;
 	}
 
 }

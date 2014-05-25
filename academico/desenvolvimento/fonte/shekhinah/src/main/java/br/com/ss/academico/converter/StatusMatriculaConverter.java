@@ -11,14 +11,12 @@ import br.com.ss.academico.enumerated.StatusMatricula;
 public class StatusMatriculaConverter implements Converter {
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component,
-			String value) {
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		return StatusMatricula.getEnum(new Integer(value));
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component,
-			Object value) {
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		StatusMatricula sit =  (StatusMatricula ) value;
 		if (sit != null) {
 			return sit.getDescricao();

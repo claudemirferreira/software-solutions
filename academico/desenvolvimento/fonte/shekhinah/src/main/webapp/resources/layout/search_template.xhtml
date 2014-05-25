@@ -11,16 +11,21 @@
                 template="/resources/layout/template.xhtml"
 				>
   		<!-- ====== Params ================
-			| Atributo:		| Obrigatorio: 
+			| Atributo:		| Obrigatorio: 				| Default
 			renderSearch	false
 			managedBean		se renderSearch for true
 			pageHeader		false
+			reloadPage		false 						true
   		 -->
   
 	  <ui:define name="content">
   		 
   		 <c:if test="#{empty renderSearch}">
 	 		<c:set var="renderSearch" value="true" />
+  		 </c:if>
+  		 
+  		 <c:if test="#{empty reloadPage}">
+  		 	#{managedBean.reload()}
   		 </c:if>
   		 
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
@@ -55,7 +60,10 @@
 							
 							<p:commandButton id="btnNew" value="Novo" action="#{managedBean.novo}" ajax="false" icon="ui-icon-circle-plus" styleClass="ui-priority-primary"/>
 						
-							<ui:insert name="aditional_buttons" />		<!-- FIXME padronizar nas telas o botao imprimir -->
+							<p:commandButton value="Imprimir" update=":form :form:msg"
+											immediate="true" ajax="false" 
+											icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+											action="#{mensalidadeControlador.imprimir}" />
 						
 							<p:defaultCommand target="btnSearh" />
 							

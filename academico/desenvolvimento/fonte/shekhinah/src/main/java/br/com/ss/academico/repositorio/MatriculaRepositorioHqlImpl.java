@@ -20,7 +20,7 @@ public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements 
 		
 		sb.append(" select mat from Matricula mat ");
 		
-		if ( notEmpty(entity.getAluno()) ) {
+		if ( notEmpty(entity.getAluno()) && notEmpty(entity.getAluno().getNome()) ) {
 			condictions.add(" lower( mat.aluno.nome ) like :nomeAluno ");
 		}
 		if ( notEmpty(entity.getStatus() ) ) {
@@ -28,27 +28,37 @@ public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements 
 		}
 		if ( notEmpty(entity.getTurma().getAno() ) || notEmpty(entity.getTurma().getTurno() ) ) {
 			sb.append(" join mat.turma turma ");
-			if ( notEmpty(entity.getTurma().getAno() ) ) {
+			if ( notEmpty(entity.getTurma().getAno() ) && entity.getTurma().getAno() > 0 ) {
 				condictions.add(" turma.ano = :ano ");
 			}
 			if ( notEmpty(entity.getTurma().getTurno() ) ) {
 				condictions.add(" turma.turno = :turno ");
 			}
 		}
+		if ( notEmpty(entity.getTurma().getCurso()) ) {
+			sb.append(" join mat.turma.curso curso ");
+			if ( notEmpty(entity.getTurma().getCurso() ) ) {
+				condictions.add(" curso = :curso ");
+			}
+		}
+		
 		String orderBy = " order by mat.data desc, mat.aluno.nome asc ";
 		
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
-		if ( notEmpty(entity.getAluno()) ) {
+		if ( notEmpty(entity.getAluno()) && notEmpty(entity.getAluno().getNome()) ) {
 			query.setParameter("nomeAluno", "%" + entity.getAluno().getNome().trim().toLowerCase() + "%");
 		}
 		if ( notEmpty(entity.getStatus() ) ) {
 			query.setParameter("status", entity.getStatus());
 		}
-		if ( notEmpty(entity.getTurma().getAno() ) ) {
+		if ( notEmpty(entity.getTurma().getAno() ) && entity.getTurma().getAno() > 0 ) {
 			query.setParameter("ano", entity.getTurma().getAno());
 		}
 		if ( notEmpty(entity.getTurma().getTurno() ) ) {
-			query.setParameter("ano", entity.getTurma().getTurno());
+			query.setParameter("turno", entity.getTurma().getTurno());
+		}
+		if ( notEmpty(entity.getTurma().getCurso()) ) {
+			query.setParameter("curso", entity.getTurma().getCurso());
 		}
 		return query.getResultList();
 	}

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.repositorio.CursoRepositorio;
+import br.com.ss.academico.repositorio.CursoRepositorioJPA;
 
 @Service
 public class CursoServicoImpl  extends ServicoImpl<Curso, Long> implements CursoServico {
@@ -17,14 +18,16 @@ public class CursoServicoImpl  extends ServicoImpl<Curso, Long> implements Curso
 	@Autowired
 	private CursoRepositorio repositorio;
 
+	@Autowired
+	private CursoRepositorioJPA cursoRepositorioJPA;
+	
 	@Override
 	public List<Curso> findByNomeLike(String nome) {
-		return this.repositorio.findByNomeLike(nome);
+		return this.cursoRepositorioJPA.findByNomeLike(nome);
 	}
 
 	@Override
 	public List<Curso> pesquisar(Curso entity) {
-		// FIXME implementar metodo
 		return listarTodos();
 	}
 

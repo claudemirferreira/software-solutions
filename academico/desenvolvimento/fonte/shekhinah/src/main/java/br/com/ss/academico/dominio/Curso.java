@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the iansa_curso database table.
- * 
  */
 @Entity
 @Table(name = "acad_curso")

@@ -47,7 +47,7 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 				}
 			}
 		}
-		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc ";
+		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc, men.matricula.turma.curso.nome ";
 		
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
 		if ( notEmpty(entity.getMatricula().getAluno()) ) {
@@ -57,16 +57,14 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 			query.setParameter("statusPagamento", entity.getStatusPagamento());
 		}
 		if ( notEmpty(tipoPesquisaData)) {
-			if ( tipoPesquisaData == TipoPesquisaData.VECIMENTO ) {
-				if (notEmpty(dataInicio)) {
-					query.setParameter("dataInicio", dataInicio);
-				}
-				if (notEmpty(dataFim)) {
-					query.setParameter("dataFim", dataFim);
-				}
-				if (notEmpty(entity.getDataPagamento())) {
-					
-				}
+			if (notEmpty(dataInicio)) {
+				query.setParameter("dataInicio", dataInicio);
+			}
+			if (notEmpty(dataFim)) {
+				query.setParameter("dataFim", dataFim);
+			}
+			if (notEmpty(entity.getDataPagamento())) {
+				
 			}
 		}
 		return query.getResultList();
