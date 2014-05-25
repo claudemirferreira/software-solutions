@@ -16,15 +16,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Turma;
-import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.Meses;
 import br.com.ss.academico.enumerated.NaoSim;
@@ -36,6 +33,7 @@ import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.academico.servico.TurmaServico;
+import br.com.ss.academico.utils.DateUtil;
 
 @ManagedBean
 @SessionScoped
@@ -76,8 +74,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	private Configuracao configuracao;
 
-	private Usuario usuarioLogado;
-
 	
 	/* --------- Overrides ------------------ */
 
@@ -87,8 +83,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
 		carregarDiaVencimento();
-
-		usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 	private void carregarDiaVencimento() {
@@ -112,12 +106,22 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	public void pesquisar() {
 		// não faz pesquisa neste bean.. apenas no MatriculaControlador.
 	}
+
+	@Override
+	public String novo() {
+		String page = super.novo();
+		carregarMesSelecionado();
+		return page;
+	}
+	
 	
 	@Override
 	public String detalhe(Matricula entidade) {
 		// carrega as regras da tela de cadastro
 		String page = super.detalhe(entidade);
 		showModalCadastroMatricula(entidade);
+		int mes = DateUtil.getMes(entidade.getData());
+		mesSelecionado = Meses.getEnum(mes);
 		return page;
 	}
 	
@@ -193,9 +197,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 
 	private void carregarMesSelecionado() {
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(new Date());
-		mesSelecionado = Meses.getEnum(cal.get(Calendar.MONTH) + 1);
+		int mes = DateUtil.getMes(new Date());
+		mesSelecionado = Meses.getEnum(mes);
 	}
 
 	private Matricula createMatricula() {
@@ -274,7 +277,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 
 	private void cancelarMatricula() {
-		observacaoMatricula.setUsuario(usuarioLogado);
+		observacaoMatricula.setUsuario(getUsuarioLogado());
 		entidade.getObservacoes().add(observacaoMatricula);
 
 		// cancelar as mensalidades
@@ -314,7 +317,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		mens.setSequencial(mes);
 		mens.setStatusPagamento(StatusPagamento.PENDENTE);
 		mens.setValorVencimento(valorVencimento);
-		mens.setUsuario(usuarioLogado);
+		mens.setUsuario(getUsuarioLogado());
 		return mens;
 	}
 

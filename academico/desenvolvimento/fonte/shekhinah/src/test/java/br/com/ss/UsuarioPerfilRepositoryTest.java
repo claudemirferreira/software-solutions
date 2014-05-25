@@ -212,7 +212,7 @@ public class UsuarioPerfilRepositoryTest {
 		Usuario usuario = new Usuario();
 		usuario.setLogin(USUARIO_TESTE);
 		usuario.setNome(USUARIO_TESTE);
-		usuario.setStatus("A");
+//		usuario.setStatus("A");
 		usuario.setSenha("teste");
 		repositoryUsuario.save(usuario);
 		return usuario;

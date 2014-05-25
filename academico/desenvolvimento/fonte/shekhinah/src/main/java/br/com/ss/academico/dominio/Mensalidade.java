@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.ss.academico.enumerated.Meses;
 import br.com.ss.academico.enumerated.StatusPagamento;
 
 /**
@@ -50,6 +51,9 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 1)
 	private StatusPagamento statusPagamento;
 
+	@Column(length = 255)
+	private String observacao;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
@@ -66,6 +70,15 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 
 	}
 
+	/**
+	 * Retorna o nome do mês (sequencial).
+	 * @return
+	 */
+	public String getMesSequencial() {
+		return Meses.getEnum(sequencial).getDescricao();
+	}
+	
+	
 	public Mensalidade(Long idMensalidade) {
 		this.idMensalidade = idMensalidade;
 	}
@@ -144,6 +157,14 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 }
