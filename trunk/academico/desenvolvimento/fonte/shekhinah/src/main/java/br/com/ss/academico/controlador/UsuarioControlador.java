@@ -39,7 +39,9 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	private SistemaServico sistemaServico;
 
 	@ManagedProperty(value = "#{perfilControlador}")
-	private PerfilControlador perfilControlador;	// FIXME evitar injetar um bean dentro de outro.. bad pattern
+	private PerfilControlador perfilControlador; // FIXME evitar injetar um bean
+													// dentro de outro.. bad
+													// pattern
 
 	private int colunas;
 
@@ -47,10 +49,13 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	private AuthenticationManager authenticationManager;
 
 	protected List<SelectItem> statusUsuarioList;
-	
+
 	public void init() {
-		this.sistema = sistemaServico.findByCodigo("IEADAM");	// FIXME mudar codigo do sistema (IEADAM)
-		
+		this.sistema = sistemaServico.findByCodigo("IEADAM"); // FIXME mudar
+																// codigo do
+																// sistema
+																// (IEADAM)
+
 		this.statusUsuarioList = new ArrayList<SelectItem>();
 		for (StatusUsuario c : StatusUsuario.values()) {
 			statusUsuarioList.add(new SelectItem(c, c.getDescricao()));
@@ -67,11 +72,12 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	protected IService<Usuario, Long> getService() {
 		return servico;
 	}
-	
+
 	public String logar() {
 
 		Authentication authenticatedUser = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(entidade.getLogin(), entidade.getSenha()));
+				.authenticate(new UsernamePasswordAuthenticationToken(entidade
+						.getLogin(), entidade.getSenha()));
 
 		if (authenticatedUser == null) {
 			showMessage("Dados incorretos", FacesMessage.SEVERITY_ERROR);
@@ -79,12 +85,20 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 			return "/login.xhtml?faces-redirect=true";
 
 		} else {
-			
-			// FIXME add usuario logado para o escopo de app.. validar ele no login e redirecionar para o home se ja estiver logado..
-			
-			entidade = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			// FIXME add usuario logado para o escopo de app.. validar ele no
+			// login e redirecionar para o home se ja estiver logado..
+
+			entidade = (Usuario) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
 			this.colunas = 3;
-			perfilControlador.listaPerfilPorSistemaPorUsuario();	// FIXME deve ser chamado pelo proprio bean ou pg
+			perfilControlador.listaPerfilPorSistemaPorUsuario(); // FIXME deve
+																	// ser
+																	// chamado
+																	// pelo
+																	// proprio
+																	// bean ou
+																	// pg
 			return "/index.xhtml?faces-redirect=true";
 		}
 	}
@@ -96,22 +110,30 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		return "logout";
 	}
 
-	
 	public String validarUsuarioLogado() {
-		Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Object user = SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
 		if (user instanceof Usuario) {
 			Usuario usuarioLogado = (Usuario) user;
-			if ( usuarioLogado != null ) {
-				
+			if (usuarioLogado != null) {
+
 				// FIXME deve redirecionar para o home..
-//				return getRequest().getContextPath() + "/index.xhtml?faces-redirect=true";
+				// return getRequest().getContextPath() +
+				// "/index.xhtml?faces-redirect=true";
 				return "home";
 			}
 		}
 		return null;
 	}
-	
-	/* --------------- Gets/Sets ----------------------*/
+
+	public String editarSenha() {
+		this.entidade = (Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		
+		return "paginas/usuario/alterarSenha.xhtml?faces-redirect=true";
+	}
+
+	/* --------------- Gets/Sets ---------------------- */
 
 	public UsuarioServico getServico() {
 		return servico;
@@ -125,7 +147,8 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		return authenticationManager;
 	}
 
-	public void setAuthenticationManager( AuthenticationManager authenticationManager) {
+	public void setAuthenticationManager(
+			AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
 
