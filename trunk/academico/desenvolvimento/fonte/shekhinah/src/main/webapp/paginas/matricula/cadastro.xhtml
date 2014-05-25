@@ -22,7 +22,7 @@
 			
 			+++Input+++#{matriculaControlador.entidade.isPersistent()}++++++
 			<c:if test="#{matriculaControlador.entidade.isPersistent()}">
-			<ss:input label="Aluno - Inp" value="#{matriculaControlador.entidade.aluno}" 
+			<ss:input label="Aluno - Inp" value="#{matriculaControlador.entidade.aluno.nome}" 
 						render="#{matriculaControlador.entidade.isPersistent()}"	disabled="true" required="true" />
 			</c:if>
 			

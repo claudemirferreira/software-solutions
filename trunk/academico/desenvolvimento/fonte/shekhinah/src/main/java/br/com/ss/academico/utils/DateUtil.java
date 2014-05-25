@@ -17,7 +17,7 @@ import org.joda.time.LocalTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import br.com.ss.academico.enumerated.MesesAnoConstant;
+import br.com.ss.academico.enumerated.Meses;
 import br.com.ss.academico.enumerated.NumeroUtil;
 
 
@@ -131,7 +131,7 @@ public class DateUtil {
     static {
         DateUtil.mapNomeMes = new HashMap<Integer, String>();
         DateUtil.mapNumeroMes = new HashMap<String, Integer>();
-        for ( MesesAnoConstant mes : MesesAnoConstant.getValoresEdicao() ) {
+        for ( Meses mes : Meses.values() ) {
             DateUtil.mapNomeMes.put( mes.getId(), mes.getDescricao() );
             DateUtil.mapNumeroMes.put( mes.getDescricao(), mes.getId() );
         }

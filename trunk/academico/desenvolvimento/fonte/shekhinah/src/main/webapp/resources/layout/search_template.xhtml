@@ -11,17 +11,21 @@
                 template="/resources/layout/template.xhtml"
 				>
   		<!-- ====== Params ================
-			| Atributo:		| Obrigatorio: 				| Default
-			renderSearch	false
-			managedBean		se renderSearch for true
-			pageHeader		false
-			reloadPage		false 						true
+			| Atributo:			| Obrigatorio: 				| Default
+			renderSearch		false
+			managedBean			se renderSearch for true
+			pageHeader			false
+			reloadPage			false 						true
+			renderPrintButton	false						true
   		 -->
   
 	  <ui:define name="content">
   		 
   		 <c:if test="#{empty renderSearch}">
 	 		<c:set var="renderSearch" value="true" />
+  		 </c:if>
+  		 <c:if test="#{empty renderPrintButton}">
+	 		<c:set var="renderPrintButton" value="true" />
   		 </c:if>
   		 
   		 <c:if test="#{empty reloadPage}">
@@ -52,7 +56,7 @@
 						
 						<hr style="color:#919090; background-color:#919090; height:1px; border:none;" />
 						
-						<h:panelGrid columns="3" cellpadding="0" cellspacing="0" style="margin-top: 10;">
+						<h:panelGrid columns="5" cellpadding="0" cellspacing="0" style="margin-top: 10;">
 		                    
 		                    <p:commandButton id="btnSearh" value="Pesquisar" action="#{managedBean.pesquisar}" update=":form:grid :form:msg" icon="ui-icon-search" styleClass="ui-priority-primary"/>
 							
@@ -60,11 +64,16 @@
 							
 							<p:commandButton id="btnNew" value="Novo" action="#{managedBean.novo}" ajax="false" icon="ui-icon-circle-plus" styleClass="ui-priority-primary"/>
 						
-							<p:commandButton value="Imprimir" update=":form :form:msg"
-											immediate="true" ajax="false" 
-											icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-											action="#{mensalidadeControlador.imprimir}" />
-						
+					  		 <c:if test="#{renderPrintButton}">
+					  		 
+								<p:spacer width="5px" />
+								
+								<p:commandButton value="Imprimir" update=":form:grid :form:msg"
+												immediate="true" ajax="false" 
+												icon="ui-icon-print" styleClass="ui-priority-primary"
+												action="#{managedBean.imprimir}" />
+					  		 </c:if>
+					  		 
 							<p:defaultCommand target="btnSearh" />
 							
 						</h:panelGrid>
