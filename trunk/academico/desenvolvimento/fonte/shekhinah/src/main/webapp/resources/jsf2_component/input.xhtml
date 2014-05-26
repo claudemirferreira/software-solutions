@@ -15,6 +15,7 @@
 		<cc:attribute name="label" required="false" />	
 		<cc:attribute name="value" required="true" />
 		<cc:attribute name="required" required="false" default="false" />
+		<cc:attribute name="width" required="false" default="500" />
 		
 		<cc:attribute name="size" default="30"  />
 		<cc:attribute name="align" default="left" />
@@ -23,9 +24,12 @@
 		<cc:attribute name="readonly" default="false"  />
 		<cc:attribute name="dir" default="ltr"  />
 		
-		
-		<!-- types: text, mask, number, calendar(date) -->
+		<!-- types: text, mask, number, calendar(date), textarea -->
 		<cc:attribute name="type" default="text" required="false"  />
+		
+		<cc:attribute name="maxlength" default="255" required="false"  />
+		<cc:attribute name="cols" default="60" required="false"  />
+		<cc:attribute name="rows" default="4" required="false"  />
 		
 		<cc:attribute name="title" default="#{cc.attrs.type eq 'date' ? 'Informar data' : 'Informar valor'}" required="false" />
 		<cc:attribute name="requiredMessage" default="Campo obrigatório" required="false" />
@@ -38,7 +42,7 @@
 		
 		<!-- events -->
 		<cc:attribute name="ajax" default="false" required="false"  />
-		<!-- FIXME corrigir eventName, está dando erro, nao obtem o valor definido -->
+		
 		<cc:attribute name="eventName" default="#{cc.attrs.type eq 'date' ? 'dateSelect' : 'blur'}" required="false"  />
 		
 		<cc:attribute name="style" default="" required="false"  />
@@ -52,7 +56,7 @@
 	
 	<cc:implementation>
 	
-		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" rendered="#{cc.attrs.render}" width="500" columnClasses="input_label, input_required">
+		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" rendered="#{cc.attrs.render}" width="#{cc.attrs.width}" columnClasses="input_label, input_required">
 		 		
 	 		<p:column width="150" rendered="#{not empty cc.attrs.label}" >
 				<h:outputLabel value="#{cc.attrs.label}" for="#{cc.attrs.id}"/>
@@ -60,7 +64,7 @@
 	 		</p:column>
 	 		
 	 		<p:column>
-	 		
+	 			
  				<c:set var="msgValidator" value="#{cc.attrs.email ? cc.attrs.emailValidatorMessage : cc.attrs.validatorMessage}"/>
 	 			
 	 			<c:if test="#{cc.attrs.type eq 'text'}">
@@ -142,6 +146,20 @@
 					<br />
 					<p:watermark for="#{idComp}" value="#{watermarkDate}" rendered="#{not empty watermarkDate}" />
 					<h:message for="#{idComp}" styleClass="error"  />
+	 			</c:if>
+	 			
+	 			<c:if test="#{cc.attrs.type eq 'textarea'}">
+		 			<!-- Input Textarea -->
+		 			<c:set var="idComp" value="ta_#{cc.attrs.id}"/>
+		 			<p:inputTextarea id="#{idComp}" value="#{cc.attrs.value}" immediate="#{cc.attrs.immediate}" disabled="#{cc.attrs.disabled}" readonly="#{cc.attrs.readonly}" 
+			 						required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}"  
+									maxlength="#{cc.attrs.maxlength}" cols="#{cc.attrs.cols}" rows="#{cc.attrs.rows}" autoResize="false" style="#{cc.attrs.style}"  >
+						<cc:insertChildren />
+					</p:inputTextarea>
+					<br />
+					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
+					<h:message for="#{idComp}" styleClass="error"  />
+	
 	 			</c:if>
 	 		
 	 		</p:column>

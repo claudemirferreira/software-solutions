@@ -37,31 +37,23 @@
 			
 			<ss:input label="Mens. criada por" readonly="true" value="#{mensalidadeControlador.entidade.usuario.nome}" />
 			
-			 <ss:comboBox label="Situação" required="true" selectOne="true" 
+			 <ss:comboBox label="Situação" required="true" selectOne="true" immediate="true"
 			 			update="pnlObservacao" 
 						value="#{mensalidadeControlador.entidade.statusPagamento}"
 						list="#{mensalidadeControlador.statusList}" >
-						<!--
-						
-						 -->
 			</ss:comboBox>
 			
+	        
 		</h:panelGrid>
-		
-        <p:outputPanel id="pnlObservacao">
-        
-        	<h:outputText value="SSSSSSSSSSSSS" />
-        
-			<p:fieldset legend="Justificativa" rendered="#{mensalidadeContralador.entidade.statusPagamento.id eq 2}" >  
-				
-       			<h:outputText value="XXXXXXXXXX" />
-        	
-				<p:inputTextarea value="#{mensalidadeControlador.entidade.observacao}" 
-								maxlength="250" cols="95" rows="4" autoResize="false"
-								required="true" >
-				</p:inputTextarea>
-			</p:fieldset>
-		</p:outputPanel>	
+	        
+	        <p:outputPanel id="pnlObservacao">
+	        	
+	        	<ss:input label="Justificativa" value="#{mensalidadeControlador.entidade.observacao}" 
+        				type="textarea" rendered="#{mensalidadeControlador.entidade.statusPagamento.id eq 2}" 
+        				required="true" width="900" cols="90" />
+	        
+			</p:outputPanel>	
+			
 		
 	</ui:define>
 	

@@ -30,16 +30,14 @@
 		<h:panelGrid id="pnlCad" columns="2" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
 			
 			<ss:comboBox id="turma" label="Turma" required="true" foreignKey="true" selectOne="true"
-						ajax="true"
+						update="pnlObservacao" 
 						value="#{alunoMatriculaControlador.matricula.turma}"
 						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
 						list="#{alunoMatriculaControlador.turmas}" >
-				
-				<!-- FIXME event no componente -->
 					
 				<ui:define name="aditional" >
 					<p:ajax event="change" 
-							update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
+							update="formDlg:valor formDlg:vagas formDlg:cmbInteg" 
 							listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
 				</ui:define>
 			</ss:comboBox>
@@ -59,27 +57,19 @@
 						value="#{alunoMatriculaControlador.matricula.integral}"
 						list="#{alunoMatriculaControlador.naoSimList}" />
 	        
-	        <ss:comboBox label="Situação" required="true" selectOne="true" 
-						value="#{alunoMatriculaControlador.matricula.status}"
-						list="#{alunoMatriculaControlador.statusMatriculaList}" >
-				
-				<!-- FIXME event no componente -->		
-				<ui:define name="aditional" >
-					<p:ajax event="change" update=":formDlg:pnlObservacao"
-							listener="#{alunoMatriculaControlador.renderObservacao}"/>  
-				</ui:define>
-			</ss:comboBox>
+	        <ss:comboBox label="Situação" required="true" selectOne="true" update="pnlObservacao"
+						value="#{alunoMatriculaControlador.matricula.status}" 
+						actionListener="#{alunoMatriculaControlador.renderObservacao()}"
+						list="#{alunoMatriculaControlador.statusMatriculaList}" />
 	        
 		</h:panelGrid>
 		
         <p:outputPanel id="pnlObservacao">
-			<p:fieldset legend="Justificativa" rendered="#{alunoMatriculaControlador.matricula.status.id ne 0}" >  
-				<p:inputTextarea value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
-								maxlength="250" cols="95" rows="4" autoResize="false"
-								required="true" >
-					<p:ajax event="change" update=":formDlg:pnlObservacao" /> 
-				</p:inputTextarea>
-			</p:fieldset>
+        	<ss:input label="Justificativa" 
+        			value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
+       				type="textarea" 
+       				rendered="#{alunoMatriculaControlador.matricula.status.id ne 0}" 
+       				required="true" width="900" cols="90" />
 		</p:outputPanel>
 		
 	</p:panel>
