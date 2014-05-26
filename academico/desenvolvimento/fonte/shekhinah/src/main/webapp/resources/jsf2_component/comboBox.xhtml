@@ -31,9 +31,12 @@
 		<cc:attribute name="value" required="true" />
 		<cc:attribute name="list" required="true" />
 		
-		<cc:attribute name="ajax" default="false" required="false"  />
-		
 		<cc:attribute name="render" default="true" required="false" shortDescription="Indica se o componente deve ser exibido ou não" />
+		
+		<cc:attribute name="update" default="@this" required="false"  />
+		<cc:attribute name="listener" default="" required="false"  />
+		
+		
 		
 	</cc:interface>
 	
@@ -58,9 +61,8 @@
 				        	</c:if>
 				            <f:selectItems value="#{cc.attrs.list}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}"/>
 				            
-				            <ui:insert name="aditional" />	<!-- FIXME add inner components -->
-<!-- 				     <cc:insertChildren /> -->
-				            
+				            <p:ajax immediate="true" event="change" update="#{cc.attrs.update}"  disabled="#{empty cc.attrs.update}"/>
+      
 				        </p:selectOneMenu>
      					<br />
 						<h:message for="#{idComp}" styleClass="error" />
@@ -76,10 +78,8 @@
 				        	</c:if>
 				            <f:selectItems value="#{cc.attrs.list}" var="item" itemLabel="#{cc.attrs.atributo}" itemValue="#{item}"/>
 				            
-				            <ui:insert name="aditional" />
-				            
-<!-- 			            <cc:insertChildren /> -->
-				            
+				            <p:ajax immediate="true" event="change" update="#{cc.attrs.update}" disabled="#{empty cc.attrs.update}" />
+    
 				        </p:selectOneMenu>
 						<br />
 						<h:message for="#{idComp}" styleClass="error" />
