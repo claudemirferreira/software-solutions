@@ -67,6 +67,7 @@
 						list="#{alunoMatriculaControlador.naoSimList}" />
 	        
 	        <ss:comboBox label="Situação" required="true" selectOne="true" 
+	        			update=":formDlg:pnlObservacao"
 						value="#{alunoMatriculaControlador.entidade.status}"
 						list="#{alunoMatriculaControlador.statusMatriculaList}" >
 				
