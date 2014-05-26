@@ -68,10 +68,10 @@
 					  		 
 								<p:spacer width="5px" />
 								
-								<p:commandButton value="Imprimir" update=":form:grid :form:msg"
+								<p:commandButton value="Imprimir" update=":form:painelImpressao"
 												immediate="true" ajax="false" 
 												icon="ui-icon-print" styleClass="ui-priority-primary"
-												action="#{managedBean.imprimir}" />
+												actionListener="#{managedBean.visualiarRelatorio()}" />
 					  		 </c:if>
 					  		 
 							<p:defaultCommand target="btnSearh" />
@@ -94,6 +94,12 @@
 				<ui:insert name="grid_region" />
 			
 			</h:panelGrid>
+			
+		<p:outputPanel id="painelImpressao" rendered="#{managedBean.visualizar}">
+			<iframe src="http://localhost:8080/shekinah/paginas/curso/impressao.xhtml" 
+				rendered="#{managedBean.visualizar}"
+				id="pdf" width="99%" height="450px"> </iframe>
+		</p:outputPanel>
 			
 		</h:form>
 		
