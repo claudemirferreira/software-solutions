@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -134,8 +135,9 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		relatorioUtil.gerarRelatorioComDownload(lista, parametros, "contrato.jasper");
 
 	}
-
+	
 	public void renderObservacao() {
+		System.out.println(" 111111111 ");
 		if (entidade.getStatus() != StatusMatricula.ATIVA
 				&& observacaoMatricula == null) {
 			observacaoMatricula = new Observacao();
@@ -143,6 +145,17 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 	}
 
+	public void renderObservacao(AjaxBehaviorEvent event) {
+	}
+	
+	 public void actionListener(AjaxBehaviorEvent event) {
+		 System.out.println(" >>>>>>>> ");
+	 }
+
+	 public void actionListener() {
+		 System.out.println(" >>>>>>>> ");
+	 }
+	 
 	public void showModalMatricula(Aluno aluno) {
 		alunoMatricula = aluno;
 		showModalPesquisaMatricula();
