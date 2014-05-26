@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import br.com.ss.academico.dominio.AbstractEntity;
+import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.servico.EmpresaServico;
 
@@ -46,6 +50,47 @@ public class RelatorioUtil implements Serializable {
 
 	@PostConstruct
 	public void init() {
+	}
+
+	public byte[] gerarRelatorioWebBytes(Map parametros, String arquivo)
+			throws FileNotFoundException {
+
+		JasperPrint print;
+		byte[] relatorio = null;
+		try {
+			print = JasperFillManager.fillReport(new FileInputStream(new File(
+					arquivo)), parametros, this.dataSource.getConnection());
+
+			relatorio = JasperExportManager.exportReportToPdf(print);
+
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return relatorio;
+
+	}
+	
+	public byte[] gerarRelatorioWebBytes(Collection<Object> lista, Map parametros, String arquivo)
+			throws FileNotFoundException {
+
+		JasperPrint print;
+		byte[] relatorio = null;
+		try {
+			
+			print = JasperFillManager.fillReport(new FileInputStream(new File(
+					arquivo)), parametros, new JRBeanCollectionDataSource(lista));
+
+			relatorio = JasperExportManager.exportReportToPdf(print);
+
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+
+		return relatorio;
+
 	}
 
 	public void gerarRelatorioWebDatasource(JRDataSource jrRS, Map parametros,
@@ -115,7 +160,9 @@ public class RelatorioUtil implements Serializable {
 		// nome);
 
 		// CARREGA O FILE DA UNIDADE C
-		String arquivo = "c:/relatorio/" + nome;	// FIXME criar uma pasta para a app e colocar tudo o que precisa nela
+		String arquivo = "c:/relatorio/" + nome; // FIXME criar uma pasta para a
+													// app e colocar tudo o que
+													// precisa nela
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
@@ -214,5 +261,26 @@ public class RelatorioUtil implements Serializable {
 
 	public void setEmpresaServico(EmpresaServico empresaServico) {
 		this.empresaServico = empresaServico;
+	}
+
+	public byte[] gerarRelatorioWebBytes(List listaPesquisa,
+			Map<String, Object> params, String arquivo)  {
+		JasperPrint print;
+		byte[] relatorio = null;
+		try {
+			
+			print = JasperFillManager.fillReport(new FileInputStream(new File(
+					arquivo)), params, new JRBeanCollectionDataSource(listaPesquisa));
+
+			relatorio = JasperExportManager.exportReportToPdf(print);
+
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return relatorio;
 	}
 }

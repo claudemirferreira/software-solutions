@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import br.com.ss.academico.componentes.Util;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Turma;
@@ -17,6 +16,7 @@ import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.TurmaServico;
+import br.com.ss.academico.utils.Util;
 
 @ManagedBean
 @SessionScoped

@@ -1,6 +1,7 @@
 package br.com.ss.academico.controlador;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.lowagie.text.DocumentException;
 
 import br.com.ss.academico.dominio.AbstractEntity;
 import br.com.ss.academico.dominio.Usuario;
@@ -197,8 +200,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	/**
 	 * Usado para imprimir o grid da tela de pesqusia.
 	 * @throws FileNotFoundException
+	 * @throws DocumentException 
+	 * @throws IOException 
 	 */
-	public void imprimir() throws FileNotFoundException {
+	public void imprimir() throws FileNotFoundException, IOException, DocumentException {
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
 	}
 
