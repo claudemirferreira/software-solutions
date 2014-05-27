@@ -75,6 +75,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	private Configuracao configuracao;
 
+	private boolean novo;
 	
 	/* --------- Overrides ------------------ */
 
@@ -110,6 +111,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	@Override
 	public String novo() {
+		novo = true;
 		String page = super.novo();
 		carregarMesSelecionado();
 		return page;
@@ -118,6 +120,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	
 	@Override
 	public String detalhe(Matricula entidade) {
+		novo = false;
 		// carrega as regras da tela de cadastro
 		String page = super.detalhe(entidade);
 		showModalCadastroMatricula(entidade);
@@ -137,8 +140,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 	
 	public void renderObservacao() {
-		System.out.println(" 111111111 ");
-		if (entidade.getStatus() != StatusMatricula.ATIVA
+		if (entidade.getStatus() == StatusMatricula.ATIVA
 				&& observacaoMatricula == null) {
 			observacaoMatricula = new Observacao();
 			observacaoMatricula.setMatricula(entidade);
@@ -430,6 +432,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setServicoMensalidade(MensalidadeServico servicoMensalidade) {
 		this.servicoMensalidade = servicoMensalidade;
+	}
+
+	public boolean isNovo() {
+		return novo;
+	}
+
+	public void setNovo(boolean novo) {
+		this.novo = novo;
 	}
 
 }

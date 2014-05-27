@@ -24,7 +24,8 @@
 		<cc:attribute name="readonly" default="false"  />
 		<cc:attribute name="dir" default="ltr"  />
 		
-		<!-- types: text, mask, number, calendar(date), textarea -->
+		
+		<!-- types: text, mask, number, calendar(date), textarea, password -->
 		<cc:attribute name="type" default="text" required="false"  />
 		
 		<cc:attribute name="maxlength" default="255" required="false"  />
@@ -160,6 +161,17 @@
 					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
 					<h:message for="#{idComp}" styleClass="error"  />
 	
+	 			</c:if>
+	 			
+	 			<c:if test="#{cc.attrs.type eq 'password'}">
+	 				<c:set var="idComp" value="ps_#{cc.attrs.id}"/>
+		 			<!-- password -->
+					<p:password id="#{idComp}" value="#{cc.attrs.value}" style="#{cc.attrs.style}" disabled="#{cc.attrs.disabled}" readonly="#{cc.attrs.readonly}" maxlength="#{cc.attrs.maxlength}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" validatorMessage="#{cc.attrs.validatorMessage}" size="#{cc.attrs.size}" immediate="#{cc.attrs.immediate}">
+						<cc:insertChildren />
+					</p:password>
+					<br />
+					<p:watermark for="#{idComp}" value="#{cc.attrs.watermark}" rendered="#{not empty cc.attrs.watermark}" />
+					<h:message for="#{idComp}" styleClass="error"  />
 	 			</c:if>
 	 		
 	 		</p:column>

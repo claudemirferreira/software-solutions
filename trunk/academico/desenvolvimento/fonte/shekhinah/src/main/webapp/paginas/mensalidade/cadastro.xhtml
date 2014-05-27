@@ -40,17 +40,15 @@
 			 <ss:comboBox label="Situação" required="true" selectOne="true" immediate="true"
 			 			update="pnlObservacao" 
 						value="#{mensalidadeControlador.entidade.statusPagamento}"
-						list="#{mensalidadeControlador.statusList}" >
-			</ss:comboBox>
+						list="#{mensalidadeControlador.statusList}" />
 			
-	        
 		</h:panelGrid>
 	        
 	        <p:outputPanel id="pnlObservacao">
 	        	
 	        	<ss:input label="Justificativa" value="#{mensalidadeControlador.entidade.observacao}" 
         				type="textarea" rendered="#{mensalidadeControlador.entidade.statusPagamento.id eq 2}" 
-        				required="true" width="900" cols="90" />
+        				required="true" width="900" cols="95" />
 	        
 			</p:outputPanel>	
 			
