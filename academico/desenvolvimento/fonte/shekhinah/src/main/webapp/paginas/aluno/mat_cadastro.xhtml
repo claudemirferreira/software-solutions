@@ -27,20 +27,17 @@
 		</f:facet>
 
 	
-		<h:panelGrid id="pnlCad" columns="2" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
+		<h:panelGrid columns="2" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
 			
-			<ss:comboBox id="turma" label="Turma" required="true" foreignKey="true" selectOne="true"
-						update="pnlObservacao" 
+			<ss:comboBox label="Turma" required="true" foreignKey="true" selectOne="true"
+						update="formDlg" immediate="true"
+						
+						listener="#{alunoMatriculaControlador.turmaChangedListener()}"
+						
 						value="#{alunoMatriculaControlador.matricula.turma}"
 						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
-						list="#{alunoMatriculaControlador.turmas}" >
-					
-				<ui:define name="aditional" >
-					<p:ajax event="change" 
-							update="formDlg:valor formDlg:vagas formDlg:cmbInteg" 
-							listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
-				</ui:define>
-			</ss:comboBox>
+						list="#{alunoMatriculaControlador.turmas}" />
+				<!-- valueChangeListener="#{alunoMatriculaControlador.turmaChangedListener()}" -->
 			
 			<ss:input id="vagas" label="Vagas Disponíveis" style="width: 40px;" readonly="true" type="number" dir="rtl" decimalPlaces="0"
 						value="#{alunoMatriculaControlador.matricula.turma.vagasDisponiveis}" />

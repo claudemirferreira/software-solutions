@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +51,7 @@ import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.TurmaServico;
+import br.com.ss.academico.utils.ReflectionsUtil;
 
 @ManagedBean
 @SessionScoped
@@ -106,10 +106,8 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	
 	@Override
 	public String novo() {
-		// inicializa o bean AlunoMatriculaControlador, utilizado na tela de cadastro.
-		// FIXME invocar o metodo novo de AlunoMatriculaControlador
-		Method m;
-		
+		// inicializa o bean alunoMatriculaControlador
+		ReflectionsUtil.invokeBean("alunoMatriculaControlador", "novo");
 		return super.novo();
 	}
 	

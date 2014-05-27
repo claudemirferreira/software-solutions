@@ -64,6 +64,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * Alias para redirecionar para a tela de pesquisa. */
 	public static final String PESQUISA = "pesquisa";
 	
+	/**
+	 * Alias para redirecionar para a tela de relatorio. */
+	public static final String RELATORIO = "relatorio";
+	
+	
 	
 	/* ---------- Metodos ----------------------- */
 
@@ -203,8 +208,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * @throws DocumentException 
 	 * @throws IOException 
 	 */
-	public void imprimir() throws FileNotFoundException, IOException, DocumentException {
+	public String imprimir() throws FileNotFoundException, IOException, DocumentException {
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
+		
+		// FIXME teste do popup
+		relatorioUtil.testPrintPdf();
+		return RELATORIO;
 	}
 
 	

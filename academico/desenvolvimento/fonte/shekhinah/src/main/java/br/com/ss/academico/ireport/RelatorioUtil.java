@@ -1,5 +1,8 @@
 package br.com.ss.academico.ireport;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,8 +34,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import br.com.ss.academico.dominio.AbstractEntity;
-import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.servico.EmpresaServico;
 
@@ -283,4 +284,71 @@ public class RelatorioUtil implements Serializable {
 
 		return relatorio;
 	}
+
+	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
+	
+	public void testPrintPdf() {
+
+		 // Prepare.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+        String contextPath = externalContext.getRequestContextPath();
+        
+        String filePath = contextPath;
+        String fileName = "escala_pregadores.pdf";
+        
+        File file = new File(filePath, fileName);file.exists();file.getAbsolutePath();
+        BufferedInputStream input = null;
+        BufferedOutputStream output = null;
+
+        try {
+            // Open file.
+            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+
+            // Init servlet response.
+            response.reset();
+            response.setHeader("Content-Type", "application/pdf");
+            response.setHeader("Content-Length", String.valueOf(file.length()));
+            response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\"");
+            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+
+            // Write file contents to response.
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            // Finalize task.
+            output.flush();
+        } catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+            // Gently close streams.
+            close(output);
+            close(input);
+        }
+
+        // Inform JSF that it doesn't need to handle response.
+        // This is very important, otherwise you will get the following exception in the logs:
+        // java.lang.IllegalStateException: Cannot forward after response has been committed.
+        facesContext.responseComplete();
+    }
+		
+	private static void close(Closeable resource) {
+        if (resource != null) {
+            try {
+                resource.close();
+            } catch (IOException e) {
+                // Do your thing with the exception. Print it, log it or mail it. It may be useful to 
+                // know that this will generally only be thrown when the client aborted the download.
+                e.printStackTrace();
+            }
+        }
+    }
+	
 }

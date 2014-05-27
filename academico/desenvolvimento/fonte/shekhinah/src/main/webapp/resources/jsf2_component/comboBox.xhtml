@@ -36,8 +36,8 @@
 		<cc:attribute name="update" required="false"  />
 		<cc:attribute name="immediate" default="false" required="false"  />
 		
-<!-- 	<cc:attribute name="actionListener" method-signature="void actionListener()" required="false"/> -->
 		<cc:attribute name="listener" method-signature="void listener()" />
+		<cc:attribute name="valueChangeListener" required="false" />
 		
 	</cc:interface>
 	
@@ -56,7 +56,7 @@
 	 				<c:set var="updateComps" value="#{componentUtil.splitNameComponent(cc.attrs.update)}" />  -->
 	 				
 		 			<c:if test="#{not cc.attrs.foreignKey}">
-						<p:selectOneMenu id="#{idComp}" value="#{cc.attrs.value}" immediate="#{cc.attrs.immediate}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" disabled="#{cc.attrs.disabled}" effect="#{cc.attrs.effect}" filter="#{cc.attrs.filter}" filterMatchMode="#{cc.attrs.filterMatchMode}" >
+						<p:selectOneMenu id="#{idComp}" value="#{cc.attrs.value}" valueChangeListener="#{cc.attrs.valueChangeListener}" immediate="#{cc.attrs.immediate}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" disabled="#{cc.attrs.disabled}" effect="#{cc.attrs.effect}" filter="#{cc.attrs.filter}" filterMatchMode="#{cc.attrs.filterMatchMode}" >
 							<c:if test="#{cc.attrs.selectOne}">
 					        	<f:selectItem itemLabel="#{cc.attrs.selectOneMsg}" itemValue="" />
 				        	</c:if>
@@ -77,14 +77,13 @@
 					            		update=":#{p:component(cc.attrs.update)}" 
 					            		disabled="#{empty cc.attrs.update}"/>
 							</c:if>
-							
 				        </p:selectOneMenu>
      					<br />
 						<h:message for="#{idComp}" styleClass="error" />
 		 			</c:if>
 		 			
 		 			<c:if test="#{cc.attrs.foreignKey}">
-				        <p:selectOneMenu id="#{idComp}" value="#{cc.attrs.value}" immediate="#{cc.attrs.immediate}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" disabled="#{cc.attrs.disabled}" converter="entityConverter" effect="#{cc.attrs.effect}" filter="#{cc.attrs.filter}" filterMatchMode="#{cc.attrs.filterMatchMode}" >
+				        <p:selectOneMenu id="#{idComp}" value="#{cc.attrs.value}" valueChangeListener="#{cc.attrs.valueChangeListener}" immediate="#{cc.attrs.immediate}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" disabled="#{cc.attrs.disabled}" converter="entityConverter" effect="#{cc.attrs.effect}" filter="#{cc.attrs.filter}" filterMatchMode="#{cc.attrs.filterMatchMode}" >
 				        	<c:if test="#{cc.attrs.selectOne}">
 					        	<f:selectItem itemLabel="#{cc.attrs.selectOneMsg}" itemValue="" />
 				        	</c:if>
