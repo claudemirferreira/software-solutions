@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,6 +103,16 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		return servico;
 	}
 
+	
+	@Override
+	public String novo() {
+		// inicializa o bean AlunoMatriculaControlador, utilizado na tela de cadastro.
+		// FIXME invocar o metodo novo de AlunoMatriculaControlador
+		Method m;
+		
+		return super.novo();
+	}
+	
 	/**
 	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
 	 */

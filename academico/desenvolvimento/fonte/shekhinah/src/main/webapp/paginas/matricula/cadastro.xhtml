@@ -20,36 +20,31 @@
 	
 		<h:panelGrid columns="2">
 			
-			+++Input+++#{matriculaControlador.entidade.isPersistent()}++++++
-			<c:if test="#{matriculaControlador.entidade.isPersistent()}">
-			<ss:input label="Aluno - Inp" value="#{matriculaControlador.entidade.aluno.nome}" 
-						render="#{matriculaControlador.entidade.isPersistent()}"	disabled="true" required="true" />
-			</c:if>
+			<c:set var="isPersistent" value="#{alunoMatriculaControlador.entidade.isPersistent()}"/>
 			
-			***A Comp***#{not matriculaControlador.entidade.isPersistent()}********
-			<c:if test="#{not matriculaControlador.entidade.isPersistent()}">
+			**#{isPersistent}*#{alunoMatriculaControlador.entidade.id}*
+			<h:outputText value="persistent" rendered="#{isPersistent}"/>
+			<h:outputText value="not persistent" rendered="#{not isPersistent}"/>
+			<!-- FIXME remover lixo -->
+			
+			<ss:input label="Aluno - Inp" 
+						value="#{alunoMatriculaControlador.entidade.aluno.nome}" 
+						render="#{isPersistent}" disabled="true" required="true" />
+					
 			<ss:autoComplete label="Aluno - AutoC"
-		       				value="#{matriculaControlador.entidade.aluno}"
+		       				value="#{alunoMatriculaControlador.entidade.aluno}"
 		       				bean="#{matriculaControlador}"
 		       				completeMethod="listarAlunos"
 		                    itemLabel="#{item.nome}" 
-		                   	render="#{not matriculaControlador.entidade.isPersistent()}"
+		                   	render="#{not isPersistent}"
 		                    required="true" />
-			</c:if>
 		
-			<ss:comboBox id="turma" label="Turma" required="true" foreignKey="true" selectOne="true"
-						ajax="true"
+			<ss:comboBox label="Turma" required="true" foreignKey="true" selectOne="true"
+						update="form" 
+						listener="#{alunoMatriculaControlador.selectTurma(true)}"
 						value="#{alunoMatriculaControlador.entidade.turma}"
 						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
-						list="#{alunoMatriculaControlador.turmas}" >
-				
-					
-				<ui:define name="aditional" >
-					<p:ajax event="change" 
-							update=":formDlg:valor :formDlg:vagas :formDlg:cmbInteg" 
-							listener="#{alunoMatriculaControlador.selectTurma(true)}"/>  
-				</ui:define>
-			</ss:comboBox>
+						list="#{alunoMatriculaControlador.turmas}" />
 			
 			<ss:input id="vagas" label="Vagas Disponíveis" style="width: 40px;" readonly="true" type="number" dir="rtl" decimalPlaces="0"
 						value="#{alunoMatriculaControlador.entidade.turma.vagasDisponiveis}" />
@@ -67,28 +62,17 @@
 						list="#{alunoMatriculaControlador.naoSimList}" />
 	        
 	        <ss:comboBox label="Situação" required="true" selectOne="true" 
-	        			update=":formDlg:pnlObservacao"
+	        			update="pnlObservacao"
+	        			listener="#{alunoMatriculaControlador.renderObservacao}" 
 						value="#{alunoMatriculaControlador.entidade.status}"
-						list="#{alunoMatriculaControlador.statusMatriculaList}" >
-				
-				<ui:define name="aditional" >
-					<p:ajax event="change" 
-							listener="#{alunoMatriculaControlador.renderObservacao}" />
-							<!-- update=":formDlg:pnlObservacao" -->  
-				</ui:define>
-			</ss:comboBox>
+						list="#{alunoMatriculaControlador.statusMatriculaList}" />
 	        
 		</h:panelGrid>
 		
         <p:outputPanel id="pnlObservacao">
-			<p:fieldset legend="Justificativa" rendered="#{alunoMatriculaControlador.entidade.status.id ne 0}" >  
-				<p:inputTextarea value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
-								maxlength="250" cols="95" rows="4" autoResize="false"
-								required="true" >
-					<p:ajax event="change" /> 
-						<!-- update=":formDlg:pnlObservacao"  -->
-				</p:inputTextarea>
-			</p:fieldset>
+	        	<ss:input label="Justificativa" value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
+        				type="textarea" rendered="#{alunoMatriculaControlador.entidade.status.id ne 0}" 
+        				required="true" width="900" cols="95" />
 		</p:outputPanel>	
 		
 	</ui:define>

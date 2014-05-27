@@ -66,8 +66,8 @@
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(usuarioControlador.lista)} usuarios.  
-        </f:facet>
+	            Total de registros: #{fn:length(usuarioControlador.listaPesquisa)} usuarios.  
+	        </f:facet>
 
 		</p:dataTable>
 
@@ -97,7 +97,7 @@
 					<f:facet name="sourceCaption">Disponíveis</f:facet>
 					<f:facet name="targetCaption">Atribuídos</f:facet>
 	
-					<p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update="msg" />
+					<p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update=":form:msg" />
 	
 					<p:column style="width:75%;"> #{up.perfil.nome}</p:column>
 	
