@@ -18,26 +18,21 @@
 
 	<ui:define name="register_region">
 	
+		<c:set var="isPersistent" value="#{alunoMatriculaControlador.entidade.isPersistent()}"/>
+		
 		<h:panelGrid columns="2">
 			
-			<c:set var="isPersistent" value="#{alunoMatriculaControlador.entidade.isPersistent()}"/>
-			
-			**#{isPersistent}*#{alunoMatriculaControlador.entidade.id}*
-			<h:outputText value="persistent" rendered="#{isPersistent}"/>
-			<h:outputText value="not persistent" rendered="#{not isPersistent}"/>
-			<!-- FIXME remover lixo -->
-			
-			<ss:input label="Aluno - Inp" 
-						value="#{alunoMatriculaControlador.entidade.aluno.nome}" 
-						render="#{isPersistent}" disabled="true" required="true" />
-					
-			<ss:autoComplete label="Aluno - AutoC"
-		       				value="#{alunoMatriculaControlador.entidade.aluno}"
-		       				bean="#{matriculaControlador}"
-		       				completeMethod="listarAlunos"
-		                    itemLabel="#{item.nome}" 
-		                   	render="#{not isPersistent}"
-		                    required="true" />
+			<c:if test="#{isPersistent}">
+				<ss:input label="Aluno" disabled="true" required="true"
+							value="#{alunoMatriculaControlador.entidade.aluno.nome}"  />
+			</c:if>
+			<c:if test="#{not isPersistent}">
+				<ss:autoComplete label="Aluno" required="true" 
+			       				value="#{alunoMatriculaControlador.entidade.aluno}"
+			       				bean="#{matriculaControlador}"
+			       				completeMethod="listarAlunos"
+			                    itemLabel="#{item.nome}" />
+			</c:if>		
 		
 			<ss:comboBox label="Turma" required="true" foreignKey="true" selectOne="true"
 						update="form" 

@@ -9,6 +9,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 @FacesComponent("combobox")
 public class ComboboxComponent extends UINamingContainer {
 
+	// FIXME validar se ainda é necessario - foi criado para invocar o action listener
+	
 	@Override
 	public String getFamily() {
 		return "javax.faces.NamingContainer";

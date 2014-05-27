@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -114,6 +115,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		novo = true;
 		String page = super.novo();
 		carregarMesSelecionado();
+		entidade.setStatus(StatusMatricula.ATIVA);
 		return page;
 	}
 	
@@ -223,6 +225,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		return matricula;
 	}
 
+	/**
+	 * ChangeListener do combo de turma.
+	 * @param event
+	 */
+	public void turmaChangedListener(){
+		selectTurma(true);
+	}
+	
 	public void selectTurma(boolean atualizarValor) {
 		
 		if (atualizarValor) {
@@ -231,8 +241,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 		entidade.setIntegral(false);
 
-		Long vagasDisponiveis = servicoMatricula
-				.countVagasDisponiveis(entidade.getTurma());
+		Long vagasDisponiveis = servicoMatricula.countVagasDisponiveis(entidade.getTurma());
 		entidade.getTurma().setVagasDisponiveis(vagasDisponiveis.intValue());
 
 		if (!(vagasDisponiveis > 0)) {
