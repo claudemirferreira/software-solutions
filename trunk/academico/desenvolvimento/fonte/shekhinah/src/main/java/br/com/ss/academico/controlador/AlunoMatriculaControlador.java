@@ -14,7 +14,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -138,7 +137,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 
 		relatorioUtil.gerarRelatorioComDownload(lista, parametros, "contrato.jasper");
-
 	}
 	
 	public void renderObservacao() {
@@ -149,17 +147,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 	}
 
-	public void renderObservacao(AjaxBehaviorEvent event) {
-	}
 	
-	 public void actionListener(AjaxBehaviorEvent event) {
-		 System.out.println(" >>>>>>>> ");
-	 }
-
-	 public void actionListener() {
-		 System.out.println(" >>>>>>>> ");
-	 }
-	 
 	public void showModalMatricula(Aluno aluno) {
 		alunoMatricula = aluno;
 		showModalPesquisaMatricula();
@@ -193,6 +181,9 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		modalCadastro = false;
 		List<Matricula> matriculas = servicoMatricula.findByAluno(alunoMatricula);
 		alunoMatricula.setMatriculas(matriculas);
+		entidade = null;
+		mesSelecionado = null;
+		observacaoMatricula = null;
 	}
 
 	public void showModalCadastroMatricula(Matricula matricula) {
@@ -229,10 +220,13 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	 * ChangeListener do combo de turma.
 	 * @param event
 	 */
-	public void turmaChangedListener(){
+	public void turmaChanged(ValueChangeEvent e) {
+		// assign new value to country
+		Turma turma = (Turma) e.getNewValue();
+		entidade.setTurma(turma);
 		selectTurma(true);
 	}
-	
+
 	public void selectTurma(boolean atualizarValor) {
 		
 		if (atualizarValor) {
@@ -369,10 +363,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public boolean isModalCadastro() {
 		return modalCadastro;
-	}
-
-	public Matricula getMatricula() {
-		return entidade;
 	}
 
 	public List<Turma> getTurmas() {

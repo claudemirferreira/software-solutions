@@ -26,36 +26,32 @@
 							action="#{alunoMatriculaControlador.salvar}" />
 		</f:facet>
 
-	
 		<h:panelGrid columns="2" columnClasses="grid" style="padding: 2px 0px 0px 4px;">
 			
 			<ss:comboBox label="Turma" required="true" foreignKey="true" selectOne="true"
 						update="formDlg" immediate="true"
-						
-						listener="#{alunoMatriculaControlador.turmaChangedListener()}"
-						
-						value="#{alunoMatriculaControlador.matricula.turma}"
+						valueChangeListener="#{alunoMatriculaControlador.turmaChanged}"
+						value="#{alunoMatriculaControlador.entidade.turma}"
 						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
 						list="#{alunoMatriculaControlador.turmas}" />
-				<!-- valueChangeListener="#{alunoMatriculaControlador.turmaChangedListener()}" -->
-			
+				
 			<ss:input id="vagas" label="Vagas Disponíveis" style="width: 40px;" readonly="true" type="number" dir="rtl" decimalPlaces="0"
-						value="#{alunoMatriculaControlador.matricula.turma.vagasDisponiveis}" />
+						value="#{alunoMatriculaControlador.entidade.turma.vagasDisponiveis}" />
 			
-			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.matricula.valor}" type="number" style="width: 70px;" dir="rtl" />
+			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.entidade.valor}" type="number" style="width: 70px;" dir="rtl" />
 			
-			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.matricula.data}" dir="rtl" size="40" />
+			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.entidade.data}" dir="rtl" size="40" />
 			
 			<ss:comboBox label="Mensalidades apartir de" required="true" selectOne="true" 
 						value="#{alunoMatriculaControlador.mesSelecionado}" 
 						list="#{alunoMatriculaControlador.mesesList}" />
 	        
 	        <ss:comboBox label="Turno Integral?" required="true" selectOne="true" 
-						value="#{alunoMatriculaControlador.matricula.integral}"
+						value="#{alunoMatriculaControlador.entidade.integral}"
 						list="#{alunoMatriculaControlador.naoSimList}" />
 	        
 	        <ss:comboBox label="Situação" required="true" selectOne="true" update="pnlObservacao"
-						value="#{alunoMatriculaControlador.matricula.status}" 
+						value="#{alunoMatriculaControlador.entidade.status}" 
 						actionListener="#{alunoMatriculaControlador.renderObservacao()}"
 						list="#{alunoMatriculaControlador.statusMatriculaList}" />
 	        
@@ -65,7 +61,7 @@
         	<ss:input label="Justificativa" 
         			value="#{alunoMatriculaControlador.observacaoMatricula.txObservacao}" 
        				type="textarea" 
-       				rendered="#{alunoMatriculaControlador.matricula.status.id ne 0}" 
+       				rendered="#{alunoMatriculaControlador.entidade.status.id ne 0}" 
        				required="true" width="900" cols="90" />
 		</p:outputPanel>
 		
