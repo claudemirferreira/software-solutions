@@ -68,21 +68,14 @@
 					  		 
 								<p:spacer width="5px" />
 								
-								<p:commandLink target="_blank" value="Imprimir.." action="#{managedBean.imprimir()}" 
-											styleClass="printButton" update=":form:msg" immediate="true" />
-								
-										<!-- this.form.target='_blank' 
-									<p:commandButton value="Imprimir" update=":form:msg"
-													immediate="true" 
-													icon="ui-icon-print" styleClass="ui-priority-primary"
-													/>
-										oncomplete="window.open( 'http://localhost:9090/shekinah/relatorio.xhtml', width=800,scrollbars=yes,height=600 );" -->
+								<h:commandLink target="_blank" action="#{managedBean.imprimir()}" immediate="true">
+									<h:graphicImage value="/resources/imagens/imprimir.gif" alt="Imprimir"  >
+										<p:ajax event="click" update=":form:msg"/>
+										<!-- FIXME: renderizar msg: ver qual evento substitui o complete, e
+											 colocar o metodo de impressao em try/catch. -->
+									</h:graphicImage>
+								</h:commandLink>
 									
-								
-								<!-- 
-								 <h:commandLink value="imprimir" action="#{managedBean.imprimir()}" target="_blank" />
-								 -->
-												
 					  		 </c:if>
 					  		 
 							<p:defaultCommand target="btnSearh" />

@@ -210,9 +210,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 */
 	public String imprimir() throws FileNotFoundException, IOException, DocumentException {
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
-		
-		// FIXME teste do popup
-//		relatorioUtil.testPrintPdf();
 		return RELATORIO;
 	}
 
