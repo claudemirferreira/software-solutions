@@ -125,8 +125,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		// carrega as regras da tela de cadastro
 		String page = super.detalhe(entidade);
 		showModalCadastroMatricula(entidade);
-		int mes = DateUtil.getMes(entidade.getData());
-		mesSelecionado = Meses.getEnum(mes);
 		return page;
 	}
 	
@@ -190,6 +188,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		// faz o load das mensalidades (fetch)
 		this.entidade = servicoMatricula.loadMatriculaMensalidades(matricula);
 		modalCadastro = true;
+		int mes = DateUtil.getMes(entidade.getData());
+		mesSelecionado = Meses.getEnum(mes + 1);
 		turmas = servicoTurma.listarTodos();
 		selectTurma(!matricula.isPersistent());
 	}
@@ -244,12 +244,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 	}
 
-	protected void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();
-		facesMessage.setSeverity(severityInfo);
-		facesMessage.setSummary(msg);
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-	}
 	
 	public void salvarMatricula() {
 		salvar();
