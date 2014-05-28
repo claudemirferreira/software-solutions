@@ -33,11 +33,12 @@
 						valueChangeListener="#{alunoMatriculaControlador.turmaChanged}"
 						value="#{alunoMatriculaControlador.entidade.turma}"
 						atributo="#{item.curso.nome} - #{item.turno} - #{item.ano}"
-						list="#{alunoMatriculaControlador.turmas}" />
-			<!-- FIXME 
-				nao estah atualizando a turma ao retornar para a pesquisa e selecionar outra matricula.
-				O erro eh so no xhtml, a regra esta correta. -->			
-				
+						list="#{alunoMatriculaControlador.turmas}" >
+				<!-- FIXME 
+					nao estah atualizando a turma ao retornar para a pesquisa e selecionar outra matricula.
+					O erro eh so no xhtml, a regra esta correta. -->			
+			</ss:comboBox>
+
 			<ss:input id="vagas" label="Vagas Disponíveis" style="width: 40px;" readonly="true" type="number" dir="rtl" decimalPlaces="0"
 						value="#{alunoMatriculaControlador.entidade.turma.vagasDisponiveis}" />
 			
