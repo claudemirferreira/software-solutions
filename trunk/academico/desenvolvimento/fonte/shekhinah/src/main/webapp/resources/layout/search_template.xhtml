@@ -68,13 +68,20 @@
 					  		 
 								<p:spacer width="5px" />
 								
-								<p:commandButton value="Imprimir" update=":form:painelImpressao"
-												immediate="true" ajax="false" 
-												icon="ui-icon-print" styleClass="ui-priority-primary"
-												actionListener="#{managedBean.visualiarRelatorio()}" />
+								<p:commandLink target="_blank" value="Imprimir.." action="#{managedBean.imprimir()}" 
+											styleClass="printButton" update=":form:msg" immediate="true" />
 								
+										<!-- this.form.target='_blank' 
+									<p:commandButton value="Imprimir" update=":form:msg"
+													immediate="true" 
+													icon="ui-icon-print" styleClass="ui-priority-primary"
+													/>
+										oncomplete="window.open( 'http://localhost:9090/shekinah/relatorio.xhtml', width=800,scrollbars=yes,height=600 );" -->
+									
 								
+								<!-- 
 								 <h:commandLink value="imprimir" action="#{managedBean.imprimir()}" target="_blank" />
+								 -->
 												
 					  		 </c:if>
 					  		 

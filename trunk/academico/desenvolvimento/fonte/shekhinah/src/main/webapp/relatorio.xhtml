@@ -5,8 +5,8 @@
 </head>
 
 <body bgcolor="white">
-
-	<c:set var="contextPath" value="/shekinah" />
+	
+	<c:set var="contextPath" value="#{facesContext.externalContext.requestContextPath}" />
 
 	<script language="JavaScript">
 	    function imprimir(){
