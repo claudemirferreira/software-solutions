@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -49,10 +48,10 @@ public class RelatorioUtil implements Serializable {
 	@ManagedProperty(value = "#{empresaServicoImpl}")
 	private EmpresaServico empresaServico;
 
-	@PostConstruct
-	public void init() {
-	}
-
+	/** Resource path dos relatorio: /resources/jasper/ */
+	private static final String PATH_REPORT = "resources" + File.separator + "jasper" + File.separator;
+	
+	
 	public byte[] gerarRelatorioWebBytes(Map parametros, String arquivo)
 			throws FileNotFoundException {
 
@@ -151,46 +150,41 @@ public class RelatorioUtil implements Serializable {
 		return fis;
 	}
 
-	public void gerarRelatorioWeb(List lista, Map parametros, String nome) {
-
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		ServletContext servletContext = (ServletContext) externalContext
-				.getContext();
-		// String arquivo = servletContext.getRealPath("WEB-INF/jasper/" +
-		// nome);
-
-		// CARREGA O FILE DA UNIDADE C
-		String arquivo = "c:/relatorio/" + nome; // FIXME criar uma pasta para a
-													// app e colocar tudo o que
-													// precisa nela
+	public void gerarRelatorioWeb(List lista, Map parametros, String nomeRelatorio) {
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
-		ServletOutputStream servletOutputStream = null;
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) context
-				.getExternalContext().getResponse();
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 
 		try {
-			servletOutputStream = response.getOutputStream();
+			
+			// Init servlet response.
+			String webPath = context.getExternalContext().getRealPath("/"); 
+			
+			String reportPath = webPath + PATH_REPORT +  nomeRelatorio;
+			
+			/*
+			 FIXME validar se precisa criar uma pasta pros relatorios.
+			 estou pegando o arquivo do relatorio direto no path do servidor..	= reportPath
+			 */
+//		String arquivo = "c:/relatorio/" + nomeRelatorio; // FIXME criar uma pasta para a pp e colocar tudo o que precisa nela
+			File fileReport = new File( reportPath );
+			
+			response.reset();
+			response.setHeader("Content-Type", "application/pdf");
+			response.setHeader("Content-Length", String.valueOf(fileReport.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\"" + fileReport.getName() + "\"");
+			
+			JasperRunManager.runReportToPdfStream(new FileInputStream(
+					fileReport ), response.getOutputStream(), parametros, jrRS);
 
-			JasperRunManager.runReportToPdfStream(new FileInputStream(new File(
-					arquivo)), response.getOutputStream(), parametros, jrRS);
-
-			response.setContentType("application/pdf");
-			servletOutputStream.flush();
-			servletOutputStream.close();
 			context.renderResponse();
 			context.responseComplete();
 
-		} catch (FileNotFoundException e) {
+		} catch ( Exception e) {
 			e.printStackTrace();
-		} catch (JRException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        }
 	}
 
 	/**

@@ -253,11 +253,11 @@ img.right {
 
 /* ====== Novos ======================= */
 .btn_edit_grid {
-    background-image: url(../resources/images/add.png);
+    background-image: url("/shekinah/resources/images/add.png");
 }
 
 .btn_remove_grid {
-    background-image: url(../resources/images/delete.png);
+    background-image: url("/shekinah/resources/images/delete.png");
 }
 
 
@@ -300,3 +300,4 @@ img.right {
     width:33%;
     padding:4px;
 }
+

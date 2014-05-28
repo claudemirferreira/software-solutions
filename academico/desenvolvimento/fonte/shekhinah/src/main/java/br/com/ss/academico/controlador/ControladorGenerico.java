@@ -212,7 +212,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
 		
 		// FIXME teste do popup
-		relatorioUtil.testPrintPdf();
+//		relatorioUtil.testPrintPdf();
 		return RELATORIO;
 	}
 
