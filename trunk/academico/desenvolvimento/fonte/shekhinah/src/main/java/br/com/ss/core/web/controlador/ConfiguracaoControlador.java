@@ -23,24 +23,34 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	
     private Map<String, String> themes;
     
-	// FIXME implementar
-
-	private String tema = "aristo"; //default
+	private String tema = "cupertino"; //default
 	
 	@Override
 	protected void init() {
 		
-		// carrega o tema selecionado
-		entidade.setTema(tema);
+		entidade = servico.listarTodos().get(0);
+		if (entidade.getTema() == null) {
+			// carrega o tema padrao
+			entidade.setTema(tema);
+		}
+        carregarTemas();
+	}
 
-        themes = new TreeMap<String, String>();
+	protected void carregarTemas() {
+		themes = new TreeMap<String, String>();
         themes.put("Aristo", "aristo");
+        themes.put("Afterdark", "afterdark");
+        themes.put("Afternoon", "afternoon");
+        themes.put("Afterwork", "afterwork");
         themes.put("Black-Tie", "black-tie");
         themes.put("Blitzer", "blitzer");
         themes.put("Bluesky", "bluesky");
+        themes.put("Bootstrap", "bootstrap");
         themes.put("Casablanca", "casablanca");
+        themes.put("Cruze", "cruze");
         themes.put("Cupertino", "cupertino");
         themes.put("Dark-Hive", "dark-hive");
+        themes.put("Delta", "delta");
         themes.put("Dot-Luv", "dot-luv");
         themes.put("Eggplant", "eggplant");
         themes.put("Excite-Bike", "excite-bike");
@@ -66,7 +76,6 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
         themes.put("UI-Darkness", "ui-darkness");
         themes.put("UI-Lightness", "ui-lightness");
         themes.put("Vader", "vader");
-        
 	}
 	
 	@Override

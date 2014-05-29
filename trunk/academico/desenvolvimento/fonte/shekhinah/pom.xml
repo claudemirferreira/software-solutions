@@ -280,7 +280,6 @@
 			<version>${primefaces-theme.version}</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>redmond</artifactId>
