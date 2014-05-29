@@ -15,11 +15,24 @@
 			</p:toolbarGroup>
 
 			<p:toolbarGroup align="right">
+			
 				<p:separator />
 				<p:commandButton value="Home" action="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" id="home" icon="ui-icon-home" update=":form" />
 					
 				<p:separator />
 				<p:commandButton value="Logout" action="/login.xhtml?faces-redirect=true" actionListener="#{usuarioControlador.logout}" id="logoff" icon="ui-icon-closethick"  update=":form" />
+			
+				<p:separator />
+				
+				<!-- FIXME add regra de permissao de acesso -->
+	            <h:form>
+	                <p:themeSwitcher value="#{ConfiguracaoControlador.entidade.tema}" style="width:155px;float:right;margin:15px;" effect="fade">
+	                    <f:selectItem itemLabel="Escolha um tema" itemValue="" />
+	                    <f:selectItems value="#{ConfiguracaoControlador.themes}" />
+	                    <p:ajax listener="#{ConfiguracaoControlador.salvar}" />
+	                </p:themeSwitcher>
+	            </h:form>
+	            
 			</p:toolbarGroup>
 		</p:toolbar>
 

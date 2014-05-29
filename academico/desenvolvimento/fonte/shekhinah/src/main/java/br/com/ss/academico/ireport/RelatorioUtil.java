@@ -14,9 +14,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -37,7 +37,7 @@ import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.servico.EmpresaServico;
 
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class RelatorioUtil implements Serializable {
 
 	private static final long serialVersionUID = 7268492679002219059L;
