@@ -21,6 +21,9 @@ public class Configuracao extends AbstractEntity implements Serializable {
 
 	@Column(nullable = false)
 	private Integer diaVencimento;
+
+	@Column( length = 20)
+	private String tema;
 	
 	@Override
 	public Long getId() {
@@ -41,6 +44,14 @@ public class Configuracao extends AbstractEntity implements Serializable {
 
 	public void setDiaVencimento(Integer diaVencimento) {
 		this.diaVencimento = diaVencimento;
+	}
+
+	public String getTema() {
+		return tema;
+	}
+
+	public void setTema(String tema) {
+		this.tema = tema;
 	}
 
 	
