@@ -50,10 +50,8 @@
 								icon="ui-icon-newwin" oncomplete="PF('dlgRotina').show();"
 								update=":formDlg" />
 
-				<p:commandButton value="Excluir" title="Excluir"
-								action="#{perfilControlador.excluir(item)}" icon="ui-icon-trash"
-								update=":form:gridPesquisa" ajax="false" />
-
+				<ss:button managedBean="#{perfilControlador}" type="exclusao" update=":form:gridPesquisa" />
+			
 			</p:column>
 
 			<f:facet name="footer">  

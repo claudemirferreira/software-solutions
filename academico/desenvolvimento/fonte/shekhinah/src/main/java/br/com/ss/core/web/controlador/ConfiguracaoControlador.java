@@ -25,6 +25,15 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
     
 	private String tema = "cupertino"; //default
 	
+	/* Melhores temas:
+	 * redmond
+	 * cupertino
+	 * humanity
+	 * hot-sneaks
+	 * blitzer
+	 * afternoon
+	 * */
+	
 	@Override
 	protected void init() {
 		

@@ -54,7 +54,7 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
 .body {
   	font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   	color: #DEDEDE;
- 	background-image: url(images/bg_login.png); 
+/* 	background-image: url(images/bg_login.png); FIXME mudar imagem da tela de login  */
 	background-repeat: no-repeat;
 	width:100%;
 	
