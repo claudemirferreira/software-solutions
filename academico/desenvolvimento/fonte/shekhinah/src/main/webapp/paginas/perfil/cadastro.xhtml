@@ -13,7 +13,7 @@
 	<ui:param name="pageHeader" value="Cadastro de Perfil"/>
 	<ui:param name="pageTitle" value="Cadastro de Perfil"/>
 	<ui:param name="managedBean" value="#{perfilControlador}"/>
-	<ui:param name="widthContainer" value="950px"/>
+	<ui:param name="widthContainer" value="100%"/>
 
 	<ui:define name="register_region">
 		
@@ -21,7 +21,7 @@
 			
 				<ss:input id="nome" label="Nome" required="true" value="#{perfilControlador.entidade.nome}" />
 				
-				<ss:input id="imagem" label="Imagem" required="true" value="#{perfilControlador.entidade.imagem}" />
+				<ss:input id="imagem" label="Imagem" required="true" value="#{perfilControlador.entidade.imagem}" size="50" />
 				
 			</h:panelGrid>
 		

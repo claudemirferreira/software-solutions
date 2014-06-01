@@ -20,15 +20,6 @@
 			<p:toolbarGroup align="right">
 			
 				<p:separator />
-				
-				<!-- FIXME add regra de permissao de acesso -->
-                <p:themeSwitcher value="#{configuracaoControlador.entidade.tema}" style="width:155px;float:right;margin:15px;" effect="fade">
-                    <f:selectItem itemLabel="Escolha um tema" itemValue="" />
-                    <f:selectItems value="#{configuracaoControlador.themes}" />
-                    <p:ajax listener="#{configuracaoControlador.salvar}" />
-                </p:themeSwitcher>
-	            
-				<p:separator />
 				<p:commandButton value="Home" action="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" id="home" icon="ui-icon-home" update=":form" />
 					
 				<p:separator />
