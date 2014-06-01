@@ -21,7 +21,11 @@
   		<c:if test="#{empty widthContainer}" >
   			<c:set var="widthContainer" value="100%" />
   		</c:if>
-  		 
+  		
+  		<c:if test="#{empty renderCancelar}" >
+  			<c:set var="renderCancelar" value="true" />
+  		</c:if>
+  		  
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
 		
 		<h:form id="form">
@@ -46,13 +50,15 @@
 			<!-- ==== Button ======= -->
 			<h:panelGrid columns="2" cellpadding="2" style="padding: 2px 0px 0px 4px;">
 			
-				<ss:button id="btnCancelar" type="cancelar" managedBean="#{managedBean}" update=":form" />
-			
+				<c:if test="#{renderCancelar}">
+					<ss:button id="btnCancelar" type="cancelar" managedBean="#{managedBean}" update=":form" />
+				</c:if>
+				
 				<ss:button id="btnSalvar" type="salvar" managedBean="#{managedBean}" update=":form :form:msg" />
 				
 			</h:panelGrid>
 			
-			<p:blockUI block=":form" trigger="btnCancelar:btnCancelar btnSalvar:btnSalvar">
+			<p:blockUI block=":form" trigger="btnSalvar:btnSalvar">
 	        	PROCESSANDO...<br />
 				<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
 			</p:blockUI>
