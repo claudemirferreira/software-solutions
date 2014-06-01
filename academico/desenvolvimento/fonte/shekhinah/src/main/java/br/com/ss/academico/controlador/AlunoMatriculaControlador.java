@@ -28,6 +28,7 @@ import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.BoletimServico;
+import br.com.ss.academico.servico.ConfiguracaoServico;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
@@ -73,6 +74,9 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	private Configuracao configuracao;
 
+	@ManagedProperty(value = "#{configuracaoServicoImpl}")
+	private ConfiguracaoServico servicoConfiguracao;
+	
 	private boolean novo;
 	
 	/* --------- Overrides ------------------ */
@@ -86,9 +90,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 
 	private void carregarDiaVencimento() {
-		// FIXME carregar configuracao do contexto
-		configuracao = new Configuracao();
-		configuracao.setDiaVencimento(10); // FIXME recuperar a data da configuracao
+		configuracao = servicoConfiguracao.listarTodos().get(0);
 	}
 
 	@Override
@@ -431,6 +433,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setNovo(boolean novo) {
 		this.novo = novo;
+	}
+
+	public ConfiguracaoServico getServicoConfiguracao() {
+		return servicoConfiguracao;
+	}
+
+	public void setServicoConfiguracao(ConfiguracaoServico servicoConfiguracao) {
+		this.servicoConfiguracao = servicoConfiguracao;
 	}
 
 }

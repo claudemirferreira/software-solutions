@@ -1,14 +1,17 @@
 package br.com.ss.core.web.controlador;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import br.com.ss.academico.controlador.ControladorGenerico;
 import br.com.ss.academico.dominio.Configuracao;
+import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.servico.ConfiguracaoServico;
 import br.com.ss.academico.servico.IService;
 
@@ -23,7 +26,9 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	
     private Map<String, String> themes;
     
-	private String tema = "cupertino"; //default
+	private String tema = "blitzer"; //default
+
+	private Integer diaVencimento = 10; // default
 	
 	/* Melhores temas:
 	 * redmond
@@ -36,13 +41,31 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	
 	@Override
 	protected void init() {
-		
-		entidade = servico.listarTodos().get(0);
-		if (entidade.getTema() == null) {
-			// carrega o tema padrao
-			entidade.setTema(tema);
+		List<Configuracao> configs = servico.listarTodos();
+		if (!configs.isEmpty()) {
+			entidade = configs.get(0);	// deve haver apenas um registro
+		} else {
+			createConfiguracao();
 		}
+		
         carregarTemas();
+	}
+
+	private void createConfiguracao() {
+		entidade = new Configuracao();
+		entidade.setDiaVencimento(diaVencimento);
+		entidade.setTema(tema);
+		salvar();
+	}
+	
+	
+	@Override
+	public String salvar() {
+		
+		getService().salvar(entidade);
+		showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+		
+		return null;
 	}
 
 	protected void carregarTemas() {
@@ -108,5 +131,4 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	public void setServico(ConfiguracaoServico servico) {
 		this.servico = servico;
 	}
-
 }
