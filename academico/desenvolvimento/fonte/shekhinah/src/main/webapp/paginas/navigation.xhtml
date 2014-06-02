@@ -15,6 +15,12 @@
 			</p:toolbarGroup>
 			
 			<p:toolbarGroup align="center">
+			
+				<p:breadCrumb>  
+				    <p:menuitem value="HOME" url="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" icon="ui-icon-home" update=":form" />  
+				    <p:menuitem value="Módulos" url="/index.xhtml?faces-redirect=true" immediate="true" />  
+			    </p:breadCrumb>
+				
 			</p:toolbarGroup>
 
 			<p:toolbarGroup align="right">

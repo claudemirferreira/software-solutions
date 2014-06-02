@@ -16,7 +16,7 @@
 	<!-- ==== Grid ======= -->
 	<ui:define name="grid_region">	
 		
-		<p:panel>
+		<p:panel header="MÓDULOS DISPONÍVEIS PARA O USUÁRIO">
 			<p:dataGrid id="rotinaousel"
 						value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
 						headerText="Administrativo" columns="#{usuarioControlador.colunas}"
@@ -39,6 +39,28 @@
 			</p:dataGrid>
 			
 		</p:panel>
+		
+		
+		<br /> <hr />
+		<!-- TESTE Menu -->
+		
+		<p:dock >
+			<p:menuitem label="Finder" icon="/resources/imagens/teste/macosx/finder.png" url="#" title="XXXXXX" />
+			<p:menuitem label="Terminal" icon="/resources/imagens/teste/macosx/terminal.png" url="#" title="XXXXXX" />
+			<p:menuitem label="Safari" icon="/resources/imagens/teste/macosx/safari.png" url="#" title="XXXXXX" />
+			<p:menuitem label="iTunes" icon="/resources/imagens/teste/macosx/itunes.png" url="#" title="XXXXXX"/>
+			<p:menuitem label="iChat" icon="/resources/imagens/teste/macosx/ichat.png" url="#" title="XXXXXX"/>
+			<p:menuitem label="Trash" icon="/resources/imagens/teste/macosx/trash.png" url="#" title="XXXXXX"/>
+		</p:dock>
+			
+	    <p:stack icon="/resources/imagens/teste/stack/stack.png" expanded="true" >
+			<p:menuitem value="Aperture" icon="/resources/imagens/teste/stack/aperture.png" url="#" />
+			<p:menuitem value="Photoshop" icon="/resources/imagens/teste/stack/photoshop.png" url="#"/>
+			<p:menuitem value="Coda" icon="/resources/imagens/teste/stack/coda.png" url="#"/>
+			<p:menuitem value="Safari" icon="/resources/imagens/teste/stack/safari.png" url="#" />
+			<p:menuitem value="Finder" icon="/resources/imagens/teste/stack/finder.png" url="#" />
+		</p:stack>
+		
 	
 	</ui:define>
 	
