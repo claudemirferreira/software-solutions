@@ -33,7 +33,7 @@
 
 			<ss:input id="email" label="E-mail" value="#{alunoControlador.entidade.email}" email="true" maxlength="60" />
 			
-			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" type="mask" watermark="999.999.999-99" mask="999.999.999-99" maxlength="14" />
+			<ss:input id="cpf" label="CPF" value="#{alunoControlador.entidade.cpf}" validatorComp="cpfValidator" type="mask" watermark="999.999.999-99" mask="999.999.999-99" maxlength="14" />
 
 			<ss:input id="rg" label="RG" value="#{alunoControlador.entidade.rg}" type="mask" watermark="99999999-9" mask="99999999-9" maxlength="10" />
 				 
