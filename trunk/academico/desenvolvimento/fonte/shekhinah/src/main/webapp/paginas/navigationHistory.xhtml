@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="MenuHistorico">
+			<tr>
+				<td height="30">
+				
+				<div>
+					<span class="utilHistory">
+					
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td valign="middle">
+									<!-- FIXME class > ui-breadcrumb ul li -->
+									<p:graphicImage styleClass="ui-breadcrumb" />
+								</td>
+
+								<td valign="middle">
+
+									<c:forEach var="item" items="#{navigationHistory.history}">
+										|&#x00A0;
+										<h:outputLink value="#{item.url}">
+											<h:outputText value="#{item.label}" />
+										</h:outputLink>
+
+									</c:forEach>
+
+								</td>
+							</tr>
+						</table>
+						
+					</span>
+				</div>
+		
+			</td>
+			
+<!-- 			<td width="20px"></td> -->
+			<td width="240" align="left">
+				<span class="util"> 
+					<h:outputText value="#{dateBean.fullDate}" />
+				</span>
+			</td>
+			<td width="2%" />
+		</tr>
+	</table>
+</div>
+
+</html>

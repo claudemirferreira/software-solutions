@@ -23,11 +23,13 @@
 							style="width:100%; height:100%; align:center;">
 				<div align="center">
 					<h:panelGrid style="align:center;">
-						<p:commandLink action="#{rotina.acao.toString()}" title="#{rotina.nome}" update=":form">
+						<p:commandLink action="#{rotina.acao.toString()}"
+									actionListener="#{navigationHistory.addHistory(rotina.nome, '#{rotina.acao.toString()}?faces-redirect=true')}" 
+									title="#{rotina.nome}" update=":form">
 							<p:graphicImage value="#{rotina.imagem}" />
 							<ui:param value="true" name="faces-redirect" />
 						</p:commandLink>
-
+						
 						<p:outputLabel value="#{rotina.nome}" styleClass="ui-priority-primary" />
 					</h:panelGrid>
 				</div>

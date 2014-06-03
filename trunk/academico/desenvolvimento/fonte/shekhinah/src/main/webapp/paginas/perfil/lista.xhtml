@@ -28,6 +28,7 @@
 	
 						<h:commandLink action="#{rotinaControlador.listarRotinas(perfil)}" 
 									title="#{perfil.nome}" update=":form"
+									actionListener="#{navigationHistory.addHistory(perfil.nome, 'paginas/rotina/lista.xhtml?faces-redirect=true')}"
 									onstart="PF('blockUIWidget').block()"
 									oncomplete="PF('blockUIWidget').unblock()">
 							<p:graphicImage width="100px" height="100px" value="#{perfil.imagem}" />
