@@ -92,13 +92,9 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 			entidade = (Usuario) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
 			this.colunas = 3;
-			perfilControlador.listaPerfilPorSistemaPorUsuario(); // FIXME deve
-																	// ser
-																	// chamado
-																	// pelo
-																	// proprio
-																	// bean ou
-																	// pg
+			
+			/* FIXME deve ser chamado pelo proprio bean ou pg  */
+			perfilControlador.getListaPerfilUsuario(); 
 			return "/index.xhtml?faces-redirect=true";
 		}
 	}

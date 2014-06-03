@@ -12,14 +12,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.lowagie.text.DocumentException;
 
 import br.com.ss.academico.dominio.AbstractEntity;
 import br.com.ss.academico.dominio.Usuario;
@@ -28,7 +25,10 @@ import br.com.ss.academico.enumerated.Sexo;
 import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.utils.DateUtil;
+import br.com.ss.academico.utils.FacesUtils;
 import br.com.ss.academico.utils.ReflectionsUtil;
+
+import com.lowagie.text.DocumentException;
 
 @Named
 public abstract class ControladorGenerico<T extends AbstractEntity> implements Serializable {
@@ -221,11 +221,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	}
 
 	protected void showMessage(String msg, String detail, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();
-		facesMessage.setSeverity(severityInfo);
-		facesMessage.setSummary(msg);
-		facesMessage.setDetail(detail);
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+		FacesUtils.addMessage(msg, detail, severityInfo);
 	}
 
 	/**
@@ -241,9 +237,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * Retorna a instancia de HttpServletRequest.
 	 */
 	protected HttpServletRequest getRequest() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		return request;
+		return FacesUtils.getRequest();
 	}
 
 	

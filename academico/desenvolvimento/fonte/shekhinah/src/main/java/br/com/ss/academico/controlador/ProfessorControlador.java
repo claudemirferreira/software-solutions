@@ -11,6 +11,7 @@ import br.com.ss.academico.dominio.Professor;
 import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.ProfessorServico;
+import br.com.ss.academico.utils.StringUtil;
 
 @ManagedBean
 @SessionScoped
@@ -27,6 +28,10 @@ public class ProfessorControlador extends ControladorGenerico<Professor> {
 		if (isDataFuturo(entidade.getDataNascimento())) {
 			showMessage(Constants.MSG_WARN_VALIDACAO, "Data de Nascimento é maior que a data atual." , FacesMessage.SEVERITY_WARN);
 			return null;
+		}
+
+		if (!StringUtil.notEmpty(entidade.getEmail())) {
+			entidade.setEmail(null);
 		}
 		
 		if (this.entidade.getDataCadastro() == null) {

@@ -17,7 +17,7 @@ import br.com.ss.academico.servico.RotinaServico;
 @ManagedBean
 @SessionScoped
 // FIXME nao estah redirecionando para o login quando ainda nao logou.. so deve criar o bean se estiver logado
-// estah chamando o metodo listaPerfilPorSistemaPorUsuario ao entrar na tela de login
+// estah chamando o metodo listaPerfilUsuario ao entrar na tela de login
 public class PerfilControlador extends ControladorGenerico<Perfil> {
 	
 	private static final long serialVersionUID = -6832271293709421841L;
@@ -42,9 +42,17 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 	@Override
 	public void init() {
-		this.listaPerfilPorSistemaPorUsuario();
+		carregarPerfis();
 	}
-	
+
+	public void carregarPerfis() {
+		Object userSession = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if ( userSession instanceof Usuario ) {
+			this.usuario = (Usuario) userSession ;
+			this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
+		}
+	}
+
 
 	@Override
 	protected String getNomeRelatorio() {
@@ -64,15 +72,6 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 	public String salvar() {
 		return super.salvar();
-	}
-
-
-	public void listaPerfilPorSistemaPorUsuario() {
-		Object userSession = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if ( userSession instanceof Usuario ) {
-			this.usuario = (Usuario) userSession ;
-			this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
-		}
 	}
 
 
