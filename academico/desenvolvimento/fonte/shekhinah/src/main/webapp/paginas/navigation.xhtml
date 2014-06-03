@@ -16,22 +16,29 @@
 			
 			<p:toolbarGroup align="center">
 			
+				<ui:include src="/paginas/navigationHistory.xhtml" />
+			
+				<!--
 				<p:breadCrumb>  
-				    <p:menuitem value="HOME" url="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" icon="ui-icon-home" update=":form" />  
+				    <p:menuitem value="HOME" url="/index.xhtml?faces-redirect=true" actionListener=" perfilControlador.listaPerfilUsuario " icon="ui-icon-home" update=":form" />  
 				    <p:menuitem value="Módulos" url="/index.xhtml?faces-redirect=true" immediate="true" />  
 			    </p:breadCrumb>
+			    -->
 				
 			</p:toolbarGroup>
 
+			<!--
 			<p:toolbarGroup align="right">
 			
 				<p:separator />
-				<p:commandButton value="Home" action="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" id="home" icon="ui-icon-home" update=":form" />
+				<p:commandButton value="Home" action="/index.xhtml?faces-redirect=true" actionListener="#{perfilControlador.listaPerfilUsuario}" id="home" icon="ui-icon-home" update=":form" />
 					
 				<p:separator />
-				<p:commandButton value="Logout" action="/login.xhtml?faces-redirect=true" actionListener="#{usuarioControlador.logout}" id="logoff" icon="ui-icon-closethick"  update=":form" />
 				
 			</p:toolbarGroup>
+			-->
+				<p:commandButton value="Logout" action="/login.xhtml?faces-redirect=true" actionListener="#{usuarioControlador.logout}" id="logoff" icon="ui-icon-closethick"  update=":form" />
+				
 		</p:toolbar>
 
 	</h:form>
