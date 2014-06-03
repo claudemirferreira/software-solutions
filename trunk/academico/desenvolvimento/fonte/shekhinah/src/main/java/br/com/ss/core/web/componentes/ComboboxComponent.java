@@ -1,4 +1,4 @@
-package br.com.ss.academico.componentes;
+package br.com.ss.core.web.componentes;
 
 import javax.el.MethodExpression;
 import javax.faces.component.FacesComponent;

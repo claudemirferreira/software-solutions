@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+<!-- 
+xmlns="http://www.springframework.org/schema/security"
+
+xmlns="http://www.springframework.org/schema/mvc"
+  -->
 
 	<context:component-scan base-package="br.com.ss" />
 
 	<context:spring-configured />
 
 	<http use-expressions="true">
-		<intercept-url pattern="/javax.faces.resource/**"
-			access="permitAll" />
+		<intercept-url pattern="/javax.faces.resource/**" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
 
 		<intercept-url pattern="/paginas/**" access="isAuthenticated()" />
-		<intercept-url pattern="/index.xhtml" access="isAuthenticated()" />
+		<intercept-url pattern="/index.xhtml" access="isAuthenticated()"  />
 		<intercept-url pattern="/paginacentral.xhtml" access="isAuthenticated()" />
+		
 
 		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml" />
 
@@ -37,5 +44,7 @@
 		</authentication-provider>
 		<authentication-provider ref="AuthenticationProvider" />
 	</authentication-manager>
+	
+	
 
 </beans:beans>
