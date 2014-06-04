@@ -82,10 +82,8 @@
 					action="#{alunoMatriculaControlador.showModalMatricula(item)}"
 					oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
 					update=":dialogMatricula" />
-				
-				<p:commandButton value="Excluir" title="Excluir"
-					action="#{alunoControlador.excluir(item)}" icon="ui-icon-trash"
-					ajax="false" update=":form:gridPesquisa" />
+					
+				<ss:button managedBean="#{alunoControlador}" type="exclusao" update=":form:gridPesquisa" />
 
 			</p:column>
 

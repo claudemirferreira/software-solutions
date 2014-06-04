@@ -10,7 +10,7 @@
 
 <cc:interface>
 	<cc:attribute name="managedBean" required="true" />
-	<cc:attribute name="type" required="true" shortDescription="Tipo de botao: pesquisa, novo, exclusao, salvar, cancelar" />
+	<cc:attribute name="type" required="true" shortDescription="Tipo de botao: pesquisa, novo, detalhe, exclusao, salvar, cancelar" />
 	<cc:attribute name="method" />
 	<cc:attribute name="label" />
 	<cc:attribute name="title" />
@@ -21,7 +21,7 @@
 	<cc:attribute name="id" />
 	
 	<!-- exclusao -->
-	<cc:attribute name="itemToRemove" default="#{item}"/>
+	<cc:attribute name="item" default="#{item}" shortDescription="Item selecionado no grid" />
 	<cc:attribute name="msgExclusao" default="Tem certeza que deseja excluir o registro?"/>
 	
 </cc:interface>
@@ -43,9 +43,27 @@
 						update="#{cc.attrs.update}" 
 						styleClass="ui-priority-primary"
 						ajax="#{cc.attrs.ajax}" >
-			<f:setPropertyActionListener target="#{managedBean.itemToRemove}" value="#{cc.attrs.itemToRemove}" />
+			<f:setPropertyActionListener target="#{managedBean.itemToRemove}" value="#{cc.attrs.item}" />
 		</p:commandButton>
 
+	</c:if>
+	
+	<c:if test="#{cc.attrs.type eq 'detalhe'}" >
+		<c:set var="label"  value="#{empty cc.attrs.label ? 'Detalhe' : cc.attrs.label}" />
+		<c:set var="icon"  value="#{not empty cc.attrs.icon ? cc.attrs.icon : 'ui-icon-folder-collapsed'}" />
+		<c:set var="method"  value="#{not empty cc.attrs.method ? cc.attrs.method : 'detalhe'}" />
+		<c:set var="id"  value="#{not empty cc.attrs.id ? cc.attrs.id : 'btnSearch'}" />
+		
+		<p:commandButton id="#{id}" 
+						value="#{label}" 
+						action="#{cc.attrs.managedBean[method]}" 
+						icon="#{icon}"
+						rendered="#{cc.attrs.render}"
+						update="#{cc.attrs.update}" 
+						styleClass="ui-priority-primary"
+						ajax="#{cc.attrs.ajax}" >
+			<f:setPropertyActionListener target="#{managedBean.entidade}" value="#{cc.attrs.itemToRemove}" />
+		</p:commandButton>
 	</c:if>
 	
 	<c:if test="#{cc.attrs.type eq 'pesquisa'}" >
