@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import br.com.ss.academico.validator.CepValidator;
+import br.com.ss.core.web.validator.CepValidator;
 
 @Constraint(validatedBy = CepValidator.class)
 @Documented

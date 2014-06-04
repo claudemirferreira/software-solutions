@@ -12,16 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.ss.academico.dominio.Perfil;
-import br.com.ss.academico.dominio.Sistema;
-import br.com.ss.academico.dominio.Usuario;
-import br.com.ss.academico.dominio.UsuarioPerfil;
-import br.com.ss.academico.dominio.UsuarioPerfilPk;
-import br.com.ss.academico.repositorio.PerfilRepositorio;
-import br.com.ss.academico.repositorio.SistemaRepositorio;
-import br.com.ss.academico.repositorio.UsuarioPerfilRepositorio;
-import br.com.ss.academico.repositorio.UsuarioPerfilRepositorioSql;
-import br.com.ss.academico.repositorio.UsuarioRepositorio;
+import br.com.ss.core.seguranca.dominio.Perfil;
+import br.com.ss.core.seguranca.dominio.Sistema;
+import br.com.ss.core.seguranca.dominio.Usuario;
+import br.com.ss.core.seguranca.dominio.UsuarioPerfil;
+import br.com.ss.core.seguranca.dominio.UsuarioPerfilPk;
+import br.com.ss.core.seguranca.repositorio.PerfilRepositorio;
+import br.com.ss.core.seguranca.repositorio.SistemaRepositorio;
+import br.com.ss.core.seguranca.repositorio.UsuarioPerfilRepositorio;
+import br.com.ss.core.seguranca.repositorio.UsuarioPerfilRepositorioSql;
+import br.com.ss.core.seguranca.repositorio.UsuarioRepositorio;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")

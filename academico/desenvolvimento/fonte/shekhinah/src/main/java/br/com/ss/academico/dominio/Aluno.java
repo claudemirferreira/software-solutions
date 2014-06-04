@@ -24,8 +24,9 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.ss.academico.enumerated.GrauParentesco;
-import br.com.ss.academico.enumerated.Sexo;
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.web.annotation.Cep;
+import br.com.ss.core.web.enumerated.Sexo;
 
 /**
  * The persistent class for the iansa_aluno database table.

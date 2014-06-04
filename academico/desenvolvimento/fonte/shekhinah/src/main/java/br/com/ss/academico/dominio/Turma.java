@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.Turno;
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
 
 /**
  * The persistent class for the iansa_turma database table.

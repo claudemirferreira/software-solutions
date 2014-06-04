@@ -5,10 +5,10 @@ import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.ss.academico.enumerated.DiaSemana;
-import br.com.ss.academico.enumerated.Meses;
-import br.com.ss.academico.enumerated.NumeroUtil;
-import br.com.ss.academico.utils.DateUtil;
+import br.com.ss.core.web.enumerated.DiaSemana;
+import br.com.ss.core.web.enumerated.Meses;
+import br.com.ss.core.web.enumerated.NumeroUtil;
+import br.com.ss.core.web.utils.DateUtil;
 
 @ManagedBean
 @ViewScoped

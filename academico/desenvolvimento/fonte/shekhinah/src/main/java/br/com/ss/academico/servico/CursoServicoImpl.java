@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.repositorio.CursoRepositorio;
 import br.com.ss.academico.repositorio.CursoRepositorioJPA;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class CursoServicoImpl  extends ServicoImpl<Curso, Long> implements CursoServico {

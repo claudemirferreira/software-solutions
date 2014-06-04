@@ -8,10 +8,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Professor;
-import br.com.ss.academico.enumerated.Constants;
-import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.ProfessorServico;
-import br.com.ss.academico.utils.StringUtil;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.utils.StringUtil;
 
 @ManagedBean
 @SessionScoped

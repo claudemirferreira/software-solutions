@@ -20,8 +20,9 @@ import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.EmpresaServico;
-import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MensalidadeServico;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
 
 @ManagedBean
 @SessionScoped

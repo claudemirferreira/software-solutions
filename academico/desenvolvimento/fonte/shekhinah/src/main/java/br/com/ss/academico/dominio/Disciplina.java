@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
+
 /**
  * The persistent class for the iansa_curso database table.
  * 

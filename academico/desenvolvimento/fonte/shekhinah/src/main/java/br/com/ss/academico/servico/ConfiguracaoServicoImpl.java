@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.repositorio.ConfiguracaoRepositorio;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class ConfiguracaoServicoImpl extends ServicoImpl<Configuracao, Long> implements ConfiguracaoServico {

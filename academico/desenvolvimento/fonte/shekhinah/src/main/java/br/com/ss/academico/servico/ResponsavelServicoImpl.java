@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.repositorio.ResponsavelRepositorio;
 import br.com.ss.academico.repositorio.ResponsavelRepositorioJPA;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class ResponsavelServicoImpl extends ServicoImpl<Responsavel, Long> implements ResponsavelServico, Serializable {

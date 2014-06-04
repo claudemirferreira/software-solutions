@@ -20,7 +20,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.Email;
 
-import br.com.ss.academico.enumerated.Sexo;
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
+import br.com.ss.core.web.enumerated.Sexo;
 
 /**
  * The persistent class for the acad_responsavel database table.

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
@@ -21,8 +22,7 @@
 	</bean>
 
 	<!-- Entity Manager -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="datasource" />
 		<property name="persistenceUnitName" value="shekinahPU" />
 	</bean>
@@ -33,5 +33,6 @@
 	</bean>
 
 	<!-- Jpa Repositories -->
-	<jpa:repositories base-package="br.com.ss.academico.repositorio"></jpa:repositories>
+	<jpa:repositories base-package="br.com.ss.academico.repositorio" />
+	<jpa:repositories base-package="br.com.ss.core.seguranca.repositorio"  />
 </beans>

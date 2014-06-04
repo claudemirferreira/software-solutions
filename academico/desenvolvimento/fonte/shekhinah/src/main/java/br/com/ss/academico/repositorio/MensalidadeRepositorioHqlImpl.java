@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
+import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
 
 @Repository
 public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implements MensalidadeRepositorioHql{

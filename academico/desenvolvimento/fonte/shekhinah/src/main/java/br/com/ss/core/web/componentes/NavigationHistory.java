@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.ss.academico.utils.FacesUtils;
+import br.com.ss.core.web.utils.FacesUtils;
 
 @ManagedBean
 @SessionScoped

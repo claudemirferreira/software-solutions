@@ -14,12 +14,13 @@ import javax.faces.model.SelectItem;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Responsavel;
-import br.com.ss.academico.enumerated.Constants;
 import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.academico.servico.AlunoServico;
-import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.ResponsavelServico;
-import br.com.ss.academico.utils.StringUtil;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.utils.StringUtil;
 
 @ManagedBean
 @SessionScoped
