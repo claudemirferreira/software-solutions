@@ -7,10 +7,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="titulo_pagina">Login Sistema</ui:insert>
-	</title>
+
+	<f:facet name="first">
+		<f:loadBundle basename="messages" var="msg" />
+		
+      	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>#{msg.system_name} : #{msg.project_name} :: Login</title>
+		<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
+	</f:facet>
+		
 	<link type="text/css" rel="stylesheet" href="resources/estilos/style-custon.css" />
-	
 	
 	<!-- FIXME redirecionar para o home caso ja esteje logado. -->
 <!-- 	<c:if test="#   {identity.loggedIn}"> -->
@@ -22,7 +28,6 @@
 			}
 		</script>
 <!-- 	</c:if> -->
-		
 		
 		<style type="text/css">
 			body {
@@ -67,27 +72,27 @@
 	<div class="principal">
 		<div class="login">
 
-			<h1>Infome seu Login e Senha</h1>
+			<h1>Bem vindo</h1>
+			<br />
+			<h3>Informe seus dados de acesso</h3>
+			
 			<h:form id="form">
-				<p:messages id="messages" showDetail="true" autoUpdate="true"
-					closable="true" showSummary="false" />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" showSummary="false" />
 
 					<p>
 						<h:outputLabel value="Login: " />
-						<p:inputText value="#{usuarioControlador.entidade.login}"
-							id="login" required="true" label="login"
-							requiredMessage="O login deve ser informado!" />
+						<p:inputText id="username" label="Usuário" value="#{usuarioControlador.entidade.login}" required="true" requiredMessage="Obrigatório" />
+						<h:outputLabel id="outLblUserNameId" for="username" name="outLblUserNameNm" />
 					</p>
 					<p>
 						<h:outputLabel value="Senha: " />
-						<p:password value="#{usuarioControlador.entidade.senha}"
-							label="Senha" required="true" />
+						<p:password id="password" label="Senha" value="#{usuarioControlador.entidade.senha}" required="true" requiredMessage="Obrigatório" />
+						<h:outputLabel id="outLblPasswordId" for="password" name="outLblPasswordNm" />
 					</p>
 
 					<br />
 					<div align="right">
-						<p:commandButton action="#{usuarioControlador.logar}"
-							styleClass="botao-login" value="Entrar" update="messages" />
+						<p:commandButton value="Entrar" action="#{usuarioControlador.autenticar}" update="messages" styleClass="botao-login" />
 					</div>
 			</h:form>
 		</div>
