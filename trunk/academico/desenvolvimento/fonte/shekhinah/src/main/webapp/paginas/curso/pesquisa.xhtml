@@ -40,18 +40,15 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-					action="#{cursoControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed" update=":form" ajax="false" />
-
+			
+				<ss:button managedBean="#{cursoControlador}" type="detalhe" />
+			
 				<p:commandButton value="Disciplina" title="Disciplina"
-					action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
-					oncomplete="PF('dlgDisciplina').show();" update=":formDlg"
-					icon="ui-icon-document" />
+								action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
+								oncomplete="PF('dlgDisciplina').show();" update=":formDlg"
+								icon="ui-icon-document" />
 
-				<p:commandButton value="Excluir" title="Excluir"
-					action="#{cursoControlador.excluir(item)}" icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false" />
+				<ss:button managedBean="#{cursoControlador}" type="exclusao" />
 
 			</p:column>
 

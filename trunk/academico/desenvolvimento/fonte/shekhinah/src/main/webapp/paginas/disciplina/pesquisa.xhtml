@@ -6,6 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
@@ -32,27 +33,22 @@
 		</p:panel>
 
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{disciplinaControlador.lista}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
+					value="#{disciplinaControlador.lista}" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 
 			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-					action="#{disciplinaControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed"
-					update=":form" ajax="false" />
+			
+				<ss:button managedBean="#{disciplinaControlador}" type="detalhe" />
 
-				<p:commandButton value="Excluir" title="Excluir" 
-					action="#{disciplinaControlador.excluir(item)}"
-					icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false"/>
-
+				<ss:button managedBean="#{disciplinaControlador}" type="exclusao" />
+			
 			</p:column>
 
 			<f:facet name="footer">  

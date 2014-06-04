@@ -50,18 +50,15 @@
 							update=":form" title="Manter Usuário" />
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-									action="#{usuarioControlador.detalhe(item)}"
-									icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
-
+			
+				<ss:button managedBean="#{usuarioControlador}" type="detalhe" />
+			
 				<p:commandButton value="Perfil" title="Perfil"
 								action="#{usuarioPerfilControlador.showModalPerfil(item)}"
 								oncomplete="PF('dlgPerfil').show();" icon="ui-icon-bookmark"
 								update=":formDlg" />
 
-				<p:commandButton title="Excluir" value="Excluir"
-								action="#{usuarioControlador.excluir(item)}" icon="ui-icon-trash"
-								update=":form" ajax="false" />
+				<ss:button managedBean="#{usuarioControlador}" type="exclusao" />
 
 			</p:column>
 

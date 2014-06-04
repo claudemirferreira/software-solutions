@@ -15,8 +15,12 @@
 	
 	<!-- ==== Grid ======= -->
 	<ui:define name="grid_region">	
+	
+		<!-- FIXME remover esse metodo qdo resolver o problema do login -->
+		"#{perfilControlador.init()}
 		
 		<p:panel header="MÓDULOS DISPONÍVEIS PARA O USUÁRIO">
+		
 			<p:dataGrid id="rotinaousel"
 						value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
 						headerText="Administrativo" columns="#{usuarioControlador.colunas}"

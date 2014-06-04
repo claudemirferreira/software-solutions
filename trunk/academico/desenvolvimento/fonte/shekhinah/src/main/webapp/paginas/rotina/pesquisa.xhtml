@@ -25,37 +25,29 @@
 	<ui:define name="grid_region">
 		
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{rotinaControlador.listaPesquisa}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
+					value="#{rotinaControlador.listaPesquisa}" paginatorPosition="bottom"
+					paginatorAlwaysVisible="true"
+					emptyMessage="Nenhum registro encontrado."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.nome}">
+			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 			
-			<p:column style="text-align:left" headerText="Executa Ação"
-				sortBy="#{item.acao}">
+			<p:column style="text-align:left" headerText="Executa Ação" sortBy="#{item.acao}">
 				<h:outputText value="#{item.acao}" />
 			</p:column>
 			
-			<p:column style="text-align:left" headerText="Imagem"
-				sortBy="#{item.imagem}">
+			<p:column style="text-align:left" headerText="Imagem" sortBy="#{item.imagem}">
 				<h:outputText value="#{item.imagem}" />
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-					action="#{rotinaControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed"
-					update=":form" ajax="false"/>
+				
+				<ss:button managedBean="#{rotinaControlador}" type="detalhe" />
 
-				<p:commandButton value="Excluir" title="Excluir"
-					action="#{rotinaControlador.excluir(item)}"
-					icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false" />
+				<ss:button managedBean="#{rotinaControlador}" type="exclusao" />
 
 			</p:column>
 

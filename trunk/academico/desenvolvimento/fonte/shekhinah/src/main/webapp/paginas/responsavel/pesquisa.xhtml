@@ -46,16 +46,11 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe" 
-					action="#{responsavelControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed"
-					update=":form" ajax="false" />
+			
+				<ss:button managedBean="#{responsavelControlador}" type="detalhe" />
 
-				<p:commandButton value="Excluir" title="Excluir" 
-					action="#{responsavelControlador.excluir(item)}"
-					icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false"/>
-
+				<ss:button managedBean="#{responsavelControlador}" type="exclusao" />
+			
 			</p:column>
 
 			<f:facet name="footer">  

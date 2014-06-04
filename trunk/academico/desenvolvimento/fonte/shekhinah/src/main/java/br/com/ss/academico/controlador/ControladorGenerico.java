@@ -172,6 +172,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		return CADASTRO;
 	}
 	
+
+	public String detalhe() {
+		return detalhe(entidade);
+	}
 	/**
 	 * Metodo utilizado para editar uma entidade. Sobrescrever este metodo caso
 	 * necessário realizar outras operaçoes.
@@ -285,6 +289,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
 		this.relatorioUtil = relatorioUtil;
+	}
+
+	public void setEntidade(T entidade) {
+		this.entidade = entidade;
 	}
 
 	

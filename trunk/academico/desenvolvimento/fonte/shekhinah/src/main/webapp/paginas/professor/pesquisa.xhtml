@@ -44,15 +44,10 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-					action="#{professorControlador.detalhe(item)}"
-					icon="	ui-icon-folder-collapsed"
-					update=":form"  ajax="false" />
+			
+				<ss:button managedBean="#{professorControlador}" type="detalhe" />
 
-				<p:commandButton value="Excluir" title="Excluir" 
-					action="#{professorControlador.excluir(item)}"
-					icon="ui-icon-trash"
-					update=":form:gridPesquisa" ajax="false" />
+				<ss:button managedBean="#{professorControlador}" type="exclusao" />
 
 			</p:column>
 

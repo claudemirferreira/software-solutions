@@ -86,11 +86,13 @@
 			</p:column>
 			
 			<p:column style="text-align:center" headerText="Ação">
-				
-				<p:commandButton value="Detalhe" title="Detalhe" 
+			
+				<p:commandButton value="Detalhe Old" title="Detalhe" 
 							action="#{alunoMatriculaControlador.detalhe(item)}"
 							icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
 				
+				<ss:button managedBean="#{alunoMatriculaControlador}" type="detalhe" />
+
 				<!-- FIXME #Peninha: rever essa funcionalidade - nao entendi o proposito do relatorio.. nao seria para imprimir a matricula? -->
 				<p:commandButton value="Imprimir" icon="ui-icon-print"
 								action="#{matriculaControlador.imprimirRelatorio(item)}"
