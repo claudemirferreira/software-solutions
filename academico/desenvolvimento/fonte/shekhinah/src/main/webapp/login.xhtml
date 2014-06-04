@@ -81,18 +81,18 @@
 
 					<p>
 						<h:outputLabel value="Login: " />
-						<p:inputText id="username" label="Usuário" value="#{usuarioControlador.entidade.login}" required="true" requiredMessage="Obrigatório" />
+						<p:inputText id="username" label="Usuário" value="#{authenticatorController.username}" required="true" requiredMessage="Obrigatório" />
 						<h:outputLabel id="outLblUserNameId" for="username" name="outLblUserNameNm" />
 					</p>
 					<p>
 						<h:outputLabel value="Senha: " />
-						<p:password id="password" label="Senha" value="#{usuarioControlador.entidade.senha}" required="true" requiredMessage="Obrigatório" />
+						<p:password id="password" label="Senha" value="#{authenticatorController.password}" required="true" requiredMessage="Obrigatório" />
 						<h:outputLabel id="outLblPasswordId" for="password" name="outLblPasswordNm" />
 					</p>
 
 					<br />
 					<div align="right">
-						<p:commandButton value="Entrar" action="#{usuarioControlador.autenticar}" update="messages" styleClass="botao-login" />
+						<p:commandButton value="Entrar" action="#{authenticatorController.autenticar}" update="messages" styleClass="botao-login" />
 					</div>
 			</h:form>
 		</div>

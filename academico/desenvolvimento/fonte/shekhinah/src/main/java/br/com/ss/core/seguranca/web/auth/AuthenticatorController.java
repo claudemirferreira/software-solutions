@@ -39,12 +39,13 @@ public class AuthenticatorController implements PhaseListener {
 	@Autowired
 	private UsuarioServico usuarioServico;
 
+	private String username;
+
+	private String password;
+
 	public boolean autenticar() {
 		
-		String user = null,
-				pass = null;
-		
-		Usuario usuario = usuarioServico.findByLoginAndSenha(user,pass);
+		Usuario usuario = usuarioServico.findByLoginAndSenha(username,password);
 
 		if (usuario == null) {
 			FacesUtils.addMessage("Dados incorretos", null, FacesMessage.SEVERITY_ERROR);
@@ -128,6 +129,22 @@ public class AuthenticatorController implements PhaseListener {
 	 */
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
