@@ -21,19 +21,20 @@ import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Turma;
-import br.com.ss.academico.enumerated.Constants;
-import br.com.ss.academico.enumerated.Meses;
-import br.com.ss.academico.enumerated.NaoSim;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.StatusPagamento;
-import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.ConfiguracaoServico;
-import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.academico.servico.TurmaServico;
-import br.com.ss.academico.utils.DateUtil;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.enumerated.Meses;
+import br.com.ss.core.web.enumerated.NaoSim;
+import br.com.ss.core.web.ireport.RelatorioUtil;
+import br.com.ss.core.web.utils.DateUtil;
 
 @ManagedBean
 @SessionScoped

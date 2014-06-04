@@ -16,8 +16,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.ss.academico.enumerated.Meses;
 import br.com.ss.academico.enumerated.StatusPagamento;
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
+import br.com.ss.core.seguranca.dominio.Usuario;
+import br.com.ss.core.web.enumerated.Meses;
 
 /**
  * The persistent class for the iansa_mensalidade database table.

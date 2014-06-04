@@ -2,7 +2,7 @@ package br.com.ss.core.web.componentes;
 
 import javax.inject.Named;
 
-import br.com.ss.academico.utils.StringUtil;
+import br.com.ss.core.web.utils.StringUtil;
 
 @Named("componentUtil")
 public class ComponentUtil {

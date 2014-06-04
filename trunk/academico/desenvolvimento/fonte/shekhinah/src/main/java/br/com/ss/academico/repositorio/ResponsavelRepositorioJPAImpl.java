@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Responsavel;
+import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
 
 @Repository
 @SuppressWarnings("unchecked")

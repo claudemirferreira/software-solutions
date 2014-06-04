@@ -10,6 +10,7 @@ import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.repositorio.AlunoRepositorio;
 import br.com.ss.academico.repositorio.AlunoRepositorioJPA;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class AlunoServicoImpl extends ServicoImpl<Aluno, Long> implements AlunoServico {

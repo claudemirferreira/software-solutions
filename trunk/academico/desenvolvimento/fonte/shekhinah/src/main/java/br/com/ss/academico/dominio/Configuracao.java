@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
+
 @Entity
 @Table(name = "acad_configuracao")
 public class Configuracao extends AbstractEntity implements Serializable {

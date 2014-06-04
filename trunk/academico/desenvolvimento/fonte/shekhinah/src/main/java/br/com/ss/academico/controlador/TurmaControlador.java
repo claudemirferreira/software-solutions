@@ -14,9 +14,10 @@ import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
-import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.TurmaServico;
-import br.com.ss.academico.utils.Util;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.utils.Util;
 
 @ManagedBean
 @SessionScoped

@@ -18,10 +18,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import br.com.ss.academico.dominio.Curso;
-import br.com.ss.academico.dominio.Usuario;
 import br.com.ss.academico.servico.CursoServico;
-import br.com.ss.academico.servico.IService;
-import br.com.ss.academico.utils.Util;
+import br.com.ss.core.seguranca.dominio.Usuario;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.utils.Util;
 
 import com.lowagie.text.DocumentException;
 

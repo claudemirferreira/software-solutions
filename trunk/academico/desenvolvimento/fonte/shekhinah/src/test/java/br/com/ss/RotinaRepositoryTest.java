@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.ss.academico.dominio.Rotina;
-import br.com.ss.academico.dominio.Sistema;
-import br.com.ss.academico.repositorio.RotinaRepositorio;
+import br.com.ss.core.seguranca.dominio.Rotina;
+import br.com.ss.core.seguranca.dominio.Sistema;
+import br.com.ss.core.seguranca.repositorio.RotinaRepositorio;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Disciplina;
+import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
 
 @Repository
 public class CursoDisciplinaRepositorioSqlImpl extends RepositorioGenerico implements CursoDisciplinaRepositorioSql {

@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.ss.core.seguranca.dominio.AbstractEntity;
+import br.com.ss.core.seguranca.dominio.Usuario;
+
 @Entity
 @Table(name = "acad_observacao")
 public class Observacao extends AbstractEntity implements Serializable {

@@ -10,6 +10,7 @@ import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.repositorio.TurmaRepositorio;
 import br.com.ss.academico.repositorio.TurmaRepositorioHql;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class TurmaServicoImpl extends ServicoImpl<Turma, Long> implements TurmaServico {

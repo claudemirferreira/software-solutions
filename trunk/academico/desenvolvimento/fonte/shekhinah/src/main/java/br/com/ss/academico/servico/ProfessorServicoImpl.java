@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Professor;
 import br.com.ss.academico.repositorio.ProfessorRepositorio;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class ProfessorServicoImpl extends ServicoImpl<Professor, Long> implements ProfessorServico {

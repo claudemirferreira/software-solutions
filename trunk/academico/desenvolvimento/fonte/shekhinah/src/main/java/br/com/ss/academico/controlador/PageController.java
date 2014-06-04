@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import br.com.ss.academico.dominio.Rotina;
+import br.com.ss.core.seguranca.dominio.Rotina;
 
 
 @ManagedBean

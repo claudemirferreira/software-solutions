@@ -12,6 +12,7 @@ import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.repositorio.MatriculaRepositorio;
 import br.com.ss.academico.repositorio.MatriculaRepositorioHql;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class MatriculaServicoImpl extends ServicoImpl<Matricula, Long> implements MatriculaServico {

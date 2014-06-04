@@ -6,8 +6,9 @@ import javax.faces.bean.SessionScoped;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Responsavel;
-import br.com.ss.academico.servico.IService;
 import br.com.ss.academico.servico.ResponsavelServico;
+import br.com.ss.core.seguranca.servico.IService;
+import br.com.ss.core.web.controlador.ControladorGenerico;
 
 @ManagedBean
 @SessionScoped

@@ -12,6 +12,7 @@ import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.academico.repositorio.MensalidadeRepositorio;
 import br.com.ss.academico.repositorio.MensalidadeRepositorioHql;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> implements MensalidadeServico {

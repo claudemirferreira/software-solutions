@@ -20,10 +20,10 @@ import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Boletim;
 import br.com.ss.academico.dominio.Matricula;
-import br.com.ss.academico.ireport.RelatorioUtil;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MatriculaServico;
+import br.com.ss.core.web.ireport.RelatorioUtil;
 
 @ManagedBean
 @SessionScoped

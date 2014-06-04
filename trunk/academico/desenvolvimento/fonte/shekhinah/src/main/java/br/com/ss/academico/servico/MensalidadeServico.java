@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
+import br.com.ss.core.seguranca.servico.IService;
 
 public interface MensalidadeServico extends IService<Mensalidade, Long>{
 
