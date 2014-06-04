@@ -33,6 +33,7 @@
 		<c:set var="title"  value="#{not empty cc.attrs.title ? cc.attrs.title : label}" />
 		<c:set var="icon"  value="#{not empty cc.attrs.icon ? cc.attrs.icon : 'ui-icon-trash'}" />
 		<c:set var="method"  value="#{not empty cc.attrs.method ? cc.attrs.method : 'excluir'}" />
+		<c:set var="update"  value="#{empty cc.attrs.update ? ':form:gridPesquisa' : cc.attrs.update}" />
 		
 		<p:commandButton value="#{label}" 
 						title="#{title}"
@@ -40,7 +41,7 @@
 						icon="#{icon}"
 						onclick="if (!confirm('#{cc.attrs.msgExclusao}')) return false;"
 						rendered="#{cc.attrs.render}"
-						update="#{cc.attrs.update}" 
+						update="#{update}" 
 						styleClass="ui-priority-primary"
 						ajax="#{cc.attrs.ajax}" >
 			<f:setPropertyActionListener target="#{managedBean.itemToRemove}" value="#{cc.attrs.item}" />
@@ -52,7 +53,7 @@
 		<c:set var="label"  value="#{empty cc.attrs.label ? 'Detalhe' : cc.attrs.label}" />
 		<c:set var="icon"  value="#{not empty cc.attrs.icon ? cc.attrs.icon : 'ui-icon-folder-collapsed'}" />
 		<c:set var="method"  value="#{not empty cc.attrs.method ? cc.attrs.method : 'detalhe'}" />
-		<c:set var="id"  value="#{not empty cc.attrs.id ? cc.attrs.id : 'btnSearch'}" />
+		<c:set var="id"  value="#{not empty cc.attrs.id ? cc.attrs.id : 'btnDetail'}" />
 		
 		<p:commandButton id="#{id}" 
 						value="#{label}" 
@@ -62,7 +63,7 @@
 						update="#{cc.attrs.update}" 
 						styleClass="ui-priority-primary"
 						ajax="#{cc.attrs.ajax}" >
-			<f:setPropertyActionListener target="#{managedBean.entidade}" value="#{cc.attrs.itemToRemove}" />
+			<f:setPropertyActionListener target="#{managedBean.entidade}" value="#{cc.attrs.item}" />
 		</p:commandButton>
 	</c:if>
 	

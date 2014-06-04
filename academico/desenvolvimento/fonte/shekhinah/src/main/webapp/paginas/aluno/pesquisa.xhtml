@@ -74,16 +74,15 @@
 			</p:column>
 			
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe" 
-					action="#{alunoControlador.detalhe(item)}"
-					icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
+				
+				<ss:button managedBean="#{alunoControlador}" type="detalhe" />
 
 				<p:commandButton value="Matrícula" title="Matrícula"
-					action="#{alunoMatriculaControlador.showModalMatricula(item)}"
-					oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
-					update=":dialogMatricula" />
+							action="#{alunoMatriculaControlador.showModalMatricula(item)}"
+							oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
+							update=":dialogMatricula" />
 					
-				<ss:button managedBean="#{alunoControlador}" type="exclusao" update=":form:gridPesquisa" />
+				<ss:button managedBean="#{alunoControlador}" type="exclusao" />
 
 			</p:column>
 

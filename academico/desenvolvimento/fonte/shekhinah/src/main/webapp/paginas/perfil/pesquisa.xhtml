@@ -41,16 +41,15 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Ação">
-				<p:commandButton value="Detalhe" title="Detalhe"
-								action="#{perfilControlador.detalhe(item)}"
-								icon="ui-icon-folder-collapsed" update=":form" ajax="false" />
-
+			
+				<ss:button managedBean="#{perfilControlador}" type="detalhe" />
+			
 				<p:commandButton value="Rotina" title="Rotina"
 								action="#{perfilRotinaControlador.showModalRotina(item)}"
 								icon="ui-icon-newwin" oncomplete="PF('dlgRotina').show();"
 								update=":formDlg" />
 
-				<ss:button managedBean="#{perfilControlador}" type="exclusao" update=":form:gridPesquisa" />
+				<ss:button managedBean="#{perfilControlador}" type="exclusao" />
 			
 			</p:column>
 

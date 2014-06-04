@@ -30,7 +30,7 @@ public class DisciplinaControlador implements Serializable {
 	private DisciplinaServico servico;
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControlador paginaCentralControlador;
+	private PaginaCentralControlador paginaCentralControlador;		// FIXME
 
 	@PostConstruct
 	public void init() {

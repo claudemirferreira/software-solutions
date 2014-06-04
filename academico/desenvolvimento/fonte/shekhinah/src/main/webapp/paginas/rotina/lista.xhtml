@@ -23,8 +23,9 @@
 							style="width:100%; height:100%; align:center;">
 				<div align="center">
 					<h:panelGrid style="align:center;">
+						<c:set var="redirect" value="?faces-redirect=true" />
 						<p:commandLink action="#{rotina.acao.toString()}"
-									actionListener="#{navigationHistory.addHistory(rotina.nome, '#{rotina.acao.toString()}?faces-redirect=true')}" 
+									actionListener="#{navigationHistory.addHistory(rotina.nome, rotina.acao.toString() + redirect)}" 
 									title="#{rotina.nome}" update=":form">
 							<p:graphicImage value="#{rotina.imagem}" />
 							<ui:param value="true" name="faces-redirect" />

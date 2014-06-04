@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,6 +52,9 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	protected List<SelectItem> statusUsuarioList;
 
 	public void init() {
+		
+		// FIXME colocar o codigo do sistema no messages.properties
+		
 		this.sistema = sistemaServico.findByCodigo("IEADAM"); // FIXME mudar
 																// codigo do
 																// sistema

@@ -88,10 +88,9 @@
 
 			<p:column headerText="Ação" style="text-right" width="60" >
 				<center>
-					<p:commandButton ajax="false"
-									action="#{mensalidadeControlador.detalhe(item)}"
-									styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
-									update=":form" title="Detalhe" />
+				
+					<ss:button managedBean="#{mensalidadeControlador}" type="detalhe" />
+				
 				</center>
 			</p:column>
 
