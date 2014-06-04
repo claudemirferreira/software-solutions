@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ss.core.seguranca.dominio.Perfil;
-import br.com.ss.core.seguranca.dominio.Sistema;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.seguranca.servico.SistemaServico;
@@ -29,7 +28,7 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 
 	private static final long serialVersionUID = -929165489387258837L;
 
-	private Sistema sistema;
+//	private Sistema sistema;
 
 	private List<Perfil> perfis = new ArrayList<Perfil>();
 
@@ -39,8 +38,8 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	@ManagedProperty(value = "#{sistemaServicoImpl}")
 	private SistemaServico sistemaServico;
 
-	@ManagedProperty(value = "#{perfilControlador}")
-	private PerfilControlador perfilControlador; // FIXME evitar injetar um bean
+//	@ManagedProperty(value = "#{perfilControlador}")
+//	private PerfilControlador perfilControlador; // FIXME evitar injetar um bean
 													// dentro de outro.. bad
 													// pattern
 
@@ -55,10 +54,7 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		
 		// FIXME colocar o codigo do sistema no messages.properties
 		
-		this.sistema = sistemaServico.findByCodigo("IEADAM"); // FIXME mudar
-																// codigo do
-																// sistema
-																// (IEADAM)
+//		this.sistema = sistemaServico.findByCodigo("IEADAM"); // FIXME mudar codigo do sistema (IEADAM)
 
 		this.statusUsuarioList = new ArrayList<SelectItem>();
 		for (StatusUsuario c : StatusUsuario.values()) {
@@ -76,38 +72,38 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	protected IService<Usuario, Long> getService() {
 		return servico;
 	}
-
-	public String logar() {
-
-		Authentication authenticatedUser = authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken( entidade.getLogin(), entidade.getSenha() ) );
-
-		if (authenticatedUser == null) {
-			showMessage("Dados incorretos", FacesMessage.SEVERITY_ERROR);
-			entidade = new Usuario();
-			return "/login.xhtml?faces-redirect=true";
-
-		} else {
-
-			// FIXME add usuario logado para o escopo de app.. validar ele no
-			// login e redirecionar para o home se ja estiver logado..
-
-			entidade = (Usuario) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
-			this.colunas = 3;
-			
-			/* FIXME deve ser chamado pelo proprio bean ou pg  */
-			perfilControlador.getListaPerfilUsuario(); 
-			return "/index.xhtml?faces-redirect=true";
-		}
-	}
-
-	public String logout() {
-		SecurityContextHolder.clearContext();
-		entidade = new Usuario();
-		getRequest().getSession().invalidate();
-		return "logout";
-	}
+//
+//	public String autenticar() {
+//
+//		Authentication authenticatedUser = authenticationManager.authenticate(
+//					new UsernamePasswordAuthenticationToken( entidade.getLogin(), entidade.getSenha() ) );
+//
+//		if (authenticatedUser == null) {
+//			showMessage("Dados incorretos", FacesMessage.SEVERITY_ERROR);
+//			entidade = new Usuario();
+//			return "/login.xhtml?faces-redirect=true";
+//
+//		} else {
+//
+//			// FIXME add usuario logado para o escopo de app.. validar ele no
+//			// login e redirecionar para o home se ja estiver logado..
+//
+//			entidade = (Usuario) SecurityContextHolder.getContext()
+//					.getAuthentication().getPrincipal();
+//			this.colunas = 3;
+//			
+//			/* FIXME deve ser chamado pelo proprio bean ou pg  */
+////			perfilControlador.getListaPerfilUsuario(); 
+//			return "/index.xhtml?faces-redirect=true";
+//		}
+//	}
+//
+//	public String logout() {
+//		SecurityContextHolder.clearContext();
+//		entidade = new Usuario();
+//		getRequest().getSession().invalidate();
+//		return "logout";
+//	}
 
 	public String validarUsuarioLogado() {
 		Object user = SecurityContextHolder.getContext().getAuthentication()
@@ -167,14 +163,6 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		this.colunas = colunas;
 	}
 
-	public Sistema getSistema() {
-		return sistema;
-	}
-
-	public void setSistema(Sistema sistema) {
-		this.sistema = sistema;
-	}
-
 	public SistemaServico getSistemaServico() {
 		return sistemaServico;
 	}
@@ -183,13 +171,13 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		this.sistemaServico = sistemaServico;
 	}
 
-	public PerfilControlador getPerfilControlador() {
-		return perfilControlador;
-	}
-
-	public void setPerfilControlador(PerfilControlador perfilControlador) {
-		this.perfilControlador = perfilControlador;
-	}
+//	public PerfilControlador getPerfilControlador() {
+//		return perfilControlador;
+//	}
+//
+//	public void setPerfilControlador(PerfilControlador perfilControlador) {
+//		this.perfilControlador = perfilControlador;
+//	}
 
 	public List<SelectItem> getStatusUsuarioList() {
 		return statusUsuarioList;

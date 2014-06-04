@@ -1,7 +1,6 @@
 package br.com.ss.core.seguranca.web.auth;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -23,25 +22,26 @@ public class AuthenticationManager implements AuthenticationProvider {
 	@Autowired
 	private UsuarioServico usuarioServico;
 
-	private Usuario usuario;
+//	private Usuario usuario;
 
-	public Authentication authenticate(Authentication authentication)
-			throws AuthenticationException {
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		
 		try {
-			this.usuario = usuarioServico.findByLoginAndSenha(authentication
-					.getName(), authentication.getCredentials().toString());
+			Usuario usuario = usuarioServico.findByLoginAndSenha(
+										authentication.getName(), 
+										authentication.getCredentials().toString() );
+			
+			
+			
 
-			if (this.usuario == null) {
+			if (usuario == null) {
 				return null;
 			}
 
-			List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-
 			UsernamePasswordAuthenticationToken authenticatedUser = new UsernamePasswordAuthenticationToken(
-					usuario, null, grantedAuthorities);
+					usuario, null, new ArrayList<GrantedAuthority>() );
 
-			SecurityContextHolder.getContext().setAuthentication(
-					authenticatedUser);
+			SecurityContextHolder.getContext().setAuthentication( authenticatedUser );
 
 			return authenticatedUser;
 
@@ -53,13 +53,13 @@ public class AuthenticationManager implements AuthenticationProvider {
 
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+//	public Usuario getUsuario() {
+//		return usuario;
+//	}
+//
+//	public void setUsuario(Usuario usuario) {
+//		this.usuario = usuario;
+//	}
 
 	public boolean supports(Class<?> arg0) {
 		// TODO Auto-generated method stub

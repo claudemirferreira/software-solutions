@@ -5,14 +5,18 @@
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:pe="http://primefaces.org/ui/extensions">
+	  xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<h:head>
 		
 		<f:facet name="first">
 			<f:loadBundle basename="messages" var="msg" />
+			
+			<c:set var="system_name" value="#{msg.system_name}" />
+			
        	 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-			<title>:: #{msg.project_name} :: #{empty pageTitle ? '*' : pageTitle}</title>
+			<title>:: #{system_name} : #{msg.project_name} :: #{empty pageTitle ? '*' : pageTitle}</title>
 			<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
 		</f:facet>
 		
