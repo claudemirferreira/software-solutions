@@ -17,6 +17,10 @@
 		</resource-bundle>
 
 	</application>
+	
+	<lifecycle>
+		<phase-listener>br.com.ss.core.web.controlador.listener.MultiPageMessagesSupport</phase-listener>
+	</lifecycle>
 
 	<converter>
 		<converter-for-class>java.lang.Enum</converter-for-class>
@@ -34,6 +38,15 @@
 	
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>home</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>

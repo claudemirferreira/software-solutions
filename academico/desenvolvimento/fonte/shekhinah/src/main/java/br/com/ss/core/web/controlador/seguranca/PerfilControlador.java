@@ -17,8 +17,6 @@ import br.com.ss.core.web.controlador.ControladorGenerico;
 
 @ManagedBean
 @SessionScoped
-// FIXME nao estah redirecionando para o login quando ainda nao logou.. so deve criar o bean se estiver logado
-// estah chamando o metodo listaPerfilUsuario ao entrar na tela de login
 public class PerfilControlador extends ControladorGenerico<Perfil> {
 	
 	private static final long serialVersionUID = -6832271293709421841L;
@@ -30,7 +28,7 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 	private Usuario usuario;
 
-	private int colunas;	// FIXME #Peninha: é necessário?
+	private int colunas = 3;
 
 	@ManagedProperty(value = "#{perfilServicoImpl}")
 	private PerfilServico servico;
@@ -96,10 +94,6 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 	public int getColunas() {
 		return colunas;
-	}
-
-	public void setColunas(int colunas) {
-		this.colunas = colunas;
 	}
 
 	public Perfil getEntidade() {

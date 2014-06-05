@@ -27,10 +27,9 @@
 
 									<c:forEach var="item" items="#{navigationHistory.history}">
 										|&#x00A0;
-										<h:outputLink value="#{item.url}">
-											<h:outputText value="#{item.label}" />
-										</h:outputLink>
-
+										<h:commandLink action="#{pageUtils.redirectForUrl(item.url)}"
+														actionListener="#{navigationHistory.clearAfterUrl(item)}" 
+														value="#{item.label}"/>
 									</c:forEach>
 
 								</td>

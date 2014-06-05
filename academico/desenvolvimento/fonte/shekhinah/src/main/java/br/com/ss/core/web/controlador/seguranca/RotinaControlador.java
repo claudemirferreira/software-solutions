@@ -25,11 +25,6 @@ public class RotinaControlador extends ControladorGenerico<Rotina> {
 
 	private final String LISTAR_ROTINAS = "listar_rotinas";
 
-	@Override
-	public void init() {
-//		this.perfil = new Perfil();
-	}
-
 
 	@Override
 	protected String getNomeRelatorio() {

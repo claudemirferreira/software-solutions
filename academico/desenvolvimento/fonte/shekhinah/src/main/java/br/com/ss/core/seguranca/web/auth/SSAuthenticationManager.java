@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -17,12 +18,11 @@ import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.UsuarioServico;
 
 @Component
-public class AuthenticationManager implements AuthenticationProvider {
+public class SSAuthenticationManager implements AuthenticationProvider {
 
 	@Autowired
 	private UsuarioServico usuarioServico;
 
-//	private Usuario usuario;
 
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
@@ -30,12 +30,9 @@ public class AuthenticationManager implements AuthenticationProvider {
 			Usuario usuario = usuarioServico.findByLoginAndSenha(
 										authentication.getName(), 
 										authentication.getCredentials().toString() );
-			
-			
-			
-
 			if (usuario == null) {
-				return null;
+				// excecao..
+				throw new BadCredentialsException("ERRO Autenticando o usuario: " + authentication.getName() );
 			}
 
 			UsernamePasswordAuthenticationToken authenticatedUser = new UsernamePasswordAuthenticationToken(
@@ -53,16 +50,8 @@ public class AuthenticationManager implements AuthenticationProvider {
 
 	}
 
-//	public Usuario getUsuario() {
-//		return usuario;
-//	}
-//
-//	public void setUsuario(Usuario usuario) {
-//		this.usuario = usuario;
-//	}
-
 	public boolean supports(Class<?> arg0) {
-		// TODO Auto-generated method stub
+		/* default - this is a supported Authentication */
 		return true;
 	}
 
