@@ -16,20 +16,20 @@
 	
 	<!-- ==== Grid ======= -->
 	<ui:define name="grid_region">
-		
-		<p:panel header="MÓDULO DE #{rotinaControlador.perfil.nome}" style="width:100%; height:100%; align:center;">
-			<p:dataGrid id="rotinaousel" value="#{rotinaControlador.listaPesquisa}"
+	
+		<p:panel header="#{rotinaControlador.perfil.nome}" style="width:100%; height:100%; align:center;">
+			<p:dataGrid value="#{rotinaControlador.listaPesquisa}"
 							var="rotina" columns="3"
 							style="width:100%; height:100%; align:center;">
+							
 				<div align="center">
 					<h:panelGrid style="align:center;">
-						<c:set var="redirect" value="?faces-redirect=true" />
-						<p:commandLink action="#{rotina.acao.toString()}"
-									actionListener="#{navigationHistory.addHistory(rotina.nome, rotina.acao.toString() + redirect)}" 
-									title="#{rotina.nome}" update=":form">
+						
+						<h:commandLink action="#{pageUtils.redirectForUrl( rotina.acao.toString() )}"
+									actionListener="#{navigationHistory.addHistory( rotina.nome, rotina.acao.toString() )}" 
+									title="#{rotina.nome}">
 							<p:graphicImage value="#{rotina.imagem}" />
-							<ui:param value="true" name="faces-redirect" />
-						</p:commandLink>
+						</h:commandLink>
 						
 						<p:outputLabel value="#{rotina.nome}" styleClass="ui-priority-primary" />
 					</h:panelGrid>

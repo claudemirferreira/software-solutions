@@ -1,5 +1,6 @@
 package br.com.ss.core.web.componentes;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -12,8 +13,10 @@ import br.com.ss.core.web.utils.DateUtil;
 
 @ManagedBean
 @ViewScoped
-public class DateBean {
+public class DateBean implements Serializable {
 
+	private static final long serialVersionUID = 2762092171307695271L;
+	
 	/** Data por extenso. */
 	private String fullDate;
 	
@@ -35,7 +38,7 @@ public class DateBean {
 		
 		DiaSemana[] diasSemana = DiaSemana.values();
 		
-		fullDate =  diasSemana[ diaSemana].getDescricao() + ", " + diaStr + " de " + Meses.getEnum(mes + 1).getDescricao() + " de " + ano;
+		fullDate =  diasSemana[ diaSemana - 1 ].getDescricao() + ", " + diaStr + " de " + Meses.getEnum(mes + 1).getDescricao() + " de " + ano;
 	}
 
 	public String getFullDate() {

@@ -6,50 +6,49 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.servlet.http.HttpServletRequest;
 
-import br.com.ss.core.web.utils.FacesUtils;
+import br.com.ss.core.web.enumerated.Constants;
 
 @ManagedBean
 @SessionScoped
 public class NavigationHistory {
 
 	private List<NavigationDTO> history;
-	private static final String INDEX = "index.xhtml?faces-redirect=true";
 
-	private String fullContextPath; 
-	
 	@PostConstruct
 	public void init() {
-		
-		HttpServletRequest request = FacesUtils.getRequest();
-		String protocolHostPort = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-		String contextPath = request.getContextPath();
-		fullContextPath = protocolHostPort + contextPath + "/";
-		
-		clear();
-	}
-	
-	
-	public void addHistory(String label, String url) {
-		history.add( new NavigationDTO( label, montarUrl( url ) ) );
-	}
-	
-	
-	public void clear() {
 		history = new ArrayList<NavigationDTO>();
 		addHome();
 	}
 	
 	
-	private void addHome() {
-		history.add( new NavigationDTO("Home", montarUrl(INDEX ) ) );
+	public void addHistory(String label, String url) {
+		NavigationDTO dto = new NavigationDTO( label, url );
+		if (!history.contains(dto)) {
+			history.add( dto );
+		}
+		
+		clearAfterUrl(dto);
 	}
 	
-	private String montarUrl(String link) {
-		return fullContextPath + link;
+	/**
+	 * Remove os links após o link informado.
+	 * @param dto
+	 */
+	public void clearAfterUrl(NavigationDTO dto) {
+		int indexOf = history.indexOf(dto);
+		clearAfterPosition(++indexOf);
 	}
 
+	private void clearAfterPosition( Integer position ) {
+		history = history.subList(0, position);
+	}
+
+	private void addHome() {
+		history.add( new NavigationDTO("Home", Constants.INDEX ) );
+	}
+	
+	
 
 	/* ------- Inner DTO ------------ */
 	public class NavigationDTO {
@@ -68,6 +67,39 @@ public class NavigationHistory {
 		public String getUrl() {
 			return url;
 		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + ((url == null) ? 0 : url.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			NavigationDTO other = (NavigationDTO) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (url == null) {
+				if (other.url != null)
+					return false;
+			} else if (!url.equals(other.url))
+				return false;
+			return true;
+		}
+
+		private NavigationHistory getOuterType() {
+			return NavigationHistory.this;
+		}
+		
 	}
 
 
