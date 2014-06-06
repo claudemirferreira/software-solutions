@@ -54,9 +54,10 @@ body {
 }
 
 #content {
-	min-height: 320px;
+	min-height: 520px;
 	font-size: 120%;
 	width: 100%;
+	background-color: #EEEEEE;
 }
 
 #footer {
