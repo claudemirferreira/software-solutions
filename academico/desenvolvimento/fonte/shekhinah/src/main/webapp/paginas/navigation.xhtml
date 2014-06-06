@@ -1,50 +1,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
 
 	<h:form id="menuForm">
+		<div align="center">
+			<div style="float: left; width: 50%; text-align: left;">
+				<h:outputLabel value="#{system_name}: Shekinah"
+					title="SysAcad: Sistema de Contole Acadêmico"
+					style="font-weight: normal; font-size: large;" />
+			</div>
 
-		<p:toolbar>
-		
-			<p:toolbarGroup align="left">
-				<h:outputLabel value="#{system_name}: Shekinah" 
-							title="SysAcad: Sistema de Contole Acadêmico" style="font-weight: normal; color: #FFD700; font-size: large;"/>
-			</p:toolbarGroup>
-			
-			<p:toolbarGroup align="center">
-				<h:outputLabel value="#{flash.msgBemVindo}" />
-				<!-- se quiser manter a msg usar: flash.keep.msgBemVindo -->
-			</p:toolbarGroup>
-			
-		</p:toolbar>
-		
-		<p:toolbar>
-			<p:toolbarGroup align="center">
-			
-				<p:outputPanel autoUpdate="true">
-					<ui:include src="/paginas/navigationHistory.xhtml" />
-				</p:outputPanel>
-				
-				<!--
-				<p:breadCrumb>  
-				    <p:menuitem value="HOME" url="/index.xhtml?faces-redirect=true" actionListener=" perfilControlador.listaPerfilUsuario " icon="ui-icon-home" update=":form" />  
-				    <p:menuitem value="Módulos" url="/index.xhtml?faces-redirect=true" immediate="true" />  
-			    </p:breadCrumb>
-			    -->
-			</p:toolbarGroup>
+			<div style="float: left; width: 25%; text-align: right;">
+				<p:outputLabel value="#{flash.msgBemVindo}"
+					style="font-size: 18px; text-align:center; vertical-align: middle;" />
+			</div>
 
-			<p:toolbarGroup align="right">
-				<p:separator />
-				<p:commandButton value="Logout" 
-								action="/login.xhtml?faces-redirect=true" 
-								actionListener="#{authenticatorController.logout}" 
-								icon="ui-icon-closethick" 
-								immediate="true"/>
-			</p:toolbarGroup>
-				
-		</p:toolbar>
+			<div style="float: right; width: 25%; text-align: right;">
+				<p:commandButton value="Logout" icon="ui-icon-closethick"
+					immediate="true" action="/login.xhtml?faces-redirect=true"
+					actionListener="#{authenticatorController.logout}" />
+			</div>
+
+		</div>
+		<div style="clear: both;">
+			<div class="MenuHistorico">
+				<div style="float: left;">
+					<c:forEach var="item" items="#{navigationHistory.history}">
+										|&#x00A0;
+										<h:commandLink action="#{pageUtils.redirectForUrl(item.url)}"
+							actionListener="#{navigationHistory.clearAfterUrl(item)}"
+							value="#{item.label}" />
+					</c:forEach>
+
+				</div>
+
+				<div style="float: right;">
+					<h:outputText value="#{dateBean.fullDate}" />
+				</div>
+			</div>
+		</div>
+
 	</h:form>
 </ui:component>
