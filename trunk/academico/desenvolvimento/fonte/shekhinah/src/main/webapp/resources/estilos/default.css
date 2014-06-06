@@ -301,3 +301,67 @@ img.right {
     padding:4px;
 }
 
+/* layout - header */
+#topo {
+    width: 100%;
+    text-align: center;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+    color: #FFF;
+}
+#header_top {
+    background-image: url("/shekinah/resources/imagens/img_sistema_fundo_top.jpg");	 /* FIXME usar uma img grande - quedrar em duas partes, a 2ª parte usar em header_top_menu. */
+    background-repeat: no-repeat;
+    background-position: right center;
+    clear: both;
+    height: 80px;
+    width: 100%;
+}
+#header_top_marca {
+    background-image: url("/shekinah/resources/imagens/img_sistema_02.jpg");
+    background-repeat: no-repeat;
+    float: left;
+    height: 80px;
+    width: 240px;
+}
+#header_top_all {
+	float: none;
+	height: 80px;
+	width: 100%;
+}
+#header_content {
+	padding-left: 250px;
+	height: 80px;
+}
+#header_top_right {
+    text-align: right;
+    vertical-align: top;
+    float: right;
+    height: 50px;
+/*    width: 760px;  */
+}
+#header_bottom {
+	width: 100%;
+	padding-top: 55px;
+}
+#header_top_nav_history {
+    width: 50%;
+    float: left;
+}
+#header_top_date {
+    float: right;
+    padding-right: 10px;
+}
+#header_top_space {
+	height: 10px;
+}
+.header_text {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    text-decoration: none;
+    color: #FFF;
+}
