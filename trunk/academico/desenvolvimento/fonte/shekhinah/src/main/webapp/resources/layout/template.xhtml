@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:pe="http://primefaces.org/ui/extensions"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<h:head>
-		
-		<f:facet name="first">
-			<f:loadBundle basename="messages" var="msg" />
-			
-			<c:set var="system_name" value="#{msg.system_name}" />
-			
-       	 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-			<title>:: #{system_name} : #{msg.project_name} :: #{empty pageTitle ? '*' : pageTitle}</title>
-			<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
-		</f:facet>
-		
-		<!-- FIXME unificar css -->
-		<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/default.css" />
-		<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/screen.css" />
+<h:head>
 
-        <link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/syntaxhighlighter.css" />
+	<f:facet name="first">
+		<f:loadBundle basename="messages" var="msg" />
 
-<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/forge-style.css" /> -->
-<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/style-custon.css" /> -->
-        
-		<style type="text/css">
-			/*
+		<c:set var="system_name" value="#{msg.system_name}" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>:: #{system_name} : #{msg.project_name} :: #{empty
+			pageTitle ? '*' : pageTitle}</title>
+		<link rel="icon"
+			href="#{request.contextPath}/resources/imagens/favicon.ico" />
+	</f:facet>
+
+	<!-- FIXME unificar css -->
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/estilos/screen.css" />
+	<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/style-custon.css" /> -->
+
+	<style type="text/css">
+/*
 			body {
 				background: url(#{request.contextPath}/resources/imagens/macback.png);
 				margin: 0;
@@ -59,37 +56,35 @@
 			    font-weight: bold;
 			}
 			*/
-			.ui-datatable .ui-datatable-footer {
-                text-align:left;
-            }
-            
-		</style>
+.ui-datatable .ui-datatable-footer {
+	text-align: left;
+}
+</style>
 
-		<!-- Add conteudo adicional para o head informado pela pagina -->
-		<ui:insert name="head" />
+	<!-- Add conteudo adicional para o head informado pela pagina -->
+	<ui:insert name="head" />
+
+</h:head>
+
+<h:body>
+
+	<div id="container" style="width: 99%">
+
+		<div id="header">
+			<ui:include src="/paginas/navigation.xhtml" />
+		</div>
 		
-	</h:head>
-	
-	<h:body>
-	
-		<p:layout fullPage="true">
-
-			<p:layoutUnit position="north">
-				<ui:include src="/paginas/navigation.xhtml" />
-			</p:layoutUnit>
-	
-			<p:layoutUnit position="center">
-				<ui:insert name="content"/>
-			</p:layoutUnit>
-	
-			<p:layoutUnit position="south" size="30">
-				<div align="right">
-					<h:outputText value="Powered by" />
-					<a href="#">SS - Software Solutions</a>
-				</div>
-			</p:layoutUnit>
+		<div id="content"
+			style="background-color: #EEEEEE; float: left;">
+			<ui:insert name="content"/>
 			
-		</p:layout>  
-		
-	</h:body>
+		</div>
+
+		<div id="footer"
+			style="background-color: #FFA500; clear: both; text-align: center;">
+			Copyright © W3Schools.com</div>
+
+	</div>
+
+</h:body>
 </html>
