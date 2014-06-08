@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<cc:interface>
+	
+		<cc:attribute name="managedBean" required="true" />
+		
+		<!-- Buttons -->
+		<cc:attribute name="renderDetail" default="true" shortDescription="Indica se deve exibir ou nao o botao: Detalhe" />
+		<cc:attribute name="renderRemove" default="true" shortDescription="Indica se deve exibir ou nao o botao: Excluir" />
+		
+	</cc:interface>
+	
+	<cc:implementation>
+
+		<p:column style="text-align:left" headerText="Ação">
+			<center>
+				<ss:button managedBean="#{cc.attrs.managedBean}" type="detalhe" render="#{cc.attrs.renderDetail}" />
+				
+				<ss:button managedBean="#{cc.attrs.managedBean}" type="exclusao" render="#{cc.attrs.renderRemove}" />
+				
+				<cc:insertChildren />
+				
+			</center>
+		</p:column>
+ 		
+	</cc:implementation>
+	
+</html>
