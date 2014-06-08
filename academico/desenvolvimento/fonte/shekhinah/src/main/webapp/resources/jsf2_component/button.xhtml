@@ -31,9 +31,9 @@
 	<c:if test="#{cc.attrs.type eq 'exclusao'}">
 		<c:set var="label"  value="#{empty cc.attrs.label ? 'Excluir' : cc.attrs.label}" />
 		<c:set var="title"  value="#{not empty cc.attrs.title ? cc.attrs.title : label}" />
-		<c:set var="icon"  value="#{not empty cc.attrs.icon ? cc.attrs.icon : 'ui-icon-trash'}" />
+		<c:set var="icon"  	value="#{not empty cc.attrs.icon ? cc.attrs.icon : 'ui-icon-trash'}" />
 		<c:set var="method"  value="#{not empty cc.attrs.method ? cc.attrs.method : 'excluir'}" />
-		<c:set var="update"  value="#{empty cc.attrs.update ? ':form:gridPesquisa' : cc.attrs.update}" />
+		<c:set var="update"  value="#{empty cc.attrs.update ? ':form:grid' : cc.attrs.update}" />
 		
 		<p:commandButton value="#{label}" 
 						title="#{title}"

@@ -7,40 +7,63 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 	<cc:interface>
 	
-		<cc:attribute name="list" required="true" />
+		<cc:attribute name="managedBean" required="true" />
+		<cc:attribute name="list" default="listaPesquisa" />
 		
-		<cc:attribute name="id" required="false" default="id" />
-		<cc:attribute name="rows" required="false" default="5" />
-		<cc:attribute name="paginator" required="false" default="true" />
-		<cc:attribute name="paginatorPosition" required="false" default="bottom" />
-		<cc:attribute name="paginatorAlwaysVisible" required="false" default="false" />
-		<cc:attribute name="emptyMessage" required="false" default="Nenhum registro encontrado." />
+		<cc:attribute name="rows" default="10" />
+		<cc:attribute name="rowsPerPageTemplate" default="10,20,30" />
+		<cc:attribute name="paginator" default="true" />
+		<cc:attribute name="paginatorPosition" default="bottom" />
+		<cc:attribute name="paginatorAlwaysVisible" default="false" />
+		<cc:attribute name="emptyMessage" default="Nenhum registro encontrado." />
+		
+		<!-- Buttons -->
+		<cc:attribute name="renderDetail" default="true" shortDescription="Indica se deve exibir ou nao o botao: Detalhe" />
+		<cc:attribute name="renderRemove" default="true" shortDescription="Indica se deve exibir ou nao o botao: Excluir" />
+		
+		<cc:attribute name="renderFooter" default="true" />
 		
 	</cc:interface>
 	
 	<cc:implementation>
 
-		<p:dataTable id="grid_#{cc.attrs.id}" 
-					 var="item" 
-					 value="#{cc.attrs.list}"
+		<c:set var="listSize" value="#{fn:length(cc.attrs.list)}" />
+		<c:set var="s" value="#{listSize gt 1 ? 's' : ''}" />
+		
+		<p:dataTable var="item" 
+					 value="#{cc.attrs.managedBean[cc.attrs.list]}"
 	                 rows="#{cc.attrs.rows}"
 	                 paginator="#{cc.attrs.paginator}"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 rowsPerPageTemplate="#{cc.attrs.rowsPerPageTemplate}"
 	                 paginatorPosition="#{cc.attrs.paginatorPosition}"
 	                 paginatorAlwaysVisible="#{cc.attrs.paginatorAlwaysVisible}"
-	                 emptyMessage="#{cc.attrs.emptyMessage}"
-	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-	                 rowsPerPageTemplate="5,10,15,20"
-	                 >
+	                 emptyMessage="#{cc.attrs.emptyMessage}" >
 	                 
-	         <ui:insert />        
-	         
-	         <f:facet name="footer">
-	        	<h:outputText value="#{fn:length(cc.attrs.list)} Registro(s) encontrado(s)." />  
-            </f:facet>
+			<cc:insertChildren />
+			
+			<ss:actionColumn managedBean="#{cc.attrs.managedBean}" 
+							renderDetail="#{cc.attrs.renderDetail}" 
+							renderRemove="#{cc.attrs.renderRemove}" >
+			
+				<p:commandButton value="Alunos" title="Listar alunos"
+								action="#{turmaControlador.listarAlunos(item)}"
+								icon="ui-icon-folder-collapsed" 
+								oncomplete="PF('dlgModal').show();" 
+								update=":dialogAlunos" />
+								
+			</ss:actionColumn>
+			
+			<c:if test="#{cc.attrs.renderFooter}">
+		         <f:facet name="footer">
+		        	<h:outputText value="#{listSize} Registro#{s} encontrado#{s}." />  
+	            </f:facet>
+			</c:if>
 	                 
         </p:dataTable>
 		 		

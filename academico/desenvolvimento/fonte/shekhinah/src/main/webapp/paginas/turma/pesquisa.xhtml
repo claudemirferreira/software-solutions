@@ -25,14 +25,9 @@
 	</ui:define>
 	
 	<ui:define name="grid_region">
-
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-					value="#{turmaControlador.listaPesquisa}" paginatorPosition="bottom"
-					paginatorAlwaysVisible="true"
-					emptyMessage="Nenhum registro encontrado."
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15,20">
-
+	
+		<ss:grid managedBean="#{turmaControlador}">
+			
 			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.ano}">
 				<h:outputText value="#{item.ano}" />
 			</p:column>
@@ -48,26 +43,17 @@
 			<p:column style="text-align:left" headerText="Número de Vagas" sortBy="#{item.numeroVagas}">
 				<h:outputText value="#{item.numeroVagas}" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="Ação">
+			
+			<ui:define name="aditionalAction">
 				
-				<ss:button managedBean="#{turmaControlador}" type="detalhe" />
-
 				<p:commandButton value="Alunos" title="Listar alunos"
 								action="#{turmaControlador.listarAlunos(item)}"
 								icon="ui-icon-folder-collapsed" 
 								oncomplete="PF('dlgModal').show();" 
 								update=":dialogAlunos" />
-
-				<ss:button managedBean="#{turmaControlador}" type="exclusao" />
-
-			</p:column>
-
-			<f:facet name="footer">  
-	            Total de registros: #{fn:length(turmaControlador.listaPesquisa)} turmas.  
-	        </f:facet>
-
-		</p:dataTable>
+			</ui:define>
+			
+		</ss:grid>
 
 	</ui:define>
 	
