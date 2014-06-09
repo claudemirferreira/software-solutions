@@ -1,62 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<ui:component xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	template="/resources/layout/search_template.xhtml">
 
-	<h:form id="form">
-		<p:panel header="Disciplina">
-
-			<h:panelGrid id="panelPesquisa" columns="2">
-
-				<h:outputText value="Nome" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{disciplinaControlador.pesquisa.nome}" style="width:300px;" />
-
-			</h:panelGrid>
-
-			<f:facet name="footer">
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{disciplinaControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{disciplinaControlador.novo}" />
-			</f:facet>
-
-		</p:panel>
-
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-					value="#{disciplinaControlador.lista}" paginatorPosition="bottom"
-					paginatorAlwaysVisible="true"
-					emptyMessage="Nenhum registro encontrado."
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15,20">
-
+	<ui:param name="pageTitle" value="Disciplina"/>
+	<ui:param name="pageHeader" value="Disciplina"/>
+	<ui:param name="managedBean" value="#{disciplinaControlador}"/>
+	
+	<ui:define name="search_filter">
+		
+		<ss:input label="Nome" size="40" value="#{disciplinaControlador.pesquisa.nome}" />
+			
+	</ui:define>
+	
+	<ui:define name="grid_region">
+	
+		<ss:grid managedBean="#{disciplinaControlador}">
+			
 			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Ação">
-			
-				<ss:button managedBean="#{disciplinaControlador}" type="detalhe" />
-
-				<ss:button managedBean="#{disciplinaControlador}" type="exclusao" />
-			
+			<p:column style="text-align:left" headerText="Descrição" sortBy="#{item.descricao}">
+				<h:outputText value="#{item.descricao}" />
 			</p:column>
 
-			<f:facet name="footer">  
-            Total de registros: #{fn:length(disciplinaControlador.lista)} disciplinas.  
-        </f:facet>
+			<!-- FIXME Col Acao -->
+			
+		</ss:grid>
 
-		</p:dataTable>
-
-	</h:form>
-
-</ui:component>
+	</ui:define>
+	
+</ui:composition>

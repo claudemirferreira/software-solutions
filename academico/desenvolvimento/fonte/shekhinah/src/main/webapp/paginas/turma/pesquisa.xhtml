@@ -7,6 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
@@ -26,32 +27,23 @@
 	
 	<ui:define name="grid_region">
 	
-		<ss:grid managedBean="#{turmaControlador}">
+		<ss:grid managedBean="#{turmaControlador}" renderedActionColumn="false">
 			
-			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.ano}">
-				<h:outputText value="#{item.ano}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Curso" sortBy="#{item.curso.nome}">
-				<h:outputText value="#{item.curso.nome}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turno}">
-				<h:outputText value="#{item.turno}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Número de Vagas" sortBy="#{item.numeroVagas}">
-				<h:outputText value="#{item.numeroVagas}" />
-			</p:column>
+			<ss2:column value="#{item.ano}" header="Ano" sortBy="ano"  />
 			
-			<ui:define name="aditionalAction">
-				
+			<ss2:column value="#{item.curso.nome}" header="Curso" sortBy="curso.nome"  />
+
+			<ss2:column value="#{item.turno}" header="Turno" sortBy="turno"  />
+			
+			<ss2:column value="#{item.numeroVagas}" header="Número de Vagas" sortBy="numeroVagas" textAlign="center" />
+			
+			<ss2:actionColumn managedBean="#{turmaControlador}">
 				<p:commandButton value="Alunos" title="Listar alunos"
 								action="#{turmaControlador.listarAlunos(item)}"
 								icon="ui-icon-folder-collapsed" 
 								oncomplete="PF('dlgModal').show();" 
 								update=":dialogAlunos" />
-			</ui:define>
+			</ss2:actionColumn>
 			
 		</ss:grid>
 

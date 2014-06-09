@@ -675,7 +675,7 @@ CREATE TABLE `saa_usuario` (
   `id_usuario` bigint(20) NOT NULL auto_increment,
   `login` varchar(30) default NULL,
   `nome` varchar(30) NOT NULL,
-  `senha` varchar(255) default NULL,
+  `senha` varchar(64) default NULL,
   `status` smallint(5) unsigned NOT NULL,
   PRIMARY KEY  (`id_usuario`),
   UNIQUE KEY `UK_ckrgsi99ta2s36tkydejud4wy` (`login`)
@@ -687,8 +687,8 @@ CREATE TABLE `saa_usuario` (
 
 /*!40000 ALTER TABLE `saa_usuario` DISABLE KEYS */;
 INSERT INTO `saa_usuario` (`id_usuario`,`login`,`nome`,`senha`,`status`) VALUES 
- (1,'admin','ADMINISTRADOR','admin',0),
- (2,'Usuario Teste','Usuario Teste','teste',0);
+ (1,'admin','ADMINISTRADOR','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0),
+ (2,'Usuario Teste','Usuario Teste','46070D4BF934FB0D4B06D9E2C46E346944E322444900A435D7D9A95E6D7435F5',0);
 /*!40000 ALTER TABLE `saa_usuario` ENABLE KEYS */;
 
 

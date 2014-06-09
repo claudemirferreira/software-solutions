@@ -24,6 +24,8 @@
 	<cc:attribute name="item" default="#{item}" shortDescription="Item selecionado no grid" />
 	<cc:attribute name="msgExclusao" default="Tem certeza que deseja excluir o registro?"/>
 	
+	<cc:attribute name="onclick" />
+	
 </cc:interface>
 
 <cc:implementation>
@@ -129,6 +131,7 @@
 						rendered="#{cc.attrs.render}"
 						update="#{cc.attrs.update}" 
 						styleClass="ui-priority-primary"
+						onclick="#{cc.attrs.onclick}"
 						ajax="#{cc.attrs.ajax}" />
 	</c:if>
 	

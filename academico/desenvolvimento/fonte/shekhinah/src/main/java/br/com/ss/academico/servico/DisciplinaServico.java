@@ -3,14 +3,9 @@ package br.com.ss.academico.servico;
 import java.util.List;
 
 import br.com.ss.academico.dominio.Disciplina;
+import br.com.ss.core.seguranca.servico.IService;
 
-public interface DisciplinaServico {
-
-	public List<Disciplina> listarTodos();
-
-	public Disciplina salvar(Disciplina disciplina);
-
-	public void remover(Disciplina disciplina);
+public interface DisciplinaServico extends IService<Disciplina, Long> {
 
 	public List<Disciplina> findByNomeLike(String nome);
 	
