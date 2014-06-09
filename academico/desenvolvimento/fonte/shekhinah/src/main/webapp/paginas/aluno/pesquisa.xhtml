@@ -42,7 +42,7 @@
 			
 			<ss2:column value="#{item.responsavel.nome}" header="Responsável" sortBy="responsavel.nome" />
 			
-			<ss2:actionColumn managedBean="#{alunoControlador}">
+			<ss2:actionColumn managedBean="#{alunoControlador}" addButton="1">
 				<p:commandButton value="Matrícula" title="Matrícula"
 							action="#{alunoMatriculaControlador.showModalMatricula(item)}"
 							oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
