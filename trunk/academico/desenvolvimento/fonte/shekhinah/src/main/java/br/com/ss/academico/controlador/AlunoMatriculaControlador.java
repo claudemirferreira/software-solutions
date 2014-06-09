@@ -87,10 +87,10 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		naoSimList = createNaoSimList();
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
-		carregarDiaVencimento();
+		carregarConfiguracao();
 	}
 
-	private void carregarDiaVencimento() {
+	private void carregarConfiguracao() {
 		configuracao = servicoConfiguracao.listarTodos().get(0);
 	}
 

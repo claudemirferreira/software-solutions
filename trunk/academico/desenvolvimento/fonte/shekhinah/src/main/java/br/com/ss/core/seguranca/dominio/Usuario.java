@@ -40,6 +40,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Column(unique = true, length = 30)
 	private String login;
 
+	@Column(length = 64)
 	private String senha;
 
 	@Enumerated

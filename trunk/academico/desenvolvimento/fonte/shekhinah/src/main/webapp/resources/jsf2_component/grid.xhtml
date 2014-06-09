@@ -8,6 +8,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 	<cc:interface>
@@ -23,16 +24,22 @@
 		<cc:attribute name="emptyMessage" default="Nenhum registro encontrado." />
 		
 		<!-- Buttons -->
-		<cc:attribute name="renderDetail" default="true" shortDescription="Indica se deve exibir ou nao o botao: Detalhe" />
-		<cc:attribute name="renderRemove" default="true" shortDescription="Indica se deve exibir ou nao o botao: Excluir" />
+		<cc:attribute name="renderedActionColumn" default="true" shortDescription="Indica se deve exibir ou nao a coluna Ação." />
+		<cc:attribute name="renderedDetail" default="true" shortDescription="Indica se deve exibir ou nao na coluna Ação o botao: Detalhe" />
+		<cc:attribute name="renderedRemove" default="true" shortDescription="Indica se deve exibir ou nao na coluna Ação o botao: Excluir" />
 		
 		<cc:attribute name="renderFooter" default="true" />
+		
+		<cc:facet name="header" shortDescription="Header do grid definido pelo Facet." >
+			<!-- Header do grid. Ex: <ss:grid  .. > <f:facet name="header"> <h:outputText value="text" /> </f:facet> </ss:grid>  -->
+		</cc:facet>
+        <cc:attribute name="title" shortDescription="Header do grid definido como atributo do componente." > <!-- <ss:grid .. title="Teste Header"> --> </cc:attribute>
 		
 	</cc:interface>
 	
 	<cc:implementation>
 
-		<c:set var="listSize" value="#{fn:length(cc.attrs.list)}" />
+		<c:set var="listSize" value="#{fn:length( cc.attrs.managedBean[cc.attrs.list] )}" />
 		<c:set var="s" value="#{listSize gt 1 ? 's' : ''}" />
 		
 		<p:dataTable var="item" 
@@ -45,19 +52,23 @@
 	                 paginatorAlwaysVisible="#{cc.attrs.paginatorAlwaysVisible}"
 	                 emptyMessage="#{cc.attrs.emptyMessage}" >
 	                 
+            <!-- If the facet is given at parent, insert it. Otherwise, provide the title given by the attribute -->
+            <c:choose>
+                <c:when test="#{not empty cc.facets.header}">
+                    <cc:insertFacet name="header" />
+                </c:when>
+                <c:when test="#{not empty cc.attrs.title}">
+                    <f:facet name="header">#{cc.attrs.title}</f:facet>
+                </c:when>
+            </c:choose>
+            
+            <!-- Insere as colunas do grid -->
 			<cc:insertChildren />
 			
-			<ss:actionColumn managedBean="#{cc.attrs.managedBean}" 
-							renderDetail="#{cc.attrs.renderDetail}" 
-							renderRemove="#{cc.attrs.renderRemove}" >
-			
-				<p:commandButton value="Alunos" title="Listar alunos"
-								action="#{turmaControlador.listarAlunos(item)}"
-								icon="ui-icon-folder-collapsed" 
-								oncomplete="PF('dlgModal').show();" 
-								update=":dialogAlunos" />
-								
-			</ss:actionColumn>
+			<!-- Coluna Acao -->
+			<c:if test="#{cc.attrs.renderedActionColumn}">
+				<ss2:actionColumn managedBean="#{cc.attrs.managedBean}" renderedDetail="#{cc.attrs.renderedDetail}" renderedRemove="#{cc.attrs.renderedRemove}" />
+			</c:if>
 			
 			<c:if test="#{cc.attrs.renderFooter}">
 		         <f:facet name="footer">

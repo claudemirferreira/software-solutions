@@ -8,4 +8,6 @@ public interface DisciplinaRepositorioSql {
 
 	public List<Disciplina> listaDisciplinaPorCurso(Long idCurso);
 
+	public List<Disciplina> pesquisar(Disciplina entity);
+
 }

@@ -5,48 +5,31 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
+    xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component">
 
 	<p:dialog id="dialogAlunos" width="650" resizable="true" modal="true" appendToBody="true"
-		header="Alunos matriculados para a turma: #{turmaControlador.turmaSelecaoModal.curso.nome} - #{turmaControlador.turmaSelecaoModal.ano} (#{turmaControlador.turmaSelecaoModal.turno.descricao})"
-		widgetVar="dlgModal" closable="true" draggable="true">
+			header="Alunos matriculados para a turma: #{turmaControlador.turmaSelecaoModal.curso.nome} - #{turmaControlador.turmaSelecaoModal.ano} (#{turmaControlador.turmaSelecaoModal.turno.descricao})"
+			widgetVar="dlgModal" closable="true" draggable="true">
 
 		<h:form id="formDlg">
 
 			<p:panel id="pnlModal">
 		
-				<f:facet name="footer">
-			       	<p:commandButton value="Fechar" action="#{turmaControlador.closeModal()}"
-				       		styleClass="ui-priority-primary" icon="ui-icon-circle-close" 
-				       		onclick="PF('dlgModal').hide();" immediate="true"/>  
-				</f:facet>
-			
-				<p:dataTable id="gridAlunos" var="item" rows="10" paginator="true"
-						value="#{turmaControlador.listaAluno}" paginatorPosition="bottom"
-						paginatorAlwaysVisible="true"
-						rendered="#{not empty turmaControlador.listaAluno}"
-						emptyMessage="Nenhum registro encontrado."
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15,20">
-			
-					<p:column style="text-align:left" headerText="Responsável" sortBy="#{item.responsavel.nome}">
-						<h:outputText value="#{item.responsavel.nome}" />
-					</p:column>
-		
-					<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
-						<h:outputText value="#{item.nome}" />
-					</p:column>
+				<ss:grid managedBean="#{turmaControlador}" list="listaAluno" renderedActionColumn="false" emptyMessage="Nenhum aluno matriculado para esta turma.">
 					
-					<f:facet name="footer">  
-			            Total de registros: #{fn:length(turmaControlador.listaAluno)} alunos.  
-			        </f:facet>
-		
-				</p:dataTable>	
+					<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
 				
-				<p:outputPanel rendered="#{empty turmaControlador.listaAluno}">
-					<h:outputText value="Nenhum aluno matriculado para esta turma." />
-				</p:outputPanel>
+					<ss2:column value="#{item.responsavel.nome}" header="Responsável" sortBy="responsavel.nome"  />
 				
+				</ss:grid>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Fechar" action="#{turmaControlador.closeModal()}"
+						       		styleClass="ui-priority-primary" icon="ui-icon-circle-close" 
+						       		onclick="PF('dlgModal').hide();" immediate="true"/>
+				</f:facet>
 			</p:panel>
 			
 		</h:form>

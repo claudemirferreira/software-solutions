@@ -16,6 +16,8 @@ import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.seguranca.servico.UsuarioServico;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.StatusUsuario;
+import br.com.ss.core.web.utils.CriptografiaUtil;
+import br.com.ss.core.web.utils.StringUtil;
 
 @ManagedBean
 @SessionScoped
@@ -43,6 +45,17 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	protected String getNomeRelatorio() {
 		// FIXME #Peninha: relatorio
 		return null;
+	}
+	
+	
+	@Override
+	public String salvar() {
+		// criptografa a senha do usuario
+		if (StringUtil.notEmpty(entidade.getSenha())) {
+			entidade.setSenha( CriptografiaUtil.criptografar(entidade.getSenha()) );
+		}
+		
+		return super.salvar();
 	}
 
 	@Override
