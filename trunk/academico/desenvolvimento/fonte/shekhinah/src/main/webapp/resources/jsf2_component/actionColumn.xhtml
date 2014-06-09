@@ -8,11 +8,12 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition>
-
-	<c:set var="btnCount" value="0" />
+	
+	<!-- addButton: additional button -->
+	<c:set var="btnCount" value="#{not empty addButton ? addButton : 0 }" />
 	<c:if test="#{empty renderedDetail}">
 		<c:set var="renderedDetail" value="true" />
-		<c:set var="btnCount" value="1" />
+		<c:set var="btnCount" value="#{btnCount + 1}" />
 	</c:if>
 	
 	<c:if test="#{empty renderedRemove}">
@@ -21,13 +22,13 @@
 	</c:if>
 
 	<c:if test="#{empty width}">
-		<c:set var="width" value="${btnCount * 50}" />
+		<c:set var="width" value="${btnCount * 100}" />
 	</c:if>
 
 
 	<p:column style="text-align:center" headerText="Ação" width="#{width}">
 		<center>
-			*#{width}*#{btnCount}*
+			
 			<!-- Insere o conteudo adicional caso haja -->
 			<ui:insert />
 
