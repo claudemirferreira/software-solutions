@@ -30,7 +30,7 @@
 		<ss:grid managedBean="#{usuarioControlador}" renderedActionColumn="false">
 		
 			<ss2:column value="#{item.login}" header="Login" sortBy="login"  />
-			<ss2:column value="#{item.status}" header="Situação" sortBy="status"  />
+			<ss2:column value="#{item.status.descricao}" header="Situação" sortBy="status" converter="" />
 		
 			<ss2:actionColumn managedBean="#{usuarioControlador}" buttonsAdded="1">
 				<p:commandButton value="Perfil" title="Perfil"

@@ -7,6 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
@@ -34,71 +35,20 @@
 			
 	</ui:define>
 
-	<ui:define name="grid_region">	
+	<ui:define name="grid_region">
 	
-		<p:dataTable id="gridPesquisa" var="item" 
-					value="#{mensalidadeControlador.listaPesquisa}" 
-					emptyMessage="Nenhum registro encontrado."
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					paginatorAlwaysVisible="true"
-					rows="10" 
-					paginator="true" paginatorPosition="bottom"
-					rowsPerPageTemplate="10,20,30">	
-					<!-- style="width:900px" -->
-					
-			<p:column headerText="Matrícula" width="80" style="text-align:right" sortBy="#{item.matricula.id}">
-				<h:outputText value="#{item.matricula.id}" />
-			</p:column>
-
-			<p:column headerText="Aluno" style="text-align:left" width="200" sortBy="#{item.matricula.aluno.nome}">
-				<h:outputText value="#{item.matricula.aluno.nome}" />
-			</p:column>
-
-			<p:column headerText="Curso" style="text-align:left" width="120" sortBy="#{item.matricula.aluno.nome}">
-				<h:outputText value="#{item.matricula.turma.curso.nome}" />
-			</p:column>
-
-			<p:column headerText="Valor" width="80" style="text-align:right" sortBy="#{item.valorVencimento}">
-				<h:outputText value="#{item.valorVencimento}" >
-					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-				</h:outputText>
-			</p:column>
-
-			<p:column headerText="Vencimento" style="text-align:center;" width="120" sortBy="#{item.dataVencimento}">
-				<center>
-					<h:outputText value="#{item.dataVencimento}" >
-						<f:convertDateTime dateStyle="medium" />
-					</h:outputText>
-				</center>
-			</p:column>
-
-			<p:column headerText="Pagamento" style="text-align:center;" width="120" sortBy="#{item.dataVencimento}">
-				<center>
-					<h:outputText value="#{item.dataPagamento}" >
-						<f:convertDateTime dateStyle="medium" />
-					</h:outputText>
-				</center>
-			</p:column>
-
-			<p:column headerText="Situação" style="text-align:center" width="90"  sortBy="#{item.statusPagamento}">
-				<center>
-					<h:outputText value="#{item.statusPagamento}" />
-				</center>
-			</p:column>
-
-			<p:column headerText="Ação" style="text-right" width="60" >
-				<center>
-				
-					<ss:button managedBean="#{mensalidadeControlador}" type="detalhe" />
-				
-				</center>
-			</p:column>
-
-			<f:facet name="footer">  
-	           Total de registros: #{fn:length(mensalidadeControlador.listaPesquisa)} mensalidades.  
-	       </f:facet>
-
-		</p:dataTable>
+		<ss:grid managedBean="#{mensalidadeControlador}" renderedRemove="false">
+		
+			<ss2:column value="#{item.matricula.id}" header="Matrícula" sortBy="matricula.id" textAlign="right" width="80" />
+			<ss2:column value="#{item.matricula.aluno.nome}" header="Aluno" sortBy="matricula.aluno.nome" />
+			<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
+			<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
+			<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
+			<ss2:column value="#{item.dataPagamento}" header="Pagamento" sortBy="dataPagamento" convertDate="true" width="120" textAlign="center" />
+			<ss2:column value="#{item.statusPagamento}" header="Situação" sortBy="statusPagamento"  />
+		
+		</ss:grid>
+	
 	</ui:define>			
 
 </ui:composition>
