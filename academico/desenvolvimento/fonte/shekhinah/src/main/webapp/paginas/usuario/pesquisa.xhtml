@@ -7,6 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
@@ -26,84 +27,31 @@
 	
 	<ui:define name="grid_region">
 
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true" paginatorPosition="bottom"
-					value="#{usuarioControlador.listaPesquisa}" 
-					paginatorAlwaysVisible="true"
-					emptyMessage="Nenhum registro encontrado."
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15,20">
-
-			<p:column style="text-align:left" headerText="Login" sortBy="#{item.login}">
-				<h:outputText value="#{item.login}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Status" sortBy="#{item.status}">
-				<h:outputText value="#{item.status}" />
-			</p:column>
-			
-			
-			<!-- FIXME validar/refatorar os metodos ausentes: usuarioPerfilControlador.manterUsuario(item) -->
-
-			<p:commandButton ajax="false" value="Detalhe"
-							action="#{usuarioPerfilControlador.manterUsuario(item)}"
-							styleClass="ui-priority-primary" icon="ui-icon-pencil"
-							update=":form" title="Manter Usuário" />
-
-			<p:column style="text-align:left" headerText="Ação">
-			
-				<ss:button managedBean="#{usuarioControlador}" type="detalhe" />
-			
+		<ss:grid managedBean="#{usuarioControlador}" renderedActionColumn="false">
+		
+			<ss2:column value="#{item.login}" header="Login" sortBy="login"  />
+			<ss2:column value="#{item.status}" header="Situação" sortBy="status"  />
+		
+			<ss2:actionColumn managedBean="#{usuarioControlador}" buttonsAdded="1">
 				<p:commandButton value="Perfil" title="Perfil"
 								action="#{usuarioPerfilControlador.showModalPerfil(item)}"
 								oncomplete="PF('dlgPerfil').show();" icon="ui-icon-bookmark"
 								update=":formDlg" />
-
-				<ss:button managedBean="#{usuarioControlador}" type="exclusao" />
-
-			</p:column>
-
-			<f:facet name="footer">  
-	            Total de registros: #{fn:length(usuarioControlador.listaPesquisa)} usuarios.  
-	        </f:facet>
-
-		</p:dataTable>
-
+			</ss2:actionColumn>
+			<!--  FIXME validar/refatorar os metodos ausentes: usuarioPerfilControlador.manterUsuario(item)
+			<p:commandButton ajax="false" value="Detalhe"
+							action=" usuarioPerfilControlador.manterUsuario(item) "
+							styleClass="ui-priority-primary" icon="ui-icon-pencil"
+							update=":form" title="Manter Usuário" />
+			 -->
+		</ss:grid>
+		
 	</ui:define>
 	
 	
 	<ui:define name="modal_region">
 	
-		<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" modal="true" appendToBody="true">
-			<h:form id="formDlg">
-			
-				<h4 style="margin-top: 0">Selecione os Perfis para associar ao Usuário</h4>
-	
-				<p:pickList id="plUsuPerf"
-								value="#{usuarioPerfilControlador.dualListPerfil}" 
-								effect="bounce"
-								converter="usuarioPerfilConverter" 
-								var="up"
-								itemLabel="#{up.perfil.nome}" 
-								itemValue="#{up}"
-								showSourceControls="false" 
-								showTargetControls="false"
-								showCheckbox="false" 
-								showSourceFilter="true" 
-								showTargetFilter="true">
-	
-					<f:facet name="sourceCaption">Disponíveis</f:facet>
-					<f:facet name="targetCaption">Atribuídos</f:facet>
-	
-					<p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update=":form:msg" />
-	
-					<p:column style="width:75%;"> #{up.perfil.nome}</p:column>
-	
-				</p:pickList>
-	
-				<p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" styleClass="ui-priority-primary" />
-	
-			</h:form>
-		</p:dialog>
+		<ui:include src="modalPerfil.xhtml" />
 		
 	</ui:define>
 

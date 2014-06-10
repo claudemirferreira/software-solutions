@@ -35,9 +35,9 @@
 
 			<ss2:column value="#{item.turno}" header="Turno" sortBy="turno"  />
 			
-			<ss2:column value="#{item.numeroVagas}" header="Número de Vagas" sortBy="numeroVagas" textAlign="center" />
+			<ss2:column value="#{item.numeroVagas}" header="Número de Vagas" sortBy="numeroVagas" width="160" textAlign="center" />
 			
-			<ss2:actionColumn managedBean="#{turmaControlador}">
+			<ss2:actionColumn managedBean="#{turmaControlador}" buttonsAdded="1">
 				<p:commandButton value="Alunos" title="Listar alunos"
 								action="#{turmaControlador.listarAlunos(item)}"
 								icon="ui-icon-folder-collapsed" 

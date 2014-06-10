@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	template="/resources/layout/search_template.xhtml">
 
 	<ui:param name="pageTitle" value="Disciplina"/>
@@ -24,16 +25,9 @@
 	
 		<ss:grid managedBean="#{disciplinaControlador}">
 			
-			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
-				<h:outputText value="#{item.nome}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Descrição" sortBy="#{item.descricao}">
-				<h:outputText value="#{item.descricao}" />
-			</p:column>
-
-			<!-- FIXME Col Acao -->
-			
+			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome" />
+			<ss2:column value="#{item.descricao}" header="Descrição" sortBy="descricao" />
+				
 		</ss:grid>
 
 	</ui:define>
