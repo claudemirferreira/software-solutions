@@ -160,7 +160,8 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	
 	public void executarExcluir(T itemRemove) {
-		getService().remover(itemRemove);
+		T removeEntity = getService().findByPrimaryKey(itemRemove.getId());
+		getService().remover(removeEntity);
 	}
 
 	/**

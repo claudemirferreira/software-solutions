@@ -7,13 +7,13 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
 	<ui:param name="pageTitle" value="Perfil"/>
 	<ui:param name="pageHeader" value="Perfil"/>
 	<ui:param name="managedBean" value="#{perfilControlador}"/>
-
 	
 	<ui:define name="search_filter">
 	
@@ -25,78 +25,26 @@
 	
 	<ui:define name="grid_region">
 
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-					value="#{perfilControlador.listaPesquisa}" paginatorPosition="bottom"
-					paginatorAlwaysVisible="true"
-					emptyMessage="Nenhum registro encontrado."
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15,20">
-
-			<p:column style="text-align:left" headerText="Nome" sortBy="#{item.nome}">
-				<h:outputText value="#{item.nome}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Imagem" sortBy="#{item.imagem}">
-				<h:outputText value="#{item.imagem}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Ação">
+		<ss:grid managedBean="#{perfilControlador}" renderedActionColumn="false">
 			
-				<ss:button managedBean="#{perfilControlador}" type="detalhe" />
-			
+			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
+			<ss2:column value="#{item.imagem}" header="Imagem" sortBy="imagem"  />
+		
+			<ss2:actionColumn managedBean="#{turmaControlador}" buttonsAdded="1">
 				<p:commandButton value="Rotina" title="Rotina"
 								action="#{perfilRotinaControlador.showModalRotina(item)}"
 								icon="ui-icon-newwin" oncomplete="PF('dlgRotina').show();"
 								update=":formDlg" />
-
-				<ss:button managedBean="#{perfilControlador}" type="exclusao" />
+			</ss2:actionColumn>
 			
-			</p:column>
-
-			<f:facet name="footer">  
-	            Total de registros: #{fn:length(perfilControlador.listaPesquisa)} perfis.  
-	        </f:facet>
-
-		</p:dataTable>
+		</ss:grid>
 
 	</ui:define>
 
 	
 	<ui:define name="modal_region">
-	
-		<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina" modal="true" appendToBody="true">
-	
-			<h:form id="formDlg">
-				<p:growl id="msg" showDetail="false" escape="false" globalOnly="false" />
-	
-				<h4 style="margin-top: 0">Selecione as Rotinas para associar ao Perfil</h4>
-	
-				<p:pickList id="plUsuPerf"
-							value="#{perfilRotinaControlador.dualListRotina}" 
-							effect="bounce"
-							converter="perfilRotinaConverter" 
-							var="pr"
-							itemLabel="#{pr.rotina.nome}" 
-							itemValue="#{pr}"
-							showSourceControls="false" 
-							showTargetControls="false"
-							showCheckbox="false" 
-							showSourceFilter="true" 
-							showTargetFilter="true">
-	
-					<f:facet name="sourceCaption">Disponíveis</f:facet>
-					<f:facet name="targetCaption">Atribuídas</f:facet>
-	
-					<p:ajax event="transfer" listener="#{perfilRotinaControlador.onTransfer}" update="msg" />
-	
-					<p:column style="width:75%;">#{pr.rotina.nome}</p:column>
-	
-				</p:pickList>
-	
-				<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();" styleClass="ui-priority-primary" />
-	
-			</h:form>
-		</p:dialog>
+		
+		<ui:include src="modalRotina.xhtml" />
 	
 	</ui:define>
 

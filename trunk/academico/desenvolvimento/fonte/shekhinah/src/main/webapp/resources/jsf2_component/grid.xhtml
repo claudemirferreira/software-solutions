@@ -67,7 +67,8 @@
 			
 			<!-- Coluna Acao -->
 			<c:if test="#{cc.attrs.renderedActionColumn}">
-				<ss2:actionColumn managedBean="#{cc.attrs.managedBean}" renderedDetail="#{cc.attrs.renderedDetail}" renderedRemove="#{cc.attrs.renderedRemove}" />
+				<!-- FIXME: buttonsAdded = 2, foi necessario pois nao estava calculando o width -->
+				<ss2:actionColumn managedBean="#{cc.attrs.managedBean}" buttonsAdded="2" renderedDetail="#{cc.attrs.renderedDetail}" renderedRemove="#{cc.attrs.renderedRemove}" />
 			</c:if>
 			
 			<c:if test="#{cc.attrs.renderFooter}">

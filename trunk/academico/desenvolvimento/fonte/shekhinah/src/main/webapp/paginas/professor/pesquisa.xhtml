@@ -7,6 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
@@ -21,41 +22,14 @@
 	</ui:define>
 	
 	<ui:define name="grid_region">
-
-		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
-			value="#{professorControlador.listaPesquisa}" paginatorPosition="bottom"
-			paginatorAlwaysVisible="true"
-			emptyMessage="Nenhum registro encontrado."
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20">
-
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.nome}">
-				<h:outputText value="#{item.nome}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="CPF"
-				sortBy="#{item.cpf}">
-				<h:outputText value="#{item.cpf}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="RG" sortBy="#{item.rg}">
-				<h:outputText value="#{item.rg}" />
-			</p:column>
-
-			<p:column style="text-align:left" headerText="Ação">
+	
+		<ss:grid managedBean="#{professorControlador}">
 			
-				<ss:button managedBean="#{professorControlador}" type="detalhe" />
-
-				<ss:button managedBean="#{professorControlador}" type="exclusao" />
-
-			</p:column>
-
-			<f:facet name="footer">  
-	            Total de registros: #{fn:length(professorControlador.listaPesquisa)} professores.  
-       		</f:facet>
-
-		</p:dataTable>
+			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
+			<ss2:column value="#{item.cpf}" header="CPF" sortBy="cpf"  />
+			<ss2:column value="#{item.rg}" header="RG" sortBy="rg"  />
+			
+		</ss:grid>
 	
 	</ui:define>
 

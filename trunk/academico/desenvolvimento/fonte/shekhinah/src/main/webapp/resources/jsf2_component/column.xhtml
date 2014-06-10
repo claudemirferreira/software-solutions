@@ -30,12 +30,28 @@
 		<c:set var="width" value=""/>
 	</c:if>
 	
+	<c:if test="#{empty converter}">
+		<c:set var="converter" value=""/>
+	</c:if>
+	
+	<c:if test="#{empty convertNumber}">
+		<c:set var="convertNumber" value="false"/>
+	</c:if>
+	
+	<c:if test="#{empty numberType}">
+		<c:set var="numberType" value="currency"/>
+	</c:if>
+	
 	<c:set var="textAlignFull" value="text-align:#{textAlign}"/>
 	
 	<c:set var="style" value="#{not empty style ? style : textAlignFull }" />
 
 	<p:column style="#{style}" headerText="#{header}" sortBy="#{sortBy}" rendered="#{rendered}" width="#{width}" colspan="#{colspan}">
-		<h:outputText value="#{value}" />
+		<h:outputText value="#{value}" converter="#{converter}" >
+			<c:if test="#{convertNumber}">
+				<f:convertNumber maxFractionDigits="2" type="#{numberType}"/>
+			</c:if>
+		</h:outputText>
 		<ui:insert />
 	</p:column>
 

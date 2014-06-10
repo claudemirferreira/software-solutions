@@ -16,14 +16,16 @@
 		<c:set var="system_name" value="#{msg.system_name}" />
 
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>:: #{system_name} : #{msg.project_name} :: #{empty
-			pageTitle ? '*' : pageTitle}</title>
+		<title>:: #{system_name} : #{msg.project_name} :: #{empty pageTitle ? '*' : pageTitle}</title>
 		<link rel="icon"
 			href="#{request.contextPath}/resources/imagens/favicon.ico" />
 	</f:facet>
 
 	<!-- FIXME unificar css -->
-	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/estilos/screen.css" />
+	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/screen.css" />
+<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/default.css" /> -->
+    <link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/syntaxhighlighter.css" />
+       
 	<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/style-custon.css" /> -->
 
 	<style type="text/css">
