@@ -37,11 +37,11 @@
 			<!-- Insere o conteudo adicional caso haja -->
 			<ui:insert />
 
-			<p:spacer width="5px" />
+			<p:spacer width="5px" rendered="#{renderedDetail}"/>
 			
 			<ss:button managedBean="#{cc.attrs.managedBean}" type="detalhe" render="#{renderedDetail}" />
 
-			<p:spacer width="5px" />
+			<p:spacer width="5px" rendered="#{renderedRemove}"/>
 
 			<ss:button managedBean="#{cc.attrs.managedBean}" type="exclusao" render="#{renderedRemove}" />
 		</center>

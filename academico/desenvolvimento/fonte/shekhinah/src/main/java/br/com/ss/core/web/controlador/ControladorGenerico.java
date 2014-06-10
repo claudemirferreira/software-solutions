@@ -1,7 +1,9 @@
 package br.com.ss.core.web.controlador;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -296,5 +298,4 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		this.entidade = entidade;
 	}
 
-	
 }

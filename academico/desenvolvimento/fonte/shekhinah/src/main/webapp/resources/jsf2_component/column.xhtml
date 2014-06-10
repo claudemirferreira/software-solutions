@@ -37,19 +37,38 @@
 	<c:if test="#{empty convertNumber}">
 		<c:set var="convertNumber" value="false"/>
 	</c:if>
-	
 	<c:if test="#{empty numberType}">
 		<c:set var="numberType" value="currency"/>
 	</c:if>
+	<c:if test="#{empty currencySymbol}">
+		<c:set var="currencySymbol" value="R$"/>
+	</c:if>
+	
+	<c:if test="#{empty convertDate}">
+		<c:set var="convertDate" value="false"/>
+	</c:if>
+	<c:if test="#{empty pattern}">
+		<c:set var="pattern" value="dd/MM/yyyy"/>
+	</c:if>
+	<c:if test="#{empty dateStyle}">
+		<c:set var="dateStyle" value="medium"/>
+	</c:if>
+	
 	
 	<c:set var="textAlignFull" value="text-align:#{textAlign}"/>
 	
 	<c:set var="style" value="#{not empty style ? style : textAlignFull }" />
 
 	<p:column style="#{style}" headerText="#{header}" sortBy="#{sortBy}" rendered="#{rendered}" width="#{width}" colspan="#{colspan}">
-		<h:outputText value="#{value}" converter="#{converter}" >
+		<h:outputText value="#{value}" >
+			<c:if test="#{not empty converter}">
+				<f:converter converterId="#{converter}" />
+			</c:if>
 			<c:if test="#{convertNumber}">
-				<f:convertNumber maxFractionDigits="2" type="#{numberType}"/>
+				<f:convertNumber maxFractionDigits="2" type="#{numberType}" currencySymbol="#{currencySymbol}"/>
+			</c:if>
+			<c:if test="#{convertDate}">
+				<f:convertDateTime pattern="#{pattern}" dateStyle="#{dateStyle}" />
 			</c:if>
 		</h:outputText>
 		<ui:insert />
