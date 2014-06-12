@@ -26,48 +26,53 @@
 		</script>
 		
 	</f:facet>
-		
 
 	<!-- FIXME unificar css -->
-	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/screen.css" />
-<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/default.css" /> -->
-    <link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/syntaxhighlighter.css" />
-       
-	<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/style-custon.css" /> -->
+		
+	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/main.css" />
 
-	<style type="text/css">
-/*
-			body {
-				background: url(#{request.contextPath}/resources/imagens/macback.png);
-				margin: 0;
-				padding: 0;
-				font-family: geneva, arial, helvetica, sans-serif;
-				font-size:80%;
-			}
-			.ui-widget-content {
-				background: none;
-			}
-			.ui-widget-content {
-		    	border: 0px solid #DDD;
-		    }
-		    .ui-helper-clearfix:after {
-			    content: ".";
-			    display: block;
-			    height: 0px;
-			    clear: right;
-			    clear: none;	* Barra de titulo do sistema *
-			    visibility: hidden;
-			}
-			.ui-widget-header {
-			    border: 0px solid #AED0EA;
-			    background: none;
-			    color: #222;
-			    font-weight: bold;
-			}
-			*/
-.ui-datatable .ui-datatable-footer {
-	text-align: left;
-}
+<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/screen.css" /> -->
+
+    <link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/syntaxhighlighter.css" />
+
+<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/default.css" /> -->
+<!-- 	<link type="text/css" rel="stylesheet" 	href="#{request.contextPath}/resources/estilos/style-custon.css" /> estilo IEAD  -->
+		
+		
+<style type="text/css">
+	/*
+	body {
+		background: url(#{request.contextPath}/resources/imagens/macback.png);
+		margin: 0;
+		padding: 0;
+		font-family: geneva, arial, helvetica, sans-serif;
+		font-size:80%;
+	}
+	.ui-widget-content {
+		background: none;
+	}
+	.ui-widget-content {
+    	border: 0px solid #DDD;
+    }
+    .ui-helper-clearfix:after {
+	    content: ".";
+	    display: block;
+	    height: 0px;
+	    clear: right;
+	    clear: none;	* Barra de titulo do sistema *
+	    visibility: hidden;
+	}
+	.ui-widget-header {
+	    border: 0px solid #AED0EA;
+	    background: none;
+	    color: #222;
+	    font-weight: bold;
+	}
+	*/
+	
+	.ui-datatable .ui-datatable-footer {
+		text-align: left;
+	}
 </style>
 
 	<!-- Add conteudo adicional para o head informado pela pagina -->
@@ -75,8 +80,44 @@
 
 </h:head>
 
-<h:body  onload="JavaScript:document.body.focus(); " onkeydown="return disableRefresh(event)">
+<h:body  onload="JavaScript:document.body.focus(); " >	<!-- #### FIXME add: onkeydown="return disableRefresh(event)" -->
+	
+	<div id="wrapper"> <!-- container for the whole page -->
+		<div id="header">
+			<div id="headcontent">
+				<ui:include src="/paginas/navigation.xhtml" />
+			</div>
+		</div>
 
+		<div id="main">
+			
+			<div id="content">
+				<ui:insert name="content"/>
+			</div>
+			
+		</div>
+
+		<div id="footer">
+			<div id="footerContent">
+				<p>
+					<h:outputText value="Copyright © #{msg.company}" />
+					<br/>
+					<div> 
+						<img src="#{request.contextPath}/resources/imagens/phone.png" width="20" height="15" align="top"/>
+						<h:outputText value="  #{msg.contact_phone}  " />  
+						<img src="#{request.contextPath}/resources/imagens/contato.png" width="20" height="15" align="top"/> 
+						<h:outputText value="  #{msg.contact_email}" />
+					</div>
+					<h:form>
+						<a href="http://#{msg.company_site}" target="_blank" >#{msg.company_site}</a>
+					</h:form>
+				</p>
+			</div>
+		</div>
+
+	</div> <!-- end wrapper -->
+	<!-- ===================== -->
+	<!--  
 	<div id="container" style="width: 99%">
 
 		<div id="header">
@@ -102,6 +143,7 @@
 		</div>
 
 	</div>
-
+	-->
+	
 </h:body>
 </html>
