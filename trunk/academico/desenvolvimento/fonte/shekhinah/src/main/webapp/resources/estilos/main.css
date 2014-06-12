@@ -1,0 +1,122 @@
+/*CSS principal da App.*/
+/* FIXME Unificar o css neste arquivo - migrar apenas o que está sendo usado. */
+@media screen , projection {
+	.BeNiceToMacIE5 {
+		font-family: "\"}\"";
+		font-family: inherit;
+	}
+	html,body,#wrapper,wrapper2 {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		min-height: 100%;
+	}
+	html>body,html>body #wrapper,html>body #wrapper2 {
+		height: auto;
+	}
+	
+	body {
+		background-color: #EAECEE;
+		font-family: Verdana, sans-serif;
+		font-size: 11px;	/* FIXME: Validar se 11 é o ideal */
+		width: 99.5%;
+	}
+	
+	div#wrapper {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: #eee;
+	}
+	#header {
+		position: relative;
+		z-index: 500;
+		width: 100%;
+		height: 80px;
+		background: #fff url(images/logo.gif) no-repeat left top;	/* img da app */
+		border-bottom: 3px solid #c0c0c0;
+		color: #f0f0f0;	/* cor da fonte do header */
+		margin: 0;
+		padding: 0;
+	}
+	#headcontent {
+		height: 60px;
+		background: #ccc;
+		margin-left: 200px;	/* desconto da img da app */
+		position: relative;
+		padding: 10px;
+	}
+	
+	#headerSystemTop {
+		float: left; 
+		width: 70%;
+	}
+	#headerSystemName {
+		font-size: 20px;
+	}
+	
+	/*
+	#header h1 {
+		padding-top: 24px;
+		font-size: 250%;
+	}
+	
+	#header a {
+		color: #f0f0f0;
+	}
+	*/
+
+	#content {
+		padding: 10px;
+		min-height: 520px;
+		background-color: #EEEEEE;
+	}
+	
+	#footer {
+		clear: both;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 78px;
+		background: #888;
+		color: #fef9ee;
+		overflow: hidden;
+		text-align: center;
+		padding: 8px;
+		margin: 8px;
+		border-top: 2px solid #c0c0c0;
+	}
+	#footerContent {
+		padding: 10px;
+	}
+	#footerContent p {
+		padding: 5px 0;
+		margin: 0;
+	}
+	#main {
+		margin: 0;
+		padding: 0;
+	}
+	/* \*/
+	* html #footer {
+		position: absolute;
+	}
+	* html #main {
+		padding-bottom: 100px;
+	}
+	/* \*/
+	head:first-child+body div#footer {
+		position: absolute;
+		z-index: 0;
+	}
+	head:first-child+body div#main {
+		padding-bottom: 100px;
+	}
+}
+
+@media all and (min-width:0px) {
+	head ~body {
+		height: 100%;
+	}
+}

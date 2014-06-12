@@ -10,21 +10,32 @@
 
 		<div style="height: 35px;">
 
-			<div style="float: left; width: 75%; align: left !important; font-size: 20px; font-family: serif;">
-				<h:outputText value=" Sistema de Controle Acadêmico " />
+			<div id="headerSystemTop">
+				<div id="headerSystemName">
+					<h:outputLabel value="#{system_name}" 
+								title="SysAcad: Sistema de Contole Acadêmico" />
+				</div>
+				
+				<div style="margin-left: 250px;">
+					<h:outputLabel value="#{flash.msgBemVindo}" />
+					<!-- se quiser manter a msg usar: flash.keep.msgBemVindo -->
+				</div>
+				
 			</div>
+			
 
-			<div style="float: right; width: 25%;" align="right">
+			<div style="float: right; width: 30%;" align="right">
 				<h:outputText value="  |&#x00A0;  " />
 
-				<h:outputText value="Seja bem vindo #{usuarioLogado.nome}" />
+				<h:outputText value="#{usuarioLogado.nome}" />
 
 				<h:outputText value="  |&#x00A0;  " />
 
 				<p:commandButton value="Sair"
-					action="/login.xhtml?faces-redirect=true"
-					actionListener="#{authenticatorController.logout}"
-					icon="ui-icon-closethick" immediate="true" />
+								action="/login.xhtml?faces-redirect=true"
+								actionListener="#{authenticatorController.logout}"
+								icon="ui-icon-closethick" 
+								immediate="true" />
 
 				<h:outputText value="  |&#x00A0;  " />
 			</div>
@@ -32,13 +43,12 @@
 		</div>
 
 		<div>
-
 			<div style="float: left; width: 75%;" align="left">
-				<c:forEach var="item" items="#{navigationHistory.history}">
-				|&#x00A0;<h:commandLink action="#{pageUtils.redirectForUrl(item.url)}"
-						actionListener="#{navigationHistory.clearAfterUrl(item)}"
-						value="#{item.label}" />
-				</c:forEach>
+				
+				<p:outputPanel autoUpdate="true">
+					<ui:include src="/paginas/navigationHistory.xhtml" />
+				</p:outputPanel>
+				
 			</div>
 
 			<div style="float: right; width: 25%;" align="right">
