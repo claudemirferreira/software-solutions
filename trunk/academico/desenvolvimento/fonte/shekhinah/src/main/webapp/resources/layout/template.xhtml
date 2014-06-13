@@ -82,13 +82,15 @@
 
 <h:body  onload="JavaScript:document.body.focus(); " >	<!-- #### FIXME add: onkeydown="return disableRefresh(event)" -->
 	
-	<div id="wrapper"> <!-- container for the whole page -->
+	<div id="wrapper">
 		<div id="header">
-			<div id="headcontent">
-				<ui:include src="/paginas/navigation.xhtml" />
-			</div>
+			<ui:include src="header.xhtml" />
 		</div>
-
+	
+		<div id="menu">
+			<ui:include src="menu.xhtml" />
+		</div>
+		
 		<div id="main">
 			
 			<div id="content">
@@ -99,51 +101,11 @@
 
 		<div id="footer">
 			<div id="footerContent">
-				<p>
-					<h:outputText value="Copyright © #{msg.company}" />
-					<br/>
-					<div> 
-						<img src="#{request.contextPath}/resources/imagens/phone.png" width="20" height="15" align="top"/>
-						<h:outputText value="  #{msg.contact_phone}  " />  
-						<img src="#{request.contextPath}/resources/imagens/contato.png" width="20" height="15" align="top"/> 
-						<h:outputText value="  #{msg.contact_email}" />
-					</div>
-					<h:form>
-						<a href="http://#{msg.company_site}" target="_blank" >#{msg.company_site}</a>
-					</h:form>
-				</p>
+				<ui:include src="footer.xhtml" />
 			</div>
-		</div>
-
-	</div> <!-- end wrapper -->
-	<!-- ===================== -->
-	<!--  
-	<div id="container" style="width: 99%">
-
-		<div id="header">
-			<ui:include src="/paginas/navigation.xhtml" />
-		</div>
-		
-		<div id="content">
-			<ui:insert name="content"/>
-		</div>
-
-		<div id="header" style=" clear: both; text-align: center;">
-			<h:outputText value="Copyright © #{msg.company}" />
-			<br/>
-			<div> 
-				<img src="#{request.contextPath}/resources/imagens/phone.png" width="20" height="15" align="top"/>
-				<h:outputText value="  #{msg.contact_phone}  " />  
-				<img src="#{request.contextPath}/resources/imagens/contato.png" width="20" height="15" align="top"/> 
-				<h:outputText value="  #{msg.contact_email}" />
-			</div>
-			<h:form>
-				<a href="http://#{msg.company_site}" target="_blank" >#{msg.company_site}</a>
-			</h:form>
 		</div>
 
 	</div>
-	-->
 	
 </h:body>
 </html>
