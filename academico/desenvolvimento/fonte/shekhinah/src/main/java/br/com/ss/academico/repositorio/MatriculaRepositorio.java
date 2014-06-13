@@ -28,6 +28,12 @@ public interface MatriculaRepositorio extends JpaRepository<Matricula, Long> {
 									@Param("status") StatusMatricula status,
 									@Param("ano") Integer ano );
 	
+	@Query( " select mat "
+			+ "from Matricula mat "
+			+ "join mat.turma tur "
+			+ "where mat.turma = :turma ")
+	public List<Matricula> listaMatriculasPorTurma( @Param("turma") Turma turma);
+	
 	/**
 	 * Faz o fetch em Mensalidades.
 	 * @param matricula

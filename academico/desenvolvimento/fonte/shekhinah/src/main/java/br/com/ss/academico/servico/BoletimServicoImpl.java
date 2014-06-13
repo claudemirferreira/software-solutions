@@ -1,9 +1,9 @@
 package br.com.ss.academico.servico;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Boletim;
@@ -11,9 +11,11 @@ import br.com.ss.academico.dominio.Disciplina;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.repositorio.BoletimRepositorio;
 import br.com.ss.academico.repositorio.DisciplinaRepositorioSql;
+import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
-public class BoletimServicoImpl implements BoletimServico, Serializable {
+public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements
+		BoletimServico {
 
 	private static final long serialVersionUID = -4305564891244729963L;
 
@@ -48,7 +50,8 @@ public class BoletimServicoImpl implements BoletimServico, Serializable {
 		Boletim boletim;
 
 		List<Disciplina> disciplinas = disciplinaRepositorioSql
-				.listaDisciplinaPorCurso(matricula.getTurma().getCurso().getId());
+				.listaDisciplinaPorCurso(matricula.getTurma().getCurso()
+						.getId());
 
 		for (Disciplina disciplina : disciplinas) {
 			// FIXME validar se Boletim está atendendo toda a regra paa o mesmo
@@ -58,8 +61,16 @@ public class BoletimServicoImpl implements BoletimServico, Serializable {
 			boletim.setDisciplina(disciplina);
 
 			this.repositorio.save(boletim);
-
 		}
+	}
 
+	@Override
+	public List<Boletim> pesquisar(Boletim entity) {
+		return null;
+	}
+
+	@Override
+	protected JpaRepository<Boletim, Long> getRepository() {
+		return null;
 	}
 }
