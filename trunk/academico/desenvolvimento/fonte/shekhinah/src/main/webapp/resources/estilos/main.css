@@ -366,7 +366,29 @@
 			column-count: 1;
 		}
 	}
-
+	
+	
+	/* ========= Botoes do Menu =============== */
+	#bt_home:hover {
+	    background: url('/resources/imagens/ico_home_02.png') no-repeat scroll 0px 0px transparent;
+	    float: left;
+	    height: 64px;
+	    margin-left: -8px;
+	    margin-top: 15px;
+	    width: 38px;
+	    margin-right: 10px;
+	}
+	#bt_home {
+	    background: url('/resources/imagens/ico_home_01.png') no-repeat scroll 0px 0px transparent;
+	    float: left;
+	    height: 64px;
+	    margin-left: -8px;
+	    margin-top: 15px;
+	    width: 38px;
+	    margin-right: 10px;
+	}
+	
+	
 	/* ------------------------------------ */
 	#footer {
 		clear: both;
@@ -415,3 +437,27 @@
 		height: 100%;
 	}
 }
+
+
+
+/*-------- Box --------- */
+.simple {
+  width: 500px;
+  margin: 20px auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.fancy {
+  width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  border: solid blue 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+/* ----------------- */
+
+
