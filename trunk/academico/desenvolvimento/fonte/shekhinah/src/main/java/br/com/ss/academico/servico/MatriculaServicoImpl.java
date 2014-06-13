@@ -52,4 +52,9 @@ public class MatriculaServicoImpl extends ServicoImpl<Matricula, Long> implement
 		return repositorioHql.pesquisar(entity);
 	}
 
+	@Override
+	public List<Matricula> listaMatriculasPorTurma(Turma turma) {
+		return this.repositorio.listaMatriculasPorTurma(turma);
+	}
+
 }
