@@ -17,7 +17,7 @@ import br.com.ss.core.seguranca.dominio.AbstractEntity;
  */
 
 @Entity
-@Table(name = "acad_empresa")
+@Table(name = "saa_empresa")
 public class Empresa extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 6622307844544139433L;
@@ -29,6 +29,12 @@ public class Empresa extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 50)
 	private String nome;
 
+	@Column(nullable = false, length = 45)
+	private String nomeFantasia;
+	
+	@Column(nullable = false, length = 50)
+	private String razaoSocial;
+	
 	@Column(nullable = false, length = 14, unique = true)
 	private String cnpj;
 
@@ -121,6 +127,22 @@ public class Empresa extends AbstractEntity implements Serializable {
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 
 }

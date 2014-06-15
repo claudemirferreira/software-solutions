@@ -17,9 +17,35 @@
 			<nav>
 				<ul class="menu">
 					<li class="top-li">
-						<a class="top-a" href="#" title="Página Inicial">Home</a>
+						<a class="top-a" href="#{facesContext.externalContext.requestContextPath}/index.jsf?faces-redirect=true" title="Página Inicial">Home</a>
 					</li>
-					<li class="top-li has-sub"><a class="top-a" href="#">SECRETARIA</a><b aria-haspopup="true" aria-controls="p3"></b>
+					
+					<ui:repeat var="menu" value="#{menuList}" varStatus="i">
+						
+						<li class="top-li has-sub">
+							<h:outputText value="#{menu.descricao}" styleClass="top-a"/>
+							<b aria-haspopup="true" aria-controls="p3"></b>
+							
+							<ui:repeat var="item" value="#{menu.itemMenus}" varStatus="j">
+								
+								<div class="sub1" id="p3">
+									<dl>
+<!-- 									<dt>Kidswear</dt> -->
+										<dd><h:commandLink value="#{item.descricao}" action="#"/></dd>
+									</dl>
+<!-- 									<p class="bottomLine"> -->
+<!-- 										More <a href="http://www.cssplay.co.uk/menus/index.html">offers</a> online. -->
+<!-- 									</p> -->
+								</div>
+								
+							</ui:repeat>
+							
+						</li>
+						
+					</ui:repeat>
+					
+					<li class="top-li has-sub">
+						<a class="top-a" href="#">SECRETARIA</a><b aria-haspopup="true" aria-controls="p3"></b>
 						<div class="sub1" id="p3">
 							<dl>
 								<dt>Meanswear</dt>
@@ -37,6 +63,7 @@
 							</p>
 						</div>
 					</li>
+					
 					<li class="top-li has-sub"><a class="top-a" href="http://www.cssplay.co.uk/menus/index.html">Contact Us</a><b aria-haspopup="true" aria-controls="p5"></b>
 						<div class="sub1 left" id="p5">
 							<dl>

@@ -10,12 +10,11 @@
 <h:head>
 	
 	<f:facet name="first">
+		<!-- msg: messages_pt.properties -->
 		<f:loadBundle basename="messages" var="msg" />
 
-		<c:set var="system_name" value="#{msg.system_name}" />
-
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>:: #{system_name} : #{msg.project_name} :: #{empty pageTitle ? '*' : pageTitle}</title>
+		<title>:: #{applicationBean.sistema.codigo} : #{applicationBean.empresa.nome} :: #{empty pageTitle ? '*' : pageTitle}</title>
 		<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
 		
 		<script language="JavaScript" type="text/javascript" src="#{request.contextPath}/resources/scripts/main.js" />

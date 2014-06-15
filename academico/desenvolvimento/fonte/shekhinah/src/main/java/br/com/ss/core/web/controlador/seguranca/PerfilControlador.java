@@ -19,6 +19,8 @@ import br.com.ss.core.web.controlador.ControladorGenerico;
 @SessionScoped
 public class PerfilControlador extends ControladorGenerico<Perfil> {
 	
+	// FIXME remover carregamento do perfil do usuario logado..
+	
 	private static final long serialVersionUID = -6832271293709421841L;
 
 	private static final int SISTEMA_IEADAM = 2;	// FIXME #Peninha: verificar regra 'SISTEMA_IEADAM'
@@ -41,7 +43,7 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 	@Override
 	public void init() {
-		carregarPerfis();
+		carregarPerfis();	// FIXME
 	}
 
 	public void carregarPerfis() {
