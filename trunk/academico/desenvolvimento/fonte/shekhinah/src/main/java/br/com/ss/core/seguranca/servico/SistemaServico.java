@@ -4,13 +4,7 @@ import java.util.List;
 
 import br.com.ss.core.seguranca.dominio.Sistema;
 
-public interface SistemaServico {
-
-	public List<Sistema> listarTodos();
-
-	public Sistema salvar(Sistema sistema);
-
-	public void remover(Sistema sistema);
+public interface SistemaServico extends IService<Sistema, Long> {
 
 	public List<Sistema> findByNomeLike(String nome);
 
