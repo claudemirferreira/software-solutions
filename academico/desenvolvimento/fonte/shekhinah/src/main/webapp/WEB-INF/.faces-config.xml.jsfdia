@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#paginas#rotina#lista.xhtml"
-  PATH="/paginas/rotina/lista.xhtml" SHAPE="240,289,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
-  SHAPE="32,353,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
-   PATH="/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="listar_rotinas::#paginas#rotina#lista.xhtml"
-    NAME="output" PATH="/paginas/rotina/lista.xhtml"
-    TARGET="rules:#paginas#rotina#lista.xhtml" TITLE="listar_rotinas" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
+  SHAPE="32,353,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,465,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="home::#index.xhtml" NAME="output"
