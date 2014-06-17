@@ -37,23 +37,17 @@ import com.sun.faces.context.flash.ELFlash;
 public class AuthenticatorController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
-
-//	@Autowired
-//	private UsuarioServico usuarioServico;
 	
 	@ManagedProperty(value="#{authenticationManager}")
 	private AuthenticationManager authenticationManager = null;
 
 	@Autowired
-//	@ManagedProperty(value = "#{sistemaServicoImpl}")
 	private SistemaServico sistemaServico;
 
 	@Autowired
-//	@ManagedProperty(value = "#{perfilServicoImpl}")
 	private PerfilServico perfilServico;
 
 	@Autowired
-//	@ManagedProperty(value = "#{rotinaServicoImpl}")
 	private RotinaServico rotinaServico;
 	
 	private String username;
@@ -104,7 +98,7 @@ public class AuthenticatorController {
 	 * @param usuario
 	 */
 	private void carregarPerfisUsuario(Usuario usuario) {
-		
+		String redirec = "?faces-redirect=true";
 		String idSistema = MessageUtils.getMessageResourceString( MessageUtils.ID_SISTEMA );
 		
 		List<Perfil> perfis = perfilServico.listaPerfilPorSistemaPorUsuario( new Integer(idSistema), usuario.getId() );
@@ -116,7 +110,7 @@ public class AuthenticatorController {
 			List<Rotina> rotinas = rotinaServico.listaRotinasPorPerfil(per.getId());
 			
 			for ( Rotina rot : rotinas ) {
-				ItemMenu item = new ItemMenu(null, rot.getNome(), rot.getAcao());
+				ItemMenu item = new ItemMenu(null, rot.getNome(), rot.getAcao() + redirec);
 				menu.getItemMenus().add(item);
 			}
 			
