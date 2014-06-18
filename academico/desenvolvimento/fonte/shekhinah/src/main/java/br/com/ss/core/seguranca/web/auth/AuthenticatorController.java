@@ -117,7 +117,7 @@ public class AuthenticatorController {
 			menuList.add(menu);
 			
 		}
-			
+		// armazena menu na sessao do usuario
 		FacesUtils.getRequest().getSession().setAttribute("menuList", menuList);
 	}
 

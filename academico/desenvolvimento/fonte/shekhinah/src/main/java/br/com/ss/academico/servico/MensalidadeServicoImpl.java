@@ -36,8 +36,7 @@ public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> imple
 	}
 
 	@Override
-	public List<Mensalidade> findByStatusAndDataVencimento(
-			StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
+	public List<Mensalidade> findByStatusAndDataVencimento(StatusPagamento statusPagamento, Date dataInicio, Date dataFim) {
 		return this.repositorio.findByStatusAndDataVencimento(statusPagamento,
 				dataInicio, dataFim);
 	}
@@ -50,6 +49,11 @@ public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> imple
 	@Override
 	public List<Mensalidade> pesquisar(Mensalidade entity) {
 		return null;
+	}
+
+	@Override
+	public List<Mensalidade> listarMensalidadesEmAtraso() {
+		return repositorioHql.listarMensalidadesEmAtraso();
 	}
 
 }
