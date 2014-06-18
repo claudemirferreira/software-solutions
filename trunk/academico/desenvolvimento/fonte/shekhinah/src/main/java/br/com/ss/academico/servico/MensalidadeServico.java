@@ -12,10 +12,10 @@ public interface MensalidadeServico extends IService<Mensalidade, Long>{
 
 	List<Mensalidade> pesquisar(Mensalidade entidade, Date dataInicio, Date dataFim, TipoPesquisaData tipoPesquisaData);
 	
-	
-	public List<Mensalidade> findByStatusAndDataVencimento(
-			StatusPagamento statusPagamento, Date dataInicio, Date dataFim);
+	List<Mensalidade> findByStatusAndDataVencimento(StatusPagamento statusPagamento, Date dataInicio, Date dataFim);
 
 	List<Mensalidade> loadMensalidades(Long idMatricula);
+
+	List<Mensalidade> listarMensalidadesEmAtraso();
 	
 }

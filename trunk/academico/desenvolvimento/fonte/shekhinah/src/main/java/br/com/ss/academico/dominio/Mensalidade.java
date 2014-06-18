@@ -77,6 +77,9 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	 * @return
 	 */
 	public String getMesSequencial() {
+		if (sequencial == null) {
+			return null;
+		}
 		return Meses.getEnum(sequencial).getDescricao();
 	}
 	

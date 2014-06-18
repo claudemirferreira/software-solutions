@@ -9,13 +9,14 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Mensalidade;
+import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
 
+@SuppressWarnings("unchecked")
 @Repository
 public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implements MensalidadeRepositorioHql{
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Mensalidade> pesquisar(Mensalidade entity, Date dataInicio, 
 									Date dataFim, TipoPesquisaData tipoPesquisaData) {
@@ -68,6 +69,27 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 				
 			}
 		}
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Mensalidade> listarMensalidadesEmAtraso() {
+		
+		StringBuilder sb = new StringBuilder();
+		List<String> condictions = new ArrayList<String>();
+		Date hoje = new Date();
+		
+		sb.append(" select men from Mensalidade men ");
+		condictions.add(" men.statusPagamento = :pendente ");
+		condictions.add(" men.dataPagamento = null ");
+		condictions.add(" men.dataVencimento < :hoje ");
+		
+		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc, men.matricula.turma.curso.nome ";
+		
+		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
+		query.setParameter("pendente", StatusPagamento.PENDENTE );
+		query.setParameter("hoje", hoje );
+		
 		return query.getResultList();
 	}
 

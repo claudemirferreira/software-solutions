@@ -7,6 +7,7 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/search_template.xhtml">
 
@@ -14,7 +15,22 @@
 	<ui:param name="renderSearch" value="false" />
 
 	<ui:define name="grid_region">
-		xxxxx
+			
+		<!-- FIXME add conteudo -->
+		
+		<ss:container title="Mensalidades em atraso" width="650px" >
+			
+			<ss:grid managedBean="#{homeControlador}" list="mensalidadesAtraso" renderedActionColumn="false" >
+				
+				<ss2:column value="#{item.matricula.aluno.nome}" header="Nome" sortBy="matricula.aluno.nome"  />
+				<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
+				<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
+				<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
+			
+			</ss:grid>
+			
+		</ss:container>
+		
 	</ui:define>
 
 </ui:composition>

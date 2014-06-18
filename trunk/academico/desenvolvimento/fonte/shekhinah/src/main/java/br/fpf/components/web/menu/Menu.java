@@ -70,6 +70,6 @@ public class Menu implements Serializable {
 		return itemMenus;
 	}
 	public void setItemMenus(List<ItemMenu> itemMenus) {
-		itemMenus = itemMenus;
+		this.itemMenus = itemMenus;
 	}
 }

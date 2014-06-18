@@ -9,5 +9,7 @@ import br.com.ss.academico.enumerated.TipoPesquisaData;
 public interface MensalidadeRepositorioHql {
 
 	List<Mensalidade> pesquisar(Mensalidade entidade, Date dataInicio, Date dataFim, TipoPesquisaData tipoPesquisaData);
+
+	List<Mensalidade> listarMensalidadesEmAtraso();
 	
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<cc:interface>
+
+	<cc:attribute name="title" required="true" />
+	<cc:attribute name="width" default="100%" />
+	
+
+</cc:interface>
+
+<cc:implementation>
+
+<style type="text/css">
+	.box {
+		border: 1px solid #0094ff;
+		width: #{cc.attrs.width};
+	}
+	
+	.title {
+		border-bottom: 1px solid #0094ff;
+		background: #0094ff;
+		color: white;
+		padding-left: 10px;
+		vertical-align: middle;
+	}
+	
+	.internalContent {
+		padding: 8px;
+	}
+	
+	.box p {
+		color: #333;
+		padding: 10px;
+	}
+</style>
+
+	<div class="box">
+		<div class="title">#{cc.attrs.title}</div>
+		
+		<div class="internalContent">
+		
+			<!-- insere o conteudo interno do container -->		
+			<cc:insertChildren  />
+		
+		</div>
+	</div>
+
+</cc:implementation>
+</html>
