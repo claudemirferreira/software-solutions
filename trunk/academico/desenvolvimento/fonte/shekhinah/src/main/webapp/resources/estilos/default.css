@@ -251,56 +251,6 @@ img.right {
 
 
 
-/* ====== Novos ======================= */
-.btn_edit_grid {
-    background-image: url("/shekinah/resources/images/add.png");
-}
-
-.btn_remove_grid {
-    background-image: url("/shekinah/resources/images/delete.png");
-}
-
-
-.required{
-	color: red;    
-}
-
-
-.input_required{
-	color: red; 
-	text-align: left;
-}
-
-.input_label {
-    width:150px;
-    padding:4px;
-}
-
-.input_value {
-    padding:2px;
-}
-
-.filtro_pesquisa {
-    width: 700px;
-}
-
-.grid {
-    width:100%;
-}
-
-.error {
-    color: red;
-}
-
-.outputLabel {
-    font-weight: bold;
-}
-
-.grid {
-    width:33%;
-    padding:4px;
-}
-
 /* layout - header */
 #topo {
     width: 100%;

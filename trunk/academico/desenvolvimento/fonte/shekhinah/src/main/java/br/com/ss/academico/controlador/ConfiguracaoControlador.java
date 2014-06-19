@@ -26,17 +26,25 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	
     private Map<String, String> themes;
     
-	private String tema = "blitzer"; //default
+	private String tema = "bluesky"; //default
 
 	private Integer diaVencimento = 10; // default
 	
 	/* Melhores temas:
-	 * redmond
+	 * start
+	 * bluesky
 	 * cupertino
+	 * redmond
 	 * humanity
 	 * hot-sneaks
 	 * blitzer
 	 * afternoon
+	 * 
+	 * ## Botoes:
+	 * delta
+	 * start
+	 * flick
+	 * 
 	 * */
 	
 	@Override

@@ -31,7 +31,9 @@
 			<ss2:actionColumn managedBean="#{cursoControlador}" buttonsAdded="1">
 				<p:commandButton value="Disciplina" title="Disciplina"
 								action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
-								oncomplete="PF('dlgDisciplina').show();" update=":formDlg"
+								oncomplete="PF('dlgDisciplina').show();" 
+								update=":formDlg"
+								styleClass="ui-priority-primary"
 								icon="ui-icon-document" />
 			</ss2:actionColumn>
 			

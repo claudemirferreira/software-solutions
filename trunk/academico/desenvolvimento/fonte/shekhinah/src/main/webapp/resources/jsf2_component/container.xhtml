@@ -39,10 +39,22 @@
 		color: #333;
 		padding: 10px;
 	}
+	
+	/* ------------------ */
+	.panel-header {
+		display: block;
+		font-size: 1em;
+		padding: 0.5em 0.5em 0.5em 2.2em;
+		
+		background: url('/shekinah/javax.faces.resource/images/ui-bg_glass_40_0099e0_1x400.png.xhtml?ln=primefaces-cruze') repeat-x scroll 50% 50% #0099E0;
+		font-weight: bold;
+		color: #FFF;
+	}
+	
 </style>
 
 	<div class="box">
-		<div class="title">#{cc.attrs.title}</div>
+		<div class="title panel-header">#{cc.attrs.title}</div>
 		
 		<div class="internalContent">
 		
