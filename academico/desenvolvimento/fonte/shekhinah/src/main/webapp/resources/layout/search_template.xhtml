@@ -33,74 +33,80 @@
   		 </c:if>
   		 
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
-		
-		<h:form id="form">
-		
-			<c:if test="#{not empty pageHeader}">
-				<div class="titlePanel">
-					<h1  class="title ui-widget-header ui-corner-all">#{pageHeader}</h1>
+  		
+  		<div class="mainForm">
+  		
+			<h:form id="form" >
+			
+				<c:if test="#{not empty pageHeader}">
+					<div class="titlePanel">
+						<ss:titlePanel title="#{pageHeader}" />
+					</div>
+				</c:if>
+				
+				<div class="messagePanel">
+					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 10px;">
+						<p:messages	id="msg" 		globalOnly="true"  />
+						<p:growl 	id="msgGrowl" 	globalOnly="true" showDetail="true"  />
+					</h:panelGrid>
 				</div>
-			</c:if>
-			
-			<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 10px;">
-				<p:messages	id="msg" 		globalOnly="true"  />
-				<p:growl 	id="msgGrowl" 	globalOnly="true" showDetail="true"  />
-			</h:panelGrid>
-			
-			<!-- ==== Filtro ===== -->
-			<p:accordionPanel id="accPnl" rendered="#{renderSearch}" style="padding: 2px 0px 0px 9px;" styleClass="filtro_pesquisa">
-				<p:tab title="Filtro de Pesquisa" titleStyleClass="outputLabel" >
-					<h:panelGrid cellpadding="0" cellspacing="0">
-						
-						<ui:insert name="search_filter" />
-						
-						<!-- ==== Button ======= -->
-						
-						<hr style="color:#919090; background-color:#919090; height:1px; border:none;" />
-						
-						<h:panelGrid columns="5" cellpadding="0" cellspacing="0" style="margin-top: 10;">
-		                    
-		                    <ss:button id="btnSearch" type="pesquisa" managedBean="#{managedBean}" update=":form:grid :form:msg" />
-		                    
-							<p:spacer width="5px" />
+				
+				<!-- ==== Filtro ===== -->
+				<p:accordionPanel id="accPnl" rendered="#{renderSearch}" styleClass="filtro_pesquisa">
+					<p:tab title="Filtro de Pesquisa">
+						<h:panelGrid cellpadding="0" cellspacing="0">
 							
-							<ss:button id="btnNew" type="novo" managedBean="#{managedBean}" />
-						
-					  		 <c:if test="#{renderPrintButton}">
-					  		 
+							<ui:insert name="search_filter" />
+							
+							<!-- ==== Button ======= -->
+							
+							<hr style="color:#919090; background-color:#919090; height:1px; border:none;" />
+							
+							<h:panelGrid columns="5" cellpadding="0" cellspacing="0" style="margin-top: 10;">
+			                    
+			                    <ss:button id="btnSearch" type="pesquisa" managedBean="#{managedBean}" update=":form:grid :form:msg" />
+			                    
 								<p:spacer width="5px" />
 								
-								<h:commandLink target="_blank" action="#{managedBean.imprimir()}" immediate="true">
-									<h:graphicImage value="/resources/imagens/imprimir.gif" alt="Imprimir"  >
-										<p:ajax event="click" update=":form:msg"/>
-										<!-- FIXME: renderizar msg: ver qual evento substitui o complete, e
-											 colocar o metodo de impressao em try/catch. -->
-									</h:graphicImage>
-								</h:commandLink>
+								<ss:button id="btnNew" type="novo" managedBean="#{managedBean}" />
+							
+						  		 <c:if test="#{renderPrintButton}">
+						  		 
+									<p:spacer width="5px" />
 									
-					  		 </c:if>
+									<h:commandLink target="_blank" action="#{managedBean.imprimir()}" immediate="true">
+										<h:graphicImage value="/resources/imagens/imprimir.gif" alt="Imprimir"  >
+											<p:ajax event="click" update=":form:msg"/>
+											<!-- FIXME: renderizar msg: ver qual evento substitui o complete, e
+												 colocar o metodo de impressao em try/catch. -->
+										</h:graphicImage>
+									</h:commandLink>
+										
+						  		 </c:if>
+								
+							</h:panelGrid>
 							
 						</h:panelGrid>
-						
-					</h:panelGrid>
-   				
-					<p:blockUI block=":form:" trigger="btnSearch:btnSearch btnNew:btnNew ">
-			       	 	PROCESSANDO...<br />
-						<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-					</p:blockUI>
-						
-				</p:tab>
-			</p:accordionPanel>
-   			
-			<!-- ==== Grid ======= -->
-			<h:panelGrid id="grid" width="100%" style="padding: 2px 0px 0px 6px;">
+	   				
+						<p:blockUI block=":form:" trigger="btnSearch:btnSearch btnNew:btnNew ">
+				       	 	PROCESSANDO...<br />
+							<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+						</p:blockUI>
+							
+					</p:tab>
+				</p:accordionPanel>
+	   			
+				<!-- ==== Grid ======= -->
+				<h:panelGrid id="grid" width="100%" styleClass="grid">
+					
+					<ui:insert name="grid_region" />
 				
-				<ui:insert name="grid_region" />
+				</h:panelGrid>
 			
-			</h:panelGrid>
-		
+				
+			</h:form>
 			
-		</h:form>
+  		</div>
 		
 		
 		<!-- ======== Aditional area - for modals and external form components ========= -->

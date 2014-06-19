@@ -461,3 +461,89 @@
 /* ----------------- */
 
 
+
+/* ====== Novos ======================= */
+.filtro_pesquisa {
+    width: 99%;
+    padding: 2px 0px 1px 10px;
+    font-weight: bold;
+}
+.grid {
+    width:100%;
+/*     padding:4px; */
+    padding: 2px 0px 0px 7px;
+}
+.btn_edit_grid {
+    background-image: url("/shekinah/resources/images/add.png");
+}
+.btn_remove_grid {
+    background-image: url("/shekinah/resources/images/delete.png");
+}
+.required{
+	color: red;    
+}
+.input_required{
+	color: red; 
+	text-align: left;
+}
+.input_label {
+    width:150px;
+    padding:4px;
+}
+.input_value {
+    padding:2px;
+}
+.error {
+    color: red;
+}
+.labelBold {
+    font-weight: bold;
+}
+.labelNormal {
+    font-weight: normal;
+}
+.registerRegion {
+	background-color: #FFF;
+	width: 100%;
+}
+.messagePanel {
+	/* FIXME add conf */
+}
+
+.mainForm {
+	padding-right: 7px;
+}
+
+
+
+/* -------- Overrides --------- */
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #77D5F7;
+    background: url('/shekinah/javax.faces.resource/images/ui-bg_glass_45_0078ae_1x400.png.xhtml?ln=primefaces-start') repeat-x scroll 50% 50% #0078AE;
+    color: #FFF;
+    font-weight: bold;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, 
+	.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header 
+	.ui-state-focus {
+    border: 1px solid #77D5F7;
+    background: url('/shekinah/javax.faces.resource/images/ui-bg_glass_45_0078ae_1x400.png.xhtml?ln=primefaces-start') repeat-x scroll 50% 50% #0078AE;
+    color: #FFF;
+}
+
+.ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
+    box-shadow: 0px 0px 0px #448DAE, 0px 0px 0px #8F8F8F inset;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content 
+	.ui-state-focus, .ui-widget-header .ui-state-focus {
+    color: #FFF;
+    border: 1px solid #77D5F7;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, 
+	.ui-widget-header .ui-state-focus {
+    border: 1px solid #77D5F7;
+    color: #FFF;
+}
+

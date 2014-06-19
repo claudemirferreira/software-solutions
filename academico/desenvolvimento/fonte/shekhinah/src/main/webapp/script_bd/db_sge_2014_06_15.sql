@@ -596,6 +596,7 @@ INSERT INTO `saa_perfil_rotina` (`data`,`id_perfil`,`id_rotina`) VALUES
  (NULL,4,6),
  (NULL,4,7),
  (NULL,4,8);
+ (NULL,4,12);
 /*!40000 ALTER TABLE `saa_perfil_rotina` ENABLE KEYS */;
 
 
@@ -633,6 +634,7 @@ INSERT INTO `saa_rotina` (`id_rotina`,`acao`,`imagem`,`nome`,`status`,`id_sistem
  (9,'/paginas/disciplina/pesquisa.xhtml','/resources/imagens/rotina/disciplina.png','DISCIPLINA',0,2),
  (10,'/paginas/turma/pesquisa.xhtml','/resources/imagens/rotina/turma.png','TURMA',0,2),
  (11,'/paginas/mensalidade/pesquisa.xhtml','/resources/imagens/rotina/curso.png','MENSALIDADE',0,2);
+ (12,'/paginas/configuracao/configuracao.xhtml','/resources/imagens/rotina/configuracao.png','CONFIGURAÇÃO',0,2);
 /*!40000 ALTER TABLE `saa_rotina` ENABLE KEYS */;
 
 
