@@ -15,25 +15,26 @@
 			<nav>
 				<ul class="menu">
 					<li class="top-li">
-						<a class="top-a" href="#{facesContext.externalContext.requestContextPath}/index.xhtml?faces-redirect=true" title="Página Inicial">Home</a>
+						<a class="top-a labelBold textUpperCase" href="#{facesContext.externalContext.requestContextPath}/index.xhtml?faces-redirect=true" title="Página Inicial">Home</a>
 					</li>
 					
 					<ui:repeat var="menu" value="#{menuList}">
 						
 						<li class="top-li has-sub">
-							<h:commandLink value="#{menu.descricao}" styleClass="top-a"/>
+							<h:commandLink value="#{menu.descricao}" styleClass="top-a labelBold textUpperCase"/>
 							<b aria-haspopup="true" aria-controls="p3"></b>
 							
 							<div class="sub1" id="p3">
 								<dl>
 								
-									<ui:repeat var="item" value="#{menu.itemMenus}" varStatus="j">
-										<dd><h:commandLink value="#{item.descricao}" action="#{item.getLink()}"/></dd>
+									<ui:repeat var="item" value="#{menu.itemMenus}">
+										<dd><h:commandLink value="#{item.descricao}" action="#{item.getLink()}" styleClass="textUpperCase"/></dd>
 									</ui:repeat>
 									
 								</dl>
 								<p class="bottomLine">
 <!-- 										&nbsp; -->
+
 								</p>
 							</div>
 						</li>
