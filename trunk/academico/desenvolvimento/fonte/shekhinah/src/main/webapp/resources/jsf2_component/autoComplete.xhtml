@@ -40,7 +40,7 @@
 	
 	<cc:implementation>
 
-		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" rendered="#{cc.attrs.render}" width="500" columnClasses="input_label, input_required">
+		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" rendered="#{cc.attrs.render}" width="500" columnClasses="input-label-bold, input_required">
 		 		
 	 		<p:column width="150" rendered="#{not empty cc.attrs.label}" >
 				<h:outputLabel value="#{cc.attrs.label}" for="ac_#{cc.attrs.id}"/>
