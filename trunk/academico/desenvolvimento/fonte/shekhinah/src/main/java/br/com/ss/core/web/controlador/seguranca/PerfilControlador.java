@@ -14,16 +14,13 @@ import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.seguranca.servico.PerfilServico;
 import br.com.ss.core.seguranca.servico.RotinaServico;
 import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.utils.MessageUtils;
 
 @ManagedBean
 @SessionScoped
 public class PerfilControlador extends ControladorGenerico<Perfil> {
 	
-	// FIXME remover carregamento do perfil do usuario logado..
-	
 	private static final long serialVersionUID = -6832271293709421841L;
-
-	private static final int SISTEMA_IEADAM = 2;	// FIXME #Peninha: verificar regra 'SISTEMA_IEADAM'
 
 	/** Lista exibida na tela inicial (lista.xhtml). */
 	private List<Perfil> listaPerfilUsuario;
@@ -43,21 +40,23 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 	@Override
 	public void init() {
-		carregarPerfis();	// FIXME
+		carregarPerfis();
 	}
 
 	public void carregarPerfis() {
 		Object userSession = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if ( userSession instanceof Usuario ) {
 			this.usuario = (Usuario) userSession ;
-			this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
+			String idSistema = MessageUtils.getMessageResourceString( MessageUtils.ID_SISTEMA );
+			this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( 
+						new Integer(idSistema), usuario.getId() );
 		}
 	}
 
 
 	@Override
 	protected String getNomeRelatorio() {
-		// FIXME #Peninha
+		// FIXME #Peninha relatorio
 		return null;
 	}
 

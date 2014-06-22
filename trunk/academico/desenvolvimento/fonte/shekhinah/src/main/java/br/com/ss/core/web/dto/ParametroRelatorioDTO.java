@@ -10,8 +10,7 @@ import br.com.ss.academico.enumerated.TipoPesquisaData;
 
 public class ParametroRelatorioDTO {
 
-	// FIXME remover classe se nao estiver sendo utilizada
-	
+	// FIXME #Peninha remover classe se nao estiver sendo utilizada
 	
 	private Date dataInicio;
 

@@ -1,9 +1,7 @@
 package br.com.ss.core.web.controlador;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -153,7 +151,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			executarExcluir(itemToRemove);
 			pesquisar();
 			setItemToRemove(null);
-			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);	// FIXME validar: nao exibe msg
+			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);

@@ -65,7 +65,7 @@ public class UsuarioPerfilControlador {
 		UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
 		usuarioPerfil.setData(new Date());
 		usuarioPerfil.setPerfil(perfil);
-		usuarioPerfil.setUsuario(usuario);	// TODO validar relacionamento qdo o item for excluido/adicionado..
+		usuarioPerfil.setUsuario(usuario);
 		return usuarioPerfil;
 	}
 

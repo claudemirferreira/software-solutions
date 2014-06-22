@@ -64,8 +64,7 @@ public class CursoDisciplinaControlador {
 		CursoDisciplina cursoDisciplina = new CursoDisciplina();
 		cursoDisciplina.setData(new Date());
 		cursoDisciplina.setDisciplina(disciplina);
-		cursoDisciplina.setCurso(curso); // TODO validar relacionamento qdo o
-											// item for excluido/adicionado..
+		cursoDisciplina.setCurso(curso);
 		return cursoDisciplina;
 	}
 
