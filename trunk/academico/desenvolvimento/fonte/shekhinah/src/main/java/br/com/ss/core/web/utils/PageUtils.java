@@ -2,15 +2,14 @@ package br.com.ss.core.web.utils;
 
 import java.io.IOException;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.springframework.stereotype.Component;
+
 import br.com.ss.core.web.enumerated.Constants;
 
-@ManagedBean
-@ApplicationScoped
+@Component
 public class PageUtils {
 	
 	/**
@@ -35,6 +34,5 @@ public class PageUtils {
 			e.printStackTrace();
 		}
 	}
-	
 	
 }

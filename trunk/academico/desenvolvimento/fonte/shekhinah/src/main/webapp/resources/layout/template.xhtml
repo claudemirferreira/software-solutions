@@ -14,7 +14,7 @@
 		<f:loadBundle basename="messages" var="msg" />
 
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>:: #{applicationBean.sistema.codigo} : #{applicationBean.empresa.nome} :: #{empty pageTitle ? '*' : pageTitle}</title>
+		<title>:: #{applicationBean.sistema.codigo} : #{applicationBean.empresa.nome} : #{empty pageTitle ? '*' : pageTitle}</title>
 		<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
 		
 		<script language="JavaScript" type="text/javascript" src="#{request.contextPath}/resources/scripts/main.js" />
@@ -39,36 +39,6 @@
 		
 		
 <style type="text/css">
-	/*
-	body {
-		background: url(#{request.contextPath}/resources/imagens/macback.png);
-		margin: 0;
-		padding: 0;
-		font-family: geneva, arial, helvetica, sans-serif;
-		font-size:80%;
-	}
-	.ui-widget-content {
-		background: none;
-	}
-	.ui-widget-content {
-    	border: 0px solid #DDD;
-    }
-    .ui-helper-clearfix:after {
-	    content: ".";
-	    display: block;
-	    height: 0px;
-	    clear: right;
-	    clear: none;	* Barra de titulo do sistema *
-	    visibility: hidden;
-	}
-	.ui-widget-header {
-	    border: 0px solid #AED0EA;
-	    background: none;
-	    color: #222;
-	    font-weight: bold;
-	}
-	*/
-	
 	.ui-datatable .ui-datatable-footer {
 		text-align: left;
 	}
@@ -95,7 +65,6 @@
 			<div id="content">
 				<ui:insert name="content"/>
 			</div>
-			
 			
 			<!-- FIXME Teste Box 
 			<div class="simple" > 
