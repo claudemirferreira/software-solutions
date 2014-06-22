@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensalidade" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6052e703-5d4e-435d-8a7a-65006837a4c6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="checked" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checked]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="dataVencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataVencimento]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="idMensalidade" class="java.lang.Long">
+		<fieldDescription><![CDATA[idMensalidade]]></fieldDescription>
+	</field>
+	<field name="matricula" class="br.com.ss.academico.dominio.Matricula">
+		<fieldDescription><![CDATA[matricula]]></fieldDescription>
+	</field>
+	<field name="persistent" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[persistent]]></fieldDescription>
+	</field>
+	<field name="sequencial" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sequencial]]></fieldDescription>
+	</field>
+	<field name="statusPagamento" class="br.com.ss.academico.enumerated.StatusPagamento">
+		<fieldDescription><![CDATA[statusPagamento]]></fieldDescription>
+	</field>
+	<field name="valorPagamento" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorPagamento]]></fieldDescription>
+	</field>
+	<field name="valorVencimento" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorVencimento]]></fieldDescription>
+	</field>
+	<variable name="TOTAL_VENCIMENTO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorVencimento}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL_PAGAMENTO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorPagamento}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<textField>
+				<reportElement x="118" y="0" width="615" height="20" uuid="d240e3ac-bc4a-45f4-9b18-0bb3ed5244e6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Empresa: "+$P{empresa}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="20" width="615" height="20" uuid="eaf88ab3-6043-4152-a81e-7b64cbf0ebe0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cnpj: "+$P{empresa}.getCnpj()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="40" width="615" height="20" uuid="52ebc0d6-020c-45d4-8fb2-6313abf2fea1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Endereço: "+$P{empresa}.getEndereco() + " " + $P{empresa}.getBairro()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="45" height="15" uuid="ccfbebec-8cca-4ba4-9511-3a99981acab5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="0" width="84" height="15" uuid="dd8a0fa5-7864-4388-8ad3-ff54ac686cc5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="0" width="26" height="15" uuid="89f3a173-42b4-459d-b415-36522915ab8b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="40" height="15" uuid="bf16bd73-059d-4ea7-86c7-586907317539"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="85" height="15" uuid="8ccf72db-3548-49c8-a11e-fa11b596eb11"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Data Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="0" width="92" height="15" uuid="ee4cd14e-3d46-4fad-9d24-75457338a4ff"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Valor Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="656" y="0" width="96" height="15" uuid="2269ada3-bef2-491a-8139-edd47ce285ce"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Valor Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="550" y="0" width="96" height="15" uuid="3fc52872-abc4-45a8-8eb0-392eb0b2411a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Data Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="-18" width="615" height="15" uuid="62a68e65-8cbd-42d1-8398-0d95423adae6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE MENSALIDADE DE ALUNOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="48" y="0" width="162" height="15" uuid="a199ca8a-3a52-4c02-a029-f08f88924030"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matricula}.getAluno().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="45" height="15" uuid="af3f98ab-a91a-4029-9263-f635bb350996"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="100" height="15" uuid="bf114880-3de8-4bf0-8327-3e73826747fc"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{statusPagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="0" width="26" height="15" uuid="4867a2e9-9f34-4986-99a1-76821f4f73c2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sequencial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="360" y="0" width="85" height="15" uuid="c8129f9a-54ab-4c23-81fa-3f46be8c46a1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="453" y="0" width="92" height="15" uuid="1a2885d3-c3f8-48bb-b025-b1c7b8fd1579"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorVencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="550" y="0" width="100" height="15" uuid="f08f1fc4-8d15-4aef-bfe0-2fa32eb43599"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="668" y="0" width="84" height="15" uuid="bc1393be-cc78-47fe-b1db-7b784f32f863"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPagamento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="14" width="800" height="1" uuid="97d0f72c-49bc-4c62-be59-5cea4646ddf4"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-1" width="800" height="1" uuid="65c9eb2a-30ce-4a5a-a634-9953fce431da"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="19" splitType="Stretch">
+			<textField evaluationTime="Report" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="650" y="2" width="100" height="15" uuid="495197f1-6890-47c9-b65b-fa9dc27ea9ca"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_PAGAMENTO}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="445" y="2" width="100" height="15" uuid="31564fe1-f42f-43e8-8347-384080ec7f97"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_VENCIMENTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
