@@ -369,6 +369,159 @@
 		}
 	}
 	
+
+	/* -------- Login --------- */
+	.login-body {
+		background: url(/shekinah/resources/imagens/macback.png);
+		margin: 0;
+		padding: 0;
+		font-family: geneva, arial, helvetica, sans-serif;
+		font-size: 80%;
+	}
+	#principal{
+	    position:absolute;
+	    left:50%;
+	    top:50%;
+	    margin-left:-260px;
+	    margin-top:-15px;
+	    width: 500px;
+	    height: 200px;
+	    padding: 10px;
+	    text-align: center;
+	    font-family: calibri;
+	    font-size: 13px;
+	    border-radius: 05px;
+	}
+	
+	.login {
+	  position: relative;
+	  margin: 0 auto;
+	  padding: 20px 20px 20px;
+	  margin-top: 15%;
+	  width: 280px;
+	  background: white;
+	  border-radius: 3px;
+	  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+	  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+	}
+	
+	.login p {
+	  	margin: 20px 0 0;
+		color: #336699;
+	}
+	
+	.login h1 {
+		  margin: -20px -20px 21px;
+		  line-height: 40px;
+		  font-size: 15px;
+		  font-weight: bold;
+		  color: #2C628B;
+		  text-align: center;
+		  text-shadow: 0 1px white;
+		  background: #f3f3f3;
+		  border-bottom: 1px solid #cfcfcf;
+		  border-radius: 3px 3px 0 0;
+		  background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
+		  background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
+		  background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
+		  background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
+		  -webkit-box-shadow: 0 1px whitesmoke;
+		  box-shadow: 0 1px whitesmoke;
+	}
+	
+	
+	.login h3 {
+		color: #336699;
+		text-align: center;
+	}
+	
+	.login-label {
+		text-align: left;
+	}
+	
+	.login-input {
+		padding-right: 2px;
+	}
+	
+	.login-button {
+		clear: both;
+	}
+	
+	.login input[type=text], .login input[type=password] {
+	  width: 100px;
+	}
+	
+	
+	
+	
+	
+	.login-help {
+	  margin: 20px 0;
+	  font-size: 11px;
+	  color: white;
+	  text-align: center;
+	  text-shadow: 0 1px #2a85a1;
+	}
+	
+	#texto-login-esqueceu-senha {
+	   margin: 20px 0;
+	   font-size: 11px;
+	   color: white;
+	   text-align: center;
+	   text-shadow: 0 1px #2a85a1;
+	}
+	
+	.login-help a {
+	  color: #cce7fa;
+	  text-decoration: none;
+	}
+	.login-help a:hover {
+	  text-decoration: underline;
+	}
+	
+	.login:before {
+	  content: '';
+	  position: absolute;
+	  top: -8px;
+	  right: -8px;
+	  bottom: -8px;
+	  left: -8px;
+	  z-index: -1;
+	  background: rgba(0, 0, 0, 0.08);
+	  border-radius: 4px;
+	}
+	
+	.botao-login {
+	  padding: 0 18px;
+	  height: 29px;
+	  font-size: 12px;
+	  font-weight: bold;
+	  color: #eaeaea /* #527881 */;
+	  text-shadow: 0 1px #e3f1f1;
+	  background: #eaeaea /* #cde5ef */;
+	  border: 1px solid;
+	  border-color: #b4ccce #b3c0c8 #9eb9c2;
+	  border-radius: 4px;
+	  outline: 0;
+	  -webkit-box-sizing: content-box;
+	  -moz-box-sizing: content-box;
+	  box-sizing: content-box;
+	  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
+	  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
+	  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
+	  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
+	  -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+	  box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+	}
+	.botao-login:active {
+	  background: #eaeaea /* #cde5ef */;
+	  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+	  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+	  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+	}
+		
+
+	/* -------- x-x-x-x-x --------- */
 	
 	/* ========= Botoes do Menu =============== */
 	#bt_home:hover {
@@ -541,112 +694,6 @@ a {
 
 .mainForm {
 	padding-right: 7px;
-}
-
-/* ----------- Login ---------------- */
-
-.login {
-  position: relative;
-  margin: 0 auto;
-  padding: 20px 20px 20px;
-  margin-top: 15%;
-  width: 310px;
-  background: white;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.login p {
-  margin: 20px 0 0;
-}
-
-.login h1 {
-  margin: -20px -20px 21px;
-  line-height: 40px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #555;
-  text-align: center;
-  text-shadow: 0 1px white;
-  background: #f3f3f3;
-  border-bottom: 1px solid #cfcfcf;
-  border-radius: 3px 3px 0 0;
-  background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
-  background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
-  background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
-  background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
-  -webkit-box-shadow: 0 1px whitesmoke;
-  box-shadow: 0 1px whitesmoke;
-}
-
-.login-help {
-  margin: 20px 0;
-  font-size: 11px;
-  color: white;
-  text-align: center;
-  text-shadow: 0 1px #2a85a1;
-}
-
-#texto-login-esqueceu-senha {
-   margin: 20px 0;
-   font-size: 11px;
-   color: white;
-   text-align: center;
-   text-shadow: 0 1px #2a85a1;
-}
-
-.login-help a {
-  color: #cce7fa;
-  text-decoration: none;
-}
-.login-help a:hover {
-  text-decoration: underline;
-}
-
-.login input[type=text], .login input[type=password] {
-  width: 278px;
-}
-
-.login:before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -8px;
-  z-index: -1;
-  background: rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-}
-
-.botao-login {
-  padding: 0 18px;
-  height: 29px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #eaeaea /* #527881 */;
-  text-shadow: 0 1px #e3f1f1;
-  background: #eaeaea /* #cde5ef */;
-  border: 1px solid;
-  border-color: #b4ccce #b3c0c8 #9eb9c2;
-  border-radius: 4px;
-  outline: 0;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
-  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
-  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
-  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
-  -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-.botao-login:active {
-  background: #eaeaea /* #cde5ef */;
-  border-color: #9eb9c2 #b3c0c8 #b4ccce;
-  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
 

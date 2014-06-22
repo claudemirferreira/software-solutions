@@ -53,7 +53,7 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
 
 .body {
   	font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
-  	color: #DEDEDE;
+  	color: #4F78AC;
 /* 	background-image: url(images/bg_login.png); FIXME mudar imagem da tela de login  */
 	background-repeat: no-repeat;
 	width:100%;
@@ -81,7 +81,7 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
   line-height: 40px;
   font-size: 15px;
   font-weight: bold;
-  color: #555;
+  color: #2C628B;
   text-align: center;
   text-shadow: 0 1px white;
   background: #f3f3f3;
@@ -1374,3 +1374,44 @@ body .ui-tooltip {
 .gravar {  
     background-image: url("resources/estilos/images/home.png") !important;  
 }
+
+
+
+/* ----------- Lixo - login --------------------- */
+/*
+body {
+	background: url(#{request.contextPath}/resources/imagens/macback.png);
+	margin: 0;
+	padding: 0;
+	font-family: geneva, arial, helvetica, sans-serif;
+	font-size: 80%;
+}
+
+.ui-widget-content {
+	background: none;
+}
+
+.ui-widget-content {
+	border: 0px solid #DDD;
+}
+
+.ui-helper-clearfix:after {
+	content: ".";
+	display: block;
+	height: 0px;
+	clear: right;
+	clear: none;  Barra de titulo do sistema 
+	visibility: hidden;
+}
+
+.ui-widget-header {
+	border: 0px solid #AED0EA;
+	background: none;
+	color: #222;
+	font-weight: bold;
+}
+
+.ui-datatable .ui-datatable-footer {
+	text-align: left;
+}
+*/

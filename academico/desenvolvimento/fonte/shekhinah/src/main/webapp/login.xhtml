@@ -5,6 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 
@@ -13,102 +14,59 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>#{applicationBean.sistema.codigo} : #{applicationBean.empresa.nome} :: Login</title>
-		<link rel="icon"
-			href="#{request.contextPath}/resources/imagens/favicon.ico" />
+		<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
 	</f:facet>
 
 	<link type="text/css" rel="stylesheet" href="resources/estilos/style-custon.css" />
-<!-- 	<link type="text/css" rel="stylesheet" href="resources/estilos/main.css" /> -->
 
-	<!-- FIXME redirecionar para o home caso ja esteje logado. -->
-	<!-- 	<c:if test="#   {identity.loggedIn}"> -->
-	<!-- Redireciona usuario se ja estiver logado -->
-	<script>
-			url = '  usuarioControlador.validarUsuarioLogado()  ';	/* FIXME  */
-			if (url != null) {
-				document.location=;
-			}
-		</script>
-	<!-- 	</c:if> -->
+	<c:if test="#{authenticatorController.loggedIn}">
+		<!-- Redireciona usuario se ja estiver logado -->
+		#{authenticatorController.validateLoggedIn()}
+	</c:if>
 
 	<style type="text/css">
-body {
-	/* background-color: #eeeeee;	*/
-	/* font-size: 12px  */
-	background: url(#{request.contextPath}/resources/imagens/macback.png);
-	margin: 0;
-	padding: 0;
-	font-family: geneva, arial, helvetica, sans-serif;
-	font-size: 80%;
-}
-
-.ui-widget-content {
-	background: none;
-	/* 	color: #362B36; */
-}
-
-.ui-widget-content {
-	border: 0px solid #DDD;
-}
-
-.ui-helper-clearfix:after {
-	content: ".";
-	display: block;
-	height: 0px;
-	clear: right;
-	clear: none; /* Barra de titulo do sistema */
-	visibility: hidden;
-}
-
-.ui-widget-header {
-	border: 0px solid #AED0EA;
-	background: none;
-	color: #222;
-	font-weight: bold;
-}
-
-.ui-datatable .ui-datatable-footer {
-	text-align: left;
-}
-</style>
+		body {
+			background: url(#{request.contextPath}/resources/imagens/macback.png);
+			margin: 0;
+			padding: 0;
+			font-family: geneva, arial, helvetica, sans-serif;
+			font-size: 80%;
+		}
+	</style>
 
 </h:head>
 
 <h:body styleClass="body">
-
+	
 	<div class="principal">
 		<div class="login">
-
+	
 			<h1>Bem vindo</h1>
 			<br />
 			<h3>Informe seus dados de acesso</h3>
 
 			<h:form id="form">
-				<p:messages id="messages" showDetail="true" autoUpdate="true"
-					closable="true" showSummary="false" />
+				<p:messages id="messages" closable="true" 
+					showSummary="false" showDetail="true"/>
 
 				<p>
-					<h:outputLabel value="Login: " />
-					<p:inputText id="username" label="Usuário"
-						value="#{authenticatorController.username}" required="true"
-						requiredMessage="Obrigatório" />
-					<h:outputLabel id="outLblUserNameId" for="username"
-						name="outLblUserNameNm" />
+					<p:outputPanel autoUpdate="true">
+						<h:outputLabel value="Login: " />
+						<p:inputText id="username" label="Usuário" value="#{authenticatorController.username}" required="true" requiredMessage="Login obrigatório" >
+							<f:ajax event="blur" update="@this" />
+						</p:inputText>
+					</p:outputPanel>
 				</p>
 				<p>
-					<h:outputLabel value="Senha: " />
-					<p:password id="password" label="Senha"
-						value="#{authenticatorController.password}" required="true"
-						requiredMessage="Obrigatório" />
-					<h:outputLabel id="outLblPasswordId" for="password"
-						name="outLblPasswordNm" />
+					<p:outputPanel autoUpdate="true">
+						<h:outputLabel value="Senha: " />
+						<p:password id="password" label="Senha" value="#{authenticatorController.password}" required="true" requiredMessage="Senha obrigatório" />
+					</p:outputPanel>
 				</p>
 
 				<br />
 				<div align="right">
-					<p:commandButton value="Entrar"
-						action="#{authenticatorController.autenticar}" update="messages"
-						styleClass="botao-login" />
+					<p:commandButton value="Entrar" action="#{authenticatorController.autenticar}" update="messages" styleClass="botao-login" />
 				</div>
 			</h:form>
 		</div>

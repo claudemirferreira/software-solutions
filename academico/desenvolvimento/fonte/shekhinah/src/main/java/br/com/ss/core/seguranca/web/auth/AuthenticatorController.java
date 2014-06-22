@@ -24,8 +24,10 @@ import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.PerfilServico;
 import br.com.ss.core.seguranca.servico.RotinaServico;
 import br.com.ss.core.seguranca.servico.SistemaServico;
+import br.com.ss.core.web.enumerated.Constants;
 import br.com.ss.core.web.utils.FacesUtils;
 import br.com.ss.core.web.utils.MessageUtils;
+import br.com.ss.core.web.utils.PageUtils;
 import br.fpf.components.web.menu.ItemMenu;
 import br.fpf.components.web.menu.Menu;
 
@@ -49,12 +51,17 @@ public class AuthenticatorController {
 
 	@Autowired
 	private RotinaServico rotinaServico;
+
+	@Autowired
+	private PageUtils pageUtils;
 	
 	private String username;
 
 	private String password;
 	
 	private static final String HOME = "home";
+	
+	private boolean loggedIn;
 	
 
 	public String autenticar() {
@@ -81,6 +88,8 @@ public class AuthenticatorController {
             */
             // msg no flash scope
             ELFlash.getFlash().put("msgBemVindo", "Bem Vindo " + usuarioLogado.getNome() + "!");
+            
+            loggedIn = true;
             
         } catch (AuthenticationException exc) {
         	logger.error("# ERRO Autenticando o usuario: " + username, exc );
@@ -120,13 +129,23 @@ public class AuthenticatorController {
 		// armazena menu na sessao do usuario
 		FacesUtils.getRequest().getSession().setAttribute("menuList", menuList);
 	}
-
+	
 	
 	public void logout() {
 		 SecurityContextHolder.clearContext();
 		 FacesUtils.getRequest().getSession().invalidate();
+		 loggedIn = false;
 	}
 
+	/**
+	 * Redireciona para o home se já estiver logado.
+	 */
+	public void validateLoggedIn() {
+		if (loggedIn) {
+			pageUtils.redirectForUrl("index.xhtml" + Constants.REDIRECT);
+		}
+	}
+	
 
 	/* ------------ Gets/Sets ---------------*/
 	
@@ -166,5 +185,13 @@ public class AuthenticatorController {
 	public void setRotinaServico(RotinaServico rotinaServico) {
 		this.rotinaServico = rotinaServico;
 	}
-
+	public PageUtils getPageUtils() {
+		return pageUtils;
+	}
+	public void setPageUtils(PageUtils pageUtils) {
+		this.pageUtils = pageUtils;
+	}
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
 }
