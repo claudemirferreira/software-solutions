@@ -50,6 +50,8 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	private TipoPesquisaData tipoPesquisaData;
 
 	private List<SelectItem> tipoPesquisaDataList;
+	
+	private String nomeRelatorio = "mensalidade.jasper";
 
 	
 	@Override
@@ -82,9 +84,12 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	}
 
 	@Override
-	protected String getNomeRelatorio() {
-		// FIXME #Peninha ver relatorio
-		return null;
+	public String getNomeRelatorio() {
+		return this.nomeRelatorio;
+	}
+
+	public void setNomeRelatorio(String nomeRelatorio) {
+		this.nomeRelatorio = nomeRelatorio;
 	}
 
 	@Override
