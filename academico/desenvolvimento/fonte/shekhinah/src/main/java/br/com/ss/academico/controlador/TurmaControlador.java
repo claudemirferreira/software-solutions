@@ -60,7 +60,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	
 	@Override
 	protected String getNomeRelatorio() {
-		// FIXME #Peninha
+		// FIXME #Peninha relatorio
 		return null;
 	}
 

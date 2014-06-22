@@ -18,10 +18,15 @@
 	
 			<p:pickList id="plUsuPerf"
 				value="#{cursoDisciplinaControlador.dualListDisciplina}"
-				effect="bounce" converter="cursoDisciplinaConverter" var="up"
-				itemLabel="#{up.disciplina.nome}" itemValue="#{up}"
-				showSourceControls="false" showTargetControls="false"
-				showCheckbox="false" showSourceFilter="true"
+				effect="bounce" 
+				converter="cursoDisciplinaConverter" 
+				var="up"
+				itemLabel="#{up.disciplina.nome}" 
+				itemValue="#{up}"
+				showSourceControls="false" 
+				showTargetControls="false"
+				showCheckbox="false" 
+				showSourceFilter="true"
 				showTargetFilter="true">
 	
 				<f:facet name="sourceCaption">Disponíveis</f:facet>

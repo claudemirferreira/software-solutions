@@ -272,7 +272,6 @@ public class RelatorioUtil implements Serializable {
 		} catch (JRException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

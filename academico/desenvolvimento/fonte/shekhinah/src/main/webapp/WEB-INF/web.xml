@@ -73,7 +73,6 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-	    <!-- FIXME: deve ser a index... -->
 		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 	

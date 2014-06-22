@@ -12,6 +12,8 @@
 	<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" modal="true" appendToBody="true">
 		<h:form id="formDlg">
 		
+			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false" />
+	
 			<h4 style="margin-top: 0">Selecione os Perfis para associar ao Usuário</h4>
 
 			<p:pickList id="plUsuPerf"
@@ -30,7 +32,7 @@
 				<f:facet name="sourceCaption">Disponíveis</f:facet>
 				<f:facet name="targetCaption">Atribuídos</f:facet>
 
-				<p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update=":form:msg" />
+				<p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update="msg :form:msg" />
 
 				<p:column style="width:75%;"> #{up.perfil.nome}</p:column>
 

@@ -30,7 +30,7 @@
 			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
 			<ss2:column value="#{item.imagem}" header="Imagem" sortBy="imagem"  />
 		
-			<ss2:actionColumn managedBean="#{turmaControlador}" buttonsAdded="1">
+			<ss2:actionColumn managedBean="#{perfilControlador}" buttonsAdded="1">
 				<p:commandButton value="Rotina" title="Rotina"
 								action="#{perfilRotinaControlador.showModalRotina(item)}"
 								icon="ui-icon-newwin" oncomplete="PF('dlgRotina').show();"
