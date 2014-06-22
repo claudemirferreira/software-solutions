@@ -17,7 +17,8 @@
 
 	<ui:define name="search_filter">
 
-		<ss:comboBox label="Turma" foreignKey="true" atributo="#{item.curso.nome}  - #{item.ano} - #{item.turno.descricao}"
+		<ss:comboBox label="Turma" foreignKey="true"
+			atributo="#{item.curso.nome}  - #{item.ano} - #{item.turno.descricao}"
 			value="#{boletimControlador.turma}"
 			list="#{boletimControlador.turmas}" />
 
@@ -25,10 +26,19 @@
 
 	<ui:define name="grid_region">
 
-		<ss:grid managedBean="#{boletimControlador}" renderedActionColumn="false">
+		<ss:grid managedBean="#{boletimControlador}" list="matriculas" renderedActionColumn="false">
+
+			<ss2:column value="#{item.idMatricula}" header="Matricula" sortBy="idMatricula" />
 			
-			<ss2:column value="#{item.nota}" header="Valor" sortBy="valor"
-				convertNumber="true" textAlign="right" />
+			<ss2:column value="#{item.aluno.nome}" header="Aluno" sortBy="nome" />
+			
+			<ss2:column value="#{item.status}" header="Status" sortBy="status" />
+			
+			<ss2:actionColumn managedBean="#{cursoControlador}" buttonsAdded="1" renderedDetail="false" renderedRemove="false" >
+				<p:commandButton value="Disciplina" title="Disciplina"
+								action="#{boletimControlador.pesquisarBoletim(item)}"
+								icon="ui-icon-document" />
+			</ss2:actionColumn>
 
 		</ss:grid>
 
