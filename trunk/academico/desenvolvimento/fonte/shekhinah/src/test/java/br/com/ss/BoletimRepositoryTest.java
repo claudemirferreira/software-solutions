@@ -21,7 +21,7 @@ public class BoletimRepositoryTest {
 	@Autowired
 	BoletimRepositorio repository;
 
-	@Test
+//	@Test
 	public void test() {
 		System.out.println("1");
 		Matricula matricula = new Matricula();
@@ -29,10 +29,20 @@ public class BoletimRepositoryTest {
 		
 		List<Boletim> lista = repository.pesquisarBoletim(matricula);
 		for (Boletim b : lista) {
-			System.out.println(b.getDisciplina().getNome());
+//			System.out.println(b.getDisciplina().getNome());
 		}
 
 		System.out.println("2");
+	}
+	
+	@Test
+	public void salvar(){
+		Boletim boletim = repository.findOne(1l);
+		
+		boletim.setMedia1( (float) 7.0);
+		repository.save(boletim);
+		System.out.println("salvou");
+		
 	}
 
 }
