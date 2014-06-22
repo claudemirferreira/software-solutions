@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ss.academico.dominio.Boletim;
 import br.com.ss.academico.dominio.Disciplina;
@@ -14,6 +15,7 @@ import br.com.ss.academico.repositorio.DisciplinaRepositorioSql;
 import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
+@Transactional
 public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements
 		BoletimServico {
 

@@ -50,12 +50,13 @@ public class Turma extends AbstractEntity implements Serializable {
 	private List<Matricula> matriculas;
 
 	// bi-directional many-to-one association to Curso
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_curso", nullable = false)
 	private Curso curso;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.REMOVE }, mappedBy = "turmaDisciplinaPk.turma")
+	@OneToMany( cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
+			fetch = FetchType.EAGER,
+			mappedBy = "turmaDisciplinaPk.turma")
 	private List<TurmaDisciplina> turmaDisciplina = new ArrayList<TurmaDisciplina>();
 
 

@@ -2,13 +2,17 @@ package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 
@@ -52,11 +56,11 @@ public class Boletim extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idBoletim;
 
-	@ManyToOne
+	@ManyToOne // (cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
 	@JoinColumn(name = "id_disciplina", nullable = false)
 	private Disciplina disciplina;
 
-	@ManyToOne
+	@ManyToOne // (cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
 	@JoinColumn(name = "id_matricula", nullable = false)
 	private Matricula matricula;
 
