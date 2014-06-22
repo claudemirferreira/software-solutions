@@ -167,11 +167,6 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	public void onEdit(RowEditEvent event) {
 		this.entidade = (Boletim) event.getObject();
 		
-		
-//		this.entidade.getDisciplina().setCursoDisciplina(null);
-//		this.entidade.getMatricula().setMensalidades(null);
-//		this.entidade.getMatricula().setTurma(null);
-		
 		this.servico.salvar(this.entidade);
 	}
 
