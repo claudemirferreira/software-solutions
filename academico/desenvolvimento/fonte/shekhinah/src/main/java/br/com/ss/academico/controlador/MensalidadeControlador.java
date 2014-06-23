@@ -1,5 +1,7 @@
 package br.com.ss.academico.controlador;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +14,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+
+import net.sf.jasperreports.engine.JasperExportManager;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
@@ -52,6 +59,8 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	private List<SelectItem> tipoPesquisaDataList;
 	
 	private String nomeRelatorio = "mensalidade.jasper";
+	
+	private StreamedContent print;
 
 	
 	@Override
@@ -221,6 +230,14 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 
 	public void setTipoPesquisaDataList(List<SelectItem> tipoPesquisaDataList) {
 		this.tipoPesquisaDataList = tipoPesquisaDataList;
+	}
+	
+	public void pp(){
+		this.print = super.print();
+	}
+	
+	public StreamedContent getPrint(){
+		return this.print;
 	}
 
 }

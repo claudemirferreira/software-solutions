@@ -180,7 +180,7 @@ public class RelatorioUtil implements Serializable {
 					fileReport ), response.getOutputStream(), parametros, jrRS);
 
 			context.renderResponse();
-			context.responseComplete();
+//			context.responseComplete();
 
 		} catch ( Exception e) {
 			e.printStackTrace();
