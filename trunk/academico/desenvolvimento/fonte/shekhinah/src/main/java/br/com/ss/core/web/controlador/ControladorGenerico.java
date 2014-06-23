@@ -1,7 +1,9 @@
 package br.com.ss.core.web.controlador;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -16,6 +18,10 @@ import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.jasperreports.engine.JasperExportManager;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
@@ -213,9 +219,17 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * @throws DocumentException 
 	 * @throws IOException 
 	 */
-	public String imprimir() throws FileNotFoundException, IOException, DocumentException {
+	public void imprimir() throws FileNotFoundException, IOException, DocumentException {
 		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
-		return RELATORIO;
+//		return RELATORIO;
+	}
+	
+	public StreamedContent print(){
+		
+		byte[] dadosPdf = relatorioUtil.gerarRelatorioWebBytes(listaPesquisa, null, "mensalidade.jasper");    
+	    InputStream relatorio = new ByteArrayInputStream(dadosPdf);      
+	    return new DefaultStreamedContent(relatorio, "application/pdf", "cart.pdf");  
+		
 	}
 
 	
