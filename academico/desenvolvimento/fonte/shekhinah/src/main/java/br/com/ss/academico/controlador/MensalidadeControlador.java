@@ -116,6 +116,16 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	}
 
 	
+	@Override
+	public String detalhe() {
+		String page = super.detalhe();
+		if (StatusPagamento.PENDENTE.equals( entidade.getStatusPagamento()) ) {
+			entidade.setDataPagamento(new Date());
+		}
+		return page;
+	}
+	
+	
 	/**
 	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
 	 */
