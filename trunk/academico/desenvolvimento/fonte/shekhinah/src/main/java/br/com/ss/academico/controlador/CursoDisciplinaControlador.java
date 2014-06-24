@@ -17,6 +17,7 @@ import org.primefaces.model.DualListModel;
 
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.CursoDisciplina;
+import br.com.ss.academico.dominio.CursoDisciplinaId;
 import br.com.ss.academico.dominio.Disciplina;
 import br.com.ss.academico.servico.CursoDisciplinaServico;
 
@@ -47,20 +48,18 @@ public class CursoDisciplinaControlador {
 				.listaDisciplinaNotInCurso(curso.getId());
 
 		for (Disciplina disciplina : listaDisciplinaNotInCurso) {
-			CursoDisciplina cursoDisciplina = createCursoDisciplina(disciplina,
-					curso);
+			CursoDisciplina cursoDisciplina = createCursoDisciplina(disciplina, curso);
 			listaCursoDisciplinaNotInCurso.add(cursoDisciplina);
 		}
 		// faz o fetch de CursoDisciplina
-		List<CursoDisciplina> usuPerfis = cursoDisciplinaServico
-				.findByCurso(curso);
-		curso.setCursoDisciplina(usuPerfis);
+		List<CursoDisciplina> cursoDisciplinas = cursoDisciplinaServico.findByCurso(curso);
+		curso.setCursoDisciplina(cursoDisciplinas);
 		dualListDisciplina = new DualListModel<CursoDisciplina>(
-				listaCursoDisciplinaNotInCurso, curso.getCursoDisciplina());
+									listaCursoDisciplinaNotInCurso,
+									curso.getCursoDisciplina());
 	}
 
-	private CursoDisciplina createCursoDisciplina(Disciplina disciplina,
-			Curso curso) {
+	private CursoDisciplina createCursoDisciplina(Disciplina disciplina, Curso curso) {
 		CursoDisciplina cursoDisciplina = new CursoDisciplina();
 		cursoDisciplina.setData(new Date());
 		cursoDisciplina.setDisciplina(disciplina);
@@ -70,8 +69,7 @@ public class CursoDisciplinaControlador {
 
 	public void onTransfer(TransferEvent event) {
 
-		CursoDisciplina cursoDisciplina = (CursoDisciplina) event.getItems()
-				.get(0);
+		CursoDisciplina cursoDisciplina = (CursoDisciplina) event.getItems().get(0);
 
 		salvarCurso(cursoDisciplina, event.isAdd());
 
@@ -83,9 +81,19 @@ public class CursoDisciplinaControlador {
 			String msg;
 
 			if (add) {
+				
+				CursoDisciplinaId id = new CursoDisciplinaId();
+				id.setCurso(cursoDisciplina.getCurso());
+				id.setDisciplina(cursoDisciplina.getDisciplina());
+				cursoDisciplina.setId(id);
+				
 				cursoDisciplinaServico.salvar(cursoDisciplina);
 				msg = MSG_ADICIONAR;
 			} else {
+				
+				// FIXME #Peninha: validar se a a relacao (CursoDisciplina) está em uso (boletim) antes de excluir
+				// exibir alerta exibindo msg q nao pode excluir pois o CursoDisciplina está em uso..
+				
 				cursoDisciplinaServico.remover(cursoDisciplina);
 				msg = MSG_REMOVER;
 			}

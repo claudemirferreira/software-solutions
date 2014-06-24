@@ -36,12 +36,14 @@ public class Disciplina extends AbstractEntity implements Serializable {
 	@Column(length = 100)
 	private String descricao;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.REMOVE }, mappedBy = "cursoDisciplinaPk.disciplina")
+	@OneToMany(fetch = FetchType.LAZY, 
+				cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
+				mappedBy = "disciplina")
 	private List<CursoDisciplina> cursoDisciplina = new ArrayList<CursoDisciplina>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.REMOVE }, mappedBy = "turmaDisciplinaPk.disciplina")
+	@OneToMany(fetch = FetchType.LAZY, 
+				cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
+				mappedBy = "turmaDisciplinaPk.disciplina")
 	private List<TurmaDisciplina> turmaDisciplina = new ArrayList<TurmaDisciplina>();
 
 	public Disciplina() {
