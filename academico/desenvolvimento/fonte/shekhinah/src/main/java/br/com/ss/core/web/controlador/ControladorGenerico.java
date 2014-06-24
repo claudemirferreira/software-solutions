@@ -9,6 +9,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -17,8 +18,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-
-import net.sf.jasperreports.engine.JasperExportManager;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -37,10 +36,11 @@ import br.com.ss.core.web.utils.ReflectionsUtil;
 import com.lowagie.text.DocumentException;
 
 @Named
-public abstract class ControladorGenerico<T extends AbstractEntity> implements Serializable {
+public abstract class ControladorGenerico<T extends AbstractEntity> implements
+		Serializable {
 
 	private static final long serialVersionUID = -1229239475130268144L;
-	
+
 	/* ---------- Atributos ----------------------- */
 
 	/** Entity usado no cadastro. */
@@ -60,22 +60,27 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> sexoList;
-	
+
 	/**
 	 * Alias para redirecionar para a tela de cadastro.
 	 */
 	public static final String CADASTRO = "cadastro";
 
 	/**
-	 * Alias para redirecionar para a tela de pesquisa. */
+	 * Alias para redirecionar para a tela de pesquisa.
+	 */
 	public static final String PESQUISA = "pesquisa";
-	
+
 	/**
-	 * Alias para redirecionar para a tela de relatorio. */
+	 * Alias para redirecionar para a tela de relatorio.
+	 */
 	public static final String RELATORIO = "relatorio";
-	
-	
-	
+
+	/**
+	 * armazena os bytes do relatorio
+	 */
+	private StreamedContent inputStream;
+
 	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
@@ -87,47 +92,47 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	}
 
 	protected void initCommons() {
-		
+
 		sexoList = new ArrayList<SelectItem>();
 		for (Sexo c : Sexo.values()) {
 			sexoList.add(new SelectItem(c, c.getDescricao()));
 		}
-		
+
 	}
 
-	protected void init(){
+	protected void init() {
 		// Sobrescrever caso necessario
 	}
 
 	/**
 	 * Força o recarregamento da pagina de pesquisa.
 	 */
-	public void reload(){
+	public void reload() {
 		init();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void initEntity(){
+	protected void initEntity() {
 		try {
-			Class<T> clazz  = resolverClass();
+			Class<T> clazz = resolverClass();
 			pesquisa = (T) ReflectionsUtil.callConstructor(clazz);
 			entidade = (T) ReflectionsUtil.callConstructor(clazz);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private Class<T> resolverClass() {
-		 return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		return (Class<T>) ((ParameterizedType) getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	/** Nome do relatorio utilizado na impressao. */
 	protected abstract String getNomeRelatorio();
-	
+
 	/** Retornar o serviço da entidade. */
 	protected abstract IService<T, Long> getService();
-	
 
 	public void pesquisar() {
 		this.listaPesquisa = getService().pesquisar(pesquisa);
@@ -145,13 +150,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			return null;
 		}
 	}
-	
 
 	public void excluir(T itemRemove) {
 		itemToRemove = itemRemove;
 		excluir();
 	}
-	
+
 	public void excluir() {
 		try {
 			executarExcluir(itemToRemove);
@@ -164,7 +168,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		}
 	}
 
-	
 	public void executarExcluir(T itemRemove) {
 		T removeEntity = getService().findByPrimaryKey(itemRemove.getId());
 		getService().remover(removeEntity);
@@ -172,20 +175,22 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	/**
 	 * Metodo utilizado para ir para a tela de cadastra da entidade.
+	 * 
 	 * @return string.
 	 */
 	public String novo() {
 		this.initEntity();
 		return CADASTRO;
 	}
-	
 
 	public String detalhe() {
 		return detalhe(entidade);
 	}
+
 	/**
 	 * Metodo utilizado para editar uma entidade. Sobrescrever este metodo caso
 	 * necessário realizar outras operaçoes.
+	 * 
 	 * @return string.
 	 */
 	public String detalhe(T entidade) {
@@ -194,7 +199,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	}
 
 	/**
-	 * Metodo utilizado para cancelar uma edicao e retornar para a pg de inicial.
+	 * Metodo utilizado para cancelar uma edicao e retornar para a pg de
+	 * inicial.
+	 * 
 	 * @return string.
 	 */
 	public String cancelar() {
@@ -202,41 +209,62 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		return PESQUISA;
 	}
 
-	
 	/**
 	 * Impressao de um item selecionado no grid de pesquisa.
+	 * 
 	 * @param entity
 	 */
-	public void imprimir(T entity ) {
+	public void imprimir(T entity) {
 		// FIXME #Peninha: implementar: metodo para imprimir do grid de pesquisa
 		// usar em telas como: matricula, aluno..
 	}
-	
-	
+
 	/**
 	 * Usado para imprimir o grid da tela de pesqusia.
+	 * 
 	 * @throws FileNotFoundException
-	 * @throws DocumentException 
-	 * @throws IOException 
+	 * @throws DocumentException
+	 * @throws IOException
 	 */
-	public void imprimir() throws FileNotFoundException, IOException, DocumentException {
-		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null, getNomeRelatorio());
-//		return RELATORIO;
-	}
-	
-	public StreamedContent print(){
-		
-		byte[] dadosPdf = relatorioUtil.gerarRelatorioWebBytes(listaPesquisa, null, "mensalidade.jasper");    
-	    InputStream relatorio = new ByteArrayInputStream(dadosPdf);      
-	    return new DefaultStreamedContent(relatorio, "application/pdf", "cart.pdf");  
-		
+	public void imprimir() throws FileNotFoundException, IOException,
+			DocumentException {
+		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null,
+				getNomeRelatorio());
+		// return RELATORIO;
 	}
 
-	
+	public void imprimir(List<?> lista, Map<String, Object> params,
+			String nomeRelatorio) {
+
+		try {
+			byte[] dadosPdf = relatorioUtil.gerarRelatorioWebBytes(lista,
+					params, nomeRelatorio);
+			InputStream is = new ByteArrayInputStream(dadosPdf);
+
+			// InputStream inputStream = new FileInputStream(arquivo);
+
+			//
+			// File f = new File ("teste.pdf");
+			// FileOutputStream fos = null;
+			// try {
+			// fos = new FileOutputStream (f);
+			// fos.write (dadosPdf);
+			// } finally {
+			// if (fos != null) try { fos.close(); } catch (IOException ex) {}
+			// }
+
+			// inputStream = new DefaultStreamedContent(fos, "application/pdf");
+			inputStream = new DefaultStreamedContent(is, "application/pdf");
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/* -------- Metodos utilitarios -------------- */
 
 	protected void showMessage(String msg, Severity severityInfo) {
-		showMessage(msg, null, severityInfo);		
+		showMessage(msg, null, severityInfo);
 	}
 
 	protected void showMessage(String msg, String detail, Severity severityInfo) {
@@ -245,12 +273,13 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	/**
 	 * Retorna o usuário logado.
+	 * 
 	 * @return Usuario
 	 */
 	protected Usuario getUsuarioLogado() {
-		return ((Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		return ((Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal());
 	}
-
 
 	/**
 	 * Retorna a instancia de HttpServletRequest.
@@ -259,14 +288,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		return FacesUtils.getRequest();
 	}
 
-	
 	protected boolean isDataFuturo(Date date) {
 		return DateUtil.isDataFuturo(date);
 	}
 
 	/* ---------- Others ------------- */
-
-
 
 	/* ---------- Gets/Sets ------------- */
 
@@ -308,6 +334,14 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	public void setEntidade(T entidade) {
 		this.entidade = entidade;
+	}
+
+	public StreamedContent getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(StreamedContent inputStream) {
+		this.inputStream = inputStream;
 	}
 
 }
