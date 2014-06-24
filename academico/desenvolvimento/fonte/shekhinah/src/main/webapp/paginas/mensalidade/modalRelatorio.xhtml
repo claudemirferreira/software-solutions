@@ -10,29 +10,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="formDlg">
-		<p:dialog id="dialogRelatorio" header="Relatorio" modal="true"
-			width="800px" height="500px" widgetVar="dlgRelatorio">
-
-			<p:growl id="msg" showDetail="false" escape="false"
-				globalOnly="false" />
-
-			<h4 style="margin-top: 0">Selecione as Relatorios para associar
-				ao Curso</h4>
-
-			<h3>PDF</h3>
-			<!-- 			<object type="application/pdf" -->
-			<!-- 				data="/shekinah/paginas/mensalidade/ADRIANA.pdf?pfdrid_c=true" -->
-			<!-- 				height="100%" width="100%"> -->
-			<!-- 			</object> -->
-
-			<p:media value="#{MensalidadeControlador.print}" width="100%" height="100%"
-				player="pdf">
-			</p:media>
-
-			<p:commandButton value="Fechar" onclick="PF('dlgRelatorio').hide();" />
+		<p:dialog id="dialogRelatorio" header="Relatório de Mensalidades"
+			modal="true" width="900px" height="600px" widgetVar="dlgRelatorio">
+			
+			<p:media id="panelNf" value="#{mensalidadeControlador.inputStream}" player="pdf"
+				width="100%" height="550px" ajax="false" />
 
 		</p:dialog>
-
 	</h:form>
-
 </ui:component>

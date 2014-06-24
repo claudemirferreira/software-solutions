@@ -36,9 +36,9 @@
 		<ss:comboBox label="Pesquisar por" filter="false"
 			value="#{mensalidadeControlador.tipoPesquisaData}"
 			list="#{mensalidadeControlador.tipoPesquisaDataList}" />
-
+			
 		<p:commandButton value="Relatorio" title="Relatorio"
-			action="#{mensalidadeControlador.getPrint}"
+			action="#{mensalidadeControlador.imprimir}"
 			oncomplete="PF('dlgRelatorio').show();" update=":formDlg"
 			styleClass="ui-priority-primary" icon="ui-icon-document" />
 
