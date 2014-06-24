@@ -15,15 +15,15 @@ import br.com.ss.academico.dominio.Disciplina;
 public interface CursoDisciplinaRepositorio extends
 		JpaRepository<CursoDisciplina, Long> {
 
-	@Query("select up from CursoDisciplina up "
-			+ " where up.cursoDisciplinaPk.curso = :curso "
-			+ " and up.cursoDisciplinaPk.disciplina = :disciplina ")
+	@Query("select cd from CursoDisciplina cd "
+			+ " where cd.id.curso = :curso "
+			+ " and cd.id.disciplina = :disciplina ")
 	public CursoDisciplina findByCursoAndDisciplina(
 			@Param("curso") Curso curso,
 			@Param("disciplina") Disciplina disciplina);
 
-	@Query("select up from CursoDisciplina up "
-			+ " where up.cursoDisciplinaPk.curso = :curso ")
+	@Query("select cd from CursoDisciplina cd "
+			+ " where cd.id.curso = :curso ")
 	public List<CursoDisciplina> findByCurso(@Param("curso") Curso curso);
 
 }

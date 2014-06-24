@@ -14,10 +14,10 @@ public class CursoDisciplinaRepositorioSqlImpl extends RepositorioGenerico imple
 	@Override
 	public List<Disciplina> listaDisciplinaNotInCurso(Long idCurso) {
 		return entityManager.createNativeQuery(
-				"select p.* from acad_disciplina p "
-						+ "where p.id_disciplina not in ( "
-						+ "select id_disciplina from acad_curso_disciplina up "
-						+ "where up.id_curso = " + idCurso + ")",
+				"select d.* from acad_disciplina d "
+						+ "where d.id_disciplina not in ( "
+						+ "select id_disciplina from acad_curso_disciplina cd "
+						+ "where cd.id_curso = " + idCurso + ")",
 				Disciplina.class).getResultList();
 
 	}

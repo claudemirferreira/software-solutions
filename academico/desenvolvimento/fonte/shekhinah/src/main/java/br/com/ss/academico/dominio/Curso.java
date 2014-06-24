@@ -35,10 +35,9 @@ public class Curso extends AbstractEntity implements Serializable {
 	@Column(nullable = false)
 	private double valor;
 
-	@OneToMany(
-			fetch = FetchType.LAZY, 
-			cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
-			mappedBy = "cursoDisciplinaPk.curso")
+	@OneToMany(fetch = FetchType.LAZY, 
+				cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
+				mappedBy = "curso")
 	private List<CursoDisciplina> cursoDisciplina = new ArrayList<CursoDisciplina>();
 	
 

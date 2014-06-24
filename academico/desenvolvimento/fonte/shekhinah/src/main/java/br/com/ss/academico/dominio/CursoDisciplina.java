@@ -3,64 +3,60 @@ package br.com.ss.academico.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient; 
 
 /**
  * 
  * @author altitdb
  */
 @Entity
-@AssociationOverrides({
-		@AssociationOverride(name = "cursoDisciplinaPk.curso", joinColumns = @JoinColumn(name = "idCurso")),
-		@AssociationOverride(name = "cursoDisciplinaPk.disciplina", joinColumns = @JoinColumn(name = "idDisciplina")) })
 @Table( name = "acad_curso_disciplina" )
 public class CursoDisciplina implements Serializable {
 
 	private static final long serialVersionUID = -1220797610390530939L;
 
 	@EmbeddedId
-	private CursoDisciplinaPk cursoDisciplinaPk = new CursoDisciplinaPk();
+    @AttributeOverrides( {
+        @AttributeOverride( name = "idCurso", column = @Column( name = "id_curso", nullable = false ) ),
+        @AttributeOverride( name = "idDisciplina", column = @Column( name = "id_disciplina", nullable = false ) ) } )
+	private CursoDisciplinaId id = new CursoDisciplinaId();
 
-	@Transient
+    @ManyToOne( fetch = FetchType.EAGER )
+    @JoinColumn( name = "id_curso", insertable = false, updatable = false )
 	private Curso curso;
 
-	@Transient
+    @ManyToOne( fetch = FetchType.EAGER )
+    @JoinColumn( name = "id_disciplina", insertable = false, updatable = false )
 	private Disciplina disciplina;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data;
+	private Date data;		// FIXME #Peninha, Qual a finalidade desse campo??
 
 	
 	public Disciplina getDisciplina() {
-		return cursoDisciplinaPk.getDisciplina();
+		return disciplina;
 	}
 
 	public void setDisciplina(Disciplina disciplina) {
-		cursoDisciplinaPk.setDisciplina(disciplina);
+		this.disciplina = disciplina;
 	}
 
 	public Curso getCurso() {
-		return cursoDisciplinaPk.getCurso();
+		return curso;
 	}
 
 	public void setCurso(Curso curso) {
-		cursoDisciplinaPk.setCurso(curso);
-	}
-
-	public CursoDisciplinaPk getCursoDisciplinaPk() {
-		return cursoDisciplinaPk;
-	}
-
-	public void setCursoDisciplinaPk(CursoDisciplinaPk cursoDisciplinaPk) {
-		this.cursoDisciplinaPk = cursoDisciplinaPk;
+		this.curso = curso;
 	}
 
 	public Date getData() {
@@ -71,14 +67,12 @@ public class CursoDisciplina implements Serializable {
 		this.data = data;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return cursoDisciplinaPk.equals( ( ( CursoDisciplina ) obj ).getCursoDisciplinaPk() );
+	public CursoDisciplinaId getId() {
+		return id;
 	}
 
-	@Override
-	public int hashCode() {
-		return cursoDisciplinaPk.hashCode();
+	public void setId(CursoDisciplinaId id) {
+		this.id = id;
 	}
-	
+
 }
