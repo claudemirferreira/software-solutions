@@ -1,6 +1,5 @@
 package br.com.ss.academico.controlador;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,17 +7,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-
-import net.sf.jasperreports.engine.JasperExportManager;
-
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
@@ -53,16 +49,13 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	private Date dataInicio;
 
 	private Date dataFim;
-	
+
 	private TipoPesquisaData tipoPesquisaData;
 
 	private List<SelectItem> tipoPesquisaDataList;
-	
-	private String nomeRelatorio = "mensalidade.jasper";
-	
-	private StreamedContent print;
 
-	
+	private String nomeRelatorio = "mensalidade.jasper";
+
 	@Override
 	public void init() {
 		pesquisa.setMatricula(new Matricula());
@@ -78,7 +71,6 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		tipoPesquisaData = TipoPesquisaData.VECIMENTO;
 		carregarDatas();
 	}
-	
 
 	public void carregarDatas() {
 		Calendar cal = GregorianCalendar.getInstance();
@@ -87,9 +79,12 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		int mes = (cal.get(Calendar.MONDAY) + 1);
 		int ano = cal.get(Calendar.YEAR);
 		try {
-			this.dataInicio = (new SimpleDateFormat("dd/MM/yyyy")).parse("01/" + mes + "/" + ano);
-			this.dataFim = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia + "/" + mes + "/" + ano);
-		} catch (ParseException e) { }
+			this.dataInicio = (new SimpleDateFormat("dd/MM/yyyy")).parse("01/"
+					+ mes + "/" + ano);
+			this.dataFim = (new SimpleDateFormat("dd/MM/yyyy")).parse(dia + "/"
+					+ mes + "/" + ano);
+		} catch (ParseException e) {
+		}
 	}
 
 	@Override
@@ -106,35 +101,33 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		return servico;
 	}
 
-	
 	/*
- 	FIXME #Peninha, verificar relatorio
- 	
-	private final Long ID_EMPRESA = 1L;	// FIXME #Peninha, recuperar registro da tabela de configuração
- 	
-	public void imprimir() throws FileNotFoundException {
-		Empresa empresa = empresaServico.findOne(this.ID_EMPRESA);
-		Map parametros = new HashMap();
-		parametros.put("empresa", empresa);
-		relatorioUtil.gerarRelatorioWeb(this.lista, parametros, "mensalidade.jasper");
-	}
-	*/
+	 * FIXME #Peninha, verificar relatorio
+	 * 
+	 * private final Long ID_EMPRESA = 1L; // FIXME #Peninha, recuperar registro
+	 * da tabela de configuração
+	 * 
+	 * public void imprimir() throws FileNotFoundException { Empresa empresa =
+	 * empresaServico.findOne(this.ID_EMPRESA); Map parametros = new HashMap();
+	 * parametros.put("empresa", empresa);
+	 * relatorioUtil.gerarRelatorioWeb(this.lista, parametros,
+	 * "mensalidade.jasper"); }
+	 */
 
 	public void pesquisar() {
-		this.listaPesquisa = servico.pesquisar(pesquisa, dataInicio, dataFim, tipoPesquisaData);
+		this.listaPesquisa = servico.pesquisar(pesquisa, dataInicio, dataFim,
+				tipoPesquisaData);
 	}
 
-	
 	@Override
 	public String detalhe() {
 		String page = super.detalhe();
-		if (StatusPagamento.PENDENTE.equals( entidade.getStatusPagamento()) ) {
+		if (StatusPagamento.PENDENTE.equals(entidade.getStatusPagamento())) {
 			entidade.setDataPagamento(new Date());
 		}
 		return page;
 	}
-	
-	
+
 	/**
 	 * Lista os Alunos - para a lista do auto-complete da tela de pesquisa.
 	 */
@@ -143,7 +136,6 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		aluno.setNome(nome);
 		return alunoServico.pesquisar(aluno);
 	}
-
 
 	public String cancelarMensalidade() {
 		this.entidade.setStatusPagamento(StatusPagamento.CANCELADO);
@@ -155,23 +147,21 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		return this.salvar();
 	}
 
-	
 	public String salvar() {
 		this.entidade.setUsuario(getUsuarioLogado());
 		return super.salvar();
 	}
 
-
 	/* ------------- Gets/Sets ----------------------- */
-	
+
 	public MensalidadeServico getServico() {
 		return servico;
 	}
-	
+
 	public void setServico(MensalidadeServico servico) {
 		this.servico = servico;
 	}
-	
+
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}
@@ -231,13 +221,12 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	public void setTipoPesquisaDataList(List<SelectItem> tipoPesquisaDataList) {
 		this.tipoPesquisaDataList = tipoPesquisaDataList;
 	}
-	
-	public void pp(){
-		this.print = super.print();
-	}
-	
-	public StreamedContent getPrint(){
-		return this.print;
+
+	public void imprimir() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		super.imprimir(this.listaPesquisa, parametros, "mensalidade.jasper");
+		
+//		return getInputStream();
 	}
 
 }
