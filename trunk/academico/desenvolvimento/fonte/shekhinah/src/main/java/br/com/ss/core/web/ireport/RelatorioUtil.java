@@ -259,21 +259,24 @@ public class RelatorioUtil implements Serializable {
 	}
 
 	public byte[] gerarRelatorioWebBytes(List listaPesquisa,
-			Map<String, Object> params, String arquivo)  {
+			Map<String, Object> params, String arquivo) throws FileNotFoundException  {
 		JasperPrint print;
 		byte[] relatorio = null;
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+
 		try {
+			String webPath = context.getExternalContext().getRealPath("/"); 
+			String reportPath = webPath + PATH_REPORT +  arquivo;
 			
 			print = JasperFillManager.fillReport(new FileInputStream(new File(
-					arquivo)), params, new JRBeanCollectionDataSource(listaPesquisa));
+					reportPath)), params, new JRBeanCollectionDataSource(listaPesquisa));
 
 			relatorio = JasperExportManager.exportReportToPdf(print);
 
 		} catch (JRException e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		} 
 
 		return relatorio;
 	}
