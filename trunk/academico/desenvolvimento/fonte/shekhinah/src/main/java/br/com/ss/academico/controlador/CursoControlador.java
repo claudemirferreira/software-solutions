@@ -74,55 +74,5 @@ public class CursoControlador extends ControladorGenerico<Curso> {
 		this.visualizar = true;
 	}
 
-	public void imprimirPdf() throws IOException, DocumentException {
-
-		System.out.println("imprimirPdf");
-		FacesContext fc = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = fc.getExternalContext();
-		ServletContext context = (ServletContext) externalContext.getContext();
-		
-		String arquivo = context.getRealPath("WEB-INF/jasper/" +getNomeRelatorio());
-
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-		Map<String, Object> params = new HashMap<String, Object>();
-
-		externalContext.setResponseContentType("application/pdf");
-
-		try {
-			
-			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(listaPesquisa, params, arquivo);
-			
-			if (relatorio == null || relatorio.length < 1000) {
-				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
-				FileInputStream file = new FileInputStream(new File(arquivo));
-				relatorio = Util.getBytes(file);
-			}
-
-			externalContext.getResponseOutputStream().write(relatorio);
-
-		} catch (FileNotFoundException e) {
-
-			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
-			FileInputStream file = new FileInputStream(new File(arquivo));
-
-			externalContext.getResponseOutputStream()
-					.write(Util.getBytes(file));
-
-		} finally {
-			setVisualizar(true);
-			
-			fc.responseComplete();
-			
-		}
-
-	}
-
+	
 }
