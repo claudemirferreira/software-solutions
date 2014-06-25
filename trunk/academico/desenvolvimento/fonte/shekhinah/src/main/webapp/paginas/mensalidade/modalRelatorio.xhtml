@@ -10,10 +10,10 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="formDlg">
-		<p:dialog id="dialogRelatorio" header="Relatório de Mensalidades"
-			modal="true" width="900px" height="600px" widgetVar="dlgRelatorio">
+		<p:dialog id="dialogRelatorio" header="Relatório de Mensalidades" 
+			modal="true" width="900px" height="600px" widgetVar="dlgRelatorio" dynamic="true">
 			
-			<p:media id="panelNf" value="#{mensalidadeControlador.inputStream}" player="pdf"
+			<p:media id="panelNf" value="#{mensalidadeControlador.inputStream}" player="pdf" cache="false"
 				width="100%" height="550px" ajax="false" />
 
 		</p:dialog>
