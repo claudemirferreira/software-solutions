@@ -74,16 +74,37 @@
 						  		 
 									<p:spacer width="5px" />
 									
-									<h:commandLink target="_blank" action="#{managedBean.imprimir()}" immediate="true">
-										<h:graphicImage value="/resources/imagens/imprimir.gif" alt="Imprimir"  >
-											<p:ajax event="click" update=":form:msg"/>
-											<!-- FIXME: renderizar msg: ver qual evento substitui o complete, e
-												 colocar o metodo de impressao em try/catch. -->
-										</h:graphicImage>
-									</h:commandLink>
+									<p:outputPanel autoUpdate="true">
 										
+										<c:set var="disabled" value="#{empty managedBean.listaPesquisa ? 'disabled' : ''}" />
+										
+										<h:commandLink target="_blank" action="#{managedBean.imprimir()}" immediate="true">
+										
+											<!-- 
+												FIXME css do botao para focus, hover, active.
+											 -->
+	
+											<button id="form:accPnl:btnImprimir:btnImprimir" 
+													aria-disabled="false"  
+													role="button" 
+													disabled="#{disabled}"
+													onmouseover="ui-state-hover"
+													onclick="ui-state-active"
+													class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-priority-primary ui-state-focus" 
+													
+													name="form:accPnl:btnImprimir:btnImprimir" 
+													type="submit">
+												<span class="ui-button-icon-left ui-icon ui-c ui-icon-print" />
+												<span class="ui-button-text ui-c">Imprimir</span>
+											</button>
+											
+										</h:commandLink>
+									</p:outputPanel>
+											
 						  		 </c:if>
 								
+<!--             				<p:commandButton type="button" title="Print" icon="ui-icon-print" /> -->
+            
 							</h:panelGrid>
 							
 						</h:panelGrid>

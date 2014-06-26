@@ -26,6 +26,8 @@
 	
 	<cc:attribute name="onclick" />
 	
+	<cc:attribute name="styleClass" default="ui-priority-primary" />
+	
 </cc:interface>
 
 <cc:implementation>
@@ -44,7 +46,7 @@
 						onclick="if (!confirm('#{cc.attrs.msgExclusao}')) return false;"
 						rendered="#{cc.attrs.render}"
 						update="#{update}" 
-						styleClass="ui-priority-primary"
+						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" >
 			<f:setPropertyActionListener target="#{managedBean.itemToRemove}" value="#{cc.attrs.item}" />
 		</p:commandButton>
@@ -63,7 +65,7 @@
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
 						update="#{cc.attrs.update}" 
-						styleClass="ui-priority-primary"
+						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" >
 			<f:setPropertyActionListener target="#{managedBean.entidade}" value="#{cc.attrs.item}" />
 		</p:commandButton>
@@ -81,7 +83,7 @@
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
 						update="#{cc.attrs.update}" 
-						styleClass="ui-priority-primary"
+						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" />
 	</c:if>
 
@@ -97,7 +99,7 @@
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
 						update="#{cc.attrs.update}" 
-						styleClass="ui-priority-primary"
+						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" />
 	</c:if>
 
@@ -113,7 +115,7 @@
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
 						update="#{cc.attrs.update}" 
-						styleClass="ui-priority-primary"
+						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" />
 	</c:if>
 	
@@ -130,7 +132,7 @@
 						immediate="true" 
 						rendered="#{cc.attrs.render}"
 						update="#{cc.attrs.update}" 
-						styleClass="ui-priority-primary"
+						styleClass="#{cc.attrs.styleClass}"
 						onclick="#{cc.attrs.onclick}"
 						ajax="#{cc.attrs.ajax}" />
 	</c:if>
