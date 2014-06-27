@@ -30,20 +30,24 @@
 	<c:if test="#{empty width}">
 		<c:set var="width" value="#{btnCount * btnWidth}" />
 	</c:if>
+	
+	<c:if test="#{empty headerText}">
+		<c:set var="headerText" value="Ação" />
+	</c:if>
 
 
-	<p:column style="text-align:center" headerText="Ação" width="#{width}">
+	<p:column style="text-align:center" headerText="#{headerText}" width="#{width}">
 		<center>
 			<!-- Insere o conteudo adicional caso haja -->
 			<ui:insert />
-
+			
 			<p:spacer width="5px" rendered="#{renderedDetail}"/>
 			
-			<ss:button managedBean="#{cc.attrs.managedBean}" type="detalhe" render="#{renderedDetail}" />
+			<ss:button managedBean="#{managedBean}" type="detalhe" render="#{renderedDetail}" />
 
 			<p:spacer width="5px" rendered="#{renderedRemove}"/>
 
-			<ss:button managedBean="#{cc.attrs.managedBean}" update=":form:grid :form:msg" type="exclusao" render="#{renderedRemove}" />
+			<ss:button managedBean="#{managedBean}" update=":form:grid :form:msg" type="exclusao" render="#{renderedRemove}" />
 		</center>
 	</p:column>
 
