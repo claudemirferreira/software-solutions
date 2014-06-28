@@ -558,7 +558,7 @@ INSERT INTO `saa_perfil` (`id_perfil`,`imagem`,`nome`,`id_sistema`) VALUES
  (1,'resources/imagens/perfil/secretaria.png','SECRETARIA',2),
  (2,'resources/imagens/perfil/tesouraria.png','FINANCEIRO',2),
  (3,'resources/imagens/perfil/administrativo.png','ADMINISTRATIVO',2),
- (4,'resources/imagens/perfil/configuracao.png','CONFIGURAÇÃO',2);
+ (4,'resources/imagens/perfil/configuracao.png','SEGURANÇA',2);
 /*!40000 ALTER TABLE `saa_perfil` ENABLE KEYS */;
 
 
