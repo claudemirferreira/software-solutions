@@ -14,10 +14,14 @@ public class CpfValidator implements Validator {
 	
 	/** Mensagem de erro (messages_pt_BR.properties) exibida no caso de erro de validação. */
      private static final String MSG_ERRO_VALIDACAO_CPF = "erro.validacao.cpf";
+     
+     private static final String MASK = "___.___.___-__";
 
 	@Override
      public void validate(FacesContext arg0, UIComponent arg1, Object valorTela) throws ValidatorException {
-          if (!validaCPF(String.valueOf(valorTela))) {
+          if (valorTela != null 
+        		  && !MASK.equals(valorTela) 
+        		  && !validaCPF(String.valueOf(valorTela) ) ) {
         	  ResourceBundle bundle = ResourceBundle.getBundle( "messages" );
                FacesMessage message = new FacesMessage();
                message.setSeverity(FacesMessage.SEVERITY_ERROR);
