@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.repositorio.MatriculaRepositorio;
@@ -55,6 +56,11 @@ public class MatriculaServicoImpl extends ServicoImpl<Matricula, Long> implement
 	@Override
 	public List<Matricula> listaMatriculasPorTurma(Turma turma) {
 		return this.repositorio.listaMatriculasPorTurma(turma);
+	}
+
+	@Override
+	public List<Observacao> loadObservacoes(Matricula matricula) {
+		return repositorioHql.loadObservacoes(matricula);
 	}
 
 }

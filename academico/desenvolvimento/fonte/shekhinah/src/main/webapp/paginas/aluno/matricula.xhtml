@@ -13,6 +13,11 @@
 		header="#{not alunoMatriculaControlador.modalCadastro ? 'Matrículas' : 'Cadastro de Matrícula' }: #{alunoMatriculaControlador.alunoMatricula.nome}"
 		widgetVar="dlgMatricula" closable="true" draggable="true">
 
+		<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 10px;">
+			<p:growl 	id="msgGrowl" 	globalOnly="true" showDetail="true"  />
+		</h:panelGrid>
+<!-- 		<p:growl id="msg" showDetail="false" escape="false" globalOnly="false" /> -->
+	
 		<h:form id="formDlg" >
 
 			<!-- =========  Pesquisa de Matricula  ========== -->

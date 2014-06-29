@@ -23,6 +23,7 @@ import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.StatusPagamento;
+import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.ConfiguracaoServico;
 import br.com.ss.academico.servico.MatriculaServico;
@@ -47,6 +48,9 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	@ManagedProperty(value = "#{matriculaServicoImpl}")
 	private MatriculaServico servicoMatricula;
+
+	@ManagedProperty(value = "#{alunoServicoImpl}")
+	private AlunoServico servicoAluno;
 	
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico servicoTurma;
@@ -142,11 +146,19 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 	
 	public void renderObservacao() {
-		if (entidade.getStatus() == StatusMatricula.ATIVA
-				&& observacaoMatricula == null) {
+		if ( observacaoMatricula == null) {
 			observacaoMatricula = new Observacao();
 			observacaoMatricula.setMatricula(entidade);
+			loadObservacoes();
 		}
+	}
+
+	/**
+	 * Carrega as observacoes da Matricula, para evitar o LazyInitializationException.
+	 */
+	private void loadObservacoes() {
+		List<Observacao> observacoes = servicoMatricula.loadObservacoes(entidade);
+		entidade.setObservacoes( observacoes );
 	}
 
 	
@@ -187,6 +199,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	
 	public void showModalPesquisaMatricula() {
 		modalCadastro = false;
+		alunoMatricula = servicoAluno.findByPrimaryKey(alunoMatricula.getId());
 		List<Matricula> matriculas = servicoMatricula.findByAluno(alunoMatricula);
 		alunoMatricula.setMatriculas(matriculas);
 		entidade = null;
@@ -203,6 +216,33 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		mesSelecionado = Meses.getEnum(mes + 1);
 		turmas = servicoTurma.listarTodos();
 		selectTurma(!matricula.isPersistent());
+		validarObservacao();
+	}
+
+	/**
+	 * Carrega a ultima observacao para exibir no modal.
+	 */
+	private void validarObservacao() {
+		if ( entidade.getStatus() != StatusMatricula.ATIVA ) {
+			
+			loadObservacoes();
+			
+			// apenas situacao: cancelada
+			statusMatriculaList = new ArrayList<SelectItem>();
+			statusMatriculaList.add(new SelectItem(StatusMatricula.CANCELADA, StatusMatricula.CANCELADA.getDescricao()));
+			
+			if ( !entidade.getObservacoes().isEmpty() ) {
+				observacaoMatricula = entidade.getObservacoes().get(0);
+				for (Observacao ob : entidade.getObservacoes() ) {
+					if ( observacaoMatricula.getId() < ob.getId() ) {
+						observacaoMatricula = ob;
+					}
+				}
+			}
+		} else {
+			// carrega todas as opcoes para situacao
+			statusMatriculaList = createStatusMatriculaList();
+		}
 	}
 
 	/**
@@ -213,6 +253,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		entidade = createMatricula();
 		turmas = servicoTurma.listarTodos();
 		carregarMesSelecionado();
+		statusMatriculaList = createStatusMatriculaList();
 	}
 
 	private void carregarMesSelecionado() {
@@ -265,7 +306,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		try {
 			// cria ou atualiza as mensalidades
 			boolean persistent = entidade.isPersistent();
-			Aluno alunoBkp = entidade.getAluno();
 			
 			if (entidade.getStatus() != StatusMatricula.ATIVA
 					&& observacaoMatricula != null) {
@@ -274,7 +314,9 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 				cancelarMatricula();
 				
 			} else if (entidade.getStatus() == StatusMatricula.ATIVA ) {
-				
+				if (observacaoMatricula != null) {
+					entidade.getObservacoes().remove(observacaoMatricula);
+				}
 				gerarMensalidadesMatricula(persistent);
 			}
 			
@@ -287,6 +329,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 			}
 
 			showModalPesquisaMatricula();
+			Aluno alunoBkp = alunoMatricula;
+			
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			observacaoMatricula = null;
 
@@ -303,11 +347,21 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	private void cancelarMatricula() {
 		observacaoMatricula.setUsuario(getUsuarioLogado());
-		entidade.getObservacoes().add(observacaoMatricula);
+		if ( !entidade.getObservacoes().contains(observacaoMatricula) ) {
+			entidade.getObservacoes().add(observacaoMatricula);
+		}
+		observacaoMatricula.setMatricula(entidade);
+		atualizarStatusMensalidade(StatusPagamento.CANCELADO);
+	}
 
-		// cancelar as mensalidades
+	
+	/**
+	 * Atualiza as mensalidades com o status informado.
+	 * @param statusPagamento
+	 */
+	private void atualizarStatusMensalidade( StatusPagamento statusPagamento) {
 		for (Mensalidade mens : entidade.getMensalidades()) {
-			mens.setStatusPagamento(StatusPagamento.CANCELADO);
+			mens.setStatusPagamento(statusPagamento);
 		}
 	}
 
@@ -463,6 +517,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setServicoConfiguracao(ConfiguracaoServico servicoConfiguracao) {
 		this.servicoConfiguracao = servicoConfiguracao;
+	}
+
+	public AlunoServico getServicoAluno() {
+		return servicoAluno;
+	}
+
+	public void setServicoAluno(AlunoServico servicoAluno) {
+		this.servicoAluno = servicoAluno;
 	}
 
 }
