@@ -123,6 +123,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	@Override
 	public String detalhe(Matricula entidade) {
 		novo = false;
+		alunoMatricula = entidade.getAluno();
 		// carrega as regras da tela de cadastro
 		String page = super.detalhe(entidade);
 		showModalCadastroMatricula(entidade);
@@ -255,7 +256,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		try {
 			if (entidade.getStatus() != StatusMatricula.ATIVA
 					&& observacaoMatricula != null) {
-				
+				// se houver observacao é pq a matricula nao está ativa
 				// salva a observacao da matricula
 				cancelarMatricula();
 				
@@ -264,8 +265,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 				// cria ou atualiza as mensalidades
 				gerarMensalidadesMatricula(entidade.isPersistent());
 				
-				// FIXME #Peninha: verificar se vai gerar boletim neste momento..
-//				 this.boletimServico.gerarBoletim(matricula);				
+				// gera o boletim para o aluno matriculado
+				 this.boletimServico.gerarBoletim(entidade);				
 			}
 			
 			entidade.setAluno(alunoMatricula);
@@ -275,11 +276,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			observacaoMatricula = null;
 
-			// gera o boletim para o aluno matriculado
-			this.boletimServico.gerarBoletim(entidade);
-			
-			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
-			
 			setup();
 			return PESQUISA;
 		} catch (Exception e) {
