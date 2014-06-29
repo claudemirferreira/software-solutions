@@ -54,7 +54,7 @@
 			<ss2:column value="#{item.integral}" header="Hor. Integral?" sortBy="integral" converter="simNaoConverter" textAlign="center" />
 			<ss2:column value="#{item.status}" header="Situação" sortBy="status" converter="statusMatriculaConverter" textAlign="center" />
 
-			<ss2:actionColumn managedBean="#{matriculaControlador}" renderedRemove="false" buttonsAdded="1">
+			<ss2:actionColumn managedBean="#{alunoMatriculaControlador}" renderedRemove="false" buttonsAdded="1">
 			
 				<!-- FIXME #Peninha: rever essa funcionalidade - nao entendi o proposito do relatorio.. nao seria para imprimir a matricula? -->
 				<p:commandButton value="Impr #FIXME " icon="ui-icon-print"

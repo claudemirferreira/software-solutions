@@ -54,6 +54,8 @@ import br.com.ss.core.web.enumerated.Constants;
 import br.com.ss.core.web.ireport.RelatorioUtil;
 import br.com.ss.core.web.utils.ReflectionsUtil;
 
+//FIXME validar se ainda esta classe ainda é necessaria
+
 @ManagedBean
 @SessionScoped
 public class MatriculaControlador extends ControladorGenerico<Matricula> {
