@@ -335,7 +335,7 @@ public class DateUtil {
     public static Integer getMes( Date data ) {
         Calendar calenda = DateUtil.getInstance();
         calenda.setTime( data );
-        Integer mes = calenda.get( Calendar.MONTH ); // +1: Mês começa em zero
+        Integer mes = calenda.get( Calendar.MONTH ); // -1: Mês começa em zero
         return mes;
     }
 
