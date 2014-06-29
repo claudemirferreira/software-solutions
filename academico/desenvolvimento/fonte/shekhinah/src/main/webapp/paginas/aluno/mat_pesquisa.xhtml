@@ -23,50 +23,35 @@
 							action="#{alunoMatriculaControlador.showModalCadastroMatricula}" />
 		</f:facet>
 
-
-		<p:dataTable id="gridMat" var="item" rows="10" paginator="true"
-					value="#{alunoMatriculaControlador.alunoMatricula.matriculas}" paginatorPosition="bottom"
-					paginatorAlwaysVisible="true"
-					emptyMessage="Nenhum registro encontrado."
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15,20">
-
-			<p:column style="text-align:left" headerText="Curso" sortBy="#{item.turma.curso.nome}">
-				<h:outputText value="#{item.turma.curso.nome}" />
-			</p:column>
+		<ss:grid managedBean="#{alunoMatriculaControlador}" list="alunoMatriculas" renderedActionColumn="false">
 			
-			<p:column style="text-align:left" headerText="Ano" sortBy="#{item.turma.ano}">
-				<h:outputText value="#{item.turma.ano}" />
-			</p:column>
-		
-			<p:column style="text-align:left" headerText="Turno" sortBy="#{item.turma.turno}">
-				<h:outputText value="#{item.turma.turno}" />
-			</p:column>
-		
+			<ss2:column value="#{item.turma.curso.nome}" header="Curso" sortBy="turma.curso.nome" />
+			<ss2:column value="#{item.turma.ano}" header="Ano" sortBy="turma.ano" />
+			<ss2:column value="#{item.turma.turno}" header="Turno" sortBy="turma.turno" />
 			<ss2:column value="#{item.valor}" header="Valor" sortBy="valor" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
+			<ss2:column value="#{item.status}" header="Situação" sortBy="status" />
+			<ss2:column value="#{item.integral}" header="Hor. Integral?" sortBy="integral" converter="simNaoConverter" />
 			
-			<p:column style="text-align:left" headerText="Situação" >
-				<h:outputText value="#{item.status}" converter="statusMatriculaConverter" />
-			</p:column>
-		
-			<p:column style="text-align:center" headerText="Hor. Integral?" >
-				<h:outputText value="#{item.integral}" converter="simNaoConverter" />
-			</p:column>
+			<ss2:actionColumn managedBean="#{alunoMatriculaControlador}" renderedDetail="false" renderedRemove="false" buttonsAdded="2">
 			
-			<p:column style="text-align:center" headerText="Ação" >
 				<p:commandButton value="Detalhe"
-							icon="ui-icon-folder-collapsed"
-							oncomplete="PF('dlgMatricula').show();"
-							action="#{alunoMatriculaControlador.showModalCadastroMatricula(item)}"
-							update=":formDlg" title="Detalhe" />
+								icon="ui-icon-folder-collapsed"
+								oncomplete="PF('dlgMatricula').show();"
+								action="#{alunoMatriculaControlador.showModalCadastroMatricula(item)}"
+								update=":formDlg" title="Detalhe" />
+				
+				<p:spacer width="5px" rendered="#{renderedDetail}"/>
 				
 				<p:commandButton value="Contrato" title="Imprimir Contrato"
+								icon="ui-icon-document"
+								styleClass="ui-priority-primary"
 								onclick="this.form.target='_blank'"
 								actionListener="#{alunoMatriculaControlador.imprimirContrato(item)}" />
-			</p:column>
+								
+			</ss2:actionColumn>
 			
-		</p:dataTable>
-		
+		</ss:grid>
+
 	</p:panel>
 	
 </ui:component>

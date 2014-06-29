@@ -56,7 +56,7 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_aluno", nullable = false)
 	private Aluno aluno;
 
-	@OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL, fetch=FetchType.LAZY )
+	@OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true )
 	private List<Mensalidade> mensalidades = new ArrayList<Mensalidade>();
 
 	@OneToMany(mappedBy = "matricula", cascade=CascadeType.ALL)

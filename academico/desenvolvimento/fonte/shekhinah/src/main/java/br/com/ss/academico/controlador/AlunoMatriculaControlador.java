@@ -79,6 +79,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	private ConfiguracaoServico servicoConfiguracao;
 	
 	private boolean novo;
+	/** Backup para retornar do modal de cadastro de matricula. */
+	private Aluno alunoTmp;
 	
 	/* --------- Overrides ------------------ */
 
@@ -150,6 +152,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	
 	public void showModalMatricula(Aluno aluno) {
 		alunoMatricula = aluno;
+		alunoTmp = aluno;
 		showModalPesquisaMatricula();
 	}
 
@@ -177,6 +180,11 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		return list;
 	}
 
+	public void retornarModalPesquisaMatricula() {
+		alunoMatricula = alunoTmp;
+		showModalPesquisaMatricula();
+	}
+	
 	public void showModalPesquisaMatricula() {
 		modalCadastro = false;
 		List<Matricula> matriculas = servicoMatricula.findByAluno(alunoMatricula);
@@ -185,6 +193,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		mesSelecionado = null;
 		observacaoMatricula = null;
 	}
+
 
 	public void showModalCadastroMatricula(Matricula matricula) {
 		// faz o load das mensalidades (fetch)
@@ -208,7 +217,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	private void carregarMesSelecionado() {
 		int mes = DateUtil.getMes(new Date());
-		mesSelecionado = Meses.getEnum(mes);
+		mesSelecionado = Meses.getEnum(++mes);
 	}
 
 	private Matricula createMatricula() {
@@ -254,6 +263,10 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	public String salvar() {
 
 		try {
+			// cria ou atualiza as mensalidades
+			boolean persistent = entidade.isPersistent();
+			Aluno alunoBkp = entidade.getAluno();
+			
 			if (entidade.getStatus() != StatusMatricula.ATIVA
 					&& observacaoMatricula != null) {
 				// se houver observacao é pq a matricula nao está ativa
@@ -262,21 +275,24 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 				
 			} else if (entidade.getStatus() == StatusMatricula.ATIVA ) {
 				
-				// cria ou atualiza as mensalidades
-				gerarMensalidadesMatricula(entidade.isPersistent());
-				
-				// gera o boletim para o aluno matriculado
-				 this.boletimServico.gerarBoletim(entidade);				
+				gerarMensalidadesMatricula(persistent);
 			}
 			
 			entidade.setAluno(alunoMatricula);
-			entidade = servicoMatricula.salvar(entidade);
+			servicoMatricula.salvar(entidade);
+			
+			if (!persistent ) {
+				// No cadastro, gera o boletim para o aluno matriculado
+				this.boletimServico.gerarBoletim(entidade);				
+			}
 
 			showModalPesquisaMatricula();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			observacaoMatricula = null;
 
 			setup();
+			// recupera o aluno pois faz o reset do aluno no init
+			alunoMatricula = alunoBkp;
 			return PESQUISA;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -340,6 +356,15 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	
 	/* -------- Gets/Sets ------------------- */
+	
+	public List<Matricula> getAlunoMatriculas() {
+		if (alunoMatricula == null ) {
+			return null;
+		}
+		return alunoMatricula.getMatriculas();
+	}
+	
+	
 	public RelatorioUtil getRelatorioUtil() {
 		return relatorioUtil;
 	}
