@@ -45,7 +45,9 @@
 			<ss2:actionColumn managedBean="#{alunoControlador}" buttonsAdded="1">
 				<p:commandButton value="Matrícula" title="Matrícula"
 							action="#{alunoMatriculaControlador.showModalMatricula(item)}"
-							oncomplete="PF('dlgMatricula').show();" icon="ui-icon-note"
+							oncomplete="PF('dlgMatricula').show();" 
+							styleClass="ui-priority-primary"
+							icon="ui-icon-note"
 							update=":dialogMatricula" />
 			</ss2:actionColumn>
 			

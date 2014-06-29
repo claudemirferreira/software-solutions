@@ -8,12 +8,13 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Observacao;
 import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
 
+
+@SuppressWarnings("unchecked")
 @Repository
 public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements MatriculaRepositorioHql{
-	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Matricula> pesquisar(Matricula entity) {
 		StringBuilder sb = new StringBuilder();
@@ -62,6 +63,15 @@ public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements 
 			query.setParameter("curso", entity.getTurma().getCurso());
 		}
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Observacao> loadObservacoes(Matricula matricula) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select ob from Observacao ob");
+		sb.append(" where ob.matricula = :matricula ");
+		return entityManager.createQuery(sb.toString())
+					.setParameter("matricula", matricula).getResultList();
 	}
 
 }

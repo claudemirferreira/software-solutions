@@ -20,7 +20,7 @@
 		
 			<p:spacer width="5px" />
 			
-			<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg"
+			<p:commandButton id="btnCadastro" value="Salvar" update=":formDlg :msgGrowl"
 							icon="ui-icon-disk" styleClass="ui-priority-primary"
 							oncomplete="PF('dlgMatricula').show();"
 							action="#{alunoMatriculaControlador.salvar}" />
@@ -56,7 +56,7 @@
 	        
 	        <ss:comboBox label="Situação" required="true" selectOne="true" update="pnlObservacao"
 						value="#{alunoMatriculaControlador.entidade.status}" 
-						actionListener="#{alunoMatriculaControlador.renderObservacao()}"
+						listener="#{alunoMatriculaControlador.renderObservacao()}"
 						list="#{alunoMatriculaControlador.statusMatriculaList}" />
 	        
 		</h:panelGrid>

@@ -2,7 +2,8 @@ package br.com.ss.academico.enumerated;
 
 public enum StatusMatricula {
 
-	ATIVA(0, "ATIVA"), INATIVA(1, "INATIVA"), CANCELADA(2, "CANCELADA");
+	ATIVA(0, "ATIVA"), 
+	CANCELADA(1, "CANCELADA");
 
 	private int id;
 	private String descricao;
