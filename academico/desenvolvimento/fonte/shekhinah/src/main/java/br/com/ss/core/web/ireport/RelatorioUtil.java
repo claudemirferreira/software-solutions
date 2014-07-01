@@ -49,9 +49,9 @@ public class RelatorioUtil implements Serializable {
 	private EmpresaServico empresaServico;
 
 	/** Resource path dos relatorio: /resources/jasper/ */
-	private static final String PATH_REPORT = "resources" + File.separator + "jasper" + File.separator;
-	
-	
+	private static final String PATH_REPORT = "resources" + File.separator
+			+ "jasper" + File.separator;
+
 	public byte[] gerarRelatorioWebBytes(Map parametros, String arquivo)
 			throws FileNotFoundException {
 
@@ -72,16 +72,17 @@ public class RelatorioUtil implements Serializable {
 		return relatorio;
 
 	}
-	
-	public byte[] gerarRelatorioWebBytes(Collection<Object> lista, Map parametros, String arquivo)
-			throws FileNotFoundException {
+
+	public byte[] gerarRelatorioWebBytes(Collection<Object> lista,
+			Map parametros, String arquivo) throws FileNotFoundException {
 
 		JasperPrint print;
 		byte[] relatorio = null;
 		try {
-			
+
 			print = JasperFillManager.fillReport(new FileInputStream(new File(
-					arquivo)), parametros, new JRBeanCollectionDataSource(lista));
+					arquivo)), parametros,
+					new JRBeanCollectionDataSource(lista));
 
 			relatorio = JasperExportManager.exportReportToPdf(print);
 
@@ -150,41 +151,65 @@ public class RelatorioUtil implements Serializable {
 		return fis;
 	}
 
-	public void gerarRelatorioWeb(List lista, Map parametros, String nomeRelatorio) {
+	public void gerarRelatorioWeb(List lista, Map parametros,
+			String nomeRelatorio) throws JRException {
+
+		Empresa empresa = empresaServico.findOne(1l);
+		parametros.put("empresa", empresa);
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+
+		BufferedOutputStream output = null;
+		BufferedInputStream input = null;
 
 		try {
-			
-			// Init servlet response.
-			String webPath = context.getExternalContext().getRealPath("/"); 
-			
-			String reportPath = webPath + PATH_REPORT +  nomeRelatorio;
-			
-			/*
-			 FIXME validar se precisa criar uma pasta pros relatorios.
-			 estou pegando o arquivo do relatorio direto no path do servidor..	= reportPath
-			 */
-//		String arquivo = "c:/relatorio/" + nomeRelatorio; // FIXME criar uma pasta para a pp e colocar tudo o que precisa nela
-			File fileReport = new File( reportPath );
-			
+
+			String webPath = context.getExternalContext().getRealPath("/");
+			String reportPath = webPath + PATH_REPORT + nomeRelatorio;
+
+			input = new BufferedInputStream(new FileInputStream(reportPath),
+					DEFAULT_BUFFER_SIZE);
+
+			File fileReport = new File(reportPath);
+
 			response.reset();
 			response.setHeader("Content-Type", "application/pdf");
-			response.setHeader("Content-Length", String.valueOf(fileReport.length()));
-			response.setHeader("Content-Disposition", "inline; filename=\"" + fileReport.getName() + "\"");
-			
+			response.setHeader("Content-Length",
+					String.valueOf(fileReport.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\""
+					+ fileReport.getName() + "\"");
+
 			JasperRunManager.runReportToPdfStream(new FileInputStream(
-					fileReport ), response.getOutputStream(), parametros, jrRS);
+					fileReport), response.getOutputStream(), parametros, jrRS);
 
-			context.renderResponse();
-//			context.responseComplete();
+			output = new BufferedOutputStream(response.getOutputStream(),
+					DEFAULT_BUFFER_SIZE);
 
-		} catch ( Exception e) {
+			// Write file contents to response.
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int length;
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);
+			}
+
+			// Finalize task.
+			output.flush();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			// Gently close streams.
+			close(output);
+			close(input);
+		}
+
+		context.renderResponse();
+		context.responseComplete();
 	}
 
 	/**
@@ -259,92 +284,105 @@ public class RelatorioUtil implements Serializable {
 	}
 
 	public byte[] gerarRelatorioWebBytes(List listaPesquisa,
-			Map<String, Object> params, String arquivo) throws FileNotFoundException  {
+			Map<String, Object> params, String arquivo)
+			throws FileNotFoundException {
 		JasperPrint print;
 		byte[] relatorio = null;
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		try {
-			String webPath = context.getExternalContext().getRealPath("/"); 
-			String reportPath = webPath + PATH_REPORT +  arquivo;
-			
+			String webPath = context.getExternalContext().getRealPath("/");
+			String reportPath = webPath + PATH_REPORT + arquivo;
+
 			print = JasperFillManager.fillReport(new FileInputStream(new File(
-					reportPath)), params, new JRBeanCollectionDataSource(listaPesquisa));
+					reportPath)), params, new JRBeanCollectionDataSource(
+					listaPesquisa));
 
 			relatorio = JasperExportManager.exportReportToPdf(print);
 
 		} catch (JRException e) {
 			e.printStackTrace();
-		} 
+		}
 
 		return relatorio;
 	}
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
-	
+
 	public void testPrintPdf() {
 
-		 // Prepare.
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+		// Prepare.
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		HttpServletResponse response = (HttpServletResponse) externalContext
+				.getResponse();
 
-        String contextPath = externalContext.getRequestContextPath();
-        
-        String filePath = contextPath;
-        String fileName = "escala_pregadores.pdf";
-        
-        File file = new File(filePath, fileName);file.exists();file.getAbsolutePath();
-        BufferedInputStream input = null;
-        BufferedOutputStream output = null;
+		String contextPath = externalContext.getRequestContextPath();
 
-        try {
-            // Open file.
-            input = new BufferedInputStream(new FileInputStream(file), DEFAULT_BUFFER_SIZE);
+		String filePath = contextPath;
+		String fileName = "escala_pregadores.pdf";
 
-            // Init servlet response.
-            response.reset();
-            response.setHeader("Content-Type", "application/pdf");
-            response.setHeader("Content-Length", String.valueOf(file.length()));
-            response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\"");
-            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+		File file = new File(filePath, fileName);
+		file.exists();
+		file.getAbsolutePath();
+		BufferedInputStream input = null;
+		BufferedOutputStream output = null;
 
-            // Write file contents to response.
-            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-            int length;
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
+		try {
+			// Open file.
+			input = new BufferedInputStream(new FileInputStream(file),
+					DEFAULT_BUFFER_SIZE);
 
-            // Finalize task.
-            output.flush();
-        } catch (FileNotFoundException e) {
+			// Init servlet response.
+			response.reset();
+			response.setHeader("Content-Type", "application/pdf");
+			response.setHeader("Content-Length", String.valueOf(file.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\""
+					+ fileName + "\"");
+
+			output = new BufferedOutputStream(response.getOutputStream(),
+					DEFAULT_BUFFER_SIZE);
+
+			// Write file contents to response.
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int length;
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);
+			}
+
+			// Finalize task.
+			output.flush();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-            // Gently close streams.
-            close(output);
-            close(input);
-        }
+			// Gently close streams.
+			close(output);
+			close(input);
+		}
 
-        // Inform JSF that it doesn't need to handle response.
-        // This is very important, otherwise you will get the following exception in the logs:
-        // java.lang.IllegalStateException: Cannot forward after response has been committed.
-        facesContext.responseComplete();
-    }
-		
+		// Inform JSF that it doesn't need to handle response.
+		// This is very important, otherwise you will get the following
+		// exception in the logs:
+		// java.lang.IllegalStateException: Cannot forward after response has
+		// been committed.
+		facesContext.responseComplete();
+	}
+
 	private static void close(Closeable resource) {
-        if (resource != null) {
-            try {
-                resource.close();
-            } catch (IOException e) {
-                // Do your thing with the exception. Print it, log it or mail it. It may be useful to 
-                // know that this will generally only be thrown when the client aborted the download.
-                e.printStackTrace();
-            }
-        }
-    }
-	
+		if (resource != null) {
+			try {
+				resource.close();
+			} catch (IOException e) {
+				// Do your thing with the exception. Print it, log it or mail
+				// it. It may be useful to
+				// know that this will generally only be thrown when the client
+				// aborted the download.
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
