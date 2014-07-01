@@ -25,6 +25,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -151,7 +152,7 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	}
 
-	public void imprimircontrato(Matricula matricula) throws FileNotFoundException {
+	public void imprimircontrato(Matricula matricula) throws FileNotFoundException, JRException {
 		// TODO criar o relatorio..
 		List<Matricula> listMat = new ArrayList<Matricula>();
 		listMat.add(matricula);

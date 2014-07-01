@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
+import net.sf.jasperreports.engine.JRException;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Responsavel;
@@ -100,7 +101,7 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	}
 
 
-	public void imprimirContratoold(Matricula matricula) throws FileNotFoundException {
+	public void imprimirContratoold(Matricula matricula) throws FileNotFoundException, JRException {
 		// FIXME #Peninha validar/remover se nao precisar mais desse metodo
 		List<Matricula> listMat = new ArrayList<Matricula>();
 		listMat.add(matricula);
