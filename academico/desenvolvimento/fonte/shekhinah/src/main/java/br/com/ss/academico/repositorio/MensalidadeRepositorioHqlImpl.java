@@ -31,6 +31,9 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		if ( notEmpty(entity.getMatricula().getAluno()) ) {
 			condictions.add(" men.matricula.aluno = :aluno ");
 		}
+		if ( notEmpty(entity.getMatricula().getIdMatricula()) ) {
+			condictions.add(" men.matricula.idMatricula = :idMatricula");
+		}
 		if ( notEmpty(entity.getStatusPagamento()) ) {
 			condictions.add(" men.statusPagamento = :statusPagamento ");
 		}
@@ -59,6 +62,9 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		}
 		if ( notEmpty(entity.getStatusPagamento()) ) {
 			query.setParameter("statusPagamento", entity.getStatusPagamento());
+		}
+		if ( notEmpty(entity.getMatricula().getIdMatricula()) ) {
+			query.setParameter("idMatricula", entity.getMatricula().getIdMatricula());
 		}
 		if ( notEmpty(tipoPesquisaData)) {
 			if (notEmpty(dataInicio)) {

@@ -23,6 +23,8 @@
 			bean="#{mensalidadeControlador}" completeMethod="listarAlunos"
 			itemLabel="#{item.nome}" size="40" />
 
+		<ss:input label="Matrícula" value="#{mensalidadeControlador.pesquisa.matricula.idMatricula}" type="number" decimalPlaces="0" size="6" />
+
 		<ss:comboBox label="Situação" filter="false"
 			value="#{mensalidadeControlador.pesquisa.statusPagamento}"
 			list="#{mensalidadeControlador.statusList}" />

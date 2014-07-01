@@ -120,6 +120,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	public String novo() {
 		novo = true;
 		String page = super.novo();
+		alunoMatricula = null;
 		carregarMesSelecionado();
 		entidade.setStatus(StatusMatricula.ATIVA);
 		entidade.setData(new Date());
@@ -531,6 +532,10 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setServicoAluno(AlunoServico servicoAluno) {
 		this.servicoAluno = servicoAluno;
+	}
+
+	public void setAlunoMatricula(Aluno alunoMatricula) {
+		this.alunoMatricula = alunoMatricula;
 	}
 
 }
