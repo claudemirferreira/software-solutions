@@ -16,6 +16,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -74,6 +76,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 * Alias para redirecionar para a tela de pesquisa.
 	 */
 	public static final String PESQUISA = "pesquisa";
+	
+	/**
+	 * Sufixo da pagina da url.
+	 */
+	public static final String EXTENSION = ".xhtml";
+	
 
 	/**
 	 * Alias para redirecionar para a tela de relatorio.
@@ -150,7 +158,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 			getService().salvar(entidade);
 			setup();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
-			return PESQUISA;
+			return redirect(PESQUISA);
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
@@ -187,7 +195,22 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 */
 	public String novo() {
 		this.initEntity();
-		return CADASTRO;
+		return redirect(CADASTRO);
+	}
+
+	private String redirect(String page) {
+		try {
+			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+			HttpServletRequest request = (HttpServletRequest) context.getRequest();
+			String fullUrl = request.getRequestURL().toString();
+			String barra = "/";
+			String path = fullUrl.substring(0, fullUrl.lastIndexOf(barra));
+			context.redirect(path + barra + page + EXTENSION + Constants.REDIRECT);
+			FacesContext.getCurrentInstance().responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return page;
 	}
 
 	public String detalhe() {
@@ -202,7 +225,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 */
 	public String detalhe(T entidade) {
 		this.entidade = entidade;
-		return CADASTRO;
+		return redirect(CADASTRO);
 	}
 
 	/**
@@ -213,7 +236,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 */
 	public String cancelar() {
 		init();
-		return PESQUISA;
+		return redirect(PESQUISA);
 	}
 
 	/**

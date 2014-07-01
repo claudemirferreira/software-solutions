@@ -18,6 +18,7 @@
 	<cc:attribute name="update" />
 	<cc:attribute name="ajax" default="true" />
 	<cc:attribute name="render" default="true" />
+	<cc:attribute name="disabledBtn" default="false" />
 	<cc:attribute name="id" />
 	
 	<!-- exclusao -->
@@ -45,6 +46,7 @@
 						icon="#{icon}"
 						onclick="if (!confirm('#{cc.attrs.msgExclusao}')) return false;"
 						rendered="#{cc.attrs.render}"
+						disabled="#{cc.attrs.disabledBtn}"
 						update="#{update}" 
 						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" >
@@ -64,6 +66,7 @@
 						action="#{cc.attrs.managedBean[method]}" 
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
+						disabled="#{cc.attrs.disabledBtn}"
 						update="#{cc.attrs.update}" 
 						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" >
@@ -82,6 +85,7 @@
 						action="#{cc.attrs.managedBean[method]}" 
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
+						disabled="#{cc.attrs.disabledBtn}"
 						update="#{cc.attrs.update}" 
 						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" />
@@ -98,6 +102,7 @@
 						action="#{cc.attrs.managedBean[method]}" 
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
+						disabled="#{cc.attrs.disabledBtn}"
 						update="#{cc.attrs.update}" 
 						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" />
@@ -114,6 +119,7 @@
 						action="#{cc.attrs.managedBean[method]}" 
 						icon="#{icon}"
 						rendered="#{cc.attrs.render}"
+						disabled="#{cc.attrs.disabledBtn}"
 						update="#{cc.attrs.update}" 
 						styleClass="#{cc.attrs.styleClass}"
 						ajax="#{cc.attrs.ajax}" />
@@ -131,6 +137,7 @@
 						icon="#{icon}"
 						immediate="true" 
 						rendered="#{cc.attrs.render}"
+						disabled="#{cc.attrs.disabledBtn}"
 						update="#{cc.attrs.update}" 
 						styleClass="#{cc.attrs.styleClass}"
 						onclick="#{cc.attrs.onclick}"

@@ -16,6 +16,7 @@
 			managedBean			se renderSearch for true
 			pageHeader			false
 			reloadPage			false 						true
+			disabledBtnNew		false						false
 			renderPrintButton	false						true
   		 -->
   
@@ -26,6 +27,9 @@
   		 </c:if>
   		 <c:if test="#{empty renderPrintButton}">
 	 		<c:set var="renderPrintButton" value="true" />
+  		 </c:if>
+  		 <c:if test="#{empty disabledBtnNew}">
+	 		<c:set var="disabledBtnNew" value="false" />
   		 </c:if>
   		 
   		 <c:if test="#{empty reloadPage}">
@@ -68,7 +72,7 @@
 			                    
 								<p:spacer width="5px" />
 								
-								<ss:button id="btnNew" type="novo" managedBean="#{managedBean}" />
+								<ss:button id="btnNew" type="novo" managedBean="#{managedBean}" disabledBtn="#{disabledBtnNew}" />
 							
 						  		 <c:if test="#{renderPrintButton}">
 						  		 
