@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +20,13 @@ import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.jasperreports.engine.JRException;
+
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
@@ -80,6 +84,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 * armazena os bytes do relatorio
 	 */
 	private StreamedContent inputStream;
+	
+	
+	private Map<String, Object> params;
 
 	/* ---------- Metodos ----------------------- */
 
@@ -225,12 +232,15 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 * @throws FileNotFoundException
 	 * @throws DocumentException
 	 * @throws IOException
+	 * @throws JRException 
 	 */
 	public void imprimir() throws FileNotFoundException, IOException,
-			DocumentException {
-		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, null,
+			DocumentException, JRException {
+		
+		Map<String, Object> param =  new HashMap<String, Object>();
+		
+		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, param,
 				getNomeRelatorio());
-		// return RELATORIO;
 	}
 
 	public void imprimir(List<?> lista, Map<String, Object> params,
