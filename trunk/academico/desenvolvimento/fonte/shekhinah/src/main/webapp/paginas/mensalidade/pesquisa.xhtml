@@ -49,7 +49,7 @@
 
 	<ui:define name="grid_region">
 
-		<ss:grid managedBean="#{mensalidadeControlador}" renderedRemove="false">
+		<ss:grid managedBean="#{mensalidadeControlador}" renderedRemove="false" renderedActionColumn="false">
 
 			<ss2:column value="#{item.matricula.id}" header="Matrícula" sortBy="matricula.id" textAlign="right" width="80" />
 			<ss2:column value="#{item.matricula.aluno.nome}" header="Aluno" sortBy="matricula.aluno.nome" />
@@ -61,6 +61,16 @@
 			<ss2:column value="#{item.dataPagamento}" header="Pagamento"
 						sortBy="dataPagamento" convertDate="true" width="120" textAlign="center" />
 			<ss2:column value="#{item.statusPagamento}" header="Situação" sortBy="statusPagamento" textAlign="center" width="110"/>
+			
+			<ss2:actionColumn managedBean="#{mensalidadeControlador}"
+				renderedRemove="false" buttonsAdded="2">
+
+				<p:commandButton value="Recibo" ajax="false"
+					onclick="this.form.target='_blank'" icon="ui-icon-print"
+					styleClass="ui-priority-primary"
+					action="#{mensalidadeControlador.imprimirRecibo(item)}" />
+
+			</ss2:actionColumn>
 
 		</ss:grid>
 

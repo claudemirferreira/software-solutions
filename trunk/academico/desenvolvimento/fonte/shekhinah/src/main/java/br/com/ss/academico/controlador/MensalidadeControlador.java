@@ -1,6 +1,12 @@
 package br.com.ss.academico.controlador;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,8 +20,17 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
@@ -55,6 +70,9 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	private List<SelectItem> tipoPesquisaDataList;
 
 	private String nomeRelatorio = "mensalidade.jasper";
+	
+	private static final String PATH_REPORT = "resources" + File.separator
+			+ "jasper" + File.separator;
 
 	@Override
 	public void init() {
@@ -226,7 +244,68 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		super.imprimir(this.listaPesquisa, parametros, "mensalidade.jasper");
 		
-//		return getInputStream();
+	}
+	
+	public void imprimirRecibo(Mensalidade mensalidade)
+			throws FileNotFoundException {
+
+		ExternalContext econtext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		String webPath = context.getExternalContext().getRealPath("/");
+		String reportPath1 = webPath + PATH_REPORT + "recibo.jasper";
+
+		InputStream stream1 = new FileInputStream(reportPath1);
+
+		List<JasperPrint> lista = new ArrayList<JasperPrint>();
+
+		List<Mensalidade> list = new ArrayList<Mensalidade>();
+		list.add(mensalidade);
+
+		try {
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("empresa", empresaServico.findOne(1l));
+			lista.add(JasperFillManager.fillReport(stream1, params,
+					new JRBeanCollectionDataSource(list)));
+
+			JRPdfExporter exporter = new JRPdfExporter();
+			HttpServletResponse response = (HttpServletResponse) econtext
+					.getResponse();
+			FacesContext fcontext = FacesContext.getCurrentInstance();
+			ByteArrayOutputStream retorno = new ByteArrayOutputStream();
+
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, lista);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, retorno);
+			exporter.setParameter(
+					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
+					Boolean.TRUE);
+			exporter.exportReport();
+
+			byte[] retornoArray = retorno.toByteArray();
+
+			response.setContentType("application/pdf");
+			response.setContentLength(retornoArray.length);
+
+			OutputStream output = response.getOutputStream();
+			output.write(retornoArray);
+			output.flush();
+			output.close();
+			fcontext.responseComplete();
+
+		} catch (RuntimeException e) {
+			// logar e tratar exception
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				stream1.close();
+			} catch (IOException e) {
+				// logar e tratar exception
+			}
+		}
+
 	}
 
 }
