@@ -46,26 +46,18 @@
 
 	<ui:define name="grid_region">
 
-		<ss:grid managedBean="#{mensalidadeControlador}"
-			renderedRemove="false">
+		<ss:grid managedBean="#{mensalidadeControlador}" renderedRemove="false">
 
-			<ss2:column value="#{item.matricula.id}" header="Matrícula"
-				sortBy="matricula.id" textAlign="right" width="80" />
-			<ss2:column value="#{item.matricula.aluno.nome}" header="Aluno"
-				sortBy="matricula.aluno.nome" />
-			<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso"
-				sortBy="matricula.turma.curso.nome" width="120" />
-			<ss2:column value="#{item.valorVencimento}" header="Valor"
-				sortBy="valorVencimento" width="80" convertNumber="true"
-				currencySymbol=" " textAlign="right" />
+			<ss2:column value="#{item.matricula.id}" header="Matrícula" sortBy="matricula.id" textAlign="right" width="80" />
+			<ss2:column value="#{item.matricula.aluno.nome}" header="Aluno" sortBy="matricula.aluno.nome" />
+			<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
+			<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" 
+						width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
 			<ss2:column value="#{item.dataVencimento}" header="Vencimento"
-				sortBy="dataVencimento" convertDate="true" width="120"
-				textAlign="center" />
+						sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
 			<ss2:column value="#{item.dataPagamento}" header="Pagamento"
-				sortBy="dataPagamento" convertDate="true" width="120"
-				textAlign="center" />
-			<ss2:column value="#{item.statusPagamento}" header="Situação"
-				sortBy="statusPagamento" />
+						sortBy="dataPagamento" convertDate="true" width="120" textAlign="center" />
+			<ss2:column value="#{item.statusPagamento}" header="Situação" sortBy="statusPagamento" textAlign="center" width="110"/>
 
 		</ss:grid>
 
