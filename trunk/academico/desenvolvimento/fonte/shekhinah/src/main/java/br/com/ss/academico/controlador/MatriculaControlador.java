@@ -20,7 +20,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -136,10 +135,8 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	public void imprimirContrato(Matricula matricula)
 			throws FileNotFoundException {
 
-		// matricula.setTurma(turmaServico.findByMatricula(matricula));
 		ExternalContext econtext = FacesContext.getCurrentInstance()
 				.getExternalContext();
-
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		String webPath = context.getExternalContext().getRealPath("/");
@@ -149,20 +146,19 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		InputStream stream1 = new FileInputStream(reportPath1);
 		InputStream stream2 = new FileInputStream(reportPath2);
 
-		List<JasperPrint> j = new ArrayList<JasperPrint>();
+		List<JasperPrint> lista = new ArrayList<JasperPrint>();
 
 		List<Matricula> list = new ArrayList<Matricula>();
 		list.add(matricula);
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(list);
-
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("empresa", empresaServico.findOne(1l));
+			lista.add(JasperFillManager.fillReport(stream1, params,
+					new JRBeanCollectionDataSource(list)));
 
-			j.add(JasperFillManager.fillReport(stream1, params, jrRS));
-
-			j.add(JasperFillManager.fillReport(stream2, params, jrRS));
+			lista.add(JasperFillManager.fillReport(stream2, params,
+					new JRBeanCollectionDataSource(list)));
 
 			JRPdfExporter exporter = new JRPdfExporter();
 			HttpServletResponse response = (HttpServletResponse) econtext
@@ -170,7 +166,7 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 			FacesContext fcontext = FacesContext.getCurrentInstance();
 			ByteArrayOutputStream retorno = new ByteArrayOutputStream();
 
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, j);
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, lista);
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, retorno);
 			exporter.setParameter(
 					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
