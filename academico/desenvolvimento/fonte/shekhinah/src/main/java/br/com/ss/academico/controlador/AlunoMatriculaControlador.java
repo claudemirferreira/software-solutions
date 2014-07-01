@@ -122,6 +122,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		String page = super.novo();
 		carregarMesSelecionado();
 		entidade.setStatus(StatusMatricula.ATIVA);
+		entidade.setData(new Date());
+		turmas = servicoTurma.listarTodos();
 		return page;
 	}
 	
@@ -212,8 +214,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		// faz o load das mensalidades (fetch)
 		this.entidade = servicoMatricula.loadMatriculaMensalidades(matricula);
 		modalCadastro = true;
-		int mes = DateUtil.getMes(entidade.getData());
-		mesSelecionado = Meses.getEnum(mes + 1);
+		carregarMesSelecionado();
 		turmas = servicoTurma.listarTodos();
 		selectTurma(!matricula.isPersistent());
 		validarObservacao();
@@ -257,7 +258,12 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 
 	private void carregarMesSelecionado() {
-		int mes = DateUtil.getMes(new Date());
+		int mes;
+		if ( entidade.isPersistent() ) {
+			mes = servicoMensalidade.getMenorMensalidadeMatricula(entidade);
+		} else {
+			mes = DateUtil.getMes(new Date());
+		}
 		mesSelecionado = Meses.getEnum(++mes);
 	}
 
@@ -284,15 +290,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		if (atualizarValor) {
 			// atualiza o valor da matricula pelo valor do curso selecionado
 			entidade.setValor(entidade.getTurma().getCurso().getValor());
+			entidade.setIntegral(false);
 		}
-		entidade.setIntegral(false);
 
 		Long vagasDisponiveis = servicoMatricula.countVagasDisponiveis(entidade.getTurma());
 		entidade.getTurma().setVagasDisponiveis(vagasDisponiveis.intValue());
 
 		if (!(vagasDisponiveis > 0)) {
-			showMessage("Não há vaga disponível para a turma selecionada.",
-					FacesMessage.SEVERITY_WARN);
+			showMessage("Não há vaga disponível para a turma selecionada.", FacesMessage.SEVERITY_WARN);
 		}
 	}
 
@@ -319,7 +324,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 				}
 				gerarMensalidadesMatricula(persistent);
 			}
-			
+
 			entidade.setAluno(alunoMatricula);
 			servicoMatricula.salvar(entidade);
 			
@@ -360,6 +365,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	 * @param statusPagamento
 	 */
 	private void atualizarStatusMensalidade( StatusPagamento statusPagamento) {
+		// FIXME acho q deve cancelar as mensalidades apenas do mes atual em diante.
 		for (Mensalidade mens : entidade.getMensalidades()) {
 			mens.setStatusPagamento(statusPagamento);
 		}

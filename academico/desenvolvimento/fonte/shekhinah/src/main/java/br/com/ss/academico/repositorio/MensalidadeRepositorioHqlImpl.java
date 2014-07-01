@@ -8,10 +8,12 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
+import br.com.ss.core.web.utils.DateUtil;
 
 @SuppressWarnings("unchecked")
 @Repository
@@ -91,6 +93,30 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		query.setParameter("hoje", hoje );
 		
 		return query.getResultList();
+	}
+	
+
+	@Override
+	public Integer getMesMenorMensalidadeMatricula(Matricula matricula) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select min(men.idMensalidade)  ");
+		sb.append(" from Mensalidade men  ");
+		sb.append(" where men.matricula = :matricula  ");
+		
+		Query query = entityManager.createQuery(sb.toString());
+		query.setParameter("matricula", matricula );
+		
+		Long idMensalidade = (Long) query.getSingleResult();
+		
+		sb = new StringBuilder();
+		sb.append(" select men.dataVencimento from Mensalidade men  ");
+		sb.append( " where men.idMensalidade = :idMensalidade " );
+		
+		query = entityManager.createQuery(sb.toString());
+		query.setParameter("idMensalidade", idMensalidade );
+		Date data = (Date) query.getSingleResult();
+		
+		return (Integer) DateUtil.getMes(data);
 	}
 
 }
