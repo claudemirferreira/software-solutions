@@ -28,7 +28,7 @@
 			</c:if>
 			<c:if test="#{not isPersistent}">
 				<ss:autoComplete label="Aluno" required="true" 
-			       				value="#{alunoMatriculaControlador.entidade.aluno}"
+			       				value="#{alunoMatriculaControlador.alunoMatricula}"
 			       				bean="#{matriculaControlador}"
 			       				completeMethod="listarAlunos"
 			                    itemLabel="#{item.nome}" />
