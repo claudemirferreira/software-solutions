@@ -46,19 +46,20 @@
 		<ss:grid managedBean="#{matriculaControlador}" renderedActionColumn="false">
 		
 			<ss2:column value="#{item.aluno.nome}" header="Aluno" sortBy="aluno.nome" />
-			<ss2:column value="#{item.turma.curso.nome}" header="Curso" sortBy="turma.curso.nome" />
-			<ss2:column value="#{item.turma.ano}" header="Ano" sortBy="turma.ano" />
-			<ss2:column value="#{item.turma.turno}" header="Turno" sortBy="turma.turno" converter="turnoConverter" />
-			<ss2:column value="#{item.valor}" header="Valor" sortBy="valor" width="90" convertNumber="true" currencySymbol=" " textAlign="right" />
+			<ss2:column value="#{item.turma.curso.nome}" header="Curso" sortBy="turma.curso.nome" width="80" />
+			<ss2:column value="#{item.turma.ano}" header="Ano" sortBy="turma.ano" textAlign="center" width="60"/>
+			<ss2:column value="#{item.turma.turno}" header="Turno" sortBy="turma.turno" converter="turnoConverter" width="90" />
+			<ss2:column value="#{item.valor}" header="Valor" sortBy="valor" width="70" convertNumber="true" currencySymbol=" " textAlign="right" />
 			<ss2:column value="#{item.data}" header="Data Matrícula" sortBy="data" convertDate="true" width="120" textAlign="center"/>
-			<ss2:column value="#{item.integral}" header="Hor. Integral?" sortBy="integral" converter="simNaoConverter" textAlign="center" />
-			<ss2:column value="#{item.status}" header="Situação" sortBy="status" converter="statusMatriculaConverter" textAlign="center" />
+			<ss2:column value="#{item.integral}" header="Hor. Integral?" sortBy="integral" converter="simNaoConverter" textAlign="center" width="110"/>
+			<ss2:column value="#{item.status}" header="Situação" sortBy="status" converter="statusMatriculaConverter" textAlign="center" width="90" />
 
 			<ss2:actionColumn managedBean="#{alunoMatriculaControlador}" renderedRemove="false" buttonsAdded="1">
 			
 				<!-- FIXME #Peninha: rever essa funcionalidade - nao entendi o proposito do relatorio.. nao seria para imprimir a matricula? -->
-				<p:commandButton value="Impr #FIXME " icon="ui-icon-print"
+				<p:commandButton value="Impr ##" icon="ui-icon-print"
 								action="#{matriculaControlador.imprimirRelatorio(item)}"
+								styleClass="ui-priority-primary"
 								ajax="false" />
 			</ss2:actionColumn>
 			
