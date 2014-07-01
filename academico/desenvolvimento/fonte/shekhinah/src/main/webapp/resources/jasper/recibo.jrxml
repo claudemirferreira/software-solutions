@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensalidade" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6052e703-5d4e-435d-8a7a-65006837a4c6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="checked" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checked]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="dataVencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataVencimento]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="idMensalidade" class="java.lang.Long">
+		<fieldDescription><![CDATA[idMensalidade]]></fieldDescription>
+	</field>
+	<field name="matricula" class="br.com.ss.academico.dominio.Matricula">
+		<fieldDescription><![CDATA[matricula]]></fieldDescription>
+	</field>
+	<field name="mesSequencial" class="java.lang.String">
+		<fieldDescription><![CDATA[mesSequencial]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="persistent" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[persistent]]></fieldDescription>
+	</field>
+	<field name="sequencial" class="java.lang.Integer">
+		<fieldDescription><![CDATA[sequencial]]></fieldDescription>
+	</field>
+	<field name="statusPagamento" class="br.com.ss.academico.enumerated.StatusPagamento">
+		<fieldDescription><![CDATA[statusPagamento]]></fieldDescription>
+	</field>
+	<field name="usuario" class="br.com.ss.core.seguranca.dominio.Usuario">
+		<fieldDescription><![CDATA[usuario]]></fieldDescription>
+	</field>
+	<field name="valorPagamento" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorPagamento]]></fieldDescription>
+	</field>
+	<field name="valorVencimento" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorVencimento]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="128" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d240e3ac-bc4a-45f4-9b18-0bb3ed5244e6" x="86" y="0" width="392" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Empresa: "+$P{empresa}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="eaf88ab3-6043-4152-a81e-7b64cbf0ebe0" x="86" y="20" width="392" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cnpj: "+$P{empresa}.getCnpj()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="52ebc0d6-020c-45d4-8fb2-6313abf2fea1" x="86" y="40" width="392" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Endereço: "+$P{empresa}.getEndereco() + " " + $P{empresa}.getBairro()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e895d97f-1196-472a-9e56-f31d6351b867" x="18" y="87" width="114" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Matricula: "+$F{matricula}.getId()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2bba4e2e-8f8d-4c88-a97a-67da64690726" x="147" y="87" width="258" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Aluno: "+$F{matricula}.getAluno().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d3c6389c-81fb-4141-838f-74b75cdf8e8a" x="18" y="107" width="203" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Turma: "+$F{matricula}.getTurma().getCurso().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="567d461e-84a0-40fd-81b9-d926cabe339c" x="237" y="107" width="308" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Responsável: "+ $F{matricula}.getAluno().getResponsavel().getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="57d61519-37ca-4046-87d0-0f8887430c37" x="86" y="60" width="392" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Recibo de Pagamento  de  Mensalidade]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d6f375a7-ab94-478f-a31f-6d267d8d40f4" x="0" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data Vencimento]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="e3a25042-1e11-4fe6-a5a5-c2d1561e2df4" x="9" y="20" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="be9eb95c-7611-46ce-9e09-bed89481d24d" x="92" y="0" width="69" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="290bdd87-0bd6-4222-97b8-e20aeb455bc1" x="92" y="20" width="69" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorVencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dd374217-56b7-4638-b101-b2ec95bee27f" x="167" y="0" width="84" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data Pagamento]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="0ca2ac59-4a24-4342-a29f-9873e8c8a99e" x="167" y="20" width="84" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="383b150d-0517-449a-9ca1-06af60ec3008" x="254" y="0" width="78" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="edbad9ca-29d7-4cef-8e6e-2691c2d9a61c" x="254" y="20" width="78" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valorPagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9f48906b-e726-4654-8d3c-062f005765c6" x="334" y="0" width="84" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Mês]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="30820d03-42ab-4238-947c-2211f68abeb3" x="334" y="20" width="84" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{mesSequencial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="be055293-dae8-48d5-a4af-dc366dcf9196" x="425" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="62705ccd-55e2-4406-912d-903a90561692" x="425" y="20" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$F{statusPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="19" splitType="Stretch"/>
+	</summary>
+</jasperReport>
