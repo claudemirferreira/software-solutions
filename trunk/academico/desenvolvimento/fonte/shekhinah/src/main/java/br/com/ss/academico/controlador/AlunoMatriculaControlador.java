@@ -291,6 +291,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		if (atualizarValor) {
 			// atualiza o valor da matricula pelo valor do curso selecionado
 			entidade.setValor(entidade.getTurma().getCurso().getValor());
+			
+			// reseta o combo qdo mudar a turma
 			entidade.setIntegral(false);
 		}
 
@@ -392,13 +394,13 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 		
 		for (int i = mesInicial; i <= mesFinal; i++) {
-			entidade.getMensalidades().add(createMensalidade(i, valorMens));
+			entidade.getMensalidades().add(createMensalidade(i, entidade.getTurma().getAno(), valorMens));
 		}
 	}
 
-	private Mensalidade createMensalidade(int mes, double valorVencimento) {
+	private Mensalidade createMensalidade(int mes, int ano, double valorVencimento) {
 		Mensalidade mens = new Mensalidade();
-		mens.setDataVencimento(criarDataVencimento(mes));
+		mens.setDataVencimento(criarDataVencimento(mes, ano));
 		mens.setMatricula(entidade);
 		mens.setSequencial(mes);
 		mens.setStatusPagamento(StatusPagamento.PENDENTE);
@@ -407,11 +409,10 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		return mens;
 	}
 
-	private Date criarDataVencimento(int mes) {
+	private Date criarDataVencimento(int mes, int ano) {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(new Date());
-		cal.set(cal.get(Calendar.YEAR), mes - 1,
-				configuracao.getDiaVencimento());
+		cal.set(ano, mes - 1, configuracao.getDiaVencimento());
 		return cal.getTime();
 	}
 
