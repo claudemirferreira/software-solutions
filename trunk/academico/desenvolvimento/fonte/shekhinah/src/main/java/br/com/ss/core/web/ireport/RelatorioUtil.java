@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -35,6 +36,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.servico.EmpresaServico;
+import br.com.ss.core.web.enumerated.Constants;
 
 @ManagedBean
 @ApplicationScoped
