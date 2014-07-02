@@ -18,13 +18,13 @@
 	<ui:define name="grid_region">
 
 		<p:dataTable id="rowEditingTable" var="item"
-			value="#{boletimControlador.listaPesquisa}" paginator="true" rows="5"
+			value="#{boletimControlador.listaPesquisa}" paginator="true" rows="15"
 			paginatorPosition="bottom" editable="true">
 
 			<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
 
 			<f:facet name="header">  
-            Row Editing  
+            Boletim do aluno   #{boletimControlador.entidade.matricula.aluno.nome}
         </f:facet>
 
 			<p:column headerText="Disciplina">
