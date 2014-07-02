@@ -1,6 +1,11 @@
 package br.com.ss.core.web.controlador;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,13 +26,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
@@ -62,6 +72,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	protected RelatorioUtil relatorioUtil;
+	
+	@ManagedProperty(value = "#{empresaServicoImpl}")
+	private EmpresaServico empresaServico;
 
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> sexoList;
@@ -94,6 +107,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	
 	
 	private Map<String, Object> params;
+	
+	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
+	
+	/** Resource path dos relatorio: /resources/jasper/ */
+	private static final String PATH_REPORT = "resources" + File.separator
+			+ "jasper" + File.separator;
 
 	/* ---------- Metodos ----------------------- */
 
@@ -258,10 +277,8 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 */
 	public void imprimir() throws FileNotFoundException, IOException,
 			DocumentException, JRException {
-		
 		Map<String, Object> param =  new HashMap<String, Object>();
-		
-		relatorioUtil.gerarRelatorioWeb(this.listaPesquisa, param,
+		gerarRelatorioWeb(this.listaPesquisa, param,
 				getNomeRelatorio());
 	}
 
@@ -273,24 +290,71 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 					params, nomeRelatorio);
 			InputStream is = new ByteArrayInputStream(dadosPdf);
 
-			// InputStream inputStream = new FileInputStream(arquivo);
-
-			//
-			// File f = new File ("teste.pdf");
-			// FileOutputStream fos = null;
-			// try {
-			// fos = new FileOutputStream (f);
-			// fos.write (dadosPdf);
-			// } finally {
-			// if (fos != null) try { fos.close(); } catch (IOException ex) {}
-			// }
-
-			// inputStream = new DefaultStreamedContent(fos, "application/pdf");
 			inputStream = new DefaultStreamedContent(is, "application/pdf");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void gerarRelatorioWeb(List<?> lista, Map<String, Object> parametros,
+			String nomeRelatorio) throws JRException {
+
+		parametros.put("empresa", empresaServico.findOne(1l));
+
+		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+
+		BufferedOutputStream output = null;
+		BufferedInputStream input = null;
+		
+		String webPath = context.getExternalContext().getRealPath("/");
+		String reportPath = webPath + PATH_REPORT + nomeRelatorio;
+
+		try {
+
+			input = new BufferedInputStream(new FileInputStream(reportPath),
+					DEFAULT_BUFFER_SIZE);
+
+			File fileReport = new File(reportPath);
+
+			response.reset();
+			response.setHeader("Content-Type", "application/pdf");
+			response.setHeader("Content-Length", String.valueOf(fileReport.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\""	+ fileReport.getName() + "\"");
+
+			JasperRunManager.runReportToPdfStream(new FileInputStream(
+					fileReport), response.getOutputStream(), parametros, jrRS);
+
+			output = new BufferedOutputStream(response.getOutputStream(),
+					DEFAULT_BUFFER_SIZE);
+
+			// Write file contents to response.
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int length;
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);
+			}
+
+			// Finalize task.
+			output.flush();
+		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+			System.out.println("Erro : não foi encontrado o relaotirio " + reportPath);
+			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			// Gently close streams.
+			close(output);
+			close(input);
+		}
+
+		context.renderResponse();
+		context.responseComplete();
 	}
 
 	/* -------- Metodos utilitarios -------------- */
@@ -374,6 +438,24 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 
 	public void setInputStream(StreamedContent inputStream) {
 		this.inputStream = inputStream;
+	}
+
+	public EmpresaServico getEmpresaServico() {
+		return empresaServico;
+	}
+
+	public void setEmpresaServico(EmpresaServico empresaServico) {
+		this.empresaServico = empresaServico;
+	}
+	
+	private static void close(Closeable resource) {
+		if (resource != null) {
+			try {
+				resource.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
