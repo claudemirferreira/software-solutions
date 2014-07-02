@@ -68,8 +68,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	
 	@Override
 	protected String getNomeRelatorio() {
-		// FIXME #Peninha relatorio
-		return null;
+		return "turma.jasper";
 	}
 
 	@Override
