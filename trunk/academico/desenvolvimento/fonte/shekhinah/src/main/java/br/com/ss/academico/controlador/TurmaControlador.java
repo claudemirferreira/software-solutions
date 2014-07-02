@@ -17,6 +17,7 @@ import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.TurmaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.enumerated.Situacao;
 import br.com.ss.core.web.utils.Util;
 
 @ManagedBean
@@ -32,6 +33,8 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	private List<SelectItem> turnos;
 	
 	private List<SelectItem> anos;
+
+	private List<SelectItem> situacoes;
 
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico servico;
@@ -55,6 +58,11 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 		for (Turno t : Turno.values()) {
 			turnos.add(new SelectItem(t, t.getDescricao()));
 		}
+		situacoes = new ArrayList<SelectItem>();
+		for (Situacao s : Situacao.values()) {
+			situacoes.add(new SelectItem(s, s.getDescricao()));
+		}
+		
 		this.cursos = cursoServico.listarTodos();
 	}
 	
@@ -83,6 +91,30 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 		this.turmaSelecaoModal = null;
 	}
 	
+	
+	@Override
+	public String detalhe() {
+		validarTurmaAnoAnterior();
+		return super.detalhe();
+	}
+
+	/**
+	 * Valida se o ano do item selecionado, é anterior ao ano atual.
+	 * Necessario caso queira inativar uma turma.
+	 */
+	private void validarTurmaAnoAnterior() {
+		Integer ano = entidade.getAno();
+		boolean contains = false;
+		for (SelectItem item : anos ) {
+			if ( item.getValue().equals(ano) ) {
+				contains = true;
+				break;
+			}
+		}
+		if ( !contains ) {
+			anos.add(new SelectItem(ano, ano.toString()));
+		}
+	}
 	
 	/* ---------- Gets/Sets ------------- */
 
@@ -132,5 +164,9 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 
 	public List<SelectItem> getTurnos() {
 		return turnos;
+	}
+
+	public List<SelectItem> getSituacoes() {
+		return situacoes;
 	}
 }

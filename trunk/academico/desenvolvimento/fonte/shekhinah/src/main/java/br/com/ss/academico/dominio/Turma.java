@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
+import br.com.ss.core.web.enumerated.Situacao;
 
 /**
  * The persistent class for the iansa_turma database table.
@@ -44,6 +45,10 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	@Column(nullable = false)
 	private Integer numeroVagas;
+
+	@Enumerated
+	@Column(length = 1, nullable = false)
+	private Situacao situacao;
 
 	// //bi-directional many-to-one association to Matricula
 	@OneToMany(mappedBy = "turma")
@@ -130,6 +135,14 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	public void setVagasDisponiveis(Integer vagasDisponiveis) {
 		this.vagasDisponiveis = vagasDisponiveis;
+	}
+
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 
 }

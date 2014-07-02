@@ -12,4 +12,6 @@ public interface TurmaServico extends IService<Turma, Long>  {
 
 	public Turma findByMatricula(Matricula matricula);
 
+	List<Turma> listarTurmasVigentes();
+
 }

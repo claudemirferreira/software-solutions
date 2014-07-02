@@ -33,11 +33,9 @@ import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.servico.AlunoServico;
-import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MatriculaServico;
-import br.com.ss.academico.servico.TurmaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.ireport.RelatorioUtil;
@@ -55,24 +53,17 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico servicoAluno;
 
-	@ManagedProperty(value = "#{boletimServicoImpl}")
-	private BoletimServico boletimServico;
-
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico servicoCurso;
 
 	@ManagedProperty(value = "#{empresaServicoImpl}")
 	private EmpresaServico empresaServico;
 
-	@ManagedProperty(value = "#{turmaServicoImpl}")
-	private TurmaServico turmaServico;
-
 	private List<SelectItem> statusList;
 
 	private List<SelectItem> turnoList;
 
-	private static final String PATH_REPORT = "resources" + File.separator
-			+ "jasper" + File.separator;
+	private static final String PATH_REPORT = "resources" + File.separator + "jasper" + File.separator;
 
 	@Override
 	protected void init() {
@@ -122,15 +113,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		return servicoCurso.findByNomeLike(nome);
 	}
 
-	public String salvar() {
-		// gerar boletim
-		if (this.entidade.getIdMatricula() == null) {
-			this.boletimServico.gerarBoletim(this.entidade);
-		}
-
-		return super.salvar();
-
-	}
 
 	public void imprimirContrato(Matricula matricula)
 			throws FileNotFoundException {
@@ -209,14 +191,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		this.servico = servico;
 	}
 
-	public BoletimServico getBoletimServico() {
-		return boletimServico;
-	}
-
-	public void setBoletimServico(BoletimServico boletimServico) {
-		this.boletimServico = boletimServico;
-	}
-
 	public RelatorioUtil getRelatorioUtil() {
 		return relatorioUtil;
 	}
@@ -247,14 +221,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setEmpresaServico(EmpresaServico empresaServico) {
 		this.empresaServico = empresaServico;
-	}
-
-	public TurmaServico getTurmaServico() {
-		return turmaServico;
-	}
-
-	public void setTurmaServico(TurmaServico turmaServico) {
-		this.turmaServico = turmaServico;
 	}
 
 	public CursoServico getServicoCurso() {

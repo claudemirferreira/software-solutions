@@ -41,6 +41,7 @@ import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
+import br.com.ss.core.web.enumerated.Constants;
 
 @ManagedBean
 @SessionScoped
@@ -140,10 +141,20 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	@Override
 	public String detalhe() {
 		String page = super.detalhe();
+		validarPreencherDataPagamento();
+		return page;
+	}
+
+	private void validarPreencherDataPagamento() {
 		if (StatusPagamento.PENDENTE.equals(entidade.getStatusPagamento())) {
 			entidade.setDataPagamento(new Date());
 		}
-		return page;
+	}
+	
+	public String detalheHome(Mensalidade mensalidade) {
+		entidade = mensalidade;
+		validarPreencherDataPagamento();
+		return "/paginas/mensalidade/cadastro.xhtml" + Constants.REDIRECT;
 	}
 
 	/**
