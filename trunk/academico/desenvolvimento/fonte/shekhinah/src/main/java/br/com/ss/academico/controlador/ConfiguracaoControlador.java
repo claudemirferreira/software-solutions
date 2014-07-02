@@ -26,7 +26,7 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	
     private Map<String, String> themes;
     
-	private String tema = "bluesky"; //default
+	private String tema = "start"; //default
 
 	private Integer diaVencimento = 10; // default
 	

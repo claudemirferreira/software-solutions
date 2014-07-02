@@ -120,7 +120,7 @@ CREATE TABLE `acad_configuracao` (
 
 /*!40000 ALTER TABLE `acad_configuracao` DISABLE KEYS */;
 INSERT INTO `acad_configuracao` (`id_configuracao`,`dia_vencimento`,`tema`) VALUES 
- (1,10,'aristo');
+ (1,10,'start');
 /*!40000 ALTER TABLE `acad_configuracao` ENABLE KEYS */;
 
 
