@@ -25,6 +25,7 @@ public class HomeControlador {
 		mensalidadesAtraso = mensalidadeServico.listarMensalidadesEmAtraso();
 
 	}
+	
 
 	public MensalidadeServico getMensalidadeServico() {
 		return mensalidadeServico;

@@ -17,9 +17,9 @@
 	
 	<ui:define name="search_filter">
 
-		<ss:comboBox label="Ano" value="#{turmaControlador.pesquisa.ano}" list="#{turmaControlador.anos}" />
+		<ss:comboBox label="Ano" value="#{turmaControlador.pesquisa.ano}" list="#{turmaControlador.anos}" filter="false" />
 		 
-		<ss:comboBox label="Turno" value="#{turmaControlador.pesquisa.turno}" list="#{turmaControlador.turnos}" />
+		<ss:comboBox label="Turno" value="#{turmaControlador.pesquisa.turno}" list="#{turmaControlador.turnos}" filter="false" />
 	
 		<ss:comboBox label="Curso" foreignKey="true" atributo="#{item.nome}" value="#{turmaControlador.pesquisa.curso}" list="#{turmaControlador.cursos}" />
 			
@@ -36,6 +36,8 @@
 			<ss2:column value="#{item.turno}" header="Turno" sortBy="turno"  />
 			
 			<ss2:column value="#{item.numeroVagas}" header="Número de Vagas" sortBy="numeroVagas" width="160" textAlign="center" />
+			
+			<ss2:column value="#{item.situacao}" header="Situação" sortBy="situacao" converter="situacaoConverter" textAlign="center" />
 			
 			<ss2:actionColumn managedBean="#{turmaControlador}" buttonsAdded="1">
 				<p:commandButton value="Alunos" title="Listar alunos"

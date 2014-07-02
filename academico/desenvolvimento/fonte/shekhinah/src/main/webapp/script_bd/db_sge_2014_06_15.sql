@@ -463,6 +463,7 @@ CREATE TABLE `acad_turma` (
   `turno` varchar(1) NOT NULL,
   `id_curso` bigint(20) NOT NULL,
   `numero_vagas` int(11) NOT NULL,
+  `situacao` smallint(1) NOT NULL,
   PRIMARY KEY (`id_turma`),
   KEY `FK_2qed6ismnk8dlxohh3ie29tb5` (`id_curso`),
   CONSTRAINT `FK_2qed6ismnk8dlxohh3ie29tb5` FOREIGN KEY (`id_curso`) REFERENCES `acad_curso` (`id_curso`)
@@ -473,10 +474,11 @@ CREATE TABLE `acad_turma` (
 --
 
 /*!40000 ALTER TABLE `acad_turma` DISABLE KEYS */;
-INSERT INTO `acad_turma` (`id_turma`,`ano`,`turno`,`id_curso`,`numero_vagas`) VALUES 
- (1,2015,'0',1,30),
- (2,2015,'1',2,20),
- (3,2014,'2',1,5);
+INSERT INTO `acad_turma` (`id_turma`,`ano`,`turno`,`id_curso`,`numero_vagas`,`situacao`) VALUES 
+ (1,2015,'0',1,30,0),
+ (2,2015,'1',2,20,0),
+ (3,2014,'2',1,5,0),
+ (4,2013,'1',2,10,1);
 /*!40000 ALTER TABLE `acad_turma` ENABLE KEYS */;
 
 

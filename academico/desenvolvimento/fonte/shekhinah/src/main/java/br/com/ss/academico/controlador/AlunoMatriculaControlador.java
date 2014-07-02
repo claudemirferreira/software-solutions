@@ -124,7 +124,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		carregarMesSelecionado();
 		entidade.setStatus(StatusMatricula.ATIVA);
 		entidade.setData(new Date());
-		turmas = servicoTurma.listarTodos();
+		carregarTurmas();
 		return page;
 	}
 	
@@ -216,7 +216,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		this.entidade = servicoMatricula.loadMatriculaMensalidades(matricula);
 		modalCadastro = true;
 		carregarMesSelecionado();
-		turmas = servicoTurma.listarTodos();
+		carregarTurmas();
 		selectTurma(!matricula.isPersistent());
 		validarObservacao();
 	}
@@ -253,9 +253,16 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	public void showModalCadastroMatricula() {
 		modalCadastro = true;
 		entidade = createMatricula();
-		turmas = servicoTurma.listarTodos();
+		carregarTurmas();
 		carregarMesSelecionado();
 		statusMatriculaList = createStatusMatriculaList();
+	}
+
+	/**
+	 * Lista as turmas 'vigentes'.
+	 */
+	private void carregarTurmas() {
+		turmas = servicoTurma.listarTurmasVigentes();
 	}
 
 	private void carregarMesSelecionado() {

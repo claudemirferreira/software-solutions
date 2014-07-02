@@ -20,30 +20,36 @@
 	<ui:define name="search_filter">
 
 		<ss:autoComplete label="Aluno"
-			value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
-			bean="#{mensalidadeControlador}" completeMethod="listarAlunos"
-			itemLabel="#{item.nome}" size="40" />
+						value="#{mensalidadeControlador.pesquisa.matricula.aluno}"
+						bean="#{mensalidadeControlador}" 
+						completeMethod="listarAlunos"
+						itemLabel="#{item.nome}" 
+						size="40" />
 
 		<ss:input label="Matrícula" value="#{mensalidadeControlador.pesquisa.matricula.idMatricula}" type="number" decimalPlaces="0" size="6" />
 
-		<ss:comboBox label="Situação" filter="false"
-			value="#{mensalidadeControlador.pesquisa.statusPagamento}"
-			list="#{mensalidadeControlador.statusList}" />
+		<ss:comboBox label="Situação" 
+					filter="false"
+					value="#{mensalidadeControlador.pesquisa.statusPagamento}"
+					list="#{mensalidadeControlador.statusList}" />
 
-		<ss:input label="Período inicial" type="date"
-			value="#{mensalidadeControlador.dataInicio}" ajax="true" />
+		<ss:input label="Período inicial" type="date" value="#{mensalidadeControlador.dataInicio}" ajax="true" />
 
-		<ss:input label="Período final" type="date"
-			value="#{mensalidadeControlador.dataFim}" ajax="true" />
+		<ss:input label="Período final" type="date" value="#{mensalidadeControlador.dataFim}" ajax="true" />
 
-		<ss:comboBox label="Pesquisar por" filter="false"
-			value="#{mensalidadeControlador.tipoPesquisaData}"
-			list="#{mensalidadeControlador.tipoPesquisaDataList}" />
+		<ss:comboBox label="Pesquisar por" 
+					filter="false"
+					value="#{mensalidadeControlador.tipoPesquisaData}"
+					list="#{mensalidadeControlador.tipoPesquisaDataList}" />
 			
+			
+			<!-- #Peninha remover este botao -->
 		<p:commandButton value="Relatorio" title="Relatorio"
-			action="#{mensalidadeControlador.imprimir}"
-			oncomplete="PF('dlgRelatorio').show();" update=":formDlg"
-			styleClass="ui-priority-primary" icon="ui-icon-document" />
+					action="#{mensalidadeControlador.imprimir}"
+					oncomplete="PF('dlgRelatorio').show();" 
+					update=":formDlg"
+					styleClass="ui-priority-primary" 
+					icon="ui-icon-document" />
 
 	</ui:define>
 
@@ -54,21 +60,18 @@
 			<ss2:column value="#{item.matricula.id}" header="Matrícula" sortBy="matricula.id" textAlign="right" width="80" />
 			<ss2:column value="#{item.matricula.aluno.nome}" header="Aluno" sortBy="matricula.aluno.nome" />
 			<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
-			<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" 
-						width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
-			<ss2:column value="#{item.dataVencimento}" header="Vencimento"
-						sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
-			<ss2:column value="#{item.dataPagamento}" header="Pagamento"
-						sortBy="dataPagamento" convertDate="true" width="120" textAlign="center" />
+			<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
+			<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
+			<ss2:column value="#{item.dataPagamento}" header="Pagamento" sortBy="dataPagamento" convertDate="true" width="120" textAlign="center" />
 			<ss2:column value="#{item.statusPagamento}" header="Situação" sortBy="statusPagamento" textAlign="center" width="110"/>
 			
-			<ss2:actionColumn managedBean="#{mensalidadeControlador}"
-				renderedRemove="false" buttonsAdded="2">
+			<ss2:actionColumn managedBean="#{mensalidadeControlador}" renderedRemove="false" buttonsAdded="1">
 
 				<p:commandButton value="Recibo" ajax="false"
-					onclick="this.form.target='_blank'" icon="ui-icon-print"
-					styleClass="ui-priority-primary"
-					action="#{mensalidadeControlador.imprimirRecibo(item)}" />
+								onclick="this.form.target='_blank'" 
+								icon="ui-icon-print"
+								styleClass="ui-priority-primary"
+								action="#{mensalidadeControlador.imprimirRecibo(item)}" />
 
 			</ss2:actionColumn>
 
@@ -77,7 +80,7 @@
 	</ui:define>
 
 	<ui:define name="modal_region">
-
+		<!-- FIXME #Peninha nao precisa mais do modal.. -->
 		<ui:include src="modalRelatorio.xhtml" />
 
 	</ui:define>

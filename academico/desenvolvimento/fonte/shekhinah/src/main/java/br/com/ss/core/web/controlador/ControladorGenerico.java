@@ -28,7 +28,6 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
