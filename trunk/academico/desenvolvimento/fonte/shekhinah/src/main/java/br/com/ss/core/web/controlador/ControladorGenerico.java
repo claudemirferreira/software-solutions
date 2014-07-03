@@ -301,6 +301,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 			String nomeRelatorio) throws JRException {
 
 		parametros.put("empresa", empresaServico.findOne(1l));
+		parametros.put("usuario", getUsuarioLogado());
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
