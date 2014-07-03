@@ -21,8 +21,7 @@ public class DisciplinaControlador extends ControladorGenerico<Disciplina> {
 
 	@Override
 	protected String getNomeRelatorio() {
-		// FIXME #Peninha relatorio
-		return null;
+		return "disciplina.jasper";
 	}
 
 	@Override
