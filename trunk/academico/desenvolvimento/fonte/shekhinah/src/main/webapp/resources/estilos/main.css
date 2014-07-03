@@ -33,7 +33,8 @@
 		z-index: 500;
 		width: 100%;
 		height: 80px;
-		background: #fff url(images/logo.gif) no-repeat left top;
+/*		background: #fff url(images/logo.gif) no-repeat left top;	*/
+		background: #fff url(images/logo-shekinah-small-2.png) no-repeat left top;	/* ### FIXME : alterar com a imagem da Empresa */
 		/* img da app */
 /* 		border-bottom: 3px solid #c0c0c0; */
 		color: #f0f0f0; /* cor da fonte do header */
