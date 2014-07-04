@@ -42,15 +42,6 @@
 					value="#{mensalidadeControlador.tipoPesquisaData}"
 					list="#{mensalidadeControlador.tipoPesquisaDataList}" />
 			
-			
-			<!-- #Peninha remover este botao -->
-		<p:commandButton value="Relatorio" title="Relatorio"
-					action="#{mensalidadeControlador.imprimir}"
-					oncomplete="PF('dlgRelatorio').show();" 
-					update=":formDlg"
-					styleClass="ui-priority-primary" 
-					icon="ui-icon-document" />
-
 	</ui:define>
 
 	<ui:define name="grid_region">
@@ -70,6 +61,7 @@
 				<p:commandButton value="Recibo" ajax="false"
 								onclick="this.form.target='_blank'" 
 								icon="ui-icon-print"
+								rendered="#{item.statusPagamento.id eq 1}"
 								styleClass="ui-priority-primary"
 								action="#{mensalidadeControlador.imprimirRecibo(item)}" />
 
