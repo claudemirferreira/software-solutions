@@ -22,11 +22,13 @@
 			
 			<ss:input label="Dia de Vencimento" value="#{configuracaoControlador.entidade.diaVencimento}" type="number" maxlength="2" size="3" dir="rtl" decimalPlaces="0" />
 				
-			<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required">
+			<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required" rendered="#{configuracaoControlador.usuarioLogado.login eq 'master'}" >
+			 		
 			 		<p:column width="150px">
 						<h:outputLabel value="Tema" for="tema" />
 				 		<h:outputText value="  * " styleClass="input_required" />
 			 		</p:column>
+			 		
 			 		<p:column style="align:left">
 		               <p:themeSwitcher id="tema" value="#{configuracaoControlador.entidade.tema}" style="width:155px;float:left;margin:15px;" effect="fade">
 		                   <f:selectItem itemLabel="Escolha um tema" itemValue="" />
