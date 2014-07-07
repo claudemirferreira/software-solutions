@@ -20,28 +20,31 @@
 			
 		<!-- FIXME add mais conteudo -->
 		
-		<ss:container title="Mensalidades em atraso" width="750px" >
+		<p:outputPanel rendered="#{configuracaoControlador.usuarioLogado.login eq 'admin'}" >
 			
-			<ss:grid managedBean="#{homeControlador}" list="mensalidadesAtraso" renderedActionColumn="false" >
+			<ss:container title="Mensalidades em atraso" width="750px" >
 				
-				<ss2:column value="#{item.matricula.aluno.nome}" header="Nome" sortBy="matricula.aluno.nome"  />
-				<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
-				<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
-				<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
-				
-				<ss2:actionColumn renderedDetail="false" renderedRemove="false" buttonsAdded="1">
-	
-					<p:commandButton value="Baixar" 
-									ajax="false"
-									icon="ui-icon-folder-collapsed"
-									styleClass="ui-priority-primary"
-									action="#{mensalidadeControlador.detalheHome(item)}" />
-				</ss2:actionColumn>
-				
-			</ss:grid>
-			
-		</ss:container>
+				<ss:grid managedBean="#{homeControlador}" list="mensalidadesAtraso" renderedActionColumn="false" >
+					
+					<ss2:column value="#{item.matricula.aluno.nome}" header="Nome" sortBy="matricula.aluno.nome"  />
+					<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
+					<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
+					<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
+					
+					<ss2:actionColumn renderedDetail="false" renderedRemove="false" buttonsAdded="1">
 		
+						<p:commandButton value="Baixar" 
+										ajax="false"
+										icon="ui-icon-folder-collapsed"
+										styleClass="ui-priority-primary"
+										action="#{mensalidadeControlador.detalheHome(item)}" />
+					</ss2:actionColumn>
+					
+				</ss:grid>
+				
+			</ss:container>
+			
+		</p:outputPanel>
 	</ui:define>
 
 </ui:composition>

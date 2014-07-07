@@ -370,10 +370,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 
 	/**
 	 * Retorna o usuário logado.
-	 * 
 	 * @return Usuario
 	 */
-	protected Usuario getUsuarioLogado() {
+	public Usuario getUsuarioLogado() {
 		return ((Usuario) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal());
 	}

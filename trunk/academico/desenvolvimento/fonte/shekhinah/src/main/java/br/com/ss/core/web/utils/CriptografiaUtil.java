@@ -32,7 +32,7 @@ public class CriptografiaUtil {
 
     public static void main( String[] args ) {
     	
-    	String txt = "123456";
+    	String txt = "admin";
 		String md5 = criptografar(txt, MD5),
     			sha = criptografar(txt );
     	
