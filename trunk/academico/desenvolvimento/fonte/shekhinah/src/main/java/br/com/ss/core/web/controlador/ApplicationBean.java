@@ -29,8 +29,8 @@ public class ApplicationBean {
 	public void init() {
 		
 		// lê a configuracao da empresa e sistema do messages_pt.properties.
-		String idEmpresa = MessageUtils.getMessageResourceString( MessageUtils.ID_EMPRESA, null );
-		String idSistema = MessageUtils.getMessageResourceString( MessageUtils.ID_SISTEMA, null );
+		String idEmpresa = MessageUtils.getMessageResourceString( MessageUtils.ID_EMPRESA );
+		String idSistema = MessageUtils.getMessageResourceString( MessageUtils.ID_SISTEMA );
 		
 		sistema = sistemaServico.findByPrimaryKey(new Long(idSistema));
 		empresa = empresaServico.findByPrimaryKey(new Long(idEmpresa));

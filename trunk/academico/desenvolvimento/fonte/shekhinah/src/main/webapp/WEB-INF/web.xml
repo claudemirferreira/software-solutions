@@ -36,6 +36,11 @@
 	</context-param>
 	
 	<listener>
+		<!-- Listener da App -->
+		<listener-class>br.com.ss.core.seguranca.listener.ApplicationStartsListener</listener-class>
+	</listener>
+	
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
