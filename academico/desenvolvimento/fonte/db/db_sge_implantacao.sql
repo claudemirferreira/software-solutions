@@ -131,7 +131,7 @@ CREATE TABLE `acad_curso` (
 --
 
 /*!40000 ALTER TABLE `acad_curso` DISABLE KEYS */;
-INSERT INTO `acad_curso` (`id_curso`,`nome`,`valor`) VALUES (1,'1º ANO',1500);
+INSERT INTO `acad_curso` (`id_curso`,`nome`,`valor`) VALUES (1,'1Âº ANO',1500);
 /*!40000 ALTER TABLE `acad_curso` ENABLE KEYS */;
 
 
@@ -439,7 +439,6 @@ FIXME
 INSERT INTO `saa_perfil_rotina` (`data`,`id_perfil`,`id_rotina`) VALUES
  /* Segurança */
  (NULL,3,1),
- (NULL,3,2),
  (NULL,3,3),
  (NULL,3,13),
  
@@ -496,7 +495,7 @@ INSERT INTO `saa_rotina` (`id_rotina`,`acao`,`imagem`,`nome`,`status`,`id_sistem
  (8,'/paginas/matricula/pesquisa.xhtml','/resources/imagens/rotina/turma.png','Matrícula',0,2),
  (9,'/paginas/mensalidade/pesquisa.xhtml','/resources/imagens/rotina/curso.png','Mensalidade',0,2),
  (10,'/paginas/professor/pesquisa.xhtml','/resources/imagens/rotina/professor.png','Professor',0,2),
- (11,'/paginas/responsavel/pesquisa.xhtml','/resources/imagens/rotina/responsavel.png','Responsavel',0,2),
+ (11,'/paginas/responsavel/pesquisa.xhtml','/resources/imagens/rotina/responsavel.png','Responsável',0,2),
  (12,'/paginas/turma/pesquisa.xhtml','/resources/imagens/rotina/turma.png','Turma',0,2),
  (13,'/paginas/configuracao/configuracao.xhtml','/resources/imagens/rotina/configuracao.png','Configuração',0,2);
 /*!40000 ALTER TABLE `saa_rotina` ENABLE KEYS */;
@@ -524,7 +523,7 @@ CREATE TABLE `saa_sistema` (
 /*!40000 ALTER TABLE `saa_sistema` DISABLE KEYS */;
 INSERT INTO `saa_sistema` (`id_sistema`,`codigo`,`descricao`,`imagem`,`nome`) VALUES 
  (1,'SAA','SISTEMA DE AUTENTICAÇÃO E AUTORIZAÇÃO','#','SISTEMA DE AUTENTICAÇÃO E AUTORIZAÇÃO'),
- (2,'SGE','SISTEMA DE GERENCIAMENTO ESCOLAR','#','SISTEMA DE GERENCIAMENTO ESCOLAR');
+ (2,'SGE','SISTEMA DE GESTÃO ESCOLAR','#','SISTEMA DE GESTÃO ESCOLAR');
 /*!40000 ALTER TABLE `saa_sistema` ENABLE KEYS */;
 
 
@@ -549,10 +548,14 @@ CREATE TABLE `saa_usuario` (
 
 /*!40000 ALTER TABLE `saa_usuario` DISABLE KEYS */;
 INSERT INTO `saa_usuario` (`id_usuario`,`login`,`nome`,`senha`,`status`) VALUES 
- (1,'admin','Administrador','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0),
- /*Senha: 123456 = 8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92*/
- (2,'secretaria','Secretaria - Paula','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0),
- (3,'professor','Professora - Ana Maria','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0);
+ /* master= 123qwe */ 
+ (1,'master','Master','FBFB386EFEA67E816F2DDA0A8C94A98EB203757AEBB3F55F183755A192D44467',0),
+ /* admin= admin */ 
+ (2,'admin','Administrador','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0),
+ /* secretaria e professor: 123456 = 8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92*/
+ (3,'secretaria','Secretaria - Paula','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0),
+ (4,'professor','Professora - Ana Maria','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0);
+ 
 /*!40000 ALTER TABLE `saa_usuario` ENABLE KEYS */;
 
 
@@ -583,7 +586,10 @@ INSERT INTO `saa_usuario_perfil` (`data`,`id_perfil`,`id_usuario`) VALUES
  (NULL,3,1),
  (NULL,1,2),
  (NULL,2,2),
- (NULL,1,3);
+ (NULL,3,2),
+ (NULL,1,3),
+ (NULL,2,3),
+ (NULL,1,4);
 /*!40000 ALTER TABLE `saa_usuario_perfil` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
