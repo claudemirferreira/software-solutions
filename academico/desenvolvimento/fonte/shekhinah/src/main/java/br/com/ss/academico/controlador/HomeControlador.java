@@ -21,9 +21,12 @@ public class HomeControlador {
 
 	@PostConstruct
 	public void init() {
+		reload();
+	}
 
+
+	public void reload() {
 		mensalidadesAtraso = mensalidadeServico.listarMensalidadesEmAtraso();
-
 	}
 	
 

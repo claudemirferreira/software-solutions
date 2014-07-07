@@ -32,9 +32,10 @@
 	 		<c:set var="disabledBtnNew" value="false" />
   		 </c:if>
   		 
-  		 <c:if test="#{empty reloadPage}">
+  		 <c:if test="#{reloadPage eq true}">
   		 	#{managedBean.reload()}
   		 </c:if>
+  		 
   		 
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
   		
