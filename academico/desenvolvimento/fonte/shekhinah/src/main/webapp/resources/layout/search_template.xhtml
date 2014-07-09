@@ -75,40 +75,27 @@
 								
 								<ss:button id="btnNew" type="novo" managedBean="#{managedBean}" disabledBtn="#{disabledBtnNew}" />
 							
+							
 						  		 <c:if test="#{renderPrintButton}">
-						  		 
-									<p:spacer width="5px" />
 									
 									<p:outputPanel autoUpdate="true">
+						  		 
+										<p:spacer width="5px" />
 										
-										<c:set var="disabled" value="#{empty managedBean.listaPesquisa ? 'disabled' : ''}" />
-										
-										<h:commandLink target="_blank" action="#{managedBean.imprimir()}" immediate="true">
-										
-											<!-- 
-												FIXME css do botao para focus, hover, active.
-											 -->
-	
-											<button id="form:accPnl:btnImprimir:btnImprimir" 
-													aria-disabled="false"  
-													role="button" 
-													disabled="#{disabled}"
-													onmouseover="ui-state-hover"
-													onclick="ui-state-active"
-													class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-priority-primary ui-state-focus" 
-													
-													name="form:accPnl:btnImprimir:btnImprimir" 
-													type="submit">
-												<span class="ui-button-icon-left ui-icon ui-c ui-icon-print" />
-												<span class="ui-button-text ui-c">Imprimir</span>
-											</button>
-											
-										</h:commandLink>
+										<p:commandButton id="btnImprimir" 
+														onclick="form.target='_blank'"
+														ajax="false"
+														value="Imprimir"
+														action="#{managedBean.imprimir()}"
+														disabled="#{empty managedBean.listaPesquisa}"
+														icon="ui-icon-print"
+														styleClass="ui-priority-primary" 
+														immediate="true" />
+									
 									</p:outputPanel>
 											
 						  		 </c:if>
 								
-<!--             				<p:commandButton type="button" title="Print" icon="ui-icon-print" /> -->
             
 							</h:panelGrid>
 							
