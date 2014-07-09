@@ -18,12 +18,13 @@
 
 	<context:spring-configured />
 
-	<http use-expressions="true">	<!-- teste: auto-config="true"  -->
+	<http use-expressions="true" auto-config="true" >	<!-- teste: auto-config="true"  -->
 		<intercept-url pattern="/javax.faces.resource/**" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
 
-		<intercept-url pattern="/paginas/**" access="isAuthenticated()" />
+<!-- 		<intercept-url pattern="/paginas/**" access="isAuthenticated()" /> -->
+		<intercept-url pattern="/**" access="isAuthenticated()" />
 		<intercept-url pattern="/index.xhtml" access="isAuthenticated()"  />
 
 		<custom-filter ref="requestFilter" after="SECURITY_CONTEXT_FILTER" />

@@ -19,11 +19,6 @@
 
 	<link type="text/css" rel="stylesheet" href="resources/estilos/style-custon.css" />
 
-	<c:if test="#{authenticatorController.loggedIn}">
-		<!-- Redireciona usuario se ja estiver logado -->
-		#{authenticatorController.validateLoggedIn()}
-	</c:if>
-
 	<style type="text/css">
 		body {
 			background: url(#{request.contextPath}/resources/imagens/macback.png);
