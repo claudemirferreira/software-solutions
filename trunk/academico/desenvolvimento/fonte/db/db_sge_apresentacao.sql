@@ -416,7 +416,8 @@ CREATE TABLE `saa_empresa` (
 
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
 INSERT INTO `saa_empresa` (`id_empresa`,`bairro`,`cnpj`,`email`,`endereco`,`nome`,`celular`,`fone`,`razao_social`,`nome_fantasia`) VALUES 
- (1,'Cidade Nova 2','12345678912345',NULL,'Rua XXXX, YY - ZZZZZZZ','NOME_DA_EMPRESA',NULL,NULL,NULL,'NOME_FANTASIA_DA_EMPRESA');
+-- (1,'Cidade Nova 2','12345678912345',NULL,'Rua XXXX, YY - ZZZZZZZ','NOME_DA_EMPRESA',NULL,NULL,NULL,'NOME_FANTASIA_DA_EMPRESA');
+ (1,'cidade nova','10557321000145',NULL,'Rua 27','CENTRO EDUCACIONAL SHEKINAH',NULL,NULL, NULL, 'CENTRO EDUCACIONAL SHEKINAH');	-- #### FIXME remover
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 
 
@@ -474,7 +475,6 @@ FIXME
 INSERT INTO `saa_perfil_rotina` (`data`,`id_perfil`,`id_rotina`) VALUES
  /* Segurança */
  (NULL,3,1),
- (NULL,3,2),
  (NULL,3,3),
  (NULL,3,13),
  
