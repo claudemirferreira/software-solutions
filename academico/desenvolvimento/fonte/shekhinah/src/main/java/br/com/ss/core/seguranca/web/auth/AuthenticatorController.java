@@ -136,15 +136,6 @@ public class AuthenticatorController {
 		 FacesUtils.getRequest().getSession().invalidate();
 		 loggedIn = false;
 	}
-
-	/**
-	 * Redireciona para o home se já estiver logado.
-	 */
-	public void validateLoggedIn() {
-		if (loggedIn) {
-			pageUtils.redirectForUrl("index.xhtml" + Constants.REDIRECT);
-		}
-	}
 	
 
 	/* ------------ Gets/Sets ---------------*/
