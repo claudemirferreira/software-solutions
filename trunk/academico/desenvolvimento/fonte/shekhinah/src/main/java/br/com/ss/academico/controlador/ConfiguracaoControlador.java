@@ -119,7 +119,12 @@ public class ConfiguracaoControlador extends ControladorGenerico<Configuracao> {
 	}
 	
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
+		return null;
+	}
+	
+	@Override
+	public String getTituloRelatorio() {
 		return null;
 	}
 

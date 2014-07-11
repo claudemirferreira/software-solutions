@@ -80,11 +80,16 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		// FIXME #Peninha
 		return null;
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return null;
+	}
+	
 	@Override
 	protected IService<Matricula, Long> getService() {
 		return servico;

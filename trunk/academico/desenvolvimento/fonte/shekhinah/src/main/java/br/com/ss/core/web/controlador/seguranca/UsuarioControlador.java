@@ -42,9 +42,14 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 	}
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		// FIXME #Peninha: relatorio
 		return null;
+	}
+
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE USUÁRIO";
 	}
 	
 	

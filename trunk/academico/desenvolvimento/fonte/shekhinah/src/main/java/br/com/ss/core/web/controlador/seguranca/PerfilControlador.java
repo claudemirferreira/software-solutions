@@ -55,11 +55,16 @@ public class PerfilControlador extends ControladorGenerico<Perfil> {
 
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		// FIXME #Peninha relatorio
 		return null;
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE PERFIL";
+	}
+	
 	@Override
 	protected IService<Perfil, Long> getService() {
 		return servico;

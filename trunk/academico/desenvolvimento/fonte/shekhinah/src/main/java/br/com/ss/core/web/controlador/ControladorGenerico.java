@@ -51,8 +51,7 @@ import br.com.ss.core.web.utils.ReflectionsUtil;
 import com.lowagie.text.DocumentException;
 
 @Named
-public abstract class ControladorGenerico<T extends AbstractEntity> implements
-		Serializable {
+public abstract class ControladorGenerico<T extends AbstractEntity> implements Serializable {
 
 	private static final long serialVersionUID = -1229239475130268144L;
 
@@ -106,14 +105,19 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	private StreamedContent inputStream;
 	
 	
-	private Map<String, Object> params;
-	
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 	
 	/** Resource path dos relatorio: /resources/jasper/ */
-	private static final String PATH_REPORT = "resources" + File.separator
-			+ "jasper" + File.separator;
+	private static final String PATH_REPORT = "resources" + File.separator+ "jasper" + File.separator;
 
+
+	/* ------ Parametros para o Relatório ----------- */
+	/** Parametro para o relatorio. */
+	private static final String REPORT_TITLE = "report_title";
+	private static final String USUARIO = "usuario";
+	private static final String EMPRESA = "empresa";
+	private static final long ID_EMPRESA = 1;
+	
 	/* ---------- Metodos ----------------------- */
 
 	@PostConstruct
@@ -161,9 +165,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	/** Nome do relatorio utilizado na impressao. */
-	protected abstract String getNomeRelatorio();
+	/** Nome do relatorio utilizado na impressão. */
+	protected abstract String getNomeRelatorioJasper();
 
+	/** Título do relatório utilizado na impressão. */
+	protected abstract String getTituloRelatorio();
+	
 	/** Retornar o serviço da entidade. */
 	protected abstract IService<T, Long> getService();
 
@@ -275,39 +282,24 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 * @throws IOException
 	 * @throws JRException 
 	 */
-	public void imprimir() throws FileNotFoundException, IOException,
-			DocumentException, JRException {
-		Map<String, Object> param =  new HashMap<String, Object>();
-		gerarRelatorioWeb(this.listaPesquisa, param,
-				getNomeRelatorio());
-	}
-
-	public void imprimir(List<?> lista, Map<String, Object> params,
-			String nomeRelatorio) {
-
-		try {
-			byte[] dadosPdf = relatorioUtil.gerarRelatorioWebBytes(lista,
-					params, nomeRelatorio);
-			InputStream is = new ByteArrayInputStream(dadosPdf);
-
-			inputStream = new DefaultStreamedContent(is, "application/pdf");
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	public void gerarRelatorioWeb(List<?> lista, Map<String, Object> parametros,
-			String nomeRelatorio) throws JRException {
+	public void imprimir() throws FileNotFoundException, IOException, DocumentException, JRException {
+		Map<String, Object> param =  new HashMap<String, Object>();
+		// parametros usados no relatorio
+		param.put(REPORT_TITLE, getTituloRelatorio());
+		param.put(EMPRESA, empresaServico.findOne(ID_EMPRESA));
+		param.put(USUARIO, getUsuarioLogado());
+		
+		gerarRelatorioWeb(this.listaPesquisa, param, getNomeRelatorioJasper());
+		
+	}
 
-		parametros.put("empresa", empresaServico.findOne(1l));
-		parametros.put("usuario", getUsuarioLogado());
+	public void gerarRelatorioWeb(List<?> lista, Map<String, Object> parametros, String nomeRelatorio) throws JRException {
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) context
-				.getExternalContext().getResponse();
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 
 		BufferedOutputStream output = null;
 		BufferedInputStream input = null;
@@ -317,8 +309,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 
 		try {
 
-			input = new BufferedInputStream(new FileInputStream(reportPath),
-					DEFAULT_BUFFER_SIZE);
+			input = new BufferedInputStream(new FileInputStream(reportPath), DEFAULT_BUFFER_SIZE);
 
 			File fileReport = new File(reportPath);
 
@@ -330,8 +321,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 			JasperRunManager.runReportToPdfStream(new FileInputStream(
 					fileReport), response.getOutputStream(), parametros, jrRS);
 
-			output = new BufferedOutputStream(response.getOutputStream(),
-					DEFAULT_BUFFER_SIZE);
+			output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
 
 			// Write file contents to response.
 			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
@@ -344,7 +334,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 			output.flush();
 		} catch (FileNotFoundException e) {
 //			e.printStackTrace();
-			System.out.println("Erro : não foi encontrado o relaotirio " + reportPath);
+			System.out.println("Erro : Relatorio não foi encontrado: " + reportPath);
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -358,6 +348,23 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 		context.responseComplete();
 	}
 
+
+	public void imprimir(List<?> lista, Map<String, Object> params, String nomeRelatorio) {
+
+		try {
+			byte[] dadosPdf = relatorioUtil.gerarRelatorioWebBytes(lista,
+					params, nomeRelatorio);
+			InputStream is = new ByteArrayInputStream(dadosPdf);
+
+			inputStream = new DefaultStreamedContent(is, "application/pdf");
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	/* -------- Metodos utilitarios -------------- */
 
 	protected void showMessage(String msg, Severity severityInfo) {
@@ -389,6 +396,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	}
 
 	/* ---------- Others ------------- */
+	
+	
+	
 
 	/* ---------- Gets/Sets ------------- */
 

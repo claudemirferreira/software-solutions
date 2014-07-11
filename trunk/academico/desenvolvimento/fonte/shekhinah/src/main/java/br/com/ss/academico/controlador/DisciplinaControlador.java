@@ -20,10 +20,15 @@ public class DisciplinaControlador extends ControladorGenerico<Disciplina> {
 
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		return "disciplina.jasper";
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE DISCIPLINA";
+	}
+	
 	@Override
 	protected IService<Disciplina, Long> getService() {
 		return servico;
