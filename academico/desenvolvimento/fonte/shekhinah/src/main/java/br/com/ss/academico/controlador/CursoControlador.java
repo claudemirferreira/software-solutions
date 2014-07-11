@@ -21,8 +21,13 @@ public class CursoControlador extends ControladorGenerico<Curso> {
 	private String nomeRelatorio = "curso.jasper";
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		return this.nomeRelatorio;
+	}
+
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE CURSO";
 	}
 
 	@Override

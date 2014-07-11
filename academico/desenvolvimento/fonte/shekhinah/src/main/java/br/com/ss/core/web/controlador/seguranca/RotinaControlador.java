@@ -27,11 +27,16 @@ public class RotinaControlador extends ControladorGenerico<Rotina> {
 
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		// FIXME #Peninha: verificar relatorio
 		return null;
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE ROTINA";
+	}
+	
 	@Override
 	protected IService<Rotina, Long> getService() {
 		return servico;

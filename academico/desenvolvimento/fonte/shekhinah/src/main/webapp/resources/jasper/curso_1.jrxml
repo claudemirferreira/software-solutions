@@ -6,11 +6,42 @@
 		<parameterDescription><![CDATA[Título do Relatório]]></parameterDescription>
 	</parameter>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa" isForPrompting="false"/>
-	<parameter name="usuario" class="br.com.ss.core.seguranca.dominio.Usuario" isForPrompting="false"/>
-	<parameter name="curso" class="br.com.ss.academico.dominio.Curso" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="id_empresa" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cnpj" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="celular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="razao_social" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome_fantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="curso_valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,7 +64,7 @@
 				<textField>
 					<reportElement mode="Transparent" x="0" y="25" width="570" height="20" forecolor="#FFFFFF" uuid="12d3a208-73ae-4f52-87e9-2632fb4a4a23"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA["Endereço: " + $P{empresa}.getEndereco() + " - " + $P{empresa}.getBairro() + ". Manaus - AM.  Cnpj: " + $P{empresa}.getCnpj() + "."]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Endereço: " + $F{endereco} + " - " + $F{bairro} + ". Manaus - AM.  Cnpj: " + $F{cnpj} + "."]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -56,21 +87,21 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="460" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8fd5b187-b9c9-4c46-8688-8fd3af7634ce"/>
+				<reportElement mode="Opaque" x="0" y="0" width="460" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e80cebb2-371c-4295-867b-1542e766a6a9"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="460" y="1" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2c458d83-664c-4607-b353-c9b3f4a0528c"/>
+				<reportElement mode="Opaque" x="460" y="1" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="07ab5f38-fb90-4403-8c29-a2c659f5a76f"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="20" width="570" height="1" forecolor="#666666" uuid="1c813a2f-755e-4f0d-9f3b-766e2d509954">
+				<reportElement x="0" y="20" width="570" height="1" forecolor="#666666" uuid="96a92a05-57e7-486a-a3a5-f68dbae26eee">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -80,18 +111,18 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
+		<band height="21">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="460" height="20" uuid="4185a009-25d3-4531-a233-fd4d51023f0c"/>
+				<reportElement x="0" y="0" width="460" height="20" uuid="1a007fb6-d8ba-4174-9450-18590f01ee46"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{curso}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="460" y="0" width="112" height="20" uuid="9a7f5259-50c3-4a4f-a8f7-c568c45004a3"/>
+				<reportElement x="460" y="0" width="112" height="20" uuid="5cb93ca4-3097-438b-9a6d-bd18dd9c4f3a"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{curso}.getValor()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{valor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

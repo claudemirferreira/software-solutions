@@ -58,11 +58,16 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	}
 
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		// FIXME #Peninha ver relatorio
 		return this.nomeRelatorio;
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE BOLETIM";
+	}
+	
 	@Override
 	public void pesquisar() {
 		if (this.turma != null) {

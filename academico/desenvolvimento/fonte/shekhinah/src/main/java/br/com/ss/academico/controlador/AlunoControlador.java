@@ -57,8 +57,13 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	}
 
 	@Override
-	public String getNomeRelatorio() {
+	public String getNomeRelatorioJasper() {
 		return "aluno.jasper";
+	}
+
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE ALUNO";
 	}
 
 	/**

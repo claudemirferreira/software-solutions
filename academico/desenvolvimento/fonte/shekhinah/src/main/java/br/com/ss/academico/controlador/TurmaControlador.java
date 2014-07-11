@@ -67,10 +67,15 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	}
 	
 	@Override
-	protected String getNomeRelatorio() {
+	protected String getNomeRelatorioJasper() {
 		return "turma.jasper";
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return "RELATÓRIO DE TURMA";
+	}
+	
 	@Override
 	protected IService<Turma, Long> getService() {
 		return servico;

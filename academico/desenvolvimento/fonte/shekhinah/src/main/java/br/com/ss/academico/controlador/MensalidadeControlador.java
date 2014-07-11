@@ -107,10 +107,15 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	}
 
 	@Override
-	public String getNomeRelatorio() {
+	public String getNomeRelatorioJasper() {
 		return this.nomeRelatorio;
 	}
 
+	@Override
+	public String getTituloRelatorio() {
+		return null;
+	}
+	
 	public void setNomeRelatorio(String nomeRelatorio) {
 		this.nomeRelatorio = nomeRelatorio;
 	}
