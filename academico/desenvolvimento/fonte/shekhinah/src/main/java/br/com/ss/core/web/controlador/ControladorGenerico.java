@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -119,6 +120,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	private static final long ID_EMPRESA = 1;
 	
 	/* ---------- Metodos ----------------------- */
+	
+	private static ControladorGenerico instance;
+	
+	public ControladorGenerico() {
+		instance = this;
+	}
 
 	@PostConstruct
 	protected void setup() {
@@ -294,7 +301,13 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		
 	}
 
-	public void gerarRelatorioWeb(List<?> lista, Map<String, Object> parametros, String nomeRelatorio) throws JRException {
+	
+	@SuppressWarnings("unchecked")
+	public static Collection<AbstractEntity> getReportList() {
+		return instance.listaPesquisa;
+	}
+	
+	public void gerarRelatorioWeb(List<T> lista, Map<String, Object> parametros, String nomeRelatorio) throws JRException {
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
