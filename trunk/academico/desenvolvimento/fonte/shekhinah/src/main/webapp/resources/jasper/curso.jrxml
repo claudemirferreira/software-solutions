@@ -2,12 +2,26 @@
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="curso" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="85187baf-4d21-4f30-a793-cd91148bf6a7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<parameter name="REPORT_TITLE" class="java.lang.String" isForPrompting="false">
+	<subDataset name="CursoDataset" uuid="6d64ec9a-7f88-4d79-8f57-808f97bd5754">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Generic Report Data Adapter "/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="idCurso" class="java.lang.Long">
+			<fieldDescription><![CDATA[idCurso]]></fieldDescription>
+		</field>
+		<field name="nome" class="java.lang.String">
+			<fieldDescription><![CDATA[nome]]></fieldDescription>
+		</field>
+		<field name="valor" class="java.lang.Double">
+			<fieldDescription><![CDATA[valor]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="report_title" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[Título do Relatório]]></parameterDescription>
 	</parameter>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa" isForPrompting="false"/>
 	<parameter name="usuario" class="br.com.ss.core.seguranca.dominio.Usuario" isForPrompting="false"/>
-	<parameter name="curso" class="br.com.ss.academico.dominio.Curso" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -47,7 +61,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{REPORT_TITLE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{report_title}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
