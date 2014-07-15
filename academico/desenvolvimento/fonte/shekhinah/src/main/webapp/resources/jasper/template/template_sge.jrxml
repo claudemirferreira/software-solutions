@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="template_sge" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="85187baf-4d21-4f30-a793-cd91148bf6a7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql-sge"/>
-	<parameter name="report_title" class="java.lang.String" isForPrompting="false">
+	<parameter name="REPORT_TITLE" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[Título do Relatório]]></parameterDescription>
 	</parameter>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa" isForPrompting="false"/>
@@ -42,11 +42,11 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement mode="Transparent" x="0" y="7" width="570" height="20" forecolor="#066990" backcolor="#DEDEDE" uuid="1ded72bb-8edc-4b40-867f-682287d0618e"/>
+				<reportElement mode="Opaque" x="0" y="7" width="570" height="20" forecolor="#066990" backcolor="#DEDEDE" uuid="1ded72bb-8edc-4b40-867f-682287d0618e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{report_title}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{REPORT_TITLE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
