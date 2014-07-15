@@ -297,7 +297,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		param.put(EMPRESA, empresaServico.findOne(ID_EMPRESA));
 		param.put(USUARIO, getUsuarioLogado());
 		
-		gerarRelatorioWeb(this.listaPesquisa, param, getNomeRelatorioJasper());
+
+		param.put("list", listaPesquisa); // FIXME validar 
+		
+		gerarRelatorioWeb(this.listaPesquisa, param, "curso.jasper");	// FIXME getNomeRelatorioJasper()
 		
 	}
 

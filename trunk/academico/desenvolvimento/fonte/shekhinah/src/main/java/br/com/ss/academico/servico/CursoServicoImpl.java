@@ -29,7 +29,11 @@ public class CursoServicoImpl  extends ServicoImpl<Curso, Long> implements Curso
 
 	@Override
 	public List<Curso> pesquisar(Curso entity) {
-		return listarTodos();
+		String nome = entity.getNome();
+		if (nome == null ) {
+			nome  = "";
+		}
+		return findByNomeLike(nome);
 	}
 
 	@Override
