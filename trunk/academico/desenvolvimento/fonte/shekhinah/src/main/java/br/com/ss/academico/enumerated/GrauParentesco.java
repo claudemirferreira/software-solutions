@@ -4,10 +4,11 @@ public enum GrauParentesco {
 
 	PAI(0, "Pai"), 
 	MAE(1, "Mãe"), 
-	Avo(2, "Avô (Avó)"), 
-	Tio(3, "Tio (Tia)"), 
-	PADRASTO(4, "Padrasto (Madrasta)"), 
-	OUTRO(5, "Outro");
+	AVO(2, "Avô (Avó)"), 
+	TIO(3, "Tio (Tia)"), 
+	IRMAO(4, "Irmão (Irmã)"),
+	PADRASTO(5, "Padrasto (Madrasta)"), 
+	OUTRO(6, "Outro");
 
 	private int id;
 	private String descricao;

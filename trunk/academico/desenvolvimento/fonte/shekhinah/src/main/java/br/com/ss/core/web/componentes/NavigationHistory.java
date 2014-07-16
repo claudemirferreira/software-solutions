@@ -45,7 +45,7 @@ public class NavigationHistory {
 	}
 
 	private void addHome() {
-		history.add( new NavigationDTO("Home", Constants.INDEX ) );
+		history.add( new NavigationDTO("Home", Constants.INDEX_EXTENSION ) );
 	}
 	
 	

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.ss.core.web.enumerated.StatusUsuario;
+import br.com.ss.core.web.enumerated.TipoUsuario;
 
 /**
  * 
@@ -46,7 +47,12 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Enumerated
 	@Column(name = "status", length = 1, nullable = false)
 	private StatusUsuario status;
-
+	
+	@Enumerated
+	@Column(name = "tipo_usuario", length = 1, nullable = false)
+	private TipoUsuario tipoUsuario;
+	
+	
 	@Override
 	public Long getId() {
 		return idUsuario;
@@ -121,6 +127,14 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 }

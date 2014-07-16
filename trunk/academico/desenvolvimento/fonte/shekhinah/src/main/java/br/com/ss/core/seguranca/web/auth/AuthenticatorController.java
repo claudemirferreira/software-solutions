@@ -24,10 +24,8 @@ import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.PerfilServico;
 import br.com.ss.core.seguranca.servico.RotinaServico;
 import br.com.ss.core.seguranca.servico.SistemaServico;
-import br.com.ss.core.web.enumerated.Constants;
 import br.com.ss.core.web.utils.FacesUtils;
 import br.com.ss.core.web.utils.MessageUtils;
-import br.com.ss.core.web.utils.PageUtils;
 import br.fpf.components.web.menu.ItemMenu;
 import br.fpf.components.web.menu.Menu;
 
@@ -52,9 +50,6 @@ public class AuthenticatorController {
 	@Autowired
 	private RotinaServico rotinaServico;
 
-	@Autowired
-	private PageUtils pageUtils;
-	
 	private String username;
 
 	private String password;
@@ -175,12 +170,6 @@ public class AuthenticatorController {
 	}
 	public void setRotinaServico(RotinaServico rotinaServico) {
 		this.rotinaServico = rotinaServico;
-	}
-	public PageUtils getPageUtils() {
-		return pageUtils;
-	}
-	public void setPageUtils(PageUtils pageUtils) {
-		this.pageUtils = pageUtils;
 	}
 	public boolean isLoggedIn() {
 		return loggedIn;

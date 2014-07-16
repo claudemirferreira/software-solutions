@@ -16,6 +16,7 @@ import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.seguranca.servico.UsuarioServico;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.StatusUsuario;
+import br.com.ss.core.web.enumerated.TipoUsuario;
 import br.com.ss.core.web.utils.CriptografiaUtil;
 import br.com.ss.core.web.utils.StringUtil;
 
@@ -34,11 +35,19 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 
 	protected List<SelectItem> statusUsuarioList;
 
+	protected List<SelectItem> tipoUsuarioList;
+	
 	public void init() {
-		this.statusUsuarioList = new ArrayList<SelectItem>();
+		statusUsuarioList = new ArrayList<SelectItem>();
 		for (StatusUsuario c : StatusUsuario.values()) {
 			statusUsuarioList.add(new SelectItem(c, c.getDescricao()));
 		}
+		
+		tipoUsuarioList = new ArrayList<SelectItem>();
+		tipoUsuarioList.add(new SelectItem(TipoUsuario.ADMINISTRADOR, TipoUsuario.ADMINISTRADOR.getDescricao()));
+		tipoUsuarioList.add(new SelectItem(TipoUsuario.SGE_SECRETARIA, TipoUsuario.SGE_SECRETARIA.getDescricao()));
+		tipoUsuarioList.add(new SelectItem(TipoUsuario.SGE_PROFESSOR, TipoUsuario.SGE_PROFESSOR.getDescricao()));
+		
 	}
 
 	@Override
@@ -105,6 +114,10 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 
 	public List<SelectItem> getStatusUsuarioList() {
 		return statusUsuarioList;
+	}
+
+	public List<SelectItem> getTipoUsuarioList() {
+		return tipoUsuarioList;
 	}
 
 }

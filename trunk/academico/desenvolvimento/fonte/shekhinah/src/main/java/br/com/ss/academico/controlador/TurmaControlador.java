@@ -67,6 +67,13 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	}
 	
 	@Override
+	public String novo() {
+		String page = super.novo();
+		entidade.setSituacao(Situacao.ATIVO);
+		return page;
+	}
+	
+	@Override
 	protected String getNomeRelatorioJasper() {
 		return "turma.jasper";
 	}

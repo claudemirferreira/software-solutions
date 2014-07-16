@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -20,6 +18,7 @@ import br.com.ss.academico.dominio.CursoDisciplina;
 import br.com.ss.academico.dominio.CursoDisciplinaId;
 import br.com.ss.academico.dominio.Disciplina;
 import br.com.ss.academico.servico.CursoDisciplinaServico;
+import br.com.ss.core.web.utils.FacesUtils;
 
 @ManagedBean
 @SessionScoped
@@ -67,19 +66,30 @@ public class CursoDisciplinaControlador {
 		return cursoDisciplina;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void onTransfer(TransferEvent event) {
 
-		CursoDisciplina cursoDisciplina = (CursoDisciplina) event.getItems().get(0);
+		List<CursoDisciplina> cursoDisciplinas = (List<CursoDisciplina>) event.getItems();
+		
+		boolean add = event.isAdd();
+		
+		for (CursoDisciplina cursoDisciplina : cursoDisciplinas) {
+			salvarCurso(cursoDisciplina, add);
+		}
+		
+		String msg = MSG_ADICIONAR;
+		if (!add) {
+			msg = MSG_REMOVER;
+		}
 
-		salvarCurso(cursoDisciplina, event.isAdd());
-
+		FacesUtils.addMessage(msg, null, FacesMessage.SEVERITY_INFO);
+		
 	}
 
 	private void salvarCurso(CursoDisciplina cursoDisciplina, boolean add) {
 
 		try {
-			String msg;
-
+			
 			if (add) {
 				
 				CursoDisciplinaId id = new CursoDisciplinaId();
@@ -88,31 +98,23 @@ public class CursoDisciplinaControlador {
 				cursoDisciplina.setId(id);
 				
 				cursoDisciplinaServico.salvar(cursoDisciplina);
-				msg = MSG_ADICIONAR;
+				
 			} else {
 				
 				// FIXME #Peninha: validar se a a relacao (CursoDisciplina) está em uso (boletim) antes de excluir
 				// exibir alerta exibindo msg q nao pode excluir pois o CursoDisciplina está em uso..
 				
 				cursoDisciplinaServico.remover(cursoDisciplina);
-				msg = MSG_REMOVER;
+				
 			}
-
-			showMessage(msg, FacesMessage.SEVERITY_INFO);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			showMessage(MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+			FacesUtils.addMessage(MSG_ERRO, null, FacesMessage.SEVERITY_ERROR);
 		}
 
 	}
 
-	private void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();
-		facesMessage.setSeverity(severityInfo);
-		facesMessage.setSummary(msg);
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-	}
 
 	/* ---------- Gets/Sets --------------- */
 

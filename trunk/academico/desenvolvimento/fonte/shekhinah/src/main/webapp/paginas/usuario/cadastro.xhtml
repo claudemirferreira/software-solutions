@@ -19,13 +19,15 @@
 		
 			<h:panelGrid id="panelCadastro" columns="2">
 			
-				<ss:input id="nome" label="Nome" required="true" value="#{usuarioControlador.entidade.nome}" />
+				<ss:input label="Nome" required="true" value="#{usuarioControlador.entidade.nome}" />
+	
+				<ss:comboBox label="Tipo de Usuário" value="#{usuarioControlador.entidade.tipoUsuario}" selectOne="true" list="#{usuarioControlador.tipoUsuarioList}" />
+	
+				<ss:input label="Login" required="true" value="#{usuarioControlador.entidade.login}" />
+				
+				<ss:input label="Senha" type="password" required="true" value="#{usuarioControlador.entidade.senha}" />
 				
 				<ss:comboBox label="Situação" value="#{usuarioControlador.entidade.status}" selectOne="true" list="#{usuarioControlador.statusUsuarioList}" />
-	
-				<ss:input id="login" label="Login" required="true" value="#{usuarioControlador.entidade.login}" />
-				
-				<ss:input id="senha" label="Senha" type="password" required="true" value="#{usuarioControlador.entidade.senha}" />
 
 			</h:panelGrid>
 		

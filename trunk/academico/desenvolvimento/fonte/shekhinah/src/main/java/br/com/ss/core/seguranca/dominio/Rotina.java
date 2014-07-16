@@ -26,7 +26,7 @@ public class Rotina extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idRotina;
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 60)
 	private String imagem;
 
 	@Column(length = 100, nullable = false)

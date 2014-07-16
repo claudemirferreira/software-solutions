@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
@@ -83,7 +84,7 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 	}
 
 	@Override
-	public List<Mensalidade> listarMensalidadesEmAtraso() {
+	public List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno) {
 		
 		StringBuilder sb = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();
@@ -94,12 +95,18 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		condictions.add(" men.dataPagamento = null ");
 		condictions.add(" men.dataVencimento < :hoje ");
 		
+		if (notEmpty(aluno)) {
+			condictions.add(" men.matricula.aluno = :aluno ");
+		}
+		
 		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc, men.matricula.turma.curso.nome ";
 		
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
 		query.setParameter("pendente", StatusPagamento.PENDENTE );
 		query.setParameter("hoje", hoje );
-		
+		if (notEmpty(aluno)) {
+			query.setParameter("aluno", aluno );	
+		}
 		return query.getResultList();
 	}
 	

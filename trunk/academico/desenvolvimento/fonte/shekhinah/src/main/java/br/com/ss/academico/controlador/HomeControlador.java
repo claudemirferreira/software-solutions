@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.servico.MensalidadeServico;
 
@@ -17,6 +18,9 @@ public class HomeControlador {
 	@ManagedProperty(value = "#{mensalidadeServicoImpl}")
 	private MensalidadeServico mensalidadeServico;
 	
+	/** Aluno usado no filtro de pesquisa. */
+	private Aluno aluno;
+	
 	private List<Mensalidade> mensalidadesAtraso;
 
 	@PostConstruct
@@ -26,7 +30,7 @@ public class HomeControlador {
 
 
 	public void reload() {
-		mensalidadesAtraso = mensalidadeServico.listarMensalidadesEmAtraso();
+		mensalidadesAtraso = mensalidadeServico.listarMensalidadesEmAtraso(aluno);
 	}
 	
 
@@ -40,6 +44,14 @@ public class HomeControlador {
 
 	public List<Mensalidade> getMensalidadesAtraso() {
 		return mensalidadesAtraso;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 }
