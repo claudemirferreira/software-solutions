@@ -428,7 +428,7 @@ INSERT INTO `saa_empresa` (`id_empresa`,`bairro`,`cnpj`,`email`,`endereco`,`nome
 DROP TABLE IF EXISTS `saa_perfil`;
 CREATE TABLE `saa_perfil` (
   `id_perfil` bigint(20) NOT NULL AUTO_INCREMENT,
-  `imagem` varchar(60) NOT NULL,
+  `imagem` varchar(60),
   `nome` varchar(30) NOT NULL,
   `id_sistema` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_perfil`),
@@ -502,7 +502,7 @@ DROP TABLE IF EXISTS `saa_rotina`;
 CREATE TABLE `saa_rotina` (
   `id_rotina` bigint(20) NOT NULL AUTO_INCREMENT,
   `acao` varchar(100) NOT NULL,
-  `imagem` varchar(100) NOT NULL,
+  `imagem` varchar(60),
   `nome` varchar(100) NOT NULL,
   `status` tinyint(4) NOT NULL,
   `id_sistema` bigint(20) DEFAULT NULL,
