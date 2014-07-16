@@ -21,7 +21,9 @@
 			
 				<ss:input id="nome" label="Nome" required="true" value="#{perfilControlador.entidade.nome}" />
 				
-				<ss:input id="imagem" label="Imagem" required="true" value="#{perfilControlador.entidade.imagem}" size="50" />
+				<ss:input id="imagem" label="Imagem" required="true" size="50" 
+						value="#{perfilControlador.entidade.imagem}" 
+						render="#{configuracaoControlador.usuarioLogado.tipoUsuario.id eq 0}" />
 				
 			</h:panelGrid>
 		

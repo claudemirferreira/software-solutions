@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
@@ -46,8 +47,8 @@ public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> imple
 	}
 
 	@Override
-	public List<Mensalidade> listarMensalidadesEmAtraso() {
-		return repositorioHql.listarMensalidadesEmAtraso();
+	public List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno) {
+		return repositorioHql.listarMensalidadesEmAtraso(aluno);
 	}
 	
 	@Override

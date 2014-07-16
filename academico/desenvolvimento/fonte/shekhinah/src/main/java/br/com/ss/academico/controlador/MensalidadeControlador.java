@@ -23,6 +23,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -42,6 +43,7 @@ import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.utils.PageUtils;
 
 @ManagedBean
 @SessionScoped
@@ -71,7 +73,10 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	private List<SelectItem> tipoPesquisaDataList;
 
 	private String nomeRelatorio = "mensalidade.jasper";
-	
+
+	/** Indica se está vindo do Home ou não. */
+	private boolean fromHome;
+
 	private static final String PATH_REPORT = "resources" + File.separator
 			+ "jasper" + File.separator;
 
@@ -157,6 +162,7 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	}
 	
 	public String detalheHome(Mensalidade mensalidade) {
+		this.fromHome = true;
 		entidade = mensalidade;
 		validarPreencherDataPagamento();
 		return "/paginas/mensalidade/cadastro.xhtml" + Constants.REDIRECT;
@@ -176,16 +182,30 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		return this.salvar();
 	}
 
-	public String baixarMensalidade() {
-		this.entidade.setStatusPagamento(StatusPagamento.PAGO);
-		return this.salvar();
-	}
-
 	public String salvar() {
 		this.entidade.setUsuario(getUsuarioLogado());
-		return super.salvar();
+		
+		String page = null;
+		if (fromHome) {
+			page = "home";
+			fromHome = false;
+		}
+		
+		return super.salvar(page);
 	}
 
+	
+
+	@Override
+	public String cancelar() {
+		if (!fromHome) {
+			return super.cancelar();
+		}
+		fromHome = false;
+		PageUtils.redirectForUrl( Constants.INDEX_REDIRECT );
+		return null;
+	}
+	
 	/* ------------- Gets/Sets ----------------------- */
 
 	public MensalidadeServico getServico() {

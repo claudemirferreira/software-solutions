@@ -3,6 +3,7 @@ package br.com.ss.academico.servico;
 import java.util.Date;
 import java.util.List;
 
+import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
@@ -14,7 +15,7 @@ public interface MensalidadeServico extends IService<Mensalidade, Long>{
 	
 	List<Mensalidade> loadMensalidades(Long idMatricula);
 
-	List<Mensalidade> listarMensalidadesEmAtraso();
+	List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno);
 
 	Integer getMenorMensalidadeMatricula(Matricula matricula);
 	

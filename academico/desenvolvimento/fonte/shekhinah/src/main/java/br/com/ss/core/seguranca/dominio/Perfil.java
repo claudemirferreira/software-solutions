@@ -41,7 +41,7 @@ public class Perfil extends AbstractEntity implements Serializable {
 	@Column(length = 30, nullable = false)
 	private String nome;
 
-	@Column(length = 60, nullable = false)
+	@Column(length = 60 )
 	private String imagem;
 
 	@ManyToOne

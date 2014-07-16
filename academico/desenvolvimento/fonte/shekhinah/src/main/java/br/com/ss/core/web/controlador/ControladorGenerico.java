@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -89,11 +89,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 */
 	public static final String PESQUISA = "pesquisa";
 	
-	/**
-	 * Sufixo da pagina da url.
-	 */
-	public static final String EXTENSION = ".xhtml";
-	
 
 	/**
 	 * Alias para redirecionar para a tela de relatorio.
@@ -121,12 +116,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	
 	/* ---------- Metodos ----------------------- */
 	
-	private static ControladorGenerico instance;
-	
-	public ControladorGenerico() {
-		instance = this;
-	}
-
 	@PostConstruct
 	protected void setup() {
 		initEntity();
@@ -185,17 +174,36 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		this.listaPesquisa = getService().pesquisar(pesquisa);
 	}
 
-	public String salvar() {
+
+	/**
+	 * Faz a persistencia da entidade gerenciada.
+	 * @param url URL de retorno.
+	 * @return String URL
+	 */
+	public String salvar(String url) {
 		try {
 			getService().salvar(entidade);
 			setup();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+			
+			if (url != null) {
+				return url;
+			}
+			
 			return redirect(PESQUISA);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 			return null;
 		}
+	}
+	
+	/**
+	 * Faz a persistencia da entidade gerenciada.
+	 */
+	public String salvar() {
+		return salvar(null);
 	}
 
 	public void excluir(T itemRemove) {
@@ -205,13 +213,20 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	public void excluir() {
 		try {
+			
 			executarExcluir(itemToRemove);
 			pesquisar();
 			setItemToRemove(null);
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
+			
 		} catch (Exception e) {
+			String msg = Constants.MSG_ERRO;
+			Throwable throwableCause = e.getCause();
+			if ( throwableCause instanceof PersistenceException ) {
+				msg = Constants.MSG_ERRO_FK_CONSTRAINT;
+			}
 			e.printStackTrace();
-			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+			showMessage(msg, FacesMessage.SEVERITY_ERROR);
 		}
 	}
 
@@ -232,13 +247,17 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	private String redirect(String page) {
 		try {
+			
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 			HttpServletRequest request = (HttpServletRequest) context.getRequest();
+			
 			String fullUrl = request.getRequestURL().toString();
-			String barra = "/";
-			String path = fullUrl.substring(0, fullUrl.lastIndexOf(barra));
-			context.redirect(path + barra + page + EXTENSION + Constants.REDIRECT);
+			String path = fullUrl.substring(0, fullUrl.lastIndexOf(Constants.BARRA));
+			String url = path + Constants.BARRA + page + Constants.EXTENSION + Constants.REDIRECT;
+			
+			context.redirect(url);
 			FacesContext.getCurrentInstance().responseComplete();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -297,17 +316,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		param.put(EMPRESA, empresaServico.findOne(ID_EMPRESA));
 		param.put(USUARIO, getUsuarioLogado());
 
-//		param.put("list", listaPesquisa); // FIXME validar 
-		
 		gerarRelatorioWeb(this.listaPesquisa, param, getNomeRelatorioJasper());
 		
 	}
 
-	
-	@SuppressWarnings("unchecked")
-	public static Collection<AbstractEntity> getReportList() {
-		return instance.listaPesquisa;
-	}
 	
 	public void gerarRelatorioWeb(List<T> lista, Map<String, Object> parametros, String nomeRelatorio) throws JRException {
 
@@ -348,7 +360,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			// Finalize task.
 			output.flush();
 		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
 			System.out.println("Erro : Relatorio não foi encontrado: " + reportPath);
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 		} catch (IOException e) {

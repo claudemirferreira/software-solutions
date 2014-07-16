@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -20,6 +18,7 @@ import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.dominio.UsuarioPerfil;
 import br.com.ss.core.seguranca.servico.UsuarioPerfilServico;
 import br.com.ss.core.seguranca.servico.UsuarioServico;
+import br.com.ss.core.web.utils.FacesUtils;
 
 @ManagedBean
 @SessionScoped
@@ -70,44 +69,42 @@ public class UsuarioPerfilControlador {
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	public void onTransfer(TransferEvent event) {  
-		
-		UsuarioPerfil usuarioPerfil = (UsuarioPerfil)  event.getItems().get(0);
-		
-		salvarUsuario(usuarioPerfil, event.isAdd());
-		
+
+		boolean add = event.isAdd();
+		List<UsuarioPerfil> usuPerfis = (List<UsuarioPerfil>) event.getItems();
+		for (UsuarioPerfil usuarioPerfil : usuPerfis) {
+			salvarUsuario(usuarioPerfil, add);
+		}
+
+		String msg = MSG_ADICIONAR;
+		if (!add) {
+			msg = MSG_REMOVER;
+		}
+
+		FacesUtils.addMessage(msg, null, FacesMessage.SEVERITY_INFO);
 	}
 	
 	
 	private void salvarUsuario(UsuarioPerfil usuarioPerfil, boolean add ) {
 
 		try {
-			String msg;
 			
 			if ( add ) {
 				usuarioPerfilServico.salvar(usuarioPerfil);
-				msg = MSG_ADICIONAR;
 			} else {
 				usuarioPerfilServico.remover(usuarioPerfil);
-				msg = MSG_REMOVER;		
 			}
-			
-			showMessage(msg, FacesMessage.SEVERITY_INFO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			showMessage(MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+			FacesUtils.addMessage(MSG_ERRO, null, FacesMessage.SEVERITY_ERROR);
 		}
 		
 	}
 
 
-	private void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();  
-        facesMessage.setSeverity(severityInfo);  
-        facesMessage.setSummary(msg);  
-        FacesContext.getCurrentInstance().addMessage(null, facesMessage); 		
-	}
 
 	/* ---------- Gets/Sets --------------- */
 	

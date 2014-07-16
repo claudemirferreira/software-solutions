@@ -4,12 +4,10 @@ import java.io.IOException;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-import org.springframework.stereotype.Component;
+import javax.servlet.http.HttpServletRequest;
 
 import br.com.ss.core.web.enumerated.Constants;
 
-@Component
 public class PageUtils {
 	
 	/**
@@ -18,7 +16,7 @@ public class PageUtils {
 	 * @param url
 	 * @return
 	 */
-	public String returnUrlRedirect(String url) {
+	public static String returnUrlRedirect(String url) {
 		return url + Constants.REDIRECT;
 	}
 	
@@ -26,13 +24,29 @@ public class PageUtils {
 	 * Redireciona para a url informada.
 	 * @param url
 	 */
-	public void redirectForUrl(String url) {
+	public static void redirectForUrl(String url) {
 	    try {
 	    	ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			ec.redirect(ec.getRequestContextPath() + "/" + url);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Retorna a url completa da página inicial.
+	 * Ex: http://localhost:9090/shekinah/index.xhtml?faces-redirect=true
+	 * @return
+	 */
+	public static String getFullUrlHome() {
+		HttpServletRequest request = FacesUtils.getRequest();	
+		StringBuffer requestURL = request.getRequestURL();
+		
+		int indexOfPath = requestURL.indexOf(request.getContextPath());
+		String address = requestURL.substring(0, indexOfPath)
+						+ request.getContextPath() + Constants.BARRA
+						+ Constants.INDEX_REDIRECT;
+		return address;
 	}
 	
 }
