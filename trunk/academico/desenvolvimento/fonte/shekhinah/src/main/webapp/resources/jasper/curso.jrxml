@@ -55,7 +55,7 @@
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="16" isBold="true"/>
+						<font size="18" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["SGE - " + $P{empresa}.getNome()]]></textFieldExpression>
 				</textField>
