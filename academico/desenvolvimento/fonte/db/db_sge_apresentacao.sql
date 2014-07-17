@@ -574,6 +574,7 @@ CREATE TABLE `saa_usuario` (
   `nome` varchar(30) NOT NULL,
   `senha` varchar(64) DEFAULT NULL,
   `status` smallint(5) unsigned NOT NULL,
+  `tipo_usuario` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `UK_ckrgsi99ta2s36tkydejud4wy` (`login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -583,11 +584,15 @@ CREATE TABLE `saa_usuario` (
 --
 
 /*!40000 ALTER TABLE `saa_usuario` DISABLE KEYS */;
-INSERT INTO `saa_usuario` (`id_usuario`,`login`,`nome`,`senha`,`status`) VALUES 
- (1,'admin','Administrador','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0),
- /*Senha: 123456 = 8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92*/
- (2,'secretaria','Secretaria - Paula','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0),
- (3,'professor','Professora - Ana Maria','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0);
+INSERT INTO `saa_usuario` (`id_usuario`,`login`,`nome`,`senha`,`status`,`tipo_usuario`) VALUES 
+ /* master= 123qwe */ 
+ (1,'master','Master','FBFB386EFEA67E816F2DDA0A8C94A98EB203757AEBB3F55F183755A192D44467',0, 0),
+ /* admin= admin */ 
+ (2,'admin','Administrador','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0, 1),
+ /* secretaria e professor: 123456 = 8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92*/
+ (3,'secretaria','Secretaria - Paula','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0, 2),
+ (4,'professor','Professora - Ana Maria','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0, 3);
+ 
 /*!40000 ALTER TABLE `saa_usuario` ENABLE KEYS */;
 
 
@@ -618,7 +623,10 @@ INSERT INTO `saa_usuario_perfil` (`data`,`id_perfil`,`id_usuario`) VALUES
  (NULL,3,1),
  (NULL,1,2),
  (NULL,2,2),
- (NULL,1,3);
+ (NULL,3,2),
+ (NULL,1,3),
+ (NULL,2,3),
+ (NULL,1,4);
 /*!40000 ALTER TABLE `saa_usuario_perfil` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
