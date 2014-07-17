@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com</groupId>
-	<artifactId>shekinah</artifactId>
+	<artifactId>sge</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ieadam Maven Webapp</name>
@@ -18,7 +18,7 @@
 		<poi.version>3.7</poi.version>
 		<itext.version>2.1.7</itext.version>
 
-		<tomcat.path>/shekinah</tomcat.path>
+		<tomcat.path>/sge</tomcat.path>
 
 	</properties>
 
@@ -363,7 +363,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>shekinah</finalName>
+		<finalName>sge</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -423,7 +423,7 @@
 				<configuration>
 					<url>http://localhost:8080/manager</url>
 					<server>TomcatServer</server>
-					<path>/shekinah</path>
+					<path>/sge</path>
 				</configuration>
 			</plugin>
 			 -->
