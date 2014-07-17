@@ -104,7 +104,7 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font size="13" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
@@ -121,7 +121,7 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font size="13" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
@@ -148,7 +148,7 @@
 					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
@@ -166,7 +166,7 @@
 					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="2" spacingAfter="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>

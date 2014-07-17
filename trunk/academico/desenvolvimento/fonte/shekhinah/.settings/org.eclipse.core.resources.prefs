@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/resources/jasper/aluno.jrxml=UTF-8
 encoding//src/main/webapp/resources/jasper/curso.jrxml=UTF-8
 encoding//src/main/webapp/resources/jasper/curso_template.jrxml=UTF-8
 encoding//src/main/webapp/resources/jasper/template/template_sge.jrxml=UTF-8
