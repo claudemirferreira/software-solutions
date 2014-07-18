@@ -303,15 +303,19 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="553" height="13" backcolor="#E6E6E6" uuid="cfbafbca-7b07-4e87-95d7-2317d177fa87">
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="13" backcolor="#E6E6E6" uuid="cfbafbca-7b07-4e87-95d7-2317d177fa87">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textField>
-					<reportElement mode="Opaque" x="447" y="0" width="105" height="13" backcolor="#E6E6E6" uuid="fc254bb5-ee30-47cf-8dc1-b27e72853a2d"/>
+					<reportElement mode="Opaque" x="450" y="0" width="105" height="13" backcolor="#E6E6E6" uuid="fc254bb5-ee30-47cf-8dc1-b27e72853a2d">
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>

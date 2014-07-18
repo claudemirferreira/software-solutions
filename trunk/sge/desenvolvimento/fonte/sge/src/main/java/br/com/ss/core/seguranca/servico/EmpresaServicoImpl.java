@@ -1,4 +1,4 @@
-package br.com.ss.academico.servico;
+package br.com.ss.core.seguranca.servico;
 
 import java.util.List;
 

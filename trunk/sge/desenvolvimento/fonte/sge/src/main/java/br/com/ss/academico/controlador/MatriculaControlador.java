@@ -34,8 +34,8 @@ import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
-import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.academico.servico.MatriculaServico;
+import br.com.ss.core.seguranca.servico.EmpresaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.ireport.RelatorioUtil;
@@ -81,13 +81,12 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	@Override
 	protected String getNomeRelatorioJasper() {
-		// FIXME #Peninha
-		return null;
+		return "matricula.jasper";
 	}
 
 	@Override
 	public String getTituloRelatorio() {
-		return null;
+		return "RELATÓRIO DE MATRÍCULA";
 	}
 	
 	@Override

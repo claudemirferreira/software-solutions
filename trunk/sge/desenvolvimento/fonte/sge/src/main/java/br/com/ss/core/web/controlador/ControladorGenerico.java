@@ -38,7 +38,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import br.com.ss.academico.servico.EmpresaServico;
+import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
@@ -73,8 +73,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	@ManagedProperty(value = "#{relatorioUtil}")
 	protected RelatorioUtil relatorioUtil;
 	
-	@ManagedProperty(value = "#{empresaServicoImpl}")
-	private EmpresaServico empresaServico;
 
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> sexoList;
@@ -112,7 +110,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	private static final String REPORT_TITLE = "report_title";
 	private static final String USUARIO = "usuario";
 	private static final String EMPRESA = "empresa";
-	private static final long ID_EMPRESA = 1;
+	
 	
 	/* ---------- Metodos ----------------------- */
 	
@@ -311,9 +309,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	
 	public void imprimir() throws FileNotFoundException, IOException, DocumentException, JRException {
 		Map<String, Object> param =  new HashMap<String, Object>();
+		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
+		
 		// parametros usados no relatorio
 		param.put(REPORT_TITLE, getTituloRelatorio());
-		param.put(EMPRESA, empresaServico.findOne(ID_EMPRESA));
+		param.put(EMPRESA, empresa);
 		param.put(USUARIO, getUsuarioLogado());
 
 		gerarRelatorioWeb(this.listaPesquisa, param, getNomeRelatorioJasper());
@@ -476,14 +476,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		this.inputStream = inputStream;
 	}
 
-	public EmpresaServico getEmpresaServico() {
-		return empresaServico;
-	}
-
-	public void setEmpresaServico(EmpresaServico empresaServico) {
-		this.empresaServico = empresaServico;
-	}
-	
 	private static void close(Closeable resource) {
 		if (resource != null) {
 			try {
