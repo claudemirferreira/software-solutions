@@ -44,8 +44,7 @@ public class ProfessorControlador extends ControladorGenerico<Professor> {
 	
 	@Override
 	protected String getNomeRelatorioJasper() {
-		// FIXME #Peninha ver relatorio
-		return null;
+		return "professor.jasper";
 	}
 
 	@Override

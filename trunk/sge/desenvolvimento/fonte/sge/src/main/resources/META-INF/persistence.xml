@@ -14,7 +14,7 @@
 		</properties>
 	</persistence-unit>
 	<!-- 
-	<persistence-unit name="shekinahPU-test" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="sgePU-test" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
