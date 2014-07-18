@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <project name="build-project" default="HotDeploy" basedir=".">
  	<property name="jboss.perfil" value="B:/Java/jboss-as-7.2.0.Final/standalone" />
 	<property name="jboss.deploy" value="${jboss.perfil}/deployments" />
