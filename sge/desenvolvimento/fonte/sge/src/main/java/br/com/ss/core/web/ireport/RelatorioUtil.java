@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -35,8 +34,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import br.com.ss.academico.dominio.Empresa;
-import br.com.ss.academico.servico.EmpresaServico;
-import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.utils.FacesUtils;
 
 @ManagedBean
 @ApplicationScoped
@@ -46,9 +44,6 @@ public class RelatorioUtil implements Serializable {
 
 	@ManagedProperty(value = "#{dataSource}")
 	private DriverManagerDataSource dataSource;
-
-	@ManagedProperty(value = "#{empresaServicoImpl}")
-	private EmpresaServico empresaServico;
 
 	/** Resource path dos relatorio: /resources/jasper/ */
 	private static final String PATH_REPORT = "resources" + File.separator
@@ -124,7 +119,7 @@ public class RelatorioUtil implements Serializable {
 
 		FileInputStream fis = null;
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
-		Empresa empresa = empresaServico.findOne(1l);
+		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 		parametros.put("empresa", empresa);
 
 		try {
@@ -156,7 +151,7 @@ public class RelatorioUtil implements Serializable {
 	public void gerarRelatorioWeb(List lista, Map parametros,
 			String nomeRelatorio) throws JRException {
 
-		Empresa empresa = empresaServico.findOne(1l);
+		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 		parametros.put("empresa", empresa);
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
@@ -225,7 +220,7 @@ public class RelatorioUtil implements Serializable {
 	public void gerarRelatorioComDownload(List lista, Map parametros,
 			String nome) {
 
-		Empresa empresa = empresaServico.findOne(1l);
+		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 
 		parametros.put("empresa", empresa);
 
@@ -277,13 +272,6 @@ public class RelatorioUtil implements Serializable {
 		this.dataSource = dataSource;
 	}
 
-	public EmpresaServico getEmpresaServico() {
-		return empresaServico;
-	}
-
-	public void setEmpresaServico(EmpresaServico empresaServico) {
-		this.empresaServico = empresaServico;
-	}
 
 	public byte[] gerarRelatorioWebBytes(List listaPesquisa,
 			Map<String, Object> params, String arquivo)

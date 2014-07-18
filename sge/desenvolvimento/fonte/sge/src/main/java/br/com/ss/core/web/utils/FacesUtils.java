@@ -26,4 +26,16 @@ public final class FacesUtils {
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 	}
 	
+	
+	/**
+	 * Retorna o objeto associado ao parametro (map) no context de Aplicacao.
+	 * @param param
+	 * @return
+	 */
+	public static Object getApplicationParam(String param) {
+		return FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get(param);
+	}
+	
+	
+	
 }

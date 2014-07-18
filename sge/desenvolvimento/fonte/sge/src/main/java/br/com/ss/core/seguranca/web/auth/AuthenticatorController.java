@@ -56,6 +56,8 @@ public class AuthenticatorController {
 	
 	private static final String HOME = "home";
 	
+	private static final long ID_EMPRESA = 1;
+	
 	private boolean loggedIn;
 	
 

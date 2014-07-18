@@ -4,10 +4,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import br.com.ss.academico.dominio.Empresa;
-import br.com.ss.academico.servico.EmpresaServico;
 import br.com.ss.core.seguranca.dominio.Sistema;
+import br.com.ss.core.seguranca.servico.EmpresaServico;
 import br.com.ss.core.seguranca.servico.SistemaServico;
 import br.com.ss.core.web.utils.MessageUtils;
 
@@ -34,7 +35,11 @@ public class ApplicationBean {
 		
 		sistema = sistemaServico.findByPrimaryKey(new Long(idSistema));
 		empresa = empresaServico.findByPrimaryKey(new Long(idEmpresa));
-		
+
+		// adiciona variaveis no context da aplicacao
+		FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("sistema", sistema);
+		FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("empresa", empresa);
+        
 	}
 	
 	public void reload() {
@@ -47,27 +52,19 @@ public class ApplicationBean {
 	public SistemaServico getSistemaServico() {
 		return sistemaServico;
 	}
-
 	public void setSistemaServico(SistemaServico sistemaServico) {
 		this.sistemaServico = sistemaServico;
 	}
-
 	public EmpresaServico getEmpresaServico() {
 		return empresaServico;
 	}
-
 	public void setEmpresaServico(EmpresaServico empresaServico) {
 		this.empresaServico = empresaServico;
 	}
-
-	
 	public Sistema getSistema() {
 		return sistema;
 	}
-	
-
 	public Empresa getEmpresa() {
 		return empresa;
 	}
-	
 }
