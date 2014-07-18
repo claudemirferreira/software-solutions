@@ -5,7 +5,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
+	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa" isForPrompting="false"/>
 	<parameter name="report_title" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>

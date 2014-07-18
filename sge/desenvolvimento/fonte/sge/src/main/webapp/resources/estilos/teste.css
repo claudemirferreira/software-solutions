@@ -18,7 +18,7 @@
 .ui-widget-content {
 	border: 1px solid #a6c9e2;
 	background: #fcfdfd
-		url("/shekinah/javax.faces.resource/images/ui-bg_inset-hard_100_fcfdfd_1x100.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_inset-hard_100_fcfdfd_1x100.png.xhtml?ln=primefaces-start")
 		50% bottom repeat-x;
 	color: #222222;
 }
@@ -30,7 +30,7 @@
 .ui-widget-header {
 	border: 1px solid #4297d7;
 	background: #2191c0
-		url("/shekinah/javax.faces.resource/images/ui-bg_gloss-wave_75_2191c0_500x100.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_gloss-wave_75_2191c0_500x100.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	color: #eaf5f7;
 	font-weight: bold;
@@ -43,7 +43,7 @@
 	{
 	border: 1px solid #77d5f7;
 	background: #0078ae
-		url("/shekinah/javax.faces.resource/images/ui-bg_glass_45_0078ae_1x400.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_glass_45_0078ae_1x400.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	font-weight: normal;
 	color: #ffffff;
@@ -59,7 +59,7 @@
 	{
 	border: 1px solid #448dae;
 	background: #79c9ec
-		url("/shekinah/javax.faces.resource/images/ui-bg_glass_75_79c9ec_1x400.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_glass_75_79c9ec_1x400.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	font-weight: normal;
 	color: #026890;
@@ -74,7 +74,7 @@
 	{
 	border: 1px solid #acdd4a;
 	background: #6eac2c
-		url("/shekinah/javax.faces.resource/images/ui-bg_gloss-wave_50_6eac2c_500x100.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_gloss-wave_50_6eac2c_500x100.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	font-weight: normal;
 	color: #ffffff;
@@ -92,7 +92,7 @@
 	{
 	border: 1px solid #fcd113;
 	background: #f8da4e
-		url("/shekinah/javax.faces.resource/images/ui-bg_glass_55_f8da4e_1x400.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_glass_55_f8da4e_1x400.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	color: #915608;
 }
@@ -106,7 +106,7 @@
 	{
 	border: 1px solid #cd0a0a;
 	background: #e14f1c
-		url("/shekinah/javax.faces.resource/images/ui-bg_gloss-wave_45_e14f1c_500x100.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_gloss-wave_45_e14f1c_500x100.png.xhtml?ln=primefaces-start")
 		50% top repeat-x;
 	color: #ffffff;
 }
@@ -143,42 +143,42 @@
 	width: 16px;
 	height: 16px;
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_0078ae_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_0078ae_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-widget-content .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_0078ae_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_0078ae_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-widget-header .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_d8e7f3_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_d8e7f3_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-state-default .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_e0fdff_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_e0fdff_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-state-hover .ui-icon,.ui-state-focus .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_056b93_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_056b93_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-state-active .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_f5e175_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_f5e175_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-state-highlight .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_f7a50d_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_f7a50d_256x240.png.xhtml?ln=primefaces-start");
 }
 
 .ui-state-error .ui-icon,.ui-state-error-text .ui-icon {
 	background-image:
-		url("/shekinah/javax.faces.resource/images/ui-icons_fcd113_256x240.png.xhtml?ln=primefaces-start");
+		url("/sge/javax.faces.resource/images/ui-icons_fcd113_256x240.png.xhtml?ln=primefaces-start");
 } /* positioning */
 .ui-icon-carat-1-n {
 	background-position: 0 0;
@@ -942,7 +942,7 @@
 } /* Overlays */
 .ui-widget-overlay {
 	background: #aaaaaa
-		url("/shekinah/javax.faces.resource/images/ui-bg_flat_75_aaaaaa_40x100.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_flat_75_aaaaaa_40x100.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	opacity: .30;
 	filter: Alpha(Opacity = 30);
@@ -952,7 +952,7 @@
 	margin: 5px 0 0 5px;
 	padding: 0px;
 	background: #999999
-		url("/shekinah/javax.faces.resource/images/ui-bg_flat_55_999999_40x100.png.xhtml?ln=primefaces-start")
+		url("/sge/javax.faces.resource/images/ui-bg_flat_55_999999_40x100.png.xhtml?ln=primefaces-start")
 		50% 50% repeat-x;
 	opacity: .45;
 	filter: Alpha(Opacity = 45);

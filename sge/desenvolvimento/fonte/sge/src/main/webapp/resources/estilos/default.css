@@ -259,7 +259,7 @@ img.right {
     color: #FFF;
 }
 #header_top {
-    background-image: url("/shekinah/resources/imagens/img_sistema_fundo_top.jpg");	 /* FIXME usar uma img grande - quedrar em duas partes, a 2ª parte usar em header_top_menu. */
+    background-image: url("/sge/resources/imagens/img_sistema_fundo_top.jpg");	 /* FIXME usar uma img grande - quedrar em duas partes, a 2ª parte usar em header_top_menu. */
     background-repeat: no-repeat;
     background-position: right center;
     clear: both;
@@ -267,7 +267,7 @@ img.right {
     width: 100%;
 }
 #header_top_marca {
-    background-image: url("/shekinah/resources/imagens/img_sistema_02.jpg");
+    background-image: url("/sge/resources/imagens/img_sistema_02.jpg");
     background-repeat: no-repeat;
     float: left;
     height: 80px;

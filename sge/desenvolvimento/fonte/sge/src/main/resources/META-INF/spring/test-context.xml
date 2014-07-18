@@ -14,7 +14,7 @@
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="datasource" />
-		<property name="persistenceUnitName" value="shekinahPU-test" />
+		<property name="persistenceUnitName" value="sgePU-test" />
 	</bean>
 
 	<!-- Transaction Manager -->

@@ -35,7 +35,7 @@ public class PageUtils {
 	
 	/**
 	 * Retorna a url completa da página inicial.
-	 * Ex: http://localhost:9090/shekinah/index.xhtml?faces-redirect=true
+	 * Ex: http://localhost:9090/sge/index.xhtml?faces-redirect=true
 	 * @return
 	 */
 	public static String getFullUrlHome() {
