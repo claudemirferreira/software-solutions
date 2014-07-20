@@ -153,12 +153,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.00">
-				<reportElement x="460" y="0" width="96" height="18" uuid="a5253963-43ed-4984-acec-5f4256f11191">
+			<textField pattern="#,##0.00">
+				<reportElement x="460" y="0" width="95" height="18" uuid="a5253963-43ed-4984-acec-5f4256f11191">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>

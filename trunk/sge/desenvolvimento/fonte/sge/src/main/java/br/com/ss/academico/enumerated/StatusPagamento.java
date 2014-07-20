@@ -2,7 +2,7 @@ package br.com.ss.academico.enumerated;
 
 public enum StatusPagamento {
 
-	PENDENTE(0, "PENDENTE"), PAGO(1, "PAGO"), CANCELADO(2, "CANCELADO");
+	PENDENTE(0, "Pendente"), PAGO(1, "Pago"), CANCELADO(2, "Cancelado");
 
 	private int id;
 	private String descricao;

@@ -162,7 +162,7 @@
 					<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="13" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
@@ -185,7 +185,7 @@
 					<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="13" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
@@ -258,7 +258,7 @@
 					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Center">
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{foneResidencial}]]></textFieldExpression>
@@ -280,10 +280,10 @@
 					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Center">
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{foneComercial}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

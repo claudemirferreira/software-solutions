@@ -32,7 +32,7 @@
 			<ss2:column value="#{item.status}" header="Situação" sortBy="status" />
 			<ss2:column value="#{item.integral}" header="Hor. Integral?" sortBy="integral" converter="simNaoConverter" />
 			
-			<ss2:actionColumn managedBean="#{alunoMatriculaControlador}" renderedDetail="false" renderedRemove="false" buttonsAdded="2">
+			<ss2:actionColumn managedBean="#{alunoMatriculaControlador}" renderedDetail="false" renderedRemove="false" buttonsAdded="1">
 			
 				<p:commandButton value="Detalhe"
 								icon="ui-icon-folder-collapsed"
@@ -41,18 +41,10 @@
 								action="#{alunoMatriculaControlador.showModalCadastroMatricula(item)}"
 								update=":formDlg" title="Detalhe" />
 				
-				<p:spacer width="5px" rendered="#{renderedDetail}"/>
-				
-				<p:commandButton value="Contrato" title="Imprimir Contrato"
-								icon="ui-icon-document"
-								styleClass="ui-priority-primary"
-								onclick="this.form.target='_blank'"
-								actionListener="#{alunoMatriculaControlador.imprimirContrato(item)}" />
-								
 			</ss2:actionColumn>
 			
 		</ss:grid>
-
-	</p:panel>
 	
+	</p:panel>
+
 </ui:component>
