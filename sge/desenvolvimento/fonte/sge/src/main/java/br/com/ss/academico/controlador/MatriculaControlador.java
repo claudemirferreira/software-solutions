@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Curso;
+import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
@@ -35,10 +36,10 @@ import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.MatriculaServico;
-import br.com.ss.core.seguranca.servico.EmpresaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.ireport.RelatorioUtil;
+import br.com.ss.core.web.utils.FacesUtils;
 import br.com.ss.core.web.utils.ReflectionsUtil;
 
 @ManagedBean
@@ -55,9 +56,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico servicoCurso;
-
-	@ManagedProperty(value = "#{empresaServicoImpl}")
-	private EmpresaServico empresaServico;
 
 	private List<SelectItem> statusList;
 
@@ -118,11 +116,9 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 
 
-	public void imprimirContrato(Matricula matricula)
-			throws FileNotFoundException {
+	public void imprimirContrato(Matricula matricula) throws FileNotFoundException {
 
-		ExternalContext econtext = FacesContext.getCurrentInstance()
-				.getExternalContext();
+		ExternalContext econtext = FacesContext.getCurrentInstance().getExternalContext();
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		String webPath = context.getExternalContext().getRealPath("/");
@@ -138,25 +134,22 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		list.add(matricula);
 
 		try {
+			
+			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("empresa", empresaServico.findOne(1l));
-			lista.add(JasperFillManager.fillReport(stream1, params,
-					new JRBeanCollectionDataSource(list)));
+			params.put("empresa", empresa);
+			lista.add(JasperFillManager.fillReport(stream1, params, new JRBeanCollectionDataSource(list)));
 
-			lista.add(JasperFillManager.fillReport(stream2, params,
-					new JRBeanCollectionDataSource(list)));
+			lista.add(JasperFillManager.fillReport(stream2, params, new JRBeanCollectionDataSource(list)));
 
 			JRPdfExporter exporter = new JRPdfExporter();
-			HttpServletResponse response = (HttpServletResponse) econtext
-					.getResponse();
+			HttpServletResponse response = (HttpServletResponse) econtext.getResponse();
 			FacesContext fcontext = FacesContext.getCurrentInstance();
 			ByteArrayOutputStream retorno = new ByteArrayOutputStream();
 
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, lista);
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, retorno);
-			exporter.setParameter(
-					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
-					Boolean.TRUE);
+			exporter.setParameter( JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS, Boolean.TRUE);
 			exporter.exportReport();
 
 			byte[] retornoArray = retorno.toByteArray();
@@ -170,8 +163,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 			output.close();
 			fcontext.responseComplete();
 
-		} catch (RuntimeException e) {
-			// logar e tratar exception
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -217,14 +208,6 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public List<SelectItem> getTurnoList() {
 		return turnoList;
-	}
-
-	public EmpresaServico getEmpresaServico() {
-		return empresaServico;
-	}
-
-	public void setEmpresaServico(EmpresaServico empresaServico) {
-		this.empresaServico = empresaServico;
 	}
 
 	public CursoServico getServicoCurso() {

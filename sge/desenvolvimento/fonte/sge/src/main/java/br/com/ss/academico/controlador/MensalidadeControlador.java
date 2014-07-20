@@ -23,7 +23,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -72,13 +71,10 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 
 	private List<SelectItem> tipoPesquisaDataList;
 
-	private String nomeRelatorio = "mensalidade.jasper";
-
 	/** Indica se está vindo do Home ou não. */
 	private boolean fromHome;
 
-	private static final String PATH_REPORT = "resources" + File.separator
-			+ "jasper" + File.separator;
+	private static final String PATH_REPORT = "resources" + File.separator + "jasper" + File.separator;
 
 	@Override
 	public void init() {
@@ -113,39 +109,23 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 
 	@Override
 	public String getNomeRelatorioJasper() {
-		return this.nomeRelatorio;
+		return "mensalidade.jasper";
 	}
 
 	@Override
 	public String getTituloRelatorio() {
-		return null;
+		return "RELATÓRIO DE MENSALIDADE";
 	}
 	
-	public void setNomeRelatorio(String nomeRelatorio) {
-		this.nomeRelatorio = nomeRelatorio;
-	}
 
 	@Override
 	protected IService<Mensalidade, Long> getService() {
 		return servico;
 	}
 
-	/*
-	 * FIXME #Peninha, verificar relatorio
-	 * 
-	 * private final Long ID_EMPRESA = 1L; // FIXME #Peninha, recuperar registro
-	 * da tabela de configuração
-	 * 
-	 * public void imprimir() throws FileNotFoundException { Empresa empresa =
-	 * empresaServico.findOne(this.ID_EMPRESA); Map parametros = new HashMap();
-	 * parametros.put("empresa", empresa);
-	 * relatorioUtil.gerarRelatorioWeb(this.lista, parametros,
-	 * "mensalidade.jasper"); }
-	 */
 
 	public void pesquisar() {
-		this.listaPesquisa = servico.pesquisar(pesquisa, dataInicio, dataFim,
-				tipoPesquisaData);
+		this.listaPesquisa = servico.pesquisar(pesquisa, dataInicio, dataFim, tipoPesquisaData);
 	}
 
 	@Override
@@ -276,11 +256,11 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 		this.tipoPesquisaDataList = tipoPesquisaDataList;
 	}
 
-	public void imprimir() {
-		Map<String, Object> parametros = new HashMap<String, Object>();
-		super.imprimir(this.listaPesquisa, parametros, "mensalidade.jasper");
-		
-	}
+//	public void imprimir() {
+//		Map<String, Object> parametros = new HashMap<String, Object>();
+//		super.imprimir(this.listaPesquisa, parametros, "mensalidade.jasper");
+//		
+//	}
 	
 	public void imprimirRecibo(Mensalidade mensalidade)
 			throws FileNotFoundException {

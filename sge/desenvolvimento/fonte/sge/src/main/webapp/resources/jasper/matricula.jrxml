@@ -81,7 +81,7 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="140" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="145e4b24-6569-4e50-94b3-4658274a4003">
+				<reportElement mode="Opaque" x="0" y="0" width="160" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="145e4b24-6569-4e50-94b3-4658274a4003">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -100,11 +100,13 @@
 				<text><![CDATA[Aluno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="140" y="0" width="60" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="c6aad8c1-1492-4ced-9288-417e77fc2aa9">
+				<reportElement mode="Opaque" x="160" y="0" width="50" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="c6aad8c1-1492-4ced-9288-417e77fc2aa9">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
@@ -165,11 +167,13 @@
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="200" y="0" width="60" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="e2405ca6-adf7-4afc-a731-7f4d42caaff6">
+				<reportElement mode="Opaque" x="210" y="0" width="50" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="e2405ca6-adf7-4afc-a731-7f4d42caaff6">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
@@ -232,7 +236,7 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="140" height="15" uuid="e9474f66-720e-45b8-9a04-e2728056d510">
+				<reportElement x="0" y="0" width="160" height="15" uuid="e9474f66-720e-45b8-9a04-e2728056d510">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -254,7 +258,7 @@
 				<textFieldExpression><![CDATA[$F{aluno}.getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="140" y="0" width="60" height="15" uuid="01f097e2-ff3a-4ac8-9656-00edb5a822b2">
+				<reportElement x="160" y="0" width="50" height="15" uuid="01f097e2-ff3a-4ac8-9656-00edb5a822b2">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -275,7 +279,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{turma}.getCurso().getNome()]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="440" y="0" width="60" height="15" uuid="03d798bc-1e0f-444c-b9ac-f5ffeeb6c3e3">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -320,7 +324,7 @@
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="200" y="0" width="60" height="15" uuid="2f7ce739-e054-40d5-83b7-7744cce96eb9">
+				<reportElement x="210" y="0" width="50" height="15" uuid="2f7ce739-e054-40d5-83b7-7744cce96eb9">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>

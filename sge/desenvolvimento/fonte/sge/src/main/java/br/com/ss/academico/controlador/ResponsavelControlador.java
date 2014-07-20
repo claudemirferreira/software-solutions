@@ -32,8 +32,7 @@ public class ResponsavelControlador extends ControladorGenerico<Responsavel> {
 	
 	@Override
 	protected String getNomeRelatorioJasper() {
-		// FIXME #Peninha verificar o relatorio..
-		return null;
+		return "responsavel.jasper";
 	}
 
 	@Override
