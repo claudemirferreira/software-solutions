@@ -102,7 +102,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	@Override
 	protected String getNomeRelatorioJasper() {
-		// FIXME #Peninha, ver relatorio
+		// nao tem relatorio
 		return null;
 	}
 
@@ -145,7 +145,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	}
 	
 	public void imprimirContrato(Matricula matricula) {
-		// FIXME #Peninha criar o relatorio..
 		List<Matricula> lista = new ArrayList<Matricula>();
 		lista.add(matricula);
 		Map<String, Object> parametros = new HashMap<String, Object>();
@@ -380,9 +379,11 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	 * @param statusPagamento
 	 */
 	private void atualizarStatusMensalidade( StatusPagamento statusPagamento) {
-		// FIXME acho q deve cancelar as mensalidades apenas do mes atual em diante.
 		for (Mensalidade mens : entidade.getMensalidades()) {
-			mens.setStatusPagamento(statusPagamento);
+			if ( !StatusPagamento.PAGO.equals(mens.getStatusPagamento()) ) {
+				// Se a mensalidade ainda não foi paga, então atualiza o status do pagto.
+				mens.setStatusPagamento(statusPagamento);
+			}
 		}
 	}
 
@@ -395,18 +396,26 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		// calcula o valor da mensalidade dividindo o valor do curso pela quantidade de meses
 		double valorMens = entidade.getValor() / qtMensalidades;
 		
-		// FIXME #Peninha: validar a regra de geracao das mensalidades 
 		/*
 		 * Regra:
-		 * Mensalidade = Valor_Curso / Qtde_Meses
-		 * */
+		 * Mensalidade = Valor_Curso / Qtde_Meses */
+		List<Integer> mensalidadesPagas = new ArrayList<Integer>(); 
 		if (atualizarMatricula) {
-			// se for atualizar limpa a lista e recria novas.
-			entidade.getMensalidades().clear();
+			// se for atualizar exclui as mensalidades não pagas e recria novas.
+			List<Mensalidade> mensalidades = new ArrayList<Mensalidade>(entidade.getMensalidades());
+			for (Mensalidade mens : mensalidades ) {
+				if (StatusPagamento.PAGO.equals( mens.getStatusPagamento() ) ) {
+					mensalidadesPagas.add(mens.getSequencial());
+					continue;
+				}
+				entidade.getMensalidades().remove(mens);
+			}
 		}
 		
 		for (int i = mesInicial; i <= mesFinal; i++) {
-			entidade.getMensalidades().add(createMensalidade(i, entidade.getTurma().getAno(), valorMens));
+			if (!mensalidadesPagas.contains(i)) {
+				entidade.getMensalidades().add(createMensalidade(i, entidade.getTurma().getAno(), valorMens));
+			}
 		}
 	}
 
