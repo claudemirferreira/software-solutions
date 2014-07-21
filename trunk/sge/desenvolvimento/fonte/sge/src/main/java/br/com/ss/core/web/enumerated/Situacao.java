@@ -2,7 +2,7 @@ package br.com.ss.core.web.enumerated;
 
 public enum Situacao {
 
-	ATIVO(0, "ATIVO"), INATIVO(1, "INATIVO");
+	ATIVO(0, "Ativo"), INATIVO(1, "Inativo");
 
 	private int id;
 	private String descricao;

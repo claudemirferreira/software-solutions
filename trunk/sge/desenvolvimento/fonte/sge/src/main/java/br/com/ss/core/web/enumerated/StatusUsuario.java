@@ -2,9 +2,9 @@ package br.com.ss.core.web.enumerated;
 
 public enum StatusUsuario {
 
-	ATIVA(0, "ATIVO"), 
-	INATIVA(1, "INATIVO"), 
-	BLOQUEADO(2, "BLOQUEADO");
+	ATIVO(0, "Ativo"), 
+	INATIVO(1, "Inativo"), 
+	BLOQUEADO(2, "Bloqueado");
 
 	private int id;
 	private String descricao;

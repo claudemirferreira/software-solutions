@@ -12,6 +12,10 @@ import br.com.ss.core.seguranca.servico.EmpresaServico;
 import br.com.ss.core.seguranca.servico.SistemaServico;
 import br.com.ss.core.web.utils.MessageUtils;
 
+/**
+ * ManagedBean para carregamento de dados para armazenar no escopo de Aplicação.
+ * @author robson.ramos
+ */
 @ManagedBean
 @ApplicationScoped
 public class ApplicationBean {
