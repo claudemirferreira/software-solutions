@@ -6,7 +6,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.Empresa;
+import br.com.ss.academico.servico.ConfiguracaoServico;
 import br.com.ss.core.seguranca.dominio.Sistema;
 import br.com.ss.core.seguranca.servico.EmpresaServico;
 import br.com.ss.core.seguranca.servico.SistemaServico;
@@ -26,9 +28,15 @@ public class ApplicationBean {
 	@ManagedProperty(value = "#{empresaServicoImpl}")
 	private EmpresaServico empresaServico;
 
+	@ManagedProperty(value = "#{configuracaoServicoImpl}")
+	private ConfiguracaoServico servicoConfiguracao;
+	
 	private Sistema sistema;
 
 	private Empresa empresa;
+
+	private Configuracao configuracao;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -40,10 +48,13 @@ public class ApplicationBean {
 		sistema = sistemaServico.findByPrimaryKey(new Long(idSistema));
 		empresa = empresaServico.findByPrimaryKey(new Long(idEmpresa));
 
+		configuracao = servicoConfiguracao.listarTodos().get(0);
+		
 		// adiciona variaveis no context da aplicacao
 		FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("sistema", sistema);
 		FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("empresa", empresa);
-        
+		FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("configuracao", configuracao);
+		
 	}
 	
 	public void reload() {
@@ -70,5 +81,13 @@ public class ApplicationBean {
 	}
 	public Empresa getEmpresa() {
 		return empresa;
+	}
+
+	public ConfiguracaoServico getServicoConfiguracao() {
+		return servicoConfiguracao;
+	}
+
+	public void setServicoConfiguracao(ConfiguracaoServico servicoConfiguracao) {
+		this.servicoConfiguracao = servicoConfiguracao;
 	}
 }
