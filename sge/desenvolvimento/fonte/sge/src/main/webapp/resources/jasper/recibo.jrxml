@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensalidade" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6052e703-5d4e-435d-8a7a-65006837a4c6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -58,59 +59,74 @@
 	<title>
 		<band height="128" splitType="Stretch">
 			<textField>
-				<reportElement uuid="d240e3ac-bc4a-45f4-9b18-0bb3ed5244e6" x="86" y="0" width="392" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Empresa: "+$P{empresa}.getNome()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="eaf88ab3-6043-4152-a81e-7b64cbf0ebe0" x="86" y="20" width="392" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Cnpj: "+$P{empresa}.getCnpj()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="52ebc0d6-020c-45d4-8fb2-6313abf2fea1" x="86" y="40" width="392" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Endereço: "+$P{empresa}.getEndereco() + " " + $P{empresa}.getBairro()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="e895d97f-1196-472a-9e56-f31d6351b867" x="18" y="87" width="114" height="20"/>
+				<reportElement x="1" y="87" width="114" height="20" uuid="e895d97f-1196-472a-9e56-f31d6351b867"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Matricula: "+$F{matricula}.getId()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2bba4e2e-8f8d-4c88-a97a-67da64690726" x="147" y="87" width="258" height="20"/>
+				<reportElement x="147" y="87" width="258" height="20" uuid="2bba4e2e-8f8d-4c88-a97a-67da64690726"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Aluno: "+$F{matricula}.getAluno().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d3c6389c-81fb-4141-838f-74b75cdf8e8a" x="18" y="107" width="203" height="20"/>
+				<reportElement x="1" y="107" width="114" height="20" uuid="d3c6389c-81fb-4141-838f-74b75cdf8e8a"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Turma: "+$F{matricula}.getTurma().getCurso().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="567d461e-84a0-40fd-81b9-d926cabe339c" x="237" y="107" width="308" height="20"/>
+				<reportElement x="147" y="107" width="258" height="20" uuid="567d461e-84a0-40fd-81b9-d926cabe339c"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Responsável: "+ $F{matricula}.getAluno().getResponsavel().getNome()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="57d61519-37ca-4046-87d0-0f8887430c37" x="86" y="60" width="392" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<text><![CDATA[Recibo de Pagamento  de  Mensalidade]]></text>
-			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="50" backcolor="#006699" uuid="eb617e8c-c453-4b7c-8c44-107fac71b99b">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement mode="Transparent" x="80" y="0" width="400" height="24" forecolor="#FFFFFF" uuid="04a8a336-22b3-434e-8f77-168a81de5d3c">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["SGE - " + $P{empresa}.getNome()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="0" y="25" width="555" height="20" forecolor="#FFFFFF" uuid="0409987e-66bf-4c5a-88f3-38e5a2f73935"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Endereço: " + $P{empresa}.getEndereco() + " - " + $P{empresa}.getBairro() + ". Manaus - AM.  Cnpj: " + $P{empresa}.getCnpj() + "."]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="50" width="555" height="22" forecolor="#066990" backcolor="#DEDEDE" uuid="c8f8dbe3-1a0b-4a04-8efa-de98747538ae">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RECIBO DE PAGAMENTO DE MENSALIDADE"]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -122,63 +138,61 @@
 	<detail>
 		<band height="52" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d6f375a7-ab94-478f-a31f-6d267d8d40f4" x="0" y="0" width="90" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="0" y="0" width="90" height="20" uuid="d6f375a7-ab94-478f-a31f-6d267d8d40f4"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Data Vencimento]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="e3a25042-1e11-4fe6-a5a5-c2d1561e2df4" x="9" y="20" width="80" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="1" y="20" width="88" height="20" uuid="e3a25042-1e11-4fe6-a5a5-c2d1561e2df4"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="be9eb95c-7611-46ce-9e09-bed89481d24d" x="92" y="0" width="69" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="92" y="0" width="69" height="20" uuid="be9eb95c-7611-46ce-9e09-bed89481d24d"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.00">
-				<reportElement uuid="290bdd87-0bd6-4222-97b8-e20aeb455bc1" x="92" y="20" width="69" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="92" y="20" width="69" height="20" uuid="290bdd87-0bd6-4222-97b8-e20aeb455bc1"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{valorVencimento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="dd374217-56b7-4638-b101-b2ec95bee27f" x="167" y="0" width="84" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="167" y="0" width="84" height="20" uuid="dd374217-56b7-4638-b101-b2ec95bee27f"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Data Pagamento]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="0ca2ac59-4a24-4342-a29f-9873e8c8a99e" x="167" y="20" width="84" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="167" y="20" width="84" height="20" uuid="0ca2ac59-4a24-4342-a29f-9873e8c8a99e"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="383b150d-0517-449a-9ca1-06af60ec3008" x="254" y="0" width="78" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="254" y="0" width="78" height="20" uuid="383b150d-0517-449a-9ca1-06af60ec3008"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.00">
-				<reportElement uuid="edbad9ca-29d7-4cef-8e6e-2691c2d9a61c" x="254" y="20" width="78" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="254" y="20" width="78" height="20" uuid="edbad9ca-29d7-4cef-8e6e-2691c2d9a61c"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{valorPagamento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="9f48906b-e726-4654-8d3c-062f005765c6" x="334" y="0" width="84" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="334" y="0" width="84" height="20" uuid="9f48906b-e726-4654-8d3c-062f005765c6"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Mês]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="30820d03-42ab-4238-947c-2211f68abeb3" x="334" y="20" width="84" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="334" y="20" width="84" height="20" uuid="30820d03-42ab-4238-947c-2211f68abeb3"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{mesSequencial}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="be055293-dae8-48d5-a4af-dc366dcf9196" x="425" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="425" y="0" width="100" height="20" uuid="be055293-dae8-48d5-a4af-dc366dcf9196"/>
 				<text><![CDATA[Situação]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="62705ccd-55e2-4406-912d-903a90561692" x="425" y="20" width="120" height="20"/>
-				<textElement/>
+				<reportElement x="425" y="20" width="120" height="20" uuid="62705ccd-55e2-4406-912d-903a90561692"/>
 				<textFieldExpression><![CDATA[""+$F{statusPagamento}]]></textFieldExpression>
 			</textField>
 		</band>

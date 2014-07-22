@@ -25,7 +25,6 @@ import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.BoletimServico;
-import br.com.ss.academico.servico.ConfiguracaoServico;
 import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.academico.servico.TurmaServico;
@@ -36,6 +35,7 @@ import br.com.ss.core.web.enumerated.Meses;
 import br.com.ss.core.web.enumerated.NaoSim;
 import br.com.ss.core.web.ireport.RelatorioUtil;
 import br.com.ss.core.web.utils.DateUtil;
+import br.com.ss.core.web.utils.FacesUtils;
 
 @ManagedBean
 @SessionScoped
@@ -76,11 +76,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	private Meses mesSelecionado;
 
 	private Observacao observacaoMatricula;
-
-	private Configuracao configuracao;
-
-	@ManagedProperty(value = "#{configuracaoServicoImpl}")
-	private ConfiguracaoServico servicoConfiguracao;
 	
 	private boolean novo;
 	/** Backup para retornar do modal de cadastro de matricula. */
@@ -93,12 +88,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		naoSimList = createNaoSimList();
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
-		carregarConfiguracao();
 	}
 
-	private void carregarConfiguracao() {
-		configuracao = servicoConfiguracao.listarTodos().get(0);
-	}
 
 	@Override
 	protected String getNomeRelatorioJasper() {
@@ -390,6 +381,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	private void gerarMensalidadesMatricula( boolean atualizarMatricula ) {
 		int mesInicial = mesSelecionado.getId();
 		int mesFinal = Constants.DOZE;
+		Configuracao configuracao = (Configuracao) FacesUtils.getApplicationParam("configuracao");
+		int diaVencimento = configuracao.getDiaVencimento();
 		
 		int qtMensalidades = mesFinal - (mesInicial -1);
 		
@@ -414,14 +407,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		
 		for (int i = mesInicial; i <= mesFinal; i++) {
 			if (!mensalidadesPagas.contains(i)) {
-				entidade.getMensalidades().add(createMensalidade(i, entidade.getTurma().getAno(), valorMens));
+				entidade.getMensalidades().add(createMensalidade(diaVencimento, i, entidade.getTurma().getAno(), valorMens));
 			}
 		}
 	}
 
-	private Mensalidade createMensalidade(int mes, int ano, double valorVencimento) {
+	private Mensalidade createMensalidade(int dia, int mes, int ano, double valorVencimento) {
 		Mensalidade mens = new Mensalidade();
-		mens.setDataVencimento(criarDataVencimento(mes, ano));
+		mens.setDataVencimento(criarDataVencimento(mes, ano, dia));
 		mens.setMatricula(entidade);
 		mens.setSequencial(mes);
 		mens.setStatusPagamento(StatusPagamento.PENDENTE);
@@ -430,10 +423,10 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		return mens;
 	}
 
-	private Date criarDataVencimento(int mes, int ano) {
+	private Date criarDataVencimento(int mes, int ano, int dia) {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(new Date());
-		cal.set(ano, mes - 1, configuracao.getDiaVencimento());
+		cal.set(ano, mes - 1, dia);
 		return cal.getTime();
 	}
 
@@ -538,14 +531,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setNovo(boolean novo) {
 		this.novo = novo;
-	}
-
-	public ConfiguracaoServico getServicoConfiguracao() {
-		return servicoConfiguracao;
-	}
-
-	public void setServicoConfiguracao(ConfiguracaoServico servicoConfiguracao) {
-		this.servicoConfiguracao = servicoConfiguracao;
 	}
 
 	public AlunoServico getServicoAluno() {
