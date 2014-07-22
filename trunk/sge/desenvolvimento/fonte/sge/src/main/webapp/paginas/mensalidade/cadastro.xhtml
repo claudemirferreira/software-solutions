@@ -41,6 +41,11 @@
 			 			update="pnlObservacao" 
 						value="#{mensalidadeControlador.entidade.statusPagamento}"
 						list="#{mensalidadeControlador.statusList}" />
+						
+			<p:outputPanel autoUpdate="true">
+				<ss:input label="Valor" required="true" render="#{mensalidadeControlador.entidade.statusPagamento.id eq 1}" value="#{mensalidadeControlador.entidade.valorPagamento}" type="number" style="width: 70px;" dir="rtl" />
+			</p:outputPanel>
+						
 			
 		</h:panelGrid>
 	        
