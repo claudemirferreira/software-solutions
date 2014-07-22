@@ -444,7 +444,7 @@ INSERT INTO `saa_perfil_rotina` (`data`,`id_perfil`,`id_rotina`) VALUES
  
  /* Secretaria */
  (NULL,1,4),
- (NULL,1,5),
+--  (NULL,1,5),		/* FIXME: Boletim pendente */
  (NULL,1,6),
  (NULL,1,7),
  (NULL,1,8),
@@ -489,7 +489,7 @@ INSERT INTO `saa_rotina` (`id_rotina`,`acao`,`imagem`,`nome`,`status`,`id_sistem
  
   /*----- SGE -------- */
  (4,'/paginas/aluno/pesquisa.xhtml','/resources/imagens/rotina/aluno.png','Aluno',0,2),
- (5,'/paginas/boletim/pesquisa.xhtml','/resources/imagens/rotina/curso.png','Boletim',0,2),
+-- (5,'/paginas/boletim/pesquisa.xhtml','/resources/imagens/rotina/curso.png','Boletim',0,2), /* FIXME: Boletim pendente. */
  (6,'/paginas/curso/pesquisa.xhtml','/resources/imagens/rotina/curso.png','Curso',0,2),
  (7,'/paginas/disciplina/pesquisa.xhtml','/resources/imagens/rotina/disciplina.png','Disciplina',0,2),
  (8,'/paginas/matricula/pesquisa.xhtml','/resources/imagens/rotina/turma.png','Matrícula',0,2),
