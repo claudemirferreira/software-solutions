@@ -30,12 +30,14 @@ import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.enumerated.StatusMatricula;
 import br.com.ss.academico.enumerated.Turno;
 import br.com.ss.academico.servico.AlunoServico;
 import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.academico.servico.MatriculaServico;
+import br.com.ss.academico.servico.MensalidadeServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.ireport.RelatorioUtil;
@@ -50,6 +52,9 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	@ManagedProperty(value = "#{matriculaServicoImpl}")
 	private MatriculaServico servico;
+
+	@ManagedProperty(value = "#{mensalidadeServicoImpl}")
+	private MensalidadeServico servicoMensalidade;
 
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico servicoAluno;
@@ -118,6 +123,10 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void imprimirContrato(Matricula matricula) throws FileNotFoundException {
 
+		// faz o load de mensalidades para evitar lazyException
+		List<Mensalidade> mensalidades = servicoMensalidade.loadMensalidades(matricula.getIdMatricula());
+		matricula.setMensalidades(mensalidades);
+		
 		ExternalContext econtext = FacesContext.getCurrentInstance().getExternalContext();
 		FacesContext context = FacesContext.getCurrentInstance();
 
@@ -216,6 +225,14 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setServicoCurso(CursoServico servicoCurso) {
 		this.servicoCurso = servicoCurso;
+	}
+
+	public MensalidadeServico getServicoMensalidade() {
+		return servicoMensalidade;
+	}
+
+	public void setServicoMensalidade(MensalidadeServico servicoMensalidade) {
+		this.servicoMensalidade = servicoMensalidade;
 	}
 
 }

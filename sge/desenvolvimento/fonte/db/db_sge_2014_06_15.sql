@@ -532,7 +532,7 @@ CREATE TABLE `saa_empresa` (
 
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
 INSERT INTO `saa_empresa` (`id_empresa`,`bairro`,`cnpj`,`email`,`endereco`,`nome`,`celular`,`fone`,`razao_social`,`nome_fantasia`) VALUES 
- (1,'cidade nova','10557321000145',NULL,'Rua 27','SHEKINAH',NULL,NULL,NULL,'CENTRO EDUCACIONAL SHEKINAH');
+ (1,'Cidade Nova 2','10.557.321/0001-45',NULL,'Rua 27, n.º ','SHEKINAH',NULL,NULL,NULL,'CENTRO EDUCACIONAL SHEKINAH');
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 
 
