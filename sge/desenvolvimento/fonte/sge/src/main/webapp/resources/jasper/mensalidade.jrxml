@@ -206,7 +206,7 @@
 					<font size="13" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<text><![CDATA[Vencimento]]></text>
+				<text><![CDATA[Data Venc.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="305" y="0" width="55" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="86de1345-1ae1-438f-af0a-f9588bd88643">
@@ -227,7 +227,7 @@
 					<font size="13" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<text><![CDATA[Pagamento]]></text>
+				<text><![CDATA[Data Pagto.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="490" y="0" width="65" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="1ba97f6b-a82f-432b-ada1-88ef5acfdb32">
@@ -246,7 +246,7 @@
 					<font size="13" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
-				<text><![CDATA[Pagamento]]></text>
+				<text><![CDATA[Valor Pago]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -486,7 +486,7 @@
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="2" rightIndent="0"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
 			</textField>
