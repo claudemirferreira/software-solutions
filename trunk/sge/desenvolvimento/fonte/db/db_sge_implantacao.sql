@@ -131,7 +131,7 @@ CREATE TABLE `acad_curso` (
 --
 
 /*!40000 ALTER TABLE `acad_curso` DISABLE KEYS */;
-INSERT INTO `acad_curso` (`id_curso`,`nome`,`valor`) VALUES (1,'1Âº ANO',1500);
+INSERT INTO `acad_curso` (`id_curso`,`nome`,`valor`) VALUES (1,'1º ANO',1500);
 /*!40000 ALTER TABLE `acad_curso` ENABLE KEYS */;
 
 
@@ -381,7 +381,7 @@ CREATE TABLE `saa_empresa` (
 
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
 INSERT INTO `saa_empresa` (`id_empresa`,`bairro`,`cnpj`,`email`,`endereco`,`nome`,`celular`,`fone`,`razao_social`,`nome_fantasia`) VALUES 
- (1,'Cidade Nova 2','12345678912345',NULL,'Rua XXXX, YY - ZZZZZZZ','NOME_DA_EMPRESA',NULL,NULL,NULL,'NOME_FANTASIA_DA_EMPRESA');
+ (1,'Cidade Nova 2','10.557.321/0001-45',NULL,'Rua 27, n.º ','CENTRO EDUCACIONAL SHEKINAH',NULL,NULL,NULL,'CENTRO EDUCACIONAL SHEKINAH');
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 
 
