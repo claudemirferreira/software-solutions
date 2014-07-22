@@ -28,6 +28,14 @@
 	<field name="statusPagamento" class="br.com.ss.academico.enumerated.StatusPagamento">
 		<fieldDescription><![CDATA[statusPagamento]]></fieldDescription>
 	</field>
+	<variable name="totalMensalidades" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorVencimento}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalPagtos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorPagamento}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0)]]></initialValueExpression>
+	</variable>
 	<background>
 		<band/>
 	</background>
@@ -398,7 +406,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dataPagamento} != null ? $F{dataPagamento} : ""]]></textFieldExpression>
 			</textField>
-			<textField pattern="">
+			<textField pattern="#,##0.00">
 				<reportElement x="490" y="0" width="65" height="15" uuid="526512f0-cd0b-463a-99e4-c7233b127673">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -421,7 +429,68 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band/>
+		<band height="24">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="425" y="0" width="65" height="17" forecolor="#066990" uuid="52fa6f0e-85c8-4d70-ba43-3e407359b913">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="2" spacingAfter="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalMensalidades}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="490" y="0" width="65" height="17" forecolor="#066990" uuid="e12b7ed4-919b-4100-8197-eb609b25dbd8">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="2" spacingAfter="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPagtos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="0" y="0" width="424" height="17" forecolor="#066990" uuid="0ecfeda6-8365-4c11-ae28-91e199003fb1">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="2" rightIndent="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="13">
