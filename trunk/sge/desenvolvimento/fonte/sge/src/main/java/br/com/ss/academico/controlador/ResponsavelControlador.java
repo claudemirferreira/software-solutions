@@ -48,7 +48,7 @@ public class ResponsavelControlador extends ControladorGenerico<Responsavel> {
 
 	public String salvar() {
 		
-		if (isDataFuturo(entidade.getDataNascimento())) {
+		if (entidade.getDataNascimento() != null && isDataFuturo(entidade.getDataNascimento())) {
 			showMessage(Constants.MSG_WARN_VALIDACAO, "Data de Nascimento é maior que a data atual." , FacesMessage.SEVERITY_WARN);
 			return null;
 		}
