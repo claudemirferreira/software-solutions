@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensalidade" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6052e703-5d4e-435d-8a7a-65006837a4c6">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="378"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
 	<queryString>
@@ -71,7 +71,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="108" splitType="Stretch">
+		<band height="88" splitType="Stretch">
 			<textField>
 				<reportElement x="118" y="0" width="615" height="20" uuid="d240e3ac-bc4a-45f4-9b18-0bb3ed5244e6"/>
 				<textElement textAlignment="Center">
@@ -98,21 +98,21 @@
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA["MATRICULA: "+$F{matricula}.getId()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Matricula: "+$F{matricula}.getId()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="147" y="60" width="258" height="20" uuid="2bba4e2e-8f8d-4c88-a97a-67da64690726"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA["MATRICULA: "+$F{matricula}.getAluno().getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Aluno: "+$F{matricula}.getAluno().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="405" y="60" width="258" height="20" uuid="d3c6389c-81fb-4141-838f-74b75cdf8e8a"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA["MATRICULA: "+$F{matricula}.getTurma().getCurso().getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Turno: "+$F{matricula}.getTurma().getCurso().getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
