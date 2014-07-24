@@ -35,6 +35,7 @@ public class CursoDisciplinaControlador {
 	private DualListModel<CursoDisciplina> dualListDisciplina;
 
 	private List<CursoDisciplina> listaCursoDisciplinaNotInCurso;
+	private Curso cursoModalDisciplina;
 
 	@PostConstruct
 	public void init() {
@@ -42,6 +43,7 @@ public class CursoDisciplinaControlador {
 	}
 
 	public void showModalDisciplina(Curso curso) {
+		this.cursoModalDisciplina = curso;
 		listaCursoDisciplinaNotInCurso = new ArrayList<CursoDisciplina>();
 		List<Disciplina> listaDisciplinaNotInCurso = cursoDisciplinaServico
 				.listaDisciplinaNotInCurso(curso.getId());
@@ -134,5 +136,13 @@ public class CursoDisciplinaControlador {
 	public void setDualListDisciplina(
 			DualListModel<CursoDisciplina> dualListDisciplina) {
 		this.dualListDisciplina = dualListDisciplina;
+	}
+
+	public Curso getCursoModalDisciplina() {
+		return cursoModalDisciplina;
+	}
+
+	public void setCursoModalDisciplina(Curso cursoModalDisciplina) {
+		this.cursoModalDisciplina = cursoModalDisciplina;
 	}
 }

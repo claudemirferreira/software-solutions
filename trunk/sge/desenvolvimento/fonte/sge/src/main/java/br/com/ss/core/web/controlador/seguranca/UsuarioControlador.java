@@ -49,6 +49,15 @@ public class UsuarioControlador extends ControladorGenerico<Usuario> {
 		tipoUsuarioList.add(new SelectItem(TipoUsuario.SGE_PROFESSOR, TipoUsuario.SGE_PROFESSOR.getDescricao()));
 		
 	}
+	
+	
+	@Override
+	public String novo() {
+		String page = super.novo();
+		entidade.setStatus(StatusUsuario.ATIVO);
+		return page;
+	}
+	
 
 	@Override
 	protected String getNomeRelatorioJasper() {
