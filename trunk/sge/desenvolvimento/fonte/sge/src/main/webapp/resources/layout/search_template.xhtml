@@ -18,6 +18,7 @@
 			reloadPage			false 						true
 			disabledBtnNew		false						false
 			renderPrintButton	false						true
+			listaPesquisa		false						listaPesquisa	Nome da lista do grid
   		 -->
   
 	  <ui:define name="content">
@@ -32,10 +33,14 @@
 	 		<c:set var="disabledBtnNew" value="false" />
   		 </c:if>
   		 
+  		 <c:if test="#{empty listaPesquisa}">
+	 		<c:set var="listaPesquisa" value="listaPesquisa" />
+  		 </c:if>
+  		 
+  		 
   		 <c:if test="#{reloadPage eq true}">
   		 	#{managedBean.reload()}
   		 </c:if>
-  		 
   		 
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
   		
@@ -87,7 +92,7 @@
 														ajax="false"
 														value="Imprimir"
 														action="#{managedBean.imprimir()}"
-														disabled="#{empty managedBean.listaPesquisa}"
+														disabled="#{empty managedBean[listaPesquisa]}"
 														icon="ui-icon-print"
 														styleClass="ui-priority-primary" 
 														immediate="true" />
