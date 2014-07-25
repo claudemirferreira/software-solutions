@@ -53,13 +53,17 @@
 	<c:if test="#{empty dateStyle}">
 		<c:set var="dateStyle" value="medium"/>
 	</c:if>
+
+	<c:if test="#{empty exportable}">
+		<c:set var="exportable" value="true" />
+	</c:if>
 	
 	
 	<c:set var="textAlignFull" value="text-align:#{textAlign}"/>
 	
 	<c:set var="style" value="#{not empty style ? style : textAlignFull }" />
 
-	<p:column style="#{style}" headerText="#{header}" sortBy="#{sortBy}" rendered="#{rendered}" width="#{width}" colspan="#{colspan}">
+	<p:column style="#{style}" headerText="#{header}" sortBy="#{sortBy}" rendered="#{rendered}" width="#{width}" colspan="#{colspan}" exportable="#{exportable}">
 		<h:outputText value="#{value}" >
 			<c:if test="#{not empty converter}">
 				<f:converter converterId="#{converter}" />

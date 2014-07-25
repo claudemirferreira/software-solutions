@@ -42,7 +42,10 @@
 		<c:set var="listSize" value="#{fn:length( cc.attrs.managedBean[cc.attrs.list] )}" />
 		<c:set var="s" value="#{listSize gt 1 ? 's' : ''}" />
 		
-		<p:dataTable var="item" 
+		
+	<p:panel header="Resultado da Pesquisa" toggleable="true" widgetVar="panel" style="margin-bottom:20px">
+ 	
+		<p:dataTable var="item"	id="grid" 
 					 value="#{cc.attrs.managedBean[cc.attrs.list]}"
 	                 rows="#{cc.attrs.rows}"
 	                 paginator="#{cc.attrs.paginator}"
@@ -79,9 +82,48 @@
 		        	<h:outputText value="#{listSize} Registro#{s} encontrado#{s}." />  
 	            </f:facet>
 			</c:if>
-	                 
+			
         </p:dataTable>
-		 		
+        
+        
+        <f:facet name="options">
+        	
+			<c:set var="fileName" value="lista_#{cc.attrs.managedBean[cc.attrs.list][0].getClass().getSimpleName()}s" />
+		
+			<p:menu style="width: 100px; padding: 0.1em;">
+                <p:submenu label="Exportar" >
+                		<p:menuitem url="#">
+				            <h:commandLink>
+				                <p:graphicImage value="/resources/jsf2_component/imagem/excel_2.png" width="20"/>
+				                <h:outputText value="  XLS" />
+				                <p:dataExporter type="xls" target="grid" fileName="#{fileName}" />
+				            </h:commandLink>
+                		</p:menuitem>
+                		
+			            <p:menuitem url="#">
+				            <h:commandLink>
+				                <p:graphicImage value="/resources/jsf2_component/imagem/pdf.png" width="22"/>
+				                <h:outputText value="  PDF" />
+				                <p:dataExporter type="pdf" target="grid" fileName="#{fileName}"/>
+				            </h:commandLink>
+			            </p:menuitem>
+			 
+			 			<p:menuitem url="#">
+				            <h:commandLink>
+				                <p:graphicImage value="/resources/jsf2_component/imagem/xml.png" width="20"/>
+				                <h:outputText value="  XML" />
+				                <p:dataExporter type="xml" target="grid" fileName="#{fileName}" />
+				            </h:commandLink>
+			 			</p:menuitem>
+						
+			            
+				</p:submenu>
+			</p:menu>
+        	
+        </f:facet>
+			
+	</p:panel>
+		
 	</cc:implementation>
 	
 </html>
