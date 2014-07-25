@@ -35,8 +35,11 @@
 		<c:set var="headerText" value="Ação" />
 	</c:if>
 
+	<c:if test="#{empty exportable}">
+		<c:set var="exportable" value="false" />
+	</c:if>
 
-	<p:column style="text-align:center" headerText="#{headerText}" width="#{width}">
+	<p:column style="text-align:center" headerText="#{headerText}" width="#{width}" exportable="#{exportable}">
 		<center>
 			<!-- Insere o conteudo adicional caso haja -->
 			<ui:insert />
