@@ -23,6 +23,8 @@
 	
 		<ss:input label="Nome" value="#{usuarioControlador.pesquisa.nome}" />
 		
+		<ss:comboBox label="Tipo de Usuário" value="#{usuarioControlador.pesquisa.tipoUsuario}" list="#{usuarioControlador.tipoUsuarioList}" />
+		
 		<ss:comboBox label="Situação" value="#{usuarioControlador.pesquisa.status}" list="#{usuarioControlador.statusUsuarioList}" />
 		
 	</ui:define>
@@ -32,7 +34,10 @@
 		<ss:grid managedBean="#{usuarioControlador}" renderedActionColumn="false">
 		
 			<ss2:column value="#{item.login}" header="Login" sortBy="login"  />
-			<ss2:column value="#{item.status.descricao}" header="Situação" sortBy="status" converter="" />
+			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
+			<ss2:column value="#{item.tipoUsuario.descricao}" header="Tipo de Usuário" sortBy="tipoUsuario.descricao"  />
+			
+			<ss2:column value="#{item.status.descricao}" header="Situação" sortBy="status" textAlign="center"/>
 		
 			<ss2:actionColumn managedBean="#{usuarioControlador}" buttonsAdded="1">
 				<p:commandButton value="Perfil" title="Perfil"

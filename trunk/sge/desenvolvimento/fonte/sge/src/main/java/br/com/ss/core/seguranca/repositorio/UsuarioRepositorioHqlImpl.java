@@ -28,6 +28,9 @@ public class UsuarioRepositorioHqlImpl extends RepositorioGenerico implements Us
 		if ( notEmpty(entity.getStatus()) ) {
 			condictions.add(" ent.status = :status ");
 		}
+		if ( notEmpty(entity.getTipoUsuario()) ) {
+			condictions.add(" ent.tipoUsuario = :tipoUsuario ");
+		}
 		String orderBy = " order by ent.nome ";
 		
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
@@ -39,6 +42,9 @@ public class UsuarioRepositorioHqlImpl extends RepositorioGenerico implements Us
 		}
 		if ( notEmpty(entity.getStatus()) ) {
 			query.setParameter("status", entity.getStatus());
+		}
+		if ( notEmpty(entity.getTipoUsuario()) ) {
+			query.setParameter("tipoUsuario", entity.getTipoUsuario());
 		}
 		return query.getResultList();
 	}
