@@ -14,14 +14,27 @@
 	<ui:param name="pageTitle" value="Boletim" />
 	<ui:param name="pageHeader" value="Boletim" />
 	<ui:param name="managedBean" value="#{boletimControlador}" />
+	<ui:param name="renderSearch" value="false" />
+	
+	<ui:param name="renderCancelar" value="true" />
+	
+	<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
+		ajax="false" value="Imprimir" action="#{managedBean.imprimir()}"
+		disabled="#{empty managedBean.listaPesquisa}" icon="ui-icon-print"
+		styleClass="ui-priority-primary" immediate="true" />
+
+	<ss:button id="btnCancelar" type="cancelar"
+		managedBean="#{managedBean}" update=":form" />
+
 
 	<ui:define name="grid_region">
 
 		<p:dataTable id="rowEditingTable" var="item"
-			value="#{boletimControlador.listaPesquisa}" paginator="true" rows="15"
-			paginatorPosition="bottom" editable="true">
+			value="#{boletimControlador.listaPesquisa}" paginator="true"
+			rows="15" paginatorPosition="bottom" editable="true">
 
-			<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
+			<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}"
+				update=":form:msg" />
 
 			<f:facet name="header">  
             Boletim do aluno   #{boletimControlador.entidade.matricula.aluno.nome}
