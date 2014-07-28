@@ -1,6 +1,5 @@
 package br.com.ss.academico.controlador;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.faces.model.SelectItem;
 
 import net.sf.jasperreports.engine.JRException;
 import br.com.ss.academico.dominio.Aluno;
-import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Responsavel;
 import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.academico.servico.AlunoServico;
@@ -21,6 +19,7 @@ import br.com.ss.academico.servico.ResponsavelServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.enumerated.UF;
 import br.com.ss.core.web.utils.StringUtil;
 
 @ManagedBean
@@ -39,17 +38,26 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	private List<SelectItem> grauParentescoList;
 
+	private List<SelectItem> ufList;
+
 	private List<Responsavel> responsavelList;
-	
-	
+
 	/* --------- Overrides ------------------ */
 
 	@Override
 	public void init() {
 		grauParentescoList = createGrauParentescoList();
 		this.responsaveis = new ArrayList<Responsavel>();
+		this.ufList = createUFList();
 	}
 
+	private List<SelectItem> createUFList() {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for (UF c : UF.values()) {
+			list.add(new SelectItem(c.getId(), c.getDescricao()));
+		}
+		return list;
+	}
 
 	@Override
 	protected IService<Aluno, Long> getService() {
@@ -67,13 +75,13 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	}
 
 	/**
-	 * Lista os Responsaveis - para a lista do auto-complete da tela de pesquisa.
+	 * Lista os Responsaveis - para a lista do auto-complete da tela de
+	 * pesquisa.
 	 */
 	public List<Responsavel> listarResponsavel(String nome) {
 		responsavelList = responsavelServico.findByNomeLike(nome);
 		return responsavelList;
 	}
-
 
 	public String novo() {
 		this.responsaveis = responsavelServico.listarTodos();
@@ -85,14 +93,15 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		return super.detalhe(aluno);
 	}
 
-
 	public String salvar() {
-		
+
 		if (isDataFuturo(entidade.getDataNascimento())) {
-			showMessage(Constants.MSG_WARN_VALIDACAO, "Data de Nascimento é maior que a data atual." , FacesMessage.SEVERITY_WARN);
+			showMessage(Constants.MSG_WARN_VALIDACAO,
+					"Data de Nascimento é maior que a data atual.",
+					FacesMessage.SEVERITY_WARN);
 			return null;
 		}
-		
+
 		if (this.entidade.getDataCadastro() == null) {
 			this.entidade.setDataCadastro(new Date());
 		}
@@ -105,14 +114,9 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		return super.salvar();
 	}
 
-
-	public void imprimirContratoold(Matricula matricula) throws FileNotFoundException, JRException {
-		// FIXME #Peninha validar/remover se nao precisar mais desse metodo
-		List<Matricula> listMat = new ArrayList<Matricula>();
-		listMat.add(matricula);
-		relatorioUtil.gerarRelatorioWeb(listMat, null, "contrato.jasper");
+	public void imprimirFicha() throws JRException {
+		this.imprimir(this.entidade, "ficha.jasper");
 	}
-	
 
 	private List<SelectItem> createGrauParentescoList() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
@@ -122,9 +126,8 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		return list;
 	}
 
-	
-	/* --------------- Gets/Sets ----------------------*/
-	
+	/* --------------- Gets/Sets ---------------------- */
+
 	public Aluno getEntidade() {
 		return entidade;
 	}
@@ -171,6 +174,10 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	public List<Responsavel> getResponsavelList() {
 		return responsavelList;
+	}
+
+	public List<SelectItem> getUfList() {
+		return ufList;
 	}
 
 }
