@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,12 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	private List<SelectItem> statusList;
 
 	private List<SelectItem> turnoList;
+	
+	private Date dataInicial;
+	
+	private Date dataFinal;
+	
+	public static final String ANIVERSARIANTE = "aniversariante";
 
 	private static final String PATH_REPORT = "resources" + File.separator + "jasper" + File.separator;
 
@@ -233,6 +240,22 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setServicoMensalidade(MensalidadeServico servicoMensalidade) {
 		this.servicoMensalidade = servicoMensalidade;
+	}
+
+	public Date getDataInicial() {
+		return dataInicial;
+	}
+
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+
+	public Date getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
 	}
 
 }
