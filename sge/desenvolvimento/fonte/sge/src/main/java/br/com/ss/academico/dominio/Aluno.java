@@ -26,7 +26,9 @@ import org.hibernate.validator.constraints.br.CPF;
 import br.com.ss.academico.enumerated.GrauParentesco;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.web.annotation.Cep;
+import br.com.ss.core.web.enumerated.NaoSim;
 import br.com.ss.core.web.enumerated.Sexo;
+import br.com.ss.core.web.enumerated.UF;
 
 /**
  * The persistent class for the iansa_aluno database table.
@@ -52,7 +54,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(length = 9)
 	private String cep;
 
-	@CPF(message="CPF inválido")
+	@CPF(message = "CPF inválido")
 	@Column(length = 14, nullable = true)
 	private String cpf;
 
@@ -67,12 +69,18 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
 
-	@Email(message="E-mail inválido", regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+	@Email(message = "E-mail inválido", regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
 	@Column(length = 60, nullable = true)
 	private String email;
 
 	@Column(nullable = false, length = 60)
 	private String endereco;
+
+	@Column(nullable = false, length = 10)
+	private String numero;
+
+	@Column(nullable = false, length = 100)
+	private String complemento;
 
 	@Column(length = 9)
 	private String foneResidencial;
@@ -80,8 +88,37 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String nome;
 
+	@Enumerated
+	@Column(nullable = false, length = 1)
+	private NaoSim alergia;
+
+	@Column(length = 200)
+	private String descricaoAlegia;
+
+	@Column(length = 200)
+	private String descricaoRemedio;
+
 	@Column(length = 10)
 	private String rg;
+
+	@Column(length = 60)
+	private String pai;
+
+	@Column(length = 60)
+	private String mae;
+
+	@Column(length = 12)
+	private String fonePai;
+
+	@Column(length = 12)
+	private String foneMae;
+
+	@Column(length = 30)
+	private String naturalidade;
+
+	@Enumerated
+	@Column(nullable = false, length = 2)
+	private UF uf;
 
 	@Enumerated
 	@Column(nullable = false, length = 1)
@@ -203,6 +240,78 @@ public class Aluno extends AbstractEntity implements Serializable {
 		this.rg = rg;
 	}
 
+	public String getPai() {
+		return pai;
+	}
+
+	public void setPai(String pai) {
+		this.pai = pai;
+	}
+
+	public String getMae() {
+		return mae;
+	}
+
+	public void setMae(String mae) {
+		this.mae = mae;
+	}
+
+	public String getFonePai() {
+		return fonePai;
+	}
+
+	public void setFonePai(String fonePai) {
+		this.fonePai = fonePai;
+	}
+
+	public String getFoneMae() {
+		return foneMae;
+	}
+
+	public void setFoneMae(String foneMae) {
+		this.foneMae = foneMae;
+	}
+
+	public NaoSim getAlergia() {
+		return alergia;
+	}
+
+	public void setAlergia(NaoSim alergia) {
+		this.alergia = alergia;
+	}
+
+	public String getDescricaoAlegia() {
+		return descricaoAlegia;
+	}
+
+	public void setDescricaoAlegia(String descricaoAlegia) {
+		this.descricaoAlegia = descricaoAlegia;
+	}
+
+	public String getDescricaoRemedio() {
+		return descricaoRemedio;
+	}
+
+	public String getNaturalidade() {
+		return naturalidade;
+	}
+
+	public void setNaturalidade(String naturalidade) {
+		this.naturalidade = naturalidade;
+	}
+
+	public UF getUf() {
+		return uf;
+	}
+
+	public void setUf(UF uf) {
+		this.uf = uf;
+	}
+
+	public void setDescricaoRemedio(String descricaoRemedio) {
+		this.descricaoRemedio = descricaoRemedio;
+	}
+
 	public GrauParentesco getGrauParentesco() {
 		return grauParentesco;
 	}
@@ -225,5 +334,21 @@ public class Aluno extends AbstractEntity implements Serializable {
 
 	public void setMatriculas(List<Matricula> matriculas) {
 		this.matriculas = matriculas;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 }
