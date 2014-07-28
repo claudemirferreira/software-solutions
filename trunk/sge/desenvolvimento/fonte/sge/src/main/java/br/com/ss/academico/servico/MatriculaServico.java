@@ -1,5 +1,6 @@
 package br.com.ss.academico.servico;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -19,5 +20,8 @@ public interface MatriculaServico extends IService<Matricula, Long> {
 	public List<Matricula> listaMatriculasPorTurma(Turma turma);
 
 	public List<Observacao> loadObservacoes(Matricula entidade);
+	
+	public List<Matricula> listarAniversariantes(Date dataInicial,
+			Date dataFinal);
 	
 }

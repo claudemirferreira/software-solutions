@@ -43,6 +43,7 @@ import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.enumerated.NaoSim;
 import br.com.ss.core.web.enumerated.Sexo;
 import br.com.ss.core.web.ireport.RelatorioUtil;
 import br.com.ss.core.web.utils.DateUtil;
@@ -52,7 +53,8 @@ import br.com.ss.core.web.utils.ReflectionsUtil;
 import com.lowagie.text.DocumentException;
 
 @Named
-public abstract class ControladorGenerico<T extends AbstractEntity> implements Serializable {
+public abstract class ControladorGenerico<T extends AbstractEntity> implements
+		Serializable {
 
 	private static final long serialVersionUID = -1229239475130268144L;
 
@@ -72,10 +74,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	protected RelatorioUtil relatorioUtil;
-	
 
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> sexoList;
+
+	// FIXME deve ficar no contexto de app - criar classe
+	protected List<SelectItem> alergiaList;
 
 	/**
 	 * Alias para redirecionar para a tela de cadastro.
@@ -86,7 +90,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * Alias para redirecionar para a tela de pesquisa.
 	 */
 	public static final String PESQUISA = "pesquisa";
-	
 
 	/**
 	 * Alias para redirecionar para a tela de relatorio.
@@ -97,23 +100,21 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * armazena os bytes do relatorio
 	 */
 	private StreamedContent inputStream;
-	
-	
-	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
-	
-	/** Resource path dos relatorio: /resources/jasper/ */
-	private static final String PATH_REPORT = "resources" + File.separator+ "jasper" + File.separator;
 
+	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
+
+	/** Resource path dos relatorio: /resources/jasper/ */
+	private static final String PATH_REPORT = "resources" + File.separator
+			+ "jasper" + File.separator;
 
 	/* ------ Parametros para o Relatório ----------- */
 	/** Parametro para o relatorio. */
 	private static final String REPORT_TITLE = "report_title";
 	private static final String USUARIO = "usuario";
 	private static final String EMPRESA = "empresa";
-	
-	
+
 	/* ---------- Metodos ----------------------- */
-	
+
 	@PostConstruct
 	protected void setup() {
 		initEntity();
@@ -127,6 +128,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		sexoList = new ArrayList<SelectItem>();
 		for (Sexo c : Sexo.values()) {
 			sexoList.add(new SelectItem(c, c.getDescricao()));
+		}
+
+		alergiaList = new ArrayList<SelectItem>();
+		for (NaoSim c : NaoSim.values()) {
+			alergiaList.add(new SelectItem(c, c.getDescricao()));
 		}
 
 	}
@@ -164,7 +170,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	/** Título do relatório utilizado na impressão. */
 	protected abstract String getTituloRelatorio();
-	
+
 	/** Retornar o serviço da entidade. */
 	protected abstract IService<T, Long> getService();
 
@@ -172,10 +178,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		this.listaPesquisa = getService().pesquisar(pesquisa);
 	}
 
-
 	/**
 	 * Faz a persistencia da entidade gerenciada.
-	 * @param url URL de retorno.
+	 * 
+	 * @param url
+	 *            URL de retorno.
 	 * @return String URL
 	 */
 	public String salvar(String url) {
@@ -183,20 +190,20 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			getService().salvar(entidade);
 			setup();
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
-			
+
 			if (url != null) {
 				return url;
 			}
-			
+
 			return redirect(PESQUISA);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Faz a persistencia da entidade gerenciada.
 	 */
@@ -211,16 +218,16 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	public void excluir() {
 		try {
-			
+
 			executarExcluir(itemToRemove);
 			pesquisar();
 			setItemToRemove(null);
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
-			
+
 		} catch (Exception e) {
 			String msg = Constants.MSG_ERRO;
 			Throwable throwableCause = e.getCause();
-			if ( throwableCause instanceof PersistenceException ) {
+			if (throwableCause instanceof PersistenceException) {
 				msg = Constants.MSG_ERRO_FK_CONSTRAINT;
 			}
 			e.printStackTrace();
@@ -245,17 +252,21 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	private String redirect(String page) {
 		try {
-			
-			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-			HttpServletRequest request = (HttpServletRequest) context.getRequest();
-			
+
+			ExternalContext context = FacesContext.getCurrentInstance()
+					.getExternalContext();
+			HttpServletRequest request = (HttpServletRequest) context
+					.getRequest();
+
 			String fullUrl = request.getRequestURL().toString();
-			String path = fullUrl.substring(0, fullUrl.lastIndexOf(Constants.BARRA));
-			String url = path + Constants.BARRA + page + Constants.EXTENSION + Constants.REDIRECT;
-			
+			String path = fullUrl.substring(0,
+					fullUrl.lastIndexOf(Constants.BARRA));
+			String url = path + Constants.BARRA + page + Constants.EXTENSION
+					+ Constants.REDIRECT;
+
 			context.redirect(url);
 			FacesContext.getCurrentInstance().responseComplete();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -292,10 +303,22 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * Impressao de um item selecionado no grid de pesquisa.
 	 * 
 	 * @param entity
+	 * @throws JRException
 	 */
-	public void imprimir(T entity) {
-		// FIXME #Peninha: implementar: metodo para imprimir do grid de pesquisa
-		// usar em telas como: matricula, aluno..
+	public void imprimir(T entity, String nomeRelatorio) throws JRException {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
+
+		// parametros usados no relatorio
+		param.put(REPORT_TITLE, getTituloRelatorio());
+		param.put(EMPRESA, empresa);
+		param.put(USUARIO, getUsuarioLogado());
+
+		List<T> listaPesquisa = new ArrayList<T>();
+
+		listaPesquisa.add(entity);
+
+		gerarRelatorioWeb(listaPesquisa, param, nomeRelatorio);
 	}
 
 	/**
@@ -304,51 +327,58 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	 * @throws FileNotFoundException
 	 * @throws DocumentException
 	 * @throws IOException
-	 * @throws JRException 
+	 * @throws JRException
 	 */
-	
-	public void imprimir() throws FileNotFoundException, IOException, DocumentException, JRException {
-		Map<String, Object> param =  new HashMap<String, Object>();
+
+	public void imprimir() throws FileNotFoundException, IOException,
+			DocumentException, JRException {
+		Map<String, Object> param = new HashMap<String, Object>();
 		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
-		
+
 		// parametros usados no relatorio
 		param.put(REPORT_TITLE, getTituloRelatorio());
 		param.put(EMPRESA, empresa);
 		param.put(USUARIO, getUsuarioLogado());
 
 		gerarRelatorioWeb(this.listaPesquisa, param, getNomeRelatorioJasper());
-		
+
 	}
 
-	
-	public void gerarRelatorioWeb(List<T> lista, Map<String, Object> parametros, String nomeRelatorio) throws JRException {
+	public void gerarRelatorioWeb(List<T> lista,
+			Map<String, Object> parametros, String nomeRelatorio)
+			throws JRException {
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
 
 		BufferedOutputStream output = null;
 		BufferedInputStream input = null;
-		
+
 		String webPath = context.getExternalContext().getRealPath("/");
 		String reportPath = webPath + PATH_REPORT + nomeRelatorio;
 
 		try {
 
-			input = new BufferedInputStream(new FileInputStream(reportPath), DEFAULT_BUFFER_SIZE);
+			input = new BufferedInputStream(new FileInputStream(reportPath),
+					DEFAULT_BUFFER_SIZE);
 
 			File fileReport = new File(reportPath);
 
 			response.reset();
 			response.setHeader("Content-Type", "application/pdf");
-			response.setHeader("Content-Length", String.valueOf(fileReport.length()));
-			response.setHeader("Content-Disposition", "inline; filename=\""	+ fileReport.getName() + "\"");
+			response.setHeader("Content-Length",
+					String.valueOf(fileReport.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\""
+					+ fileReport.getName() + "\"");
 
 			JasperRunManager.runReportToPdfStream(new FileInputStream(
 					fileReport), response.getOutputStream(), parametros, jrRS);
 
-			output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
+			output = new BufferedOutputStream(response.getOutputStream(),
+					DEFAULT_BUFFER_SIZE);
 
 			// Write file contents to response.
 			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
@@ -360,7 +390,8 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			// Finalize task.
 			output.flush();
 		} catch (FileNotFoundException e) {
-			System.out.println("Erro : Relatorio não foi encontrado: " + reportPath);
+			System.out.println("Erro : Relatorio não foi encontrado: "
+					+ reportPath);
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -374,8 +405,8 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 		context.responseComplete();
 	}
 
-
-	public void imprimir(List<?> lista, Map<String, Object> params, String nomeRelatorio) {
+	public void imprimir(List<?> lista, Map<String, Object> params,
+			String nomeRelatorio) {
 
 		try {
 			byte[] dadosPdf = relatorioUtil.gerarRelatorioWebBytes(lista,
@@ -388,9 +419,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	/* -------- Metodos utilitarios -------------- */
 
 	protected void showMessage(String msg, Severity severityInfo) {
@@ -403,6 +432,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	/**
 	 * Retorna o usuário logado.
+	 * 
 	 * @return Usuario
 	 */
 	public Usuario getUsuarioLogado() {
@@ -422,9 +452,6 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 	}
 
 	/* ---------- Others ------------- */
-	
-	
-	
 
 	/* ---------- Gets/Sets ------------- */
 
@@ -454,6 +481,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements S
 
 	public List<SelectItem> getSexoList() {
 		return sexoList;
+	}
+
+	public List<SelectItem> getAlergiaList() {
+		return alergiaList;
 	}
 
 	public RelatorioUtil getRelatorioUtil() {

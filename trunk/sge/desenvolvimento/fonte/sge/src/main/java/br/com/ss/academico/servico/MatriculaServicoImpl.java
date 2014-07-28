@@ -1,5 +1,6 @@
 package br.com.ss.academico.servico;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,12 @@ public class MatriculaServicoImpl extends ServicoImpl<Matricula, Long> implement
 	@Override
 	public List<Observacao> loadObservacoes(Matricula matricula) {
 		return repositorioHql.loadObservacoes(matricula);
+	}
+
+	@Override
+	public List<Matricula> listarAniversariantes(Date dataInicial,
+			Date dataFinal) {
+		return repositorioHql.listarAniversariantes(dataInicial, dataFinal);
 	}
 
 }
