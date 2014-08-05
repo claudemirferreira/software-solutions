@@ -45,6 +45,9 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	@Column(nullable = false)
 	private Integer numeroVagas;
+	
+	@Column(nullable = false, length = 10)
+	private String sala;
 
 	@Enumerated
 	@Column(length = 1, nullable = false)
@@ -143,6 +146,14 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
+	}
+
+	public String getSala() {
+		return sala;
+	}
+
+	public void setSala(String sala) {
+		this.sala = sala;
 	}
 
 }
