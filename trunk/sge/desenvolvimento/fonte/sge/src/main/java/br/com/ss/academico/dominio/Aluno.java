@@ -79,7 +79,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 10)
 	private String numero;
 
-	@Column(nullable = false, length = 100)
+	@Column( length = 100)
 	private String complemento;
 
 	@Column(length = 9)

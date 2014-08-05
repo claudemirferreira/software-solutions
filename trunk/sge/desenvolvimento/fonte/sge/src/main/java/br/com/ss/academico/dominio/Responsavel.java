@@ -39,7 +39,7 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(length = 8)
+	@Column(length = 9)
 	private String celular;
 
 	@Column(nullable = true, length = 9)
