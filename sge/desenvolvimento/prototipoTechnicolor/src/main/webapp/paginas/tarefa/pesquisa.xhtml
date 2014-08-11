@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet"
+		href="resources/estilos/style-custon.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+body {
+	background-color: #eeeeee;
+	font-size: 12px;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+</style>
+
+</h:head>
+<h:body>
+	<h:form id="menuForm">
+
+		<div style="width: 100.4%;">
+			<ui:include src="../../menu.xhtml" />
+		</div>
+
+		<p:panel header="Pesquisa de Solicitações" style="width:99.5%;" id="painel">
+			<h:panelGrid columns="4" cellpadding="2">
+				
+				<p:outputLabel value="Protocolo: " styleClass="ui-priority-primary" />
+				<p:inputText />
+
+				<br/>
+				<br/>
+				
+				<f:facet name="footer">
+					<p:commandButton id="buttonPesquisar" value="Pesquisar"
+						icon="ui-icon-search"
+						styleClass="ui-priority-primary" />
+				</f:facet>
+
+			</h:panelGrid>
+		</p:panel>	
+		
+		<p:panel header="Listagem de Tarefas Pendentes">
+			<p:dataTable id="panelGrid" var="item"
+				value="#{tarefaControlador.lista}" rows="10" paginator="true"
+				paginatorPosition="bottom" paginatorAlwaysVisible="true"
+				emptyMessage="Nenhum registro encontrado."
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15,20">
+
+				<p:column style="text-align:left; width:100px">
+					<f:facet name="header" style="text-align:left;">
+						<h:outputText value="Protocolo" />
+					</f:facet>
+					<h:outputText value="#{item.protocolo}" />
+				</p:column>
+
+				<p:column style="text-align:left" headerText="Usuário">
+					<h:outputText value="#{item.usuario}" />
+				</p:column>
+
+				<p:column style="text-align:left" headerText="Descrição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+
+				<p:column style="text-align:left" headerText="Data do Recebimento">
+					<h:outputText value="#{item.data}">
+						<f:convertDateTime pattern="MM/dd/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="text-align:center; width:100px"
+					headerText="Detalhe">
+					<p:commandButton action="#{tarefaControlador.detalhe(item)}"
+						icon="ui-icon-search" title="Detalhe"
+						styleClass="ui-priority-primary" />
+
+				</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+
+	</h:form>
+
+</h:body>
+</html>

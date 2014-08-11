@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet"
+		href="resources/estilos/style-custon.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+body {
+	background-color: #eeeeee;
+	font-size: 12px;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+</style>
+
+</h:head>
+<h:body>
+	<h:form id="menu1Form">
+
+		<div style="height: 80px; width: 100.4%; clear: both;">
+			<p:graphicImage value="../../resources/imagens/logoTechnicolor.jpg"
+				title="Início" width="100%" height="110%" />
+		</div>
+
+		<div>
+			<p:growl id="messages" />
+
+			<p:menubar style="width:99.5%">
+				<p:menuitem value="Documento Público" icon="ui-icon-close"
+					url="/paginas/documentopublico/pesquisa.xhtml" />
+
+				<p:menuitem value="Meus Documentos" icon="ui-icon-close"
+					url="/paginas/meusdocumentos/pesquisa.xhtml" />
+
+				<p:menuitem value="Tarefas" icon="ui-icon-close"
+					url="/paginas/tarefa/pesquisa.xhtml" />
+
+				<p:menuitem value="Confirmação de Leitura" icon="ui-icon-close"
+					url="/paginas/confirmacaoleitura/pesquisa.xhtml" />
+
+				<p:menuitem value="Solicitação" icon="ui-icon-close"
+					url="/paginas/solicitacao/pesquisa.xhtml" />
+
+			</p:menubar>
+			
+		</div>
+
+		
+	</h:form>
+</h:body>
+</html>
