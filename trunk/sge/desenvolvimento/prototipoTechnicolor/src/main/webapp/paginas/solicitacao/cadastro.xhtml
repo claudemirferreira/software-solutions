@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet"
+		href="resources/estilos/style-custon.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+body {
+	background-color: #eeeeee;
+	font-size: 12px;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+</style>
+
+</h:head>
+<h:body>
+	<h:form id="menuForm">
+
+		<div style="width: 100.4%;">
+			<ui:include src="../../menu.xhtml" />
+		</div>
+
+		<p:panel header="Nova Solicitação">
+			<h:panelGrid cellpadding="4" cellspacing="4" columns="4">
+
+				<h:outputText value="Revisor *" styleClass="ui-priority-primary" />
+
+				<h:outputText value="Aprovador *" styleClass="ui-priority-primary" />
+
+				<h:outputText value="Homologador *" styleClass="ui-priority-primary" />
+
+				<h:outputText value="Autor *" styleClass="ui-priority-primary" />
+
+				<p:selectOneMenu value="#{processoControle.revisor1.userName}">
+					<f:selectItem itemLabel="Marcos Oliveira"
+						itemValue="marcos" />
+					<f:selectItem itemLabel="Carlos Eduardo Fernandes" itemValue="marcos" />
+					<f:selectItem itemLabel="Danni Bastos " itemValue="marcos" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu value="#{processoControle.revisor1.userName}">
+					<f:selectItem itemLabel="Marcos Oliveira"
+						itemValue="marcos" />
+					<f:selectItem itemLabel="Carlos Eduardo Fernandes" itemValue="marcos" />
+					<f:selectItem itemLabel="Danni Bastos " itemValue="marcos" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu value="#{processoControle.revisor1.userName}">
+					<f:selectItem itemLabel="Marcos Oliveira"
+						itemValue="marcos" />
+					<f:selectItem itemLabel="Carlos Eduardo Fernandes" itemValue="marcos" />
+					<f:selectItem itemLabel="Danni Bastos " itemValue="marcos" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu value="#{processoControle.revisor1.userName}">
+					<f:selectItem itemLabel="Marcos Oliveira"
+						itemValue="marcos" />
+					<f:selectItem itemLabel="Carlos Eduardo Fernandes" itemValue="marcos" />
+					<f:selectItem itemLabel="Danni Bastos " itemValue="marcos" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<h:panelGrid cellpadding="4" cellspacing="4" style="width:99%; ">
+			
+				<h:outputText value="Descrição *" styleClass="ui-priority-primary" />
+				<p:inputTextarea rows="3" value="#{processoControle.descricao}"
+					maxlength="255" style="width:99%; " id="descricao"
+					autoResize="false" required="true"
+					requiredMessage="A descrição deve ser informada." />
+
+				<h:outputText value="Selecione os grupos a serem notificados: * *"
+					styleClass="ui-priority-primary" />
+					
+				<p:pickList id="pickList" value="#{pickListView.cities}" var="cities"
+				itemLabel="#{cities}" itemValue="#{cities}" style="height: 100px;"/>
+
+			</h:panelGrid>
+			
+			<p:commandButton id="btnCancelar" value="Cancelar"
+				action="#{solicitacaoControlador.telaPesquisa}" immediate="true"
+				icon="ui-icon-close" styleClass="ui-priority-primary" />
+				
+			<p:commandButton id="btnAvancar" value="Avançar"
+				action="#{solicitacaoControlador.avancar}" immediate="true"
+				icon="ui-icon-circle-arrow-e" styleClass="ui-priority-primary" />
+			
+		</p:panel>
+
+
+	</h:form>
+
+</h:body>
+</html>
