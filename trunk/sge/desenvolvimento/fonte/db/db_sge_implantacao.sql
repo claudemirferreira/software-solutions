@@ -350,7 +350,7 @@ DROP TABLE IF EXISTS `acad_responsavel`;
 CREATE TABLE `acad_responsavel` (
   `id_responsavel` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(8) DEFAULT NULL,
+  `celular` varchar(9) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `cpf` varchar(14) NOT NULL,
   `data_nascimento` datetime DEFAULT NULL,
