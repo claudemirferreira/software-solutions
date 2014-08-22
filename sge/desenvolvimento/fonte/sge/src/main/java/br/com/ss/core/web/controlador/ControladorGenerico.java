@@ -339,7 +339,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 		param.put(REPORT_TITLE, getTituloRelatorio());
 		param.put(EMPRESA, empresa);
 		param.put(USUARIO, getUsuarioLogado());
-
+		
 		gerarRelatorioWeb(this.listaPesquisa, param, getNomeRelatorioJasper());
 
 	}

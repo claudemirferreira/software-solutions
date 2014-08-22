@@ -51,6 +51,9 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 
 	@ManagedProperty(value = "#{alunoServicoImpl}")
 	private AlunoServico alunoServico;
+	
+	@ManagedProperty(value = "#{alunoControlador}")
+	private AlunoControlador alunoControlador;
 
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico cursoServico;
@@ -85,6 +88,10 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	@Override
 	protected String getNomeRelatorioJasper() {
 		return "turma.jasper";
+	}
+	
+	protected String getNomeRelatorioJasperAlunos() {
+		return "aluno.jasper";
 	}
 
 	@Override
@@ -187,18 +194,27 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 		return situacoes;
 	}
 
-	public void imprimirAluno() throws FileNotFoundException, IOException,
-			DocumentException, JRException {
+	public AlunoControlador getAlunoControlador() {
+		return alunoControlador;
+	}
+
+	public void setAlunoControlador(AlunoControlador alunoControlador) {
+		this.alunoControlador = alunoControlador;
+	}
+	
+	public void imprimirAlunosTurma() throws FileNotFoundException, IOException, DocumentException, JRException{
+		
+		this.alunoControlador.setAlunosTurma(this.listaAluno);
+		this.alunoControlador.imprimir();
+		
 		Map<String, Object> param = new HashMap<String, Object>();
 		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 
 		// parametros usados no relatorio
-		param.put("report_title", getTituloRelatorio());
-		param.put("empresa", empresa);
-		param.put("usuario", getUsuarioLogado());
-
+		param.put("aa", getTituloRelatorio());
 		
-
+		this.alunoControlador.imprimir(this.listaAluno, param, getNomeRelatorioJasperAlunos());
+		
 	}
-	
+
 }

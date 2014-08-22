@@ -39,7 +39,7 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		if ( notEmpty(entity.getStatusPagamento()) ) {
 			condictions.add(" men.statusPagamento = :statusPagamento ");
 		}
-		if ( notEmpty(tipoPesquisaData)) {
+/*		if ( notEmpty(tipoPesquisaData)) {
 			if ( tipoPesquisaData == TipoPesquisaData.VECIMENTO ) {
 				if (notEmpty(dataInicio)) {
 					condictions.add(" men.dataVencimento >= :dataInicio ");
@@ -55,9 +55,9 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 					condictions.add(" men.dataPagamento <= :dataFim ");
 				}
 			}
-		}
+		}*/
 		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc, men.matricula.turma.curso.nome ";
-		
+		System.out.println("SQL = " + generateHql(sb.toString(), condictions) + orderBy);
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
 		if ( notEmpty(entity.getMatricula().getAluno()) ) {
 			query.setParameter("aluno", entity.getMatricula().getAluno());
@@ -69,9 +69,9 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 				&& entity.getMatricula().getIdMatricula() > 0 ) {
 			query.setParameter("idMatricula", entity.getMatricula().getIdMatricula());
 		}
-		if ( notEmpty(tipoPesquisaData)) {
+		/*if ( notEmpty(tipoPesquisaData)) {
 			if (notEmpty(dataInicio)) {
-				query.setParameter("dataInicio", dataInicio);
+				query.setParameter("dataInicio",dataInicio);
 			}
 			if (notEmpty(dataFim)) {
 				query.setParameter("dataFim", dataFim);
@@ -79,7 +79,7 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 			if (notEmpty(entity.getDataPagamento())) {
 				
 			}
-		}
+		}*/
 		return query.getResultList();
 	}
 
@@ -100,7 +100,7 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		}
 		
 		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc, men.matricula.turma.curso.nome ";
-		
+		System.out.println("SQL = " + generateHql(sb.toString(), condictions) + orderBy);
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
 		query.setParameter("pendente", StatusPagamento.PENDENTE );
 		query.setParameter("hoje", hoje );

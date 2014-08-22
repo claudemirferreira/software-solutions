@@ -180,4 +180,8 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		return ufList;
 	}
 
+	public void setAlunosTurma(List<Aluno> alunos) {
+		this.listaPesquisa = alunos;
+	}
+
 }

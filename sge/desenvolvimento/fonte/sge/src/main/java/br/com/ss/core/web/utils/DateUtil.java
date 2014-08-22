@@ -51,6 +51,9 @@ public class DateUtil {
     public static final String PATTERN_DATA_DIA_MES_ANO = "dd/MM/yyyy";
     
     /** Pattern para exibir datas no formato default. */
+    public static final String PATTERN_DATA_ANO_MES_DIA = "yyyy/MM/dd";
+    
+    /** Pattern para exibir datas no formato default. */
     public static final String PATTERN_HORA = "HH:mm";
     
     /**
@@ -394,7 +397,17 @@ public class DateUtil {
         DateUtil.formatador.applyPattern( PATTERN_DATA_DIA_MES_ANO );
         return DateUtil.formatador.format( data );
     }
-     
+
+    
+    /**
+     * Formata a data no formato: yyyy/MM/dd.
+     * @param data
+     * @return
+     */
+    public static String yyyyMMdd( Date data ) {
+        DateUtil.formatador.applyPattern( PATTERN_DATA_ANO_MES_DIA );
+        return DateUtil.formatador.format( data );
+    }
 
     /**
      * Recupera a data como String no formato yyyy-mm-dd.

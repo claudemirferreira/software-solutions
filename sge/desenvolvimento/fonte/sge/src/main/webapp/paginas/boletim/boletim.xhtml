@@ -15,19 +15,17 @@
 	<ui:param name="pageHeader" value="Boletim" />
 	<ui:param name="managedBean" value="#{boletimControlador}" />
 	<ui:param name="renderSearch" value="false" />
-	
-	<ui:param name="renderCancelar" value="true" />
-	
-	<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
-		ajax="false" value="Imprimir" action="#{managedBean.imprimir()}"
-		disabled="#{empty managedBean.listaPesquisa}" icon="ui-icon-print"
-		styleClass="ui-priority-primary" immediate="true" />
 
-	<ss:button id="btnCancelar" type="cancelar"
-		managedBean="#{managedBean}" update=":form" />
+	<ui:param name="renderCancelar" value="true" />
+
+
 
 
 	<ui:define name="grid_region">
+		<p:commandButton id="btnImprimirr" onclick="form.target='_blank'"
+			ajax="false" value="Imprimir" action="#{managedBean.imprimir()}"
+			disabled="false" icon="ui-icon-print"
+			styleClass="ui-priority-primary" immediate="true" />
 
 		<p:dataTable id="rowEditingTable" var="item"
 			value="#{boletimControlador.listaPesquisa}" paginator="true"
