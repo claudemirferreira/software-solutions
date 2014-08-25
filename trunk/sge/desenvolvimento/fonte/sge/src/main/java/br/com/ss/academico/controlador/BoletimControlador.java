@@ -165,8 +165,8 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		for (Boletim bol : listaPesquisa) {
 			bol.getDisciplina();
 		}
-
-		return "boletim";
+		
+		return "boletim?faces-redirect=true";
 	}
 
 	public void onEdit(RowEditEvent event) {
