@@ -205,7 +205,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	public void imprimirAlunosTurma() throws FileNotFoundException, IOException, DocumentException, JRException{
 		
 		this.alunoControlador.setAlunosTurma(this.listaAluno);
-		this.alunoControlador.imprimir();
+//		this.alunoControlador.imprimir();
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
@@ -213,7 +213,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 		// parametros usados no relatorio
 		param.put("aa", getTituloRelatorio());
 		
-		this.alunoControlador.imprimir(this.listaAluno, param, getNomeRelatorioJasperAlunos());
+		this.alunoControlador.imprimir(this.listaAluno, param, "turma-aluno.jasper");
 		
 	}
 
