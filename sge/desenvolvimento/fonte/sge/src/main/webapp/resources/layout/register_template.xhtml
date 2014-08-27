@@ -25,7 +25,12 @@
   		<c:if test="#{empty renderCancelar}" >
   			<c:set var="renderCancelar" value="true" />
   		</c:if>
-  		  
+  		
+  		<c:if test="#{empty disabledBtnSalvar}" >
+  			<c:set var="disabledBtnSalvar" value="false" />
+  		</c:if>
+  		
+  		
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
   		
   		<div class="mainForm">
@@ -64,13 +69,15 @@
 				</h:panelGrid>
 					
 				<!-- ==== Button ======= -->
-				<h:panelGrid columns="2" cellpadding="2" style="padding: 2px 0px 0px 4px;">
+				<h:panelGrid columns="4" cellpadding="2" style="padding: 2px 0px 0px 4px;">
 				
 					<c:if test="#{renderCancelar}">
 						<ss:button id="btnCancelar" type="cancelar" managedBean="#{managedBean}" update=":form" />
 					</c:if>
 					
-					<ss:button id="btnSalvar" type="salvar" managedBean="#{managedBean}" update=":form :form:msg" />
+					<ss:button id="btnSalvar" disabledBtn="#{disabledBtnSalvar}" type="salvar" managedBean="#{managedBean}" update=":form :form:msg" />
+					
+					<ui:insert name="aditional_button_region" />
 					
 				</h:panelGrid>
 				

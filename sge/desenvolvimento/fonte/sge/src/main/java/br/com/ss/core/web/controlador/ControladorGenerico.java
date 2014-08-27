@@ -101,17 +101,17 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	 */
 	private StreamedContent inputStream;
 
-	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
+	protected static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
 	/** Resource path dos relatorio: /resources/jasper/ */
-	private static final String PATH_REPORT = "resources" + File.separator
+	protected static final String PATH_REPORT = "resources" + File.separator
 			+ "jasper" + File.separator;
 
 	/* ------ Parametros para o Relatório ----------- */
 	/** Parametro para o relatorio. */
-	private static final String REPORT_TITLE = "report_title";
-	private static final String USUARIO = "usuario";
-	private static final String EMPRESA = "empresa";
+	protected static final String REPORT_TITLE = "report_title";
+	protected static final String USUARIO = "usuario";
+	protected static final String EMPRESA = "empresa";
 
 	/* ---------- Metodos ----------------------- */
 
@@ -390,8 +390,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 			// Finalize task.
 			output.flush();
 		} catch (FileNotFoundException e) {
-			System.out.println("Erro : Relatorio não foi encontrado: "
-					+ reportPath);
+			System.out.println("Erro : Relatorio não foi encontrado: " + reportPath);
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -507,7 +506,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 		this.inputStream = inputStream;
 	}
 
-	private static void close(Closeable resource) {
+	protected static void close(Closeable resource) {
 		if (resource != null) {
 			try {
 				resource.close();

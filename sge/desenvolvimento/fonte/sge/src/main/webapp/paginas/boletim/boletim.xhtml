@@ -9,52 +9,35 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
-	template="/resources/layout/search_template.xhtml">
+	template="/resources/layout/register_template.xhtml">
 
 	<ui:param name="pageTitle" value="Boletim" />
 	<ui:param name="pageHeader" value="Boletim" />
 	<ui:param name="managedBean" value="#{boletimControlador}" />
-	<ui:param name="renderSearch" value="false" />
+	<ui:param name="disabledBtnSalvar" value="true" />
 
-	<ui:define name="grid_region">
 
-		<h:panelGrid cellpadding="0" cellspacing="0">
-
-			<h:panelGrid columns="5" cellpadding="0" cellspacing="0"
-				style="margin-top: 10;">
-
-				<p:commandButton value="Retornar" ajax="false" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					actionListener="#{managedBean.cancelar()}" />
-
-				<p:spacer width="5px" />
-
-				<p:outputPanel autoUpdate="true">
-
-					<p:spacer width="5px" />
-
-					<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
-						ajax="false" value="Imprimir" action="#{managedBean.imprimir()}"
-						disabled="#{empty managedBean[listaPesquisa]}"
+	<ui:define name="aditional_button_region">
+	
+		<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
+						ajax="false" value="Imprimir" action="#{boletimControlador.imprimirBoletim()}"
 						icon="ui-icon-print" styleClass="ui-priority-primary"
 						immediate="true" />
+						
+	</ui:define>
 
-				</p:outputPanel>
-
-			</h:panelGrid>
-
-		</h:panelGrid>
+	
+	<ui:define name="register_region">
 
 		<p:dataTable id="rowEditingTable" var="item"
-			value="#{boletimControlador.listaPesquisa}" paginator="true"
-			rows="15" paginatorPosition="bottom" editable="true">
+					rows="15" paginatorPosition="bottom" editable="true">
+					value="#{boletimControlador.listaPesquisa}" paginator="true"
 
-			<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}"
-				update=":form:msg" />
+			<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
 
 			<f:facet name="header">  
-            Boletim do aluno   #{boletimControlador.entidade.matricula.aluno.nome}
-        </f:facet>
+	            Boletim do aluno:  #{boletimControlador.matriculaBoletim.aluno.nome}
+	        </f:facet>
 
 			<p:column headerText="Disciplina">
 				<h:outputText value="#{item.disciplina.nome}" />

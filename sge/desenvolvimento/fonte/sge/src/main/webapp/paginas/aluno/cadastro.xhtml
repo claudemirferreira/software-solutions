@@ -105,17 +105,21 @@
 				label="Descrição Alergia"
 				value="#{alunoControlador.entidade.descricaoAlegia}" />
 
-			<ss:input id="dercicaoRemedio" type="textarea"
-				label="Deescrição dos Remédios"
+			<ss:input id="descricaoRemedio" type="textarea"
+				label="Descrição dos Remédios"
 				value="#{alunoControlador.entidade.descricaoRemedio}" />
 
 		</h:panelGrid>
 
-		<p:commandButton value="Imprimir Ficha" ajax="false" immediate="true"
-			onclick="this.form.target='_blank'" icon="ui-icon-print"
-			styleClass="ui-priority-primary"
-			action="#{alunoControlador.imprimirFicha}" />
-
 	</ui:define>
-
+	
+	
+	<ui:define name="aditional_button_region">
+		
+		<p:commandButton value="Imprimir Ficha" ajax="false" immediate="true"
+				onclick="this.form.target='_blank'" icon="ui-icon-print"
+				styleClass="ui-priority-primary"
+				action="#{alunoControlador.imprimirFicha}" />
+	</ui:define>
+	
 </ui:composition>
