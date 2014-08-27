@@ -13,9 +13,9 @@
 
 	<ui:param name="pageTitle" value="Boletim" />
 	<ui:param name="pageHeader" value="Boletim" />
-	<ui:param name="managedBean" value="#{boletimControlador}" />
-	
 	<ui:param name="disabledBtnNew" value="true" />
+	<ui:param name="listaPesquisa" value="matriculas" />
+	<ui:param name="managedBean" value="#{boletimControlador}" />
 
 	<ui:define name="search_filter">
 
@@ -36,7 +36,7 @@
 			
 			<ss2:column value="#{item.status}" header="Status" sortBy="status" />
 			
-			<ss2:actionColumn managedBean="#{cursoControlador}" buttonsAdded="1" renderedDetail="false" renderedRemove="false" >
+			<ss2:actionColumn managedBean="#{boletimControlador}" buttonsAdded="1" renderedDetail="false" renderedRemove="false" >
 				<p:commandButton value="Boletim" title="Boletim"
 								action="#{boletimControlador.pesquisarBoletim(item)}"
 								icon="ui-icon-document" />
