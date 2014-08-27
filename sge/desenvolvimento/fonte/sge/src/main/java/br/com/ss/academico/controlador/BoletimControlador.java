@@ -151,16 +151,6 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	public String pesquisarBoletim(Matricula matricula) {
 
 		this.listaPesquisa = this.servico.pesquisarBoletim(matricula);
-
-//		if (this.listaPesquisa.size() == 0) {
-			
-			// FIXME... nao deve criar boletim neste momento - deve criar na matricula do aluno
-
-//			this.servico.gerarBoletim(matricula);
-//			this.listaPesquisa = this.servico.pesquisarBoletim(matricula);
-			
-
-//		}
 		
 		for (Boletim bol : listaPesquisa) {
 			bol.getDisciplina();
@@ -171,7 +161,7 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	public void onEdit(RowEditEvent event) {
 		this.entidade = (Boletim) event.getObject();
-		
+		this.entidade.atualizarMedia();
 		this.servico.salvar(this.entidade);
 	}
 

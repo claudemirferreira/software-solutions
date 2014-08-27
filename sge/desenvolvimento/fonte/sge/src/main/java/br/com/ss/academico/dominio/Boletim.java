@@ -199,5 +199,12 @@ public class Boletim extends AbstractEntity implements Serializable {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
+	
+	public void atualizarMedia(){
+		this.setMedia1((this.nota1 + this.nota2) / 2);
+		this.setMedia2((this.nota3 + this.nota4) / 2);
+		this.setMedia3((this.nota5 + this.nota6) / 2);
+		this.setMedia4((this.nota7 + this.nota8) / 2);
+	}
 
 }
