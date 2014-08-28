@@ -2,6 +2,9 @@ var version = navigator.appVersion;
 
 /* Desabilita o refresh na pg. */
 function disableRefresh(ev) {
+	
+	// alert('ev' + ev);
+
 	var keycode = (window.event) ? event.keyCode : ev.keyCode;
 
 	if ((version.indexOf('MSIE') != -1)) {
