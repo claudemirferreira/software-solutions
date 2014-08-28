@@ -251,7 +251,7 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="190" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="145e4b24-6569-4e50-94b3-4658274a4003">
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="145e4b24-6569-4e50-94b3-4658274a4003">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -276,7 +276,7 @@
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="190" height="15" uuid="e9474f66-720e-45b8-9a04-e2728056d510">
+				<reportElement x="0" y="0" width="555" height="15" uuid="e9474f66-720e-45b8-9a04-e2728056d510">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>

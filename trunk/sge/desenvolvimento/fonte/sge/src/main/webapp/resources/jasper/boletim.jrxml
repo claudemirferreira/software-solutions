@@ -297,7 +297,7 @@
 			<textField>
 				<reportElement x="522" y="1" width="41" height="15" uuid="4036b7be-bb22-497b-be57-ccf9363198d3"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{media4}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{media3}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="320" y="1" width="43" height="15" uuid="d2b4fc90-da78-4244-8695-3424f053677e"/>

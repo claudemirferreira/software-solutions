@@ -68,8 +68,6 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	private List<Matricula> filteredTurmas;
 	
-	private List<Double> notas;
-
 	private Matricula matriculaBoletim;
 
 	@PostConstruct
@@ -81,7 +79,6 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	@Override
 	protected String getNomeRelatorioJasper() {
-		// FIXME #Peninha ver relatorio
 		return this.nomeRelatorio;
 	}
 
@@ -293,12 +290,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	public void onEdit(RowEditEvent event) {
 		this.entidade = (Boletim) event.getObject();
 		this.entidade.atualizarMedia();
-		super.salvar();
+		getService().salvar(entidade);
+		showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 	}
 
 	public void onCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Item Cancelled");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		showMessage("Ediçao de nota cancelada!", FacesMessage.SEVERITY_WARN);
 	}
 
 	public List<Double> getNotas() {
