@@ -36,6 +36,9 @@
   		 <c:if test="#{empty listaPesquisa}">
 	 		<c:set var="listaPesquisa" value="listaPesquisa" />
   		 </c:if>
+  		 <c:if test="#{empty reloadPage}">
+	 		<c:set var="reloadPage" value="true" />
+  		 </c:if>
   		 
   		 
   		 <c:if test="#{reloadPage eq true}">

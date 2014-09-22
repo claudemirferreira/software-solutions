@@ -87,6 +87,7 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		}
 		pesquisa.setTurma(new Turma());
 		pesquisa.setAluno(new Aluno());
+		pesquisar();
 	}
 
 	@Override
@@ -108,7 +109,8 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 	public String novo() {
 		// inicializa o bean alunoMatriculaControlador
 		ReflectionsUtil.invokeBean("alunoMatriculaControlador", "novo");
-		return super.novo();
+//		return super.novo();
+		return null;
 	}
 
 	/**
