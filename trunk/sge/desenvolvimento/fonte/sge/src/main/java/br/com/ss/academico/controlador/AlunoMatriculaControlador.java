@@ -33,7 +33,6 @@ import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.Constants;
 import br.com.ss.core.web.enumerated.Meses;
 import br.com.ss.core.web.enumerated.NaoSim;
-import br.com.ss.core.web.enumerated.UF;
 import br.com.ss.core.web.ireport.RelatorioUtil;
 import br.com.ss.core.web.utils.DateUtil;
 import br.com.ss.core.web.utils.FacesUtils;
