@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import net.sf.jasperreports.engine.JRException;
@@ -85,7 +86,10 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 
 	public String novo() {
 		this.responsaveis = responsavelServico.listarTodos();
-		return super.novo();
+		String novo = super.novo();
+		this.entidade.setNaturalidade("Manaus");		// FIXME add em configuracao
+		this.entidade.setUf(UF.AM);						// FIXME add em configuracao
+		return novo;
 	}
 
 	public String detalhe(Aluno aluno) {
@@ -125,6 +129,23 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		}
 		return list;
 	}
+	
+
+	/**
+	 * ChangeListener do combo de grau de parentesco.
+	 * @param event
+	 */
+	public void grauParentescoChanged(ValueChangeEvent e) {
+		// seta o valor para o campo Pai ou Mae dependendo do grau de parentesco
+		GrauParentesco grauParentesco = (GrauParentesco) e.getNewValue();
+		if (GrauParentesco.PAI.equals(grauParentesco)) {
+			this.entidade.setPai(this.entidade.getResponsavel().getNome());
+		} else if (GrauParentesco.MAE.equals(grauParentesco)) {
+			this.entidade.setMae(this.entidade.getResponsavel().getNome());
+		}
+	}
+
+	
 
 	/* --------------- Gets/Sets ---------------------- */
 

@@ -282,7 +282,6 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	 * @param event
 	 */
 	public void turmaChanged(ValueChangeEvent e) {
-		// assign new value to country
 		Turma turma = (Turma) e.getNewValue();
 		entidade.setTurma(turma);
 		selectTurma(true);

@@ -76,12 +76,6 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(nullable = false, length = 10)
-	private String numero;
-
-	@Column( length = 100)
-	private String complemento;
-
 	@Column(length = 9)
 	private String foneResidencial;
 
@@ -336,19 +330,4 @@ public class Aluno extends AbstractEntity implements Serializable {
 		this.matriculas = matriculas;
 	}
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
 }
