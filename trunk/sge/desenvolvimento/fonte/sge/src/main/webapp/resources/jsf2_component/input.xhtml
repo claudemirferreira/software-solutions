@@ -41,7 +41,7 @@
 		<cc:attribute name="email" default="false" required="false"  />
 		<cc:attribute name="emailValidatorMessage" default="E-mail inválido" required="false" />
 		
-		<cc:attribute name="labelStyle" default="input-label-bold" required="false"  />
+		<cc:attribute name="labelStyle" required="false"  />
 		
 		<cc:attribute name="decimalPlaces" default="2" required="false" />
 		
@@ -55,8 +55,10 @@
 	</cc:interface>
 	
 	<cc:implementation>
-	
-		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" rendered="#{cc.attrs.render}" width="#{cc.attrs.width}" columnClasses="input-label-bold, input_required">
+		
+		<c:set var="label_style"  value="#{empty cc.attrs.labelStyle ? 'input-label-bold' : cc.attrs.labelStyle}" />
+		
+		<h:panelGrid columns="#{not empty cc.attrs.label ? 2 : 1}" rendered="#{cc.attrs.render}" width="#{cc.attrs.width}" columnClasses="#{label_style}, input_required">
 		 		
 	 		<p:column width="150" rendered="#{not empty cc.attrs.label}" >
 				<h:outputLabel value="#{cc.attrs.label}" for="#{cc.attrs.id}"/>

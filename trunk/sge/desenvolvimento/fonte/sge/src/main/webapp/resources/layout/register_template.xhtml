@@ -30,6 +30,9 @@
   			<c:set var="disabledBtnSalvar" value="false" />
   		</c:if>
   		
+  		<c:if test="#{empty containerTitle}" >
+  			<c:set var="containerTitle" value="Preencher campos" />
+  		</c:if>
   		
   		<ui:param name="pageTitle" value="-- TODO definir titulo --"/>
   		
@@ -51,10 +54,14 @@
 				<h:panelGrid width="100%" styleClass="grid">
 					
 					
-					<ss:container title="Preencher campos" >
+					<ss:container title="#{containerTitle}" >
 						
 						<div class="registerRegion">
 							<ui:insert name="register_region"  />
+						</div>
+						
+						<div class="aditionalRegion">
+							<ui:insert name="aditional_region"  />
 						</div>
 						
 						<hr/>
