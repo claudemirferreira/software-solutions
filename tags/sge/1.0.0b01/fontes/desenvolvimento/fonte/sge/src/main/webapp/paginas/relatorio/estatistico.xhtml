@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel header="RELATÓRIO ESTATISTICO" style="margin-bottom:10px;">
+
+			<h:panelGrid columns="6" cellpadding="5">
+				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="zona"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioEstatistico.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioEstatistico.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="nucleo"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.nucleo.idNucleo}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioEstatistico.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioEstatistico.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="area"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.area}">
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItems
+						value="#{relatorioEstatistico.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu styleClass="ui-priority-primary"
+					value="#{relatorioEstatistico.parametro.mes}" effect="fold"
+					editable="true" style="width:100%;">
+					<f:selectItems value="#{relatorioEstatistico.parametro.meses}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
+				<p:inputText id="ano" styleClass="ui-priority-primary"
+					style="width:50px;" required="true"
+					requiredMessage="O ano deve ser informado"
+					value="#{relatorioEstatistico.parametro.ano}" />
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
+
+				<p:commandButton value="Gerar relatorio" ajax="false"
+					icon="ui-icon-gear" styleClass="ui-priority-primary"
+					actionListener="#{relatorioEstatistico.imprimir}" />
+
+			</f:facet>
+
+		</p:panel>
+
+	</h:form>
+
+</ui:component>

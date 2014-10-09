@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form" style="width:100%; height=100%">
+		<p:panel
+			header="BOLETIM DO(A) ALUNO(A) #{boletimControlador.matricula.aluno.nome}">
+			<p:panelGrid columns="6">
+
+				<p:outputLabel value="Matricula" styleClass="ui-priority-primary" />
+				<p:inputText disabled="true" style="width:300px;"
+					value="#{boletimControlador.matricula.id}" />
+
+				<p:outputLabel value="Curso" styleClass="ui-priority-primary" />
+				<p:inputText disabled="true" style="width:300px;"
+					value="#{boletimControlador.matricula.turma.curso.nome}" />
+
+			</p:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:commandButton value="Retornar" ajax="false" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas()}" />
+
+				<p:commandButton value="Gerar relatorio" ajax="false"
+					icon="ui-icon-gear" styleClass="ui-priority-primary"
+					actionListener="#{boletimControlador.imprimir}" />
+
+				<p:commandButton id="basic" value="Basic" type="button"
+					actionListener="#{boletimControlador.imprimir}"
+					onclick="PF('dlg1').show();" />
+
+				<p:commandButton value="Show" icon="ui-icon-script"
+					actionListener="#{boletimControlador.imprimir}" />
+
+			</f:facet>
+		</p:panel>
+
+
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{boletimControlador.lista}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Disciplina"
+				sortBy="#{item.disciplina.nome}">
+				<h:outputText value="#{item.disciplina.nome}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="1 Nota"
+				sortBy="#{item.nota1}">
+				<h:outputText value="#{item.nota1}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="2 Nota"
+				sortBy="#{item.nota2}">
+				<h:outputText value="#{item.nota2}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Media"
+				sortBy="#{item.media1}">
+				<h:outputText value="#{item.media1}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="3 Nota"
+				sortBy="#{item.nota3}">
+				<h:outputText value="#{item.nota3}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="4 Nota"
+				sortBy="#{item.nota4}">
+				<h:outputText value="#{item.nota4}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Media"
+				sortBy="#{item.media2}">
+				<h:outputText value="#{item.media2}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="5 Nota"
+				sortBy="#{item.nota5}">
+				<h:outputText value="#{item.nota5}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="6 Nota"
+				sortBy="#{item.nota6}">
+				<h:outputText value="#{item.nota6}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Media"
+				sortBy="#{item.media3}">
+				<h:outputText value="#{item.media3}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="7 Nota"
+				sortBy="#{item.nota7}">
+				<h:outputText value="#{item.nota7}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="8 Nota"
+				sortBy="#{item.nota8}">
+				<h:outputText value="#{item.nota8}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Media"
+				sortBy="#{item.media4}">
+				<h:outputText value="#{item.media4}" />
+			</p:column>
+
+			<f:facet name="footer">  
+            Total de registros: #{fn:length(boletimControlador.lista)} boletims.  
+        </f:facet>
+
+		</p:dataTable>
+		
+		<p:media value="#{boletimControlador.streamedContent}" player="pdf"
+				style="width:100%;" height="700px"></p:media>
+
+	</h:form>
+
+	<h:form>
+
+		<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1"
+			width="100%" height="100%">
+
+			<p:media value="#{boletimControlador.streamedContent}" player="pdf"
+				style="height:100%; width:100%;" width="100%"></p:media>
+		</p:dialog>
+
+
+	</h:form>
+
+
+</ui:component>
