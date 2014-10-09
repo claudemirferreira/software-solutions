@@ -1,3 +1,0 @@
-Disk quotas for user centrala (uid 980): 
-     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
-      /dev/vzfs   15992  20480000 20480000            1328       0       0        
