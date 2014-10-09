@@ -126,7 +126,7 @@ CREATE TABLE `acad_configuracao` (
 
 LOCK TABLES `acad_configuracao` WRITE;
 /*!40000 ALTER TABLE `acad_configuracao` DISABLE KEYS */;
-INSERT INTO `acad_configuracao` VALUES (1,10,'aristo');
+INSERT INTO `acad_configuracao` VALUES (1,10,'start');
 /*!40000 ALTER TABLE `acad_configuracao` ENABLE KEYS */;
 UNLOCK TABLES;
 
