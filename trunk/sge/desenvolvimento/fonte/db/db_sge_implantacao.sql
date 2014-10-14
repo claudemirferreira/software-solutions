@@ -28,7 +28,7 @@ CREATE TABLE `acad_aluno` (
   `id_aluno` bigint(20) NOT NULL AUTO_INCREMENT,
   `alergia` int(11) NOT NULL,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(9) DEFAULT NULL,
+  `celular` varchar(10) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `cpf` varchar(14) DEFAULT NULL,
   `data_cadastro` datetime NOT NULL,
@@ -37,21 +37,21 @@ CREATE TABLE `acad_aluno` (
   `descricao_remedio` varchar(200) DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_mae` varchar(12) DEFAULT NULL,
-  `fone_pai` varchar(12) DEFAULT NULL,
-  `fone_residencial` varchar(9) DEFAULT NULL,
+  `fone_mae` varchar(10) DEFAULT NULL,
+  `fone_pai` varchar(10) DEFAULT NULL,
+  `fone_residencial` varchar(10) DEFAULT NULL,
   `grau_parentesco` int(11) NOT NULL,
   `mae` varchar(60) DEFAULT NULL,
   `naturalidade` varchar(30) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `pai` varchar(60) DEFAULT NULL,
   `rg` varchar(10) DEFAULT NULL,
-  `sexo` int(11) NOT NULL,
-  `uf` int(11) NOT NULL,
+  `sexo` int(1) NOT NULL,
+  `uf` int(2) NOT NULL,
   `id_responsavel` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_aluno`),
-  KEY `FK_1ofh34p98750kva4x143lrqjd` (`id_responsavel`),
-  CONSTRAINT `FK_1ofh34p98750kva4x143lrqjd` FOREIGN KEY (`id_responsavel`) REFERENCES `acad_responsavel` (`id_responsavel`)
+  KEY `FK_responsavel` (`id_responsavel`),
+  CONSTRAINT `FK_responsavel` FOREIGN KEY (`id_responsavel`) REFERENCES `acad_responsavel` (`id_responsavel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -313,18 +313,18 @@ DROP TABLE IF EXISTS `acad_professor`;
 CREATE TABLE `acad_professor` (
   `id_professor` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(9) DEFAULT NULL,
+  `celular` varchar(10) DEFAULT NULL,
   `cep` varchar(9) NOT NULL,
   `cpf` varchar(14) NOT NULL,
   `data_cadastro` datetime NOT NULL,
   `data_nascimento` datetime NOT NULL,
   `email` varchar(60) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_comercial` varchar(9) DEFAULT NULL,
-  `fone_residencial` varchar(9) DEFAULT NULL,
+  `fone_comercial` varchar(10) DEFAULT NULL,
+  `fone_residencial` varchar(10) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `rg` varchar(10) NOT NULL,
-  `sexo` int(11) NOT NULL,
+  `sexo` int(1) NOT NULL,
   PRIMARY KEY (`id_professor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -348,18 +348,18 @@ DROP TABLE IF EXISTS `acad_responsavel`;
 CREATE TABLE `acad_responsavel` (
   `id_responsavel` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(9) DEFAULT NULL,
+  `celular` varchar(10) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `cpf` varchar(14) NOT NULL,
   `data_nascimento` datetime DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_comercial` varchar(9) DEFAULT NULL,
-  `fone_residencial` varchar(9) DEFAULT NULL,
+  `fone_comercial` varchar(10) DEFAULT NULL,
+  `fone_residencial` varchar(10) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `profissao` varchar(30) NOT NULL,
   `rg` varchar(10) NOT NULL,
-  `sexo` int(11) NOT NULL,
+  `sexo` int(1) NOT NULL,
   PRIMARY KEY (`id_responsavel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
