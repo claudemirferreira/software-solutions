@@ -114,6 +114,11 @@
 	 		
 	 			<c:if test="#{cc.attrs.type eq 'date'}">
 		 			<!-- Calendar -->
+		 			
+		 				<h:outputText value="**#{request.contextPath}/resources/scripts/translations_pt_BR.js**" />
+		 			
+		 			<h:outputScript value="http://localhost:8080/sge/resources/scripts/translations_pt_BR.js" />
+		 			
 	 				<p:outputPanel autoUpdate="true">
 		 				<c:set var="idComp" value="dt_#{cc.attrs.id}"/>
 		 				
@@ -122,10 +127,13 @@
 			 				<c:set var="watermarkDate" value="99/99/99"/>
 		 				</c:if>
 		 				
+		 				<!-- lang="pt_BR" -->
+		 				
 			 			<p:calendar id="#{idComp}"
 			 						maxlength="10"
 									size="10"
 									locale="pt"
+									
 									showButtonPanel="true" 
 									style="#{cc.attrs.style}"
 									navigator="true" 
