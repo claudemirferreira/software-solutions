@@ -140,8 +140,10 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 		GrauParentesco grauParentesco = (GrauParentesco) e.getNewValue();
 		if (GrauParentesco.PAI.equals(grauParentesco)) {
 			this.entidade.setPai(this.entidade.getResponsavel().getNome());
+			this.entidade.setMae(null);
 		} else if (GrauParentesco.MAE.equals(grauParentesco)) {
 			this.entidade.setMae(this.entidade.getResponsavel().getNome());
+			this.entidade.setPai(null);
 		}
 	}
 
