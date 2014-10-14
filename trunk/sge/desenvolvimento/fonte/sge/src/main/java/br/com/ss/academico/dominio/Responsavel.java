@@ -39,7 +39,7 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(length = 9)
+	@Column(length = 10)
 	private String celular;
 
 	@Column(nullable = true, length = 9)
@@ -62,10 +62,10 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(length = 9)
+	@Column(length = 10)
 	private String foneComercial;
 
-	@Column(length = 9)
+	@Column(length = 10)
 	private String foneResidencial;
 
 	@Column(nullable = false, length = 60)
@@ -86,13 +86,23 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Transient
 	private String dataNascimentoFormatada;
 
-	@OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "responsavel", fetch = FetchType.EAGER)
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
 	
 	@Override
 	public Long getId() {
 		return idResponsavel;
+	}
+	
+	
+	@Transient
+	public String getAlunosAsString() {
+		StringBuilder sb = new StringBuilder();
+		for (Aluno al : alunos) {
+			sb.append(al.getNome() + "; ");
+		}
+		return sb.toString();
 	}
 
 	public Long getIdResponsavel() {

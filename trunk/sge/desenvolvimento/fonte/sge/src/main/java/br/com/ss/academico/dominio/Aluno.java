@@ -47,7 +47,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(length = 9)
+	@Column(length = 10)
 	private String celular;
 
 	@Cep
@@ -76,7 +76,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(length = 9)
+	@Column(length = 10)
 	private String foneResidencial;
 
 	@Column(nullable = false, length = 60)
@@ -101,10 +101,10 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(length = 60)
 	private String mae;
 
-	@Column(length = 12)
+	@Column(length = 10)
 	private String fonePai;
 
-	@Column(length = 12)
+	@Column(length = 10)
 	private String foneMae;
 
 	@Column(length = 30)

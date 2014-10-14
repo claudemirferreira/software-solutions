@@ -29,11 +29,13 @@
 			
 			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
 			
-			<ss2:column value="#{item.cpf}" header="CPF" sortBy="cpf"  />
-			
-			<ss2:column value="#{item.rg}" header="RG" sortBy="rg"  />
+			<ss2:column value="#{item.getAlunosAsString()}" header="Alunos" />
 			
 			<ss2:column value="#{item.celular}" header="Celular" sortBy="celular"  />
+			
+			<ss2:column value="#{item.foneResidencial}" header="Fone Residencial" sortBy="foneResidencial"  />
+			
+			<ss2:column value="#{item.email}" header="E-mail" sortBy="email"  />
 			
 		</ss:grid>
 		
