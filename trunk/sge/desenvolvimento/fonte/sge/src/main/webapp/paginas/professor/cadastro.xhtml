@@ -27,13 +27,13 @@
 	
 			<ss:input id="cep" label="CEP" value="#{professorControlador.entidade.cep}" required="true" type="mask" mask="99999-999" watermark="99999-999" maxlength="9" />
 			
-			<ss:input id="foneResidencial" label="Fone Residencial" value="#{professorControlador.entidade.foneResidencial}" type="mask" mask="99999-9999" watermark="99999-9999" maxlength="10" />
+			<ss:input id="foneResidencial" label="Fone Residencial" value="#{professorControlador.entidade.foneResidencial}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 	
-			<ss:input id="foneComercial" label="Fone Comercial" value="#{professorControlador.entidade.foneComercial}" type="mask" mask="99999-9999" watermark="99999-9999" maxlength="10" />
+			<ss:input id="foneComercial" label="Fone Comercial" value="#{professorControlador.entidade.foneComercial}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9" />
 	
 			<ss:input id="celular" label="Celular" value="#{professorControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="10" />
 	
-			<ss:input id="email" label="E-mail" value="#{professorControlador.entidade.email}" email="true" maxlength="60"/>
+			<ss:input id="email" label="E-mail" value="#{professorControlador.entidade.email}" email="true" maxlength="40" />
 			
 			<ss:input id="cpf" label="CPF" required="true" value="#{professorControlador.entidade.cpf}" validatorComp="cpfValidator" type="mask" watermark="999.999.999-99" mask="999.999.999-99"  maxlength="14" />
 	

@@ -12,7 +12,7 @@ import br.com.ss.academico.dominio.Empresa;
 @Repository
 public interface EmpresaRepositorio extends JpaRepository<Empresa, Long> {
 
-	@Query("select u from Empresa u where u.nome like :nome")
-	public List<Empresa> findByNomeLike(@Param("nome") String nome);
+	@Query("select u from Empresa u where u.nomeFantasia like :nomeFantasia")
+	public List<Empresa> findByNomeLike(@Param("nomeFantasia") String nomeFantasia);
 
 }

@@ -15,11 +15,11 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="author" content="Software Solutions - www.3iti.com.br" />
-		<title>:: #{applicationBean.sistema.codigo} : #{applicationBean.empresa.nome} : #{empty pageTitle ? '*' : pageTitle}</title>
+		<title>:: #{applicationBean.sistema.codigo} : #{applicationBean.empresa.nomeFantasia} : #{empty pageTitle ? '*' : pageTitle}</title>
 		<link rel="icon" href="#{request.contextPath}/resources/imagens/favicon.ico" />
 		
 		<script language="JavaScript" type="text/javascript" src="#{request.contextPath}/resources/scripts/main.js" />
-	
+		
 		<script type="text/javascript">
 			/* Desabilita o botao voltar. */
 			window.history.forward(1);
@@ -41,6 +41,8 @@
 </h:head>
 
 <h:body onload="JavaScript:document.body.focus();" onkeydown="return disableRefresh(event);">
+	
+	<h:outputScript library="js" name="translations_pt_BR.js" />
 	
 	<div id="wrapper">
 		<div id="header">

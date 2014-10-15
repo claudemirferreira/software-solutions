@@ -47,7 +47,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String celular;
 
 	@Cep
@@ -70,13 +70,13 @@ public class Aluno extends AbstractEntity implements Serializable {
 	private Date dataNascimento;
 
 	@Email(message = "E-mail inválido", regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-	@Column(length = 60, nullable = true)
+	@Column(length = 40, nullable = true)
 	private String email;
 
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String foneResidencial;
 
 	@Column(nullable = false, length = 60)
@@ -101,10 +101,10 @@ public class Aluno extends AbstractEntity implements Serializable {
 	@Column(length = 60)
 	private String mae;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String fonePai;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String foneMae;
 
 	@Column(length = 30)
