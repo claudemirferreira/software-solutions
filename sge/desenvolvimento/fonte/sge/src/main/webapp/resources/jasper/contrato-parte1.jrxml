@@ -57,7 +57,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""+$P{empresa}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CENTRO EDUCACIONAL BOM JESUS"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="106" y="16" width="353" height="17" uuid="6dacf954-5781-4a9e-8f65-bb304bf89456"/>
@@ -101,7 +101,7 @@
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pelo presente instrumento particular de Contrato de Serviço Educacional, a contratada "
-+ $P{empresa}.getNome() + " inscrita sob o CNPJ "
++ $P{empresa}.getRazaoSocial() + " inscrita sob o CNPJ "
 + $P{empresa}.getCnpj() + " e o contratante "
 + $F{aluno}.getResponsavel().getNome()
 + ", CPF " + $F{aluno}.getResponsavel().getCpf()

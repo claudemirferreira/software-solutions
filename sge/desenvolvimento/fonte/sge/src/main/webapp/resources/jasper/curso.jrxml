@@ -57,7 +57,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="18" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["SGE - " + $P{empresa}.getNome()]]></textFieldExpression>
+					<textFieldExpression><![CDATA["SGE - " + $P{empresa}.getNomeFantasia()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement mode="Transparent" x="0" y="25" width="555" height="20" forecolor="#FFFFFF" uuid="130da948-5e15-4f95-81e5-102ca2bcce71"/>
