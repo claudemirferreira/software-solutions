@@ -28,18 +28,18 @@ CREATE TABLE `acad_aluno` (
   `id_aluno` bigint(20) NOT NULL AUTO_INCREMENT,
   `alergia` int(11) NOT NULL,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(10) DEFAULT NULL,
+  `celular` varchar(9) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `cpf` varchar(14) DEFAULT NULL,
   `data_cadastro` datetime NOT NULL,
   `data_nascimento` datetime DEFAULT NULL,
   `descricao_alegia` varchar(200) DEFAULT NULL,
   `descricao_remedio` varchar(200) DEFAULT NULL,
-  `email` varchar(60) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_mae` varchar(10) DEFAULT NULL,
-  `fone_pai` varchar(10) DEFAULT NULL,
-  `fone_residencial` varchar(10) DEFAULT NULL,
+  `fone_mae` varchar(9) DEFAULT NULL,
+  `fone_pai` varchar(9) DEFAULT NULL,
+  `fone_residencial` varchar(9) DEFAULT NULL,
   `grau_parentesco` int(11) NOT NULL,
   `mae` varchar(60) DEFAULT NULL,
   `naturalidade` varchar(30) DEFAULT NULL,
@@ -313,15 +313,15 @@ DROP TABLE IF EXISTS `acad_professor`;
 CREATE TABLE `acad_professor` (
   `id_professor` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(10) DEFAULT NULL,
+  `celular` varchar(9) DEFAULT NULL,
   `cep` varchar(9) NOT NULL,
   `cpf` varchar(14) NOT NULL,
   `data_cadastro` datetime NOT NULL,
   `data_nascimento` datetime NOT NULL,
-  `email` varchar(60) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_comercial` varchar(10) DEFAULT NULL,
-  `fone_residencial` varchar(10) DEFAULT NULL,
+  `fone_comercial` varchar(9) DEFAULT NULL,
+  `fone_residencial` varchar(9) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `rg` varchar(10) NOT NULL,
   `sexo` int(1) NOT NULL,
@@ -348,14 +348,14 @@ DROP TABLE IF EXISTS `acad_responsavel`;
 CREATE TABLE `acad_responsavel` (
   `id_responsavel` bigint(20) NOT NULL AUTO_INCREMENT,
   `bairro` varchar(60) NOT NULL,
-  `celular` varchar(10) DEFAULT NULL,
+  `celular` varchar(9) DEFAULT NULL,
   `cep` varchar(9) DEFAULT NULL,
   `cpf` varchar(14) NOT NULL,
   `data_nascimento` datetime DEFAULT NULL,
-  `email` varchar(60) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
   `endereco` varchar(60) NOT NULL,
-  `fone_comercial` varchar(10) DEFAULT NULL,
-  `fone_residencial` varchar(10) DEFAULT NULL,
+  `fone_comercial` varchar(9) DEFAULT NULL,
+  `fone_residencial` varchar(9) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `profissao` varchar(30) NOT NULL,
   `rg` varchar(10) NOT NULL,
@@ -439,15 +439,14 @@ DROP TABLE IF EXISTS `saa_empresa`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `saa_empresa` (
   `id_empresa` bigint(20) NOT NULL AUTO_INCREMENT,
-  `bairro` varchar(60) DEFAULT NULL,
-  `cnpj` varchar(14) NOT NULL,
-  `email` varchar(60) DEFAULT NULL,
-  `endereco` varchar(60) DEFAULT NULL,
-  `nome` varchar(50) NOT NULL,
-  `celular` varchar(10) DEFAULT NULL,
-  `fone` varchar(10) DEFAULT NULL,
   `razao_social` varchar(60) DEFAULT NULL,
-  `nome_fantasia` varchar(45) NOT NULL,
+  `nome_fantasia` varchar(60) NOT NULL,
+  `bairro` varchar(60) DEFAULT NULL,
+  `cnpj` varchar(18) NOT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `endereco` varchar(60) DEFAULT NULL,
+  `celular` varchar(9) DEFAULT NULL,
+  `fone` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`id_empresa`),
   UNIQUE KEY `UK_80r8bcl23aucmghxjqt8ckfcc` (`cnpj`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -459,7 +458,7 @@ CREATE TABLE `saa_empresa` (
 
 LOCK TABLES `saa_empresa` WRITE;
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
-INSERT INTO `saa_empresa` VALUES (1,'cidade nova','10557321000145','sge@gmail.com','Rua 27','CENTRO EDUCACIONAL SHEKINAH','2121212121','212121',NULL,'CENTRO EDUCACIONAL SHEKINAH');
+INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','10557321000145','sge@gmail.com','Rua Xxx','2121212121','212121',NULL);
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
