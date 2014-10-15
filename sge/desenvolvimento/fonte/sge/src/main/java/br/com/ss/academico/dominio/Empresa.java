@@ -13,9 +13,7 @@ import br.com.ss.core.seguranca.dominio.AbstractEntity;
 
 /**
  * The persistent class for the iansa_curso database table.
- * 
  */
-
 @Entity
 @Table(name = "saa_empresa")
 public class Empresa extends AbstractEntity implements Serializable {
@@ -26,19 +24,16 @@ public class Empresa extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idEmpresa;
 
-	@Column(nullable = false, length = 50)
-	private String nome;
-
-	@Column(nullable = false, length = 45)
+	@Column(nullable = false, length = 60)
 	private String nomeFantasia;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 60)
 	private String razaoSocial;
 	
-	@Column(nullable = false, length = 14, unique = true)
+	@Column(nullable = false, length = 18, unique = true)
 	private String cnpj;
 
-	@Column(length = 60)
+	@Column(length = 40)
 	private String email;
 
 	@Column(length = 60)
@@ -47,10 +42,10 @@ public class Empresa extends AbstractEntity implements Serializable {
 	@Column(length = 60)
 	private String bairro;
 	
-	@Column(length = 10)
+	@Column(length = 9)
 	private String fone;
 	
-	@Column(length = 10)
+	@Column(length = 9)
 	private String celular;
 	
 
@@ -69,9 +64,6 @@ public class Empresa extends AbstractEntity implements Serializable {
 		this.idEmpresa = idEmpresa;
 	}
 
-	public String getNome() {
-		return this.nome;
-	}
 
 	public String getCnpj() {
 		return cnpj;
@@ -107,10 +99,6 @@ public class Empresa extends AbstractEntity implements Serializable {
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getFone() {

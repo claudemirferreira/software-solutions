@@ -58,6 +58,11 @@ public abstract class AbstractEntity implements Serializable {
 		if (obj == null) {
 			return false;
 		}
+		
+		if ( !getClass().equals(obj.getClass() ) ) {
+			return false;
+		}
+		
 		final AbstractEntity other = (AbstractEntity) obj;
 
 		if ((this.id == null) || (other.id == null)) {

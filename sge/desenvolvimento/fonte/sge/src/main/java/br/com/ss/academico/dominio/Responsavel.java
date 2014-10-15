@@ -39,7 +39,7 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String celular;
 
 	@Column(nullable = true, length = 9)
@@ -56,16 +56,16 @@ public class Responsavel extends AbstractEntity implements Serializable {
 	private Date dataNascimento;
 
 	@Email(message="E-mail inválido", regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-	@Column(length = 60)
+	@Column(length = 40)
 	private String email;
 
 	@Column(nullable = false, length = 60)
 	private String endereco;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String foneComercial;
 
-	@Column(length = 10)
+	@Column(length = 9)
 	private String foneResidencial;
 
 	@Column(nullable = false, length = 60)
