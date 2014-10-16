@@ -64,6 +64,11 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
+	@ManyToOne
+	@JoinColumn(name = "id_usuario_atualizacao")
+	private Usuario usuarioAtualizacao;
+	
+	
 	public Mensalidade() {
 		Matricula matricula = new Matricula();
 		matricula.setAluno(new Aluno());
@@ -170,6 +175,14 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public Usuario getUsuarioAtualizacao() {
+	    return usuarioAtualizacao;
+	}
+
+	public void setUsuarioAtualizacao(Usuario usuarioAtualizacao) {
+	    this.usuarioAtualizacao = usuarioAtualizacao;
 	}
 
 }
