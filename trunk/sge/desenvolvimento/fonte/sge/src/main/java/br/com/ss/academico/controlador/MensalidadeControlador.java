@@ -165,6 +165,11 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	public String salvar() {
 		this.entidade.setUsuario(getUsuarioLogado());
 		
+		if (!StatusPagamento.PENDENTE.equals(entidade.getStatusPagamento())) {
+		    // grava o usuario que está atualizando a mensalidade
+		    this.entidade.setUsuarioAtualizacao(getUsuarioLogado());
+		}
+		
 		String page = null;
 		if (fromHome) {
 			page = "home";
