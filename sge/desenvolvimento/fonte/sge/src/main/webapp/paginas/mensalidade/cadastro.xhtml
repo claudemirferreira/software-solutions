@@ -37,6 +37,8 @@
 			
 			<ss:input label="Mens. criada por" readonly="true" value="#{mensalidadeControlador.entidade.usuario.nome}" />
 			
+			<ss:input label="Atualizado por" readonly="true" value="#{mensalidadeControlador.entidade.usuarioAtualizacao.nome}" render="#{mensalidadeControlador.entidade.statusPagamento.id ne 0}" />
+			
 			 <ss:comboBox label="Situação" required="true" selectOne="true" immediate="true"
 			 			update="pnlObservacao" 
 						value="#{mensalidadeControlador.entidade.statusPagamento}"
