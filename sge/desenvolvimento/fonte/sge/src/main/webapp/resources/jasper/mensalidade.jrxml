@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98dc61e5-9ea7-40c8-adc5-a6ad575f7ba9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -105,7 +104,7 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Matr.]]></text>
@@ -122,12 +121,12 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Situação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="30" y="0" width="170" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="d90f60bc-75e8-4634-9931-a243aa494c58">
+				<reportElement mode="Opaque" x="30" y="0" width="150" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="d90f60bc-75e8-4634-9931-a243aa494c58">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -142,13 +141,13 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Aluno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="200" y="0" width="50" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="0b76b2f2-11f3-4e00-9b46-2b947800fb5d">
+				<reportElement mode="Opaque" x="180" y="0" width="50" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="0b76b2f2-11f3-4e00-9b46-2b947800fb5d">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -163,7 +162,7 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Curso]]></text>
@@ -182,13 +181,13 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Mensalidade]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="250" y="0" width="55" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="e6266abc-2720-4ccc-b9d8-f8b6447e6487">
+				<reportElement mode="Opaque" x="230" y="0" width="64" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="e6266abc-2720-4ccc-b9d8-f8b6447e6487">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -203,13 +202,13 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Data Venc.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="305" y="0" width="55" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="86de1345-1ae1-438f-af0a-f9588bd88643">
+				<reportElement mode="Opaque" x="294" y="0" width="66" height="17" forecolor="#006699" backcolor="#E6E6E6" uuid="86de1345-1ae1-438f-af0a-f9588bd88643">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -224,7 +223,7 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Data Pagto.]]></text>
@@ -243,7 +242,7 @@
 					<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="false"/>
+					<font size="10" isBold="false"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Valor Pago]]></text>
@@ -297,7 +296,7 @@
 				<textFieldExpression><![CDATA[$F{valorVencimento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="0" width="50" height="15" uuid="b91c8027-c166-4c6c-9bc0-7c12a1ce299a">
+				<reportElement x="180" y="0" width="50" height="15" uuid="b91c8027-c166-4c6c-9bc0-7c12a1ce299a">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -319,7 +318,7 @@
 				<textFieldExpression><![CDATA[$F{matricula}.getTurma().getCurso().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="250" y="0" width="55" height="15" uuid="602e0c84-ad24-4c00-bac2-0143c361a1b8">
+				<reportElement x="230" y="0" width="64" height="15" uuid="602e0c84-ad24-4c00-bac2-0143c361a1b8">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -363,7 +362,7 @@
 				<textFieldExpression><![CDATA[$F{statusPagamento}.getDescricao()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="30" y="0" width="170" height="15" uuid="dfff40c5-4ed1-42d2-a707-ba3fe59e2602">
+				<reportElement x="30" y="0" width="150" height="15" uuid="dfff40c5-4ed1-42d2-a707-ba3fe59e2602">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -385,7 +384,7 @@
 				<textFieldExpression><![CDATA[$F{matricula}.getAluno().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="305" y="0" width="55" height="15" uuid="f5e0074c-fa7f-4e5b-884d-aaa098807574">
+				<reportElement x="294" y="0" width="66" height="15" uuid="f5e0074c-fa7f-4e5b-884d-aaa098807574">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
