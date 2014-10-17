@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
+import br.com.ss.academico.enumerated.StatusPagamento;
 import br.com.ss.academico.enumerated.TipoPesquisaData;
 import br.com.ss.academico.repositorio.MensalidadeRepositorio;
 import br.com.ss.academico.repositorio.MensalidadeRepositorioHql;
@@ -47,8 +48,8 @@ public class MensalidadeServicoImpl extends ServicoImpl<Mensalidade, Long> imple
 	}
 
 	@Override
-	public List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno) {
-		return repositorioHql.listarMensalidadesEmAtraso(aluno);
+	public List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno, StatusPagamento statusPagamento) {
+		return repositorioHql.listarMensalidadesEmAtraso(aluno, statusPagamento);
 	}
 	
 	@Override

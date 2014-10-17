@@ -27,15 +27,22 @@
 			<ss:container title="Mensalidades em atraso" width="850px" >
 			
 				
-				<h:panelGrid columns="5" cellpadding="0" cellspacing="0" style="margin-top: 10;">
+				<h:panelGrid columns="1" cellpadding="0" cellspacing="0" style="margin-top: 10;">
 					
-					<ss:autoComplete label="Filtrar por Aluno"
+					<ss:autoComplete label="Aluno"
 									value="#{homeControlador.aluno}"
 									bean="#{mensalidadeControlador}" 
 									completeMethod="listarAlunos"
 									itemLabel="#{item.nome}" 
 									size="40" />
+					
+					<ss:comboBox label="Situação" 
+								filter="false"
+								value="#{homeControlador.statusPagamento}"
+								list="#{homeControlador.statusList}" />				
 	
+					<hr />
+					
 	               	<ss:button id="btnSearch" type="pesquisa" method="reload" managedBean="#{homeControlador}" />
 	               
 				</h:panelGrid>

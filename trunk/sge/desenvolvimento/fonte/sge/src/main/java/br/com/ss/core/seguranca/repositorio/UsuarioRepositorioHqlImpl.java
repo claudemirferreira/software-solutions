@@ -19,6 +19,10 @@ public class UsuarioRepositorioHqlImpl extends RepositorioGenerico implements Us
 		List<String> condictions = new ArrayList<String>();
 		
 		sb.append(" select ent from Usuario ent ");
+
+		// nao deve exibir o usuario master
+		condictions.add(" lower( ent.login ) <> 'master' ");
+		
 		if ( notEmpty(entity.getNome())) {
 			condictions.add(" lower( ent.nome ) like :nome ");
 		}

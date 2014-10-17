@@ -8,16 +8,16 @@ import java.util.List;
 
 public final class BackupUtil {
 
-	public static final String BACKUP_DIR = "backups_db";
 	
 	private BackupUtil() { }
 	
 	
 	public static void removeBackupFiles() {
 		String appDir = MessageUtils.getMessageResourceString( MessageUtils.APP_DIR );
+		String backupDir = MessageUtils.getMessageResourceString( MessageUtils.BACKUP_DIR );
 		String numMaxBkp = MessageUtils.getMessageResourceString( MessageUtils.NUM_MAX_BACKUP );
 		
-		String fullBackupPath = appDir + File.separator + BACKUP_DIR;
+		String fullBackupPath = appDir + File.separator + backupDir;
 		Integer numMaxBackups = new Integer(numMaxBkp);
 		
 		// lista os arquivos 
@@ -66,32 +66,6 @@ public final class BackupUtil {
 		}
 		
 	}
-	
-	
-	public static void main(String a[]){
-	     ArrayList<String> al = new ArrayList<String>();
-
-	     //Addition of elements in ArrayList
-	     al.add("Steve");
-	     al.add("Justin");
-	     al.add("Ajeet");
-	     al.add("John");
-	     al.add("Arnold");
-	     al.add("Chaitanya");
-
-	     System.out.println("Original ArrayList Content: "+al);
-
-	     //Sublist to ArrayList
-	     ArrayList<String> al2 = new ArrayList<String>(al.subList(0, 2));
-	     System.out.println("SubList stored in ArrayList: "+al2);
-
-
-	     System.out.println("Currently Content: "+al);
-	     
-	     //Sublist to List
-	     List<String> list = al.subList(1, 4);
-	     System.out.println("SubList stored in List: "+list);
-	  }
 	
 	
 }

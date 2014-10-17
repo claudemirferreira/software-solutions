@@ -85,14 +85,16 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 	}
 
 	@Override
-	public List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno) {
+	public List<Mensalidade> listarMensalidadesEmAtraso(Aluno aluno, StatusPagamento statusPagamento) {
 		
 		StringBuilder sb = new StringBuilder();
 		List<String> condictions = new ArrayList<String>();
 		Date hoje = new Date();
 		
 		sb.append(" select men from Mensalidade men ");
-		condictions.add(" men.statusPagamento = :pendente ");
+		if(statusPagamento != null) {
+			condictions.add(" men.statusPagamento = :statusPagamento ");
+		}
 		condictions.add(" men.dataPagamento = null ");
 		condictions.add(" men.dataVencimento < :hoje ");
 		
@@ -101,10 +103,15 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		}
 		
 		String orderBy = " order by men.dataVencimento asc, men.matricula.aluno asc, men.matricula.turma.curso.nome ";
-		System.out.println("SQL = " + generateHql(sb.toString(), condictions) + orderBy);
+
 		Query query = entityManager.createQuery(generateHql(sb.toString(), condictions) + orderBy);
-		query.setParameter("pendente", StatusPagamento.PENDENTE );
+		
 		query.setParameter("hoje", hoje );
+
+		if(statusPagamento != null) {
+			query.setParameter("statusPagamento", statusPagamento );
+		}
+		
 		if (notEmpty(aluno)) {
 			query.setParameter("aluno", aluno );	
 		}
