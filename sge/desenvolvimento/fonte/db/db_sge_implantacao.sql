@@ -1,8 +1,3 @@
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: localhost    Database: sge
--- ------------------------------------------------------
--- Server version	5.5.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -258,11 +253,15 @@ CREATE TABLE `acad_mensalidade` (
   `valor_vencimento` double NOT NULL,
   `id_matricula` bigint(20) NOT NULL,
   `id_usuario` bigint(20) DEFAULT NULL,
+  `id_usuario_atualizacao` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_mensalidade`),
-  KEY `FK_5ohqk2wplxluosa2ixutna7jk` (`id_matricula`),
-  KEY `FK_1r9uok0uhbqsqkxiwqiycls8h` (`id_usuario`),
-  CONSTRAINT `FK_1r9uok0uhbqsqkxiwqiycls8h` FOREIGN KEY (`id_usuario`) REFERENCES `saa_usuario` (`id_usuario`),
-  CONSTRAINT `FK_5ohqk2wplxluosa2ixutna7jk` FOREIGN KEY (`id_matricula`) REFERENCES `acad_matricula` (`id_matricula`)
+  KEY `FK_id_matricula` (`id_matricula`),
+  KEY `FK_id_usuario` (`id_usuario`),
+  CONSTRAINT `FK_id_matricula` FOREIGN KEY (`id_matricula`) REFERENCES `acad_matricula` (`id_matricula`),
+  CONSTRAINT `FK_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `saa_usuario` (`id_usuario`),
+  CONSTRAINT `FK_id_usuario_atualizacao` FOREIGN KEY `FK_id_usuario_atualizacao` (`id_usuario_atualizacao`) REFERENCES `saa_usuario` (`id_usuario`)
+
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -459,7 +458,7 @@ CREATE TABLE `saa_empresa` (
 
 LOCK TABLES `saa_empresa` WRITE;
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
-INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','10557321000145','sge@gmail.com','Rua Xxx','2121212121','212121',NULL);
+INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','10557321000145','sge@gmail.com','Rua Xxx','9999-9999','1234-5678');
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -487,7 +486,10 @@ CREATE TABLE `saa_perfil` (
 
 LOCK TABLES `saa_perfil` WRITE;
 /*!40000 ALTER TABLE `saa_perfil` DISABLE KEYS */;
-INSERT INTO `saa_perfil` VALUES (1,'resources/imagens/perfil/secretaria.png','SECRETARIA',2),(2,'resources/imagens/perfil/tesouraria.png','FINANCEIRO',2),(3,'resources/imagens/perfil/administrativo.png','ADMINISTRATIVO',2),(4,'resources/imagens/perfil/configuracao.png','CONFIGURAÇÃO',2);
+INSERT INTO `saa_perfil` VALUES 
+	(1,'resources/imagens/perfil/secretaria.png','SECRETARIA',2),
+	(2,'resources/imagens/perfil/tesouraria.png','FINANCEIRO',2),
+	(3,'resources/imagens/perfil/configuracao.png','CONFIGURAÇÃO',2);
 /*!40000 ALTER TABLE `saa_perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -516,7 +518,20 @@ CREATE TABLE `saa_perfil_rotina` (
 
 LOCK TABLES `saa_perfil_rotina` WRITE;
 /*!40000 ALTER TABLE `saa_perfil_rotina` DISABLE KEYS */;
-INSERT INTO `saa_perfil_rotina` VALUES (NULL,1,1),(NULL,1,2),(NULL,1,3),(NULL,1,4),(NULL,1,5),(NULL,1,9),(NULL,1,10),('2014-06-17 16:56:21',1,12),(NULL,2,5),(NULL,2,11),(NULL,4,6),(NULL,4,7),(NULL,4,8),('2014-07-24 19:01:43',4,13);
+INSERT INTO `saa_perfil_rotina` VALUES 
+	(NULL,1,1),
+	(NULL,1,2),
+	(NULL,1,3),
+	(NULL,1,4),
+	(NULL,1,5),
+	(NULL,1,9),
+	(NULL,1,10),
+	(NULL,1,12),
+	(NULL,2,5),
+	(NULL,2,11),
+	(NULL,3,7),
+	(NULL,3,8),
+	(NULL,3,13);
 /*!40000 ALTER TABLE `saa_perfil_rotina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -546,7 +561,20 @@ CREATE TABLE `saa_rotina` (
 
 LOCK TABLES `saa_rotina` WRITE;
 /*!40000 ALTER TABLE `saa_rotina` DISABLE KEYS */;
-INSERT INTO `saa_rotina` VALUES (1,'/paginas/aluno/pesquisa.xhtml','/resources/imagens/rotina/aluno.png','ALUNO',0,2),(2,'/paginas/professor/pesquisa.xhtml','/resources/imagens/rotina/professor.png','PROFESSOR',0,2),(3,'/paginas/responsavel/pesquisa.xhtml','/resources/imagens/rotina/responsavel.png','RESPONSAVEL',0,2),(4,'/paginas/curso/pesquisa.xhtml','/resources/imagens/rotina/curso.png','CURSO',0,2),(5,'/paginas/matricula/pesquisa.xhtml','/resources/imagens/rotina/turma.png','MATRICULA',0,2),(6,'/paginas/rotina/pesquisa.xhtml','/resources/imagens/rotina/rotina.png','ROTINAS',0,2),(7,'/paginas/perfil/pesquisa.xhtml','/resources/imagens/rotina/perfil.png','PERFIL',0,2),(8,'/paginas/usuario/pesquisa.xhtml','/resources/imagens/rotina/usuario.png','USUARIO',0,2),(9,'/paginas/disciplina/pesquisa.xhtml','/resources/imagens/rotina/disciplina.png','DISCIPLINA',0,2),(10,'/paginas/turma/pesquisa.xhtml','/resources/imagens/rotina/turma.png','TURMA',0,2),(11,'/paginas/mensalidade/pesquisa.xhtml','/resources/imagens/rotina/curso.png','MENSALIDADE',0,2),(12,'/paginas/boletim/pesquisa.xhtml','/resources/imagens/rotina/curso.png','Boletim',0,2),(13,'/paginas/empresa/pesquisa.xhtml','/paginas/empresa/pesquisa.xhtml','Empresa',0,NULL);
+INSERT INTO `saa_rotina` VALUES 
+	(1,'/paginas/aluno/pesquisa.xhtml','/resources/imagens/rotina/aluno.png','ALUNO',0,2),
+	(2,'/paginas/professor/pesquisa.xhtml','/resources/imagens/rotina/professor.png','PROFESSOR',0,2),
+	(3,'/paginas/responsavel/pesquisa.xhtml','/resources/imagens/rotina/responsavel.png','RESPONSAVEL',0,2),
+	(4,'/paginas/curso/pesquisa.xhtml','/resources/imagens/rotina/curso.png','CURSO',0,2),
+	(5,'/paginas/matricula/pesquisa.xhtml','/resources/imagens/rotina/turma.png','MATRICULA',0,2),
+--	(6,'/paginas/rotina/pesquisa.xhtml','/resources/imagens/rotina/rotina.png','ROTINAS',0,2),	-- NAO DISPONIBILIZAR ESSA FUNCAO
+	(7,'/paginas/perfil/pesquisa.xhtml','/resources/imagens/rotina/perfil.png','PERFIL',0,2),
+	(8,'/paginas/usuario/pesquisa.xhtml','/resources/imagens/rotina/usuario.png','USUARIO',0,2),
+	(9,'/paginas/disciplina/pesquisa.xhtml','/resources/imagens/rotina/disciplina.png','DISCIPLINA',0,2),
+	(10,'/paginas/turma/pesquisa.xhtml','/resources/imagens/rotina/turma.png','TURMA',0,2),
+	(11,'/paginas/mensalidade/pesquisa.xhtml','/resources/imagens/rotina/curso.png','MENSALIDADE',0,2),
+	(12,'/paginas/boletim/pesquisa.xhtml','/resources/imagens/rotina/curso.png','BOLETIM',0,2),
+	(13,'/paginas/empresa/pesquisa.xhtml','/paginas/empresa/pesquisa.xhtml','Empresa',0,NULL);
 /*!40000 ALTER TABLE `saa_rotina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -574,7 +602,7 @@ CREATE TABLE `saa_sistema` (
 
 LOCK TABLES `saa_sistema` WRITE;
 /*!40000 ALTER TABLE `saa_sistema` DISABLE KEYS */;
-INSERT INTO `saa_sistema` VALUES (1,'SAA','SISTEMA DE AUTENTICAÇÃO E AUTORIZAÇÃO','WWWW','SISTEMA DE AUTENTICAÇÃO E AUTORIZAÇÃO'),(2,'SGE','SISTEMA DE GERENCIAMENTO ESCOLAR','WWWW','SISTEMA DE GERENCIAMENTO ESCOLAR'),(3,'SISTST','Sistema Teste','Sistema Teste','Sistema Teste');
+INSERT INTO `saa_sistema` VALUES (1,'SAA','SISTEMA DE AUTENTICAÇÃO E AUTORIZAÇÃO','WWWW','SISTEMA DE AUTENTICAÇÃO E AUTORIZAÇÃO'),(2,'SGE','SISTEMA DE GERENCIAMENTO ESCOLAR','WWWW','SISTEMA DE GERENCIAMENTO ESCOLAR');
 /*!40000 ALTER TABLE `saa_sistema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -603,7 +631,10 @@ CREATE TABLE `saa_usuario` (
 
 LOCK TABLES `saa_usuario` WRITE;
 /*!40000 ALTER TABLE `saa_usuario` DISABLE KEYS */;
-INSERT INTO `saa_usuario` VALUES (1,'admin','ADMINISTRADOR','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0,0),(2,'Usuario Teste','Usuario Teste','46070D4BF934FB0D4B06D9E2C46E346944E322444900A435D7D9A95E6D7435F5',0,0);
+INSERT INTO `saa_usuario` VALUES 
+	(1,'master','MASTER','FBFB386EFEA67E816F2DDA0A8C94A98EB203757AEBB3F55F183755A192D44467',0,0),
+	(2,'admin','ADMINISTRADOR','8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918',0,1),
+	(3,'teste','Usuario Teste','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0,3);
 /*!40000 ALTER TABLE `saa_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -632,7 +663,18 @@ CREATE TABLE `saa_usuario_perfil` (
 
 LOCK TABLES `saa_usuario_perfil` WRITE;
 /*!40000 ALTER TABLE `saa_usuario_perfil` DISABLE KEYS */;
-INSERT INTO `saa_usuario_perfil` VALUES (NULL,1,1),('2014-07-24 20:06:36',1,2),(NULL,2,1),(NULL,4,1);
+INSERT INTO `saa_usuario_perfil` VALUES 
+-- MASTER
+(NULL,1,1),
+(NULL,2,1),
+(NULL,3,1),
+-- ADMIN
+(NULL,1,2),
+(NULL,2,2),
+(NULL,3,2),
+-- TESTE
+(NULL,1,3);
+
 /*!40000 ALTER TABLE `saa_usuario_perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
