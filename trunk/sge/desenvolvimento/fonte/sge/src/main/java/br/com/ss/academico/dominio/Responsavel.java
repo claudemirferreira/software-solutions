@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.Email;
 
+import br.com.ss.academico.enumerated.EstadoCivil;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.web.enumerated.Sexo;
 
@@ -88,6 +90,10 @@ public class Responsavel extends AbstractEntity implements Serializable {
 
 	@OneToMany(mappedBy = "responsavel", fetch = FetchType.EAGER)
 	private List<Aluno> alunos = new ArrayList<Aluno>();
+	
+	 @Enumerated(EnumType.ORDINAL)
+	 @Column(name = "estado_civil", nullable = false, columnDefinition = "INT(1)")
+	 private EstadoCivil estadoCivil;
 	
 	
 	@Override
@@ -247,6 +253,15 @@ public class Responsavel extends AbstractEntity implements Serializable {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+
+	public EstadoCivil getEstadoCivil() {
+		return estadoCivil;
+	}
+
+
+	public void setEstadoCivil(EstadoCivil estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
 }
