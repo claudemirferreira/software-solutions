@@ -70,6 +70,9 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	private TipoPesquisaData tipoPesquisaData;
 
 	private List<SelectItem> tipoPesquisaDataList;
+	
+	/** Usado para validacao de renderizacao na tela de cadastro. */
+	private StatusPagamento statusInicial;
 
 	/** Indica se está vindo do Home ou não. */
 	private boolean fromHome;
@@ -132,6 +135,7 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	public String detalhe() {
 		String page = super.detalhe();
 		validarPreencherDataPagamento();
+		setStatusInicial(entidade.getStatusPagamento());
 		return page;
 	}
 
@@ -144,6 +148,7 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	public String detalheHome(Mensalidade mensalidade) {
 		this.fromHome = true;
 		entidade = mensalidade;
+		setStatusInicial(entidade.getStatusPagamento());
 		validarPreencherDataPagamento();
 		return "/paginas/mensalidade/cadastro.xhtml" + Constants.REDIRECT;
 	}
@@ -183,6 +188,10 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 
 	@Override
 	public String cancelar() {
+		
+		entidade = getService().findByPrimaryKey(entidade.getId());
+		pesquisar();
+		
 		if (!fromHome) {
 			return super.cancelar();
 		}
@@ -327,6 +336,14 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 			}
 		}
 
+	}
+
+	public StatusPagamento getStatusInicial() {
+		return statusInicial;
+	}
+
+	public void setStatusInicial(StatusPagamento statusInicial) {
+		this.statusInicial = statusInicial;
 	}
 
 }

@@ -13,6 +13,8 @@ public final class MessageUtils {
 	public static final String MESSAGE_BUNDLE = "messages";
 
 	public static final String APP_DIR = "app_dir";
+
+	public static final String BACKUP_DIR = "backups_db";
 	
 	public static final String NUM_MAX_BACKUP = "num_max_backup";
 	
