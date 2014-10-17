@@ -39,6 +39,7 @@ import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ss.academico.dominio.Empresa;
+import br.com.ss.academico.enumerated.EstadoCivil;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.seguranca.dominio.Usuario;
 import br.com.ss.core.seguranca.servico.IService;
@@ -77,6 +78,9 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> sexoList;
+	
+	// FIXME deve ficar no contexto de app - criar classe
+	protected List<SelectItem> estadoCivilList;
 
 	// FIXME deve ficar no contexto de app - criar classe
 	protected List<SelectItem> alergiaList;
@@ -133,6 +137,11 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 		alergiaList = new ArrayList<SelectItem>();
 		for (NaoSim c : NaoSim.values()) {
 			alergiaList.add(new SelectItem(c, c.getDescricao()));
+		}
+		
+		estadoCivilList = new ArrayList<SelectItem>();
+		for (EstadoCivil c : EstadoCivil.values()) {
+			estadoCivilList.add(new SelectItem(c, c.getDescricao()));
 		}
 
 	}
@@ -484,6 +493,10 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 
 	public List<SelectItem> getAlergiaList() {
 		return alergiaList;
+	}
+
+	public List<SelectItem> getEstadoCivilList() {
+		return estadoCivilList;
 	}
 
 	public RelatorioUtil getRelatorioUtil() {
