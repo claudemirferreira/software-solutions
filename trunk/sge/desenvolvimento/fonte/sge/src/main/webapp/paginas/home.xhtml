@@ -24,7 +24,7 @@
 		<p:outputPanel rendered="#{configuracaoControlador.usuarioLogado.tipoUsuario.id eq 1
 									or configuracaoControlador.usuarioLogado.tipoUsuario.id eq 2}" >
 			
-			<ss:container title="Mensalidades em atraso" width="750px" >
+			<ss:container title="Mensalidades em atraso" width="850px" >
 			
 				
 				<h:panelGrid columns="5" cellpadding="0" cellspacing="0" style="margin-top: 10;">
@@ -44,10 +44,10 @@
 					
 					<ss:grid managedBean="#{homeControlador}" list="mensalidadesAtraso" renderedActionColumn="false" >
 						
-						<ss2:column value="#{item.matricula.aluno.nome}" header="Nome" sortBy="matricula.aluno.nome"  />
-						<ss2:column value="#{item.matricula.turma.curso.nome}" header="Curso" sortBy="matricula.turma.curso.nome" width="120" />
-						<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="80" convertNumber="true" currencySymbol=" " textAlign="right" />
-						<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="120" textAlign="center" />
+						<ss2:column value="#{item.matricula.aluno.nome}" header="Nome" sortBy="matricula.aluno.nome" width="220"  />
+						<ss2:column value="#{item.matricula.turma.curso.nome} - #{item.matricula.turma.turno}" header="Curso" sortBy="matricula.turma.curso.nome" />
+						<ss2:column value="#{item.valorVencimento}" header="Valor" sortBy="valorVencimento" width="70" convertNumber="true" currencySymbol=" " textAlign="right" />
+						<ss2:column value="#{item.dataVencimento}" header="Vencimento" sortBy="dataVencimento" convertDate="true" width="100" textAlign="center" />
 						
 						<ss2:actionColumn renderedDetail="false" renderedRemove="false" buttonsAdded="2">
 			
