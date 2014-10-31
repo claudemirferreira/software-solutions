@@ -26,6 +26,12 @@ public class Configuracao extends AbstractEntity implements Serializable {
 
 	@Column( length = 20)
 	private String tema;
+
+	@Column(nullable = false)
+	private Float mediaEscolar;
+	
+	
+	
 	
 	@Override
 	public Long getId() {
@@ -54,6 +60,14 @@ public class Configuracao extends AbstractEntity implements Serializable {
 
 	public void setTema(String tema) {
 		this.tema = tema;
+	}
+
+	public Float getMediaEscolar() {
+		return mediaEscolar;
+	}
+
+	public void setMediaEscolar(Float mediaEscolar) {
+		this.mediaEscolar = mediaEscolar;
 	}
 
 	

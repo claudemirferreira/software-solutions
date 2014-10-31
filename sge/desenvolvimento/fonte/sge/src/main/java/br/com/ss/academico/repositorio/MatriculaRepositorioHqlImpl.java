@@ -14,8 +14,8 @@ import br.com.ss.core.seguranca.repositorio.RepositorioGenerico;
 
 @SuppressWarnings("unchecked")
 @Repository
-public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements
-		MatriculaRepositorioHql {
+public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements MatriculaRepositorioHql {
+	
 	@Override
 	public List<Matricula> pesquisar(Matricula entity) {
 		StringBuilder sb = new StringBuilder();
@@ -105,5 +105,5 @@ public class MatriculaRepositorioHqlImpl extends RepositorioGenerico implements
 
 		return query.getResultList();
 	}
-
+	
 }

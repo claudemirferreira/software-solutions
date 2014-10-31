@@ -28,12 +28,12 @@ import org.primefaces.event.RowEditEvent;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Boletim;
+import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.dominio.TurmaDisciplina;
 import br.com.ss.academico.servico.BoletimServico;
-import br.com.ss.academico.servico.MatriculaServico;
 import br.com.ss.academico.servico.TurmaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
@@ -50,13 +50,10 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	private static final long serialVersionUID = -6832271293709421841L;
 
 	@ManagedProperty(value = "#{boletimServicoImpl}")
-	private BoletimServico servico;
+	private BoletimServico service;
 
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico turmaServico;
-
-	@ManagedProperty(value = "#{matriculaServicoImpl}")
-	private MatriculaServico matriculaServico;
 
 	private String nomeRelatorio = "boletim.jasper";
 
@@ -64,20 +61,21 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	private List<Turma> turmas;
 
-	private List<Matricula> matriculas;
-
 	private List<Matricula> filteredTurmas;
+
+	private Configuracao configuracao;
 	
-	private Matricula matriculaBoletim;
 
 	@PostConstruct
 	@Override
 	public void setup() {
 		super.setup();
 		this.turmas = turmaServico.listarTodos();
+		configuracao = (Configuracao) FacesUtils.getApplicationParam("configuracao");
+		
 	}
 
-	@Override
+
 	protected String getNomeRelatorioJasper() {
 		return this.nomeRelatorio;
 	}
@@ -90,15 +88,39 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	@Override
 	public void pesquisar() {
 		if (this.turma != null) {
-			this.matriculas = matriculaServico.listaMatriculasPorTurma(this.turma);
+			this.listaPesquisa = service.listBoletimPorTurma(this.turma);
 		
 			// fetch de disciplina 
-			for ( Matricula mat : matriculas ) {
-				for ( TurmaDisciplina td : mat.getTurma().getTurmaDisciplina() ) {
+			for (Boletim bol : listaPesquisa ) {
+				for ( TurmaDisciplina td : bol.getMatricula().getTurma().getTurmaDisciplina() ) {
 					td.getDisciplina();
 				}
 			}
 		}
+		
+	}
+
+	public String pesquisarBoletim(Boletim boletim) {
+		entidade = boletim;
+		return "boletim?faces-redirect=true";
+	}
+
+	
+	public void onEdit(RowEditEvent event) {
+		salvarBoletim();
+	}
+
+	public void onCancel(RowEditEvent event) {
+		showMessage("Ediçao de nota cancelada!", FacesMessage.SEVERITY_WARN);
+	}
+
+	
+	// FIXME chamar na tela
+	public void salvarBoletim() {
+		
+		entidade.atualizarBoletim(configuracao.getMediaEscolar());
+		getService().salvar(entidade);
+		showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 		
 	}
 	
@@ -137,8 +159,8 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 			param.put(USUARIO, getUsuarioLogado());
 			
 			List<Aluno> alunos = new ArrayList<Aluno>();
-			for (Matricula mat: matriculas ) {
-				alunos.add(mat.getAluno());
+			for (Boletim bol: listaPesquisa ) {
+				alunos.add(bol.getMatricula().getAluno());
 			}
 			
 			gerarRelatorioWeb(alunos, param, false);
@@ -209,17 +231,24 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		context.responseComplete();
 	}
 
+	
+
+	public List<Double> getNotas() {
+		return Util.gerarNotas();
+	}
+	
+	
+	
+	
+	/* ----------- Gets/Sets ------------------ */
+
 	@Override
 	protected IService<Boletim, Long> getService() {
-		return servico;
+		return service;
 	}
 
-	public BoletimServico getServico() {
-		return servico;
-	}
-
-	public void setServico(BoletimServico servico) {
-		this.servico = servico;
+	public void setService(BoletimServico service) {
+		this.service = service;
 	}
 
 	public void setNomeRelatorio(String nomeRelatorio) {
@@ -250,60 +279,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		this.turmas = turmas;
 	}
 
-	public List<Matricula> getMatriculas() {
-		return matriculas;
-	}
-
-	public void setMatriculas(List<Matricula> matriculas) {
-		this.matriculas = matriculas;
-	}
-
-	public MatriculaServico getMatriculaServico() {
-		return matriculaServico;
-	}
-
-	public void setMatriculaServico(MatriculaServico matriculaServico) {
-		this.matriculaServico = matriculaServico;
-	}
-
 	public List<Matricula> getFilteredTurmas() {
 		return filteredTurmas;
 	}
 
 	public void setFilteredTurmas(List<Matricula> filteredTurmas) {
 		this.filteredTurmas = filteredTurmas;
-	}
-
-	public String pesquisarBoletim(Matricula matricula) {
-
-		this.matriculaBoletim = matricula;
-		
-		this.listaPesquisa = this.servico.pesquisarBoletim(matricula);
-
-		for (Boletim bol : listaPesquisa) {
-			bol.getDisciplina();
-		}
-		
-		return "boletim?faces-redirect=true";
-	}
-
-	public void onEdit(RowEditEvent event) {
-		this.entidade = (Boletim) event.getObject();
-		this.entidade.atualizarMedia();
-		getService().salvar(entidade);
-		showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
-	}
-
-	public void onCancel(RowEditEvent event) {
-		showMessage("Ediçao de nota cancelada!", FacesMessage.SEVERITY_WARN);
-	}
-
-	public List<Double> getNotas() {
-		return Util.pegarNotas();
-	}
-
-	public Matricula getMatriculaBoletim() {
-		return matriculaBoletim;
 	}
 
 }

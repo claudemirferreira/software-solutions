@@ -67,7 +67,7 @@ public class Util {
 		return anos;
 	}
 	
-	public static List<Double> pegarNotas() {
+	public static List<Double> gerarNotas() {
 		List<Double> notas = new ArrayList<Double>();
 		Double valor = 10.0;
 		for (int i = 20; i > -1; i--) {
@@ -79,8 +79,8 @@ public class Util {
 		return notas;
 	}
 	
-	public static void main(String[] args) {
-		pegarNotas();
-	}
+//	public static void main(String[] args) {
+//		gerarNotas();
+//	}
 	
 }

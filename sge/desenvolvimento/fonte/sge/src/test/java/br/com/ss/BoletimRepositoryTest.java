@@ -35,13 +35,13 @@ public class BoletimRepositoryTest {
 		System.out.println("2");
 	}
 	
-	@Test
+//	@Test
 	public void salvar(){
-		Boletim boletim = repository.findOne(1l);
-		
-		boletim.setMedia1( (float) 7.0);
-		repository.save(boletim);
-		System.out.println("salvou");
+//		Boletim boletim = repository.findOne(1l);
+//		
+//		boletim.setMedia1( (float) 7.0);
+//		repository.save(boletim);
+//		System.out.println("salvou");
 		
 	}
 

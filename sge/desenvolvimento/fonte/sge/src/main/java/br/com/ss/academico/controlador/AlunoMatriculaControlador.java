@@ -334,7 +334,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 			
 			if (!persistent ) {
 				// No cadastro, gera o boletim para o aluno matriculado
-				this.boletimServico.gerarBoletim(entidade);				
+				this.boletimServico.gerarBoletim(entidade);
 			}
 
 			showModalPesquisaMatricula();
