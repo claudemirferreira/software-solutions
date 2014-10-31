@@ -35,6 +35,10 @@ public class Disciplina extends AbstractEntity implements Serializable {
 
 	@Column(length = 100)
 	private String descricao;
+	
+	@Column(nullable=false)
+	private int maximoFaltas;
+	
 
 	@OneToMany(fetch = FetchType.LAZY, 
 				cascade = { CascadeType.MERGE, CascadeType.REMOVE }, 
@@ -92,6 +96,14 @@ public class Disciplina extends AbstractEntity implements Serializable {
 
 	public void setTurmaDisciplina(List<TurmaDisciplina> turmaDisciplina) {
 		this.turmaDisciplina = turmaDisciplina;
+	}
+
+	public int getMaximoFaltas() {
+		return maximoFaltas;
+	}
+
+	public void setMaximoFaltas(int maximoFaltas) {
+		this.maximoFaltas = maximoFaltas;
 	}
 
 }

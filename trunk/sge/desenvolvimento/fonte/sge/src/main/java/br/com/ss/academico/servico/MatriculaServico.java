@@ -17,8 +17,6 @@ public interface MatriculaServico extends IService<Matricula, Long> {
 
 	public Matricula loadMatriculaMensalidades(Matricula matricula);
 
-	public List<Matricula> listaMatriculasPorTurma(Turma turma);
-
 	public List<Observacao> loadObservacoes(Matricula entidade);
 	
 	public List<Matricula> listarAniversariantes(Date dataInicial,
