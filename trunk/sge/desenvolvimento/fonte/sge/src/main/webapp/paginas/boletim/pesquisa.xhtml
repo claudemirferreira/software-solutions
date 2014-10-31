@@ -14,7 +14,6 @@
 	<ui:param name="pageTitle" value="Boletim" />
 	<ui:param name="pageHeader" value="Boletim" />
 	<ui:param name="disabledBtnNew" value="true" />
-	<ui:param name="listaPesquisa" value="matriculas" />
 	<ui:param name="managedBean" value="#{boletimControlador}" />
 
 	<ui:define name="search_filter">
@@ -28,13 +27,13 @@
 
 	<ui:define name="grid_region">
 
-		<ss:grid managedBean="#{boletimControlador}" list="matriculas" renderedActionColumn="false">
+		<ss:grid managedBean="#{boletimControlador}" renderedActionColumn="false">
 
-			<ss2:column value="#{item.idMatricula}" header="Matricula" sortBy="idMatricula" />
+			<ss2:column value="#{item.matricula.idMatricula}" header="Matricula" width="80" sortBy="idMatricula" />
 			
-			<ss2:column value="#{item.aluno.nome}" header="Aluno" sortBy="nome" />
+			<ss2:column value="#{item.matricula.aluno.nome}" header="Aluno" sortBy="nome" />
 			
-			<ss2:column value="#{item.status}" header="Status" sortBy="status" />
+			<ss2:column value="#{item.statusBoletim.descricao}" header="Situação" width="200" textAlign="center" />
 			
 			<ss2:actionColumn managedBean="#{boletimControlador}" buttonsAdded="1" renderedDetail="false" renderedRemove="false" >
 				<p:commandButton value="Boletim" title="Boletim"
