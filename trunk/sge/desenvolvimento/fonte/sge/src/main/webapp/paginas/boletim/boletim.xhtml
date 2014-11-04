@@ -17,236 +17,268 @@
 	<ui:param name="disabledBtnSalvar" value="true" />
 
 
-	<ui:define name="aditional_button_region">
-	
-		<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
-						ajax="false" value="Imprimir" action="#{boletimControlador.imprimirBoletim()}"
-						icon="ui-icon-print" styleClass="ui-priority-primary"
-						immediate="true" />
-						
-	</ui:define>
+<ui:define name="aditional_button_region">
+
+	<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
+					ajax="false" value="Imprimir" action="#{boletimControlador.imprimirBoletim()}"
+					icon="ui-icon-print" styleClass="ui-priority-primary"
+					immediate="true" />
+					
+</ui:define>
 
 	
-	<ui:define name="register_region">
-
-		<p:dataTable id="rowEditingTable" var="item"
-					value="#{boletimControlador.entidade.detalheBoletims}" paginator="true"
-					rows="15" paginatorPosition="bottom" editable="true">
-
-			<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
-
-			<f:facet name="header">  
-	            Aluno(a):  #{boletimControlador.entidade.matricula.aluno.nome}
-	        </f:facet>
-
-			<p:column headerText="Disciplina">
-				<h:outputText value="#{item.disciplina.nome}" />
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="1 Nota" />
+<ui:define name="register_region">
+	
+	<p:dataTable var="item" value="#{boletimControlador.entidade.detalheBoletims}" editable="true">
+		
+		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
+		
+        <f:facet name="header">
+            Aluno(a):  #{boletimControlador.entidade.matricula.aluno.nome}
+        </f:facet>
+ 
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column rowspan="2" headerText="Disciplina" width="90" />
+                <p:column colspan="4" headerText="1º Bimestre"  />
+                <p:column colspan="4" headerText="2º Bimestre" />
+                <p:column colspan="4" headerText="3º Bimestre" />
+                <p:column colspan="4" headerText="4º Bimestre" />
+                <p:column colspan="4" headerText="Resultado Final" width="280" />
+                <p:column rowspan="2" headerText="Ação" width="35" />
+            </p:row>
+            <p:row>
+                <p:column headerText="Nota 1" width="40" />
+                <p:column headerText="Nota 2" width="40" />
+                <p:column headerText="Média" />
+                <p:column headerText="Faltas" />
+                
+                <p:column headerText="Nota 3" />
+                <p:column headerText="Nota 4" />
+                <p:column headerText="Média" />
+                <p:column headerText="Faltas" />
+                
+                <p:column headerText="Nota 5" />
+                <p:column headerText="Nota 6" />
+                <p:column headerText="Média" />
+                <p:column headerText="Faltas" />
+                
+                <p:column headerText="Nota 7" />
+                <p:column headerText="Nota 8" />
+                <p:column headerText="Média" />
+                <p:column headerText="Faltas" />
+                
+                <p:column headerText="Média Geral" />
+                <p:column headerText="Média Final" />
+                <p:column headerText="Total Faltas" />
+                <p:column headerText="Situação Disciplina" />
+            </p:row>
+        </p:columnGroup>
+ 
+        <p:column>
+            <h:outputText value="#{item.disciplina.nome}" />
+        </p:column>
+        
+        <p:column styleClass="textRight">
+            <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota1}" />
 				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota1}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota1" value="#{item.nota1}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota1}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota2}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota2}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+           <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media1}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media1}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+        	<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre1}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre1}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+ 
+ 
+        <p:column styleClass="textRight">
+            <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota3}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota3}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota4}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota4}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+           <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media2}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media2}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+        	<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre2}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre2}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+ 
+        <p:column styleClass="textRight">
+            <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota5}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota5}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota6}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota6}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+           <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media3}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media3}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+        	<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre3}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre3}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+ 
+        <p:column styleClass="textRight">
+            <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota7}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota7}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota8}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota8}" />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+           <p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media4}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media4}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        <p:column styleClass="textRight">
+        	<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre4}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre4}"  />
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+ 
+ 		<p:column styleClass="textRight">
+ 			<h:outputText value="#{item.mediaGeral}" />
+        </p:column>
+ 		<p:column styleClass="textRight">
+ 			<h:outputText value="#{item.mediaFinal}" />
+        </p:column>
+ 		<p:column styleClass="textRight">
+ 			<h:outputText value="#{item.totalFaltas}" />
+        </p:column>
+ 		<p:column styleClass="textRight">
+ 			<h:outputText value="#{item.statusDisciplina.descricao}" />
+        </p:column>
+        
+        
+ 		<p:column exportable="false">
+			<p:rowEditor />
+		</p:column>
+ 		
+        <p:columnGroup type="footer">
+            <p:row>
+                <p:column style="text-align:right" footerText="Total de faltas" />
+                <p:column style="text-align:right" footerText="Tt1" colspan="4" />
+                <p:column style="text-align:right" footerText="Tt2" colspan="4" />
+                <p:column style="text-align:right" footerText="Tt3" colspan="4" />
+                <p:column style="text-align:right" footerText="Tt4" colspan="4" />
+                <p:column style="text-align:right" footerText="Tt5" colspan="3" />
+                <p:column style="text-align:right" footerText=" " colspan="2" />
+            </p:row>
+        </p:columnGroup>
+ 
+        <f:facet name="footer">
+            <h:outputText value="Situação: #{boletimControlador.entidade.statusBoletim.descricao}" />
+        </f:facet>
+    </p:dataTable>
 
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="2 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota2}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota2" value="#{item.nota2}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Média 1" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.media1}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:outputText value="#{item.media1}"  />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="3 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota3}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota3" value="#{item.nota3}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="4 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota4}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota4" value="#{item.nota4}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Média 2" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.media2}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:outputText value="#{item.media2}"  />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="5 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota5}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota5" value="#{item.nota5}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="6 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota6}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota6" value="#{item.nota6}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Média 3" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.media3}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:outputText value="#{item.media3}"  />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="7 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota7}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota17" value="#{item.nota7}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="8 Nota" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.nota8}" />
-					</f:facet>
-					<f:facet name="input">
-						<p:inputText id="nota8" value="#{item.nota8}" />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Média 4" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.media4}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:outputText value="#{item.media4}"  />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column width="75">
-				<f:facet name="header">
-					<h:outputText value="Média Geral" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.mediaGeral}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:outputText value="#{item.mediaGeral}"  />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column width="75">
-				<f:facet name="header">
-					<h:outputText value="Média Final" />
-				</f:facet>
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{item.mediaFinal}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:outputText value="#{item.mediaFinal}"  />
-					</f:facet>
-				</p:cellEditor>
-			</p:column>
-			
-			<p:column style="width:6%;" exportable="false">
-				<f:facet name="header">
-					<h:outputText value="Editar" />
-				</f:facet>
-				<p:rowEditor />
-			</p:column>
-		</p:dataTable>
-
-	</ui:define>
+</ui:define>
 
 </ui:composition>
