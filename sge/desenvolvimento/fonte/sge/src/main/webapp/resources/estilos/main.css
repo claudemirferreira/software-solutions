@@ -861,3 +861,11 @@ a {
     font-size: 1.1em;
     */
 }
+
+.textRight {
+	text-align: right;
+}
+
+.textCenter {
+	text-align: center;
+}
