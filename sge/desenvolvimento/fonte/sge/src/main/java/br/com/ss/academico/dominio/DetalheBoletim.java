@@ -70,13 +70,13 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	private Integer faltasBimestre1;
 
 	@Column
-	private Integer faltasBimestre2;
+	private Integer faltasBimestre2 = 0;
 
 	@Column
-	private Integer faltasBimestre3;
+	private Integer faltasBimestre3 = 0;
 
 	@Column
-	private Integer faltasBimestre4;
+	private Integer faltasBimestre4 = 0;
 
 	@Column
 	private Integer totalFaltas = 0;
@@ -119,6 +119,7 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		this.setMedia4((this.nota7 + this.nota8) / 2);
 		
 		calcularMediaGeral();
+		calcularTotalFaltas();
 	}
 
 	
@@ -128,6 +129,12 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	
 
 	public void calcularMediaFinal( final Float mediaEscolar) {
+		
+		if (mediaGeral < mediaEscolar && (nota7 != null && nota8 != null) ) {
+			// habilita a recuperacao se a nota do 4º bimestre estiver lancada e 
+			// a media geral for menor que a media escolar
+			recuperacao = true;
+		}
 		
 		if ( recuperacao ) {
 			mediaFinal = ( mediaGeral + notaRecuperacao ) / NumeroUtil.DOIS;
@@ -150,6 +157,13 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 			statusDisciplina = StatusBoletim.REPROVADO;
 		}
 	}
+	
+
+	private void calcularTotalFaltas() {
+		totalFaltas = faltasBimestre1 + faltasBimestre2 + faltasBimestre3 + faltasBimestre4;
+	}
+	
+	
 	
 	
 	/* -------- Gets/Sets ---------------- */

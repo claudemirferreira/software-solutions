@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.StatusBoletim;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
@@ -41,6 +42,22 @@ public class Boletim extends AbstractEntity implements Serializable {
 	@OneToMany(mappedBy = "boletim", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true )
 	private Set<DetalheBoletim> detalheBoletims = new HashSet<DetalheBoletim>();
 
+
+	@Transient
+	private Integer totalFaltas1;
+	@Transient
+	private Integer totalFaltas2;
+	@Transient
+	private Integer totalFaltas3;
+	@Transient
+	private Integer totalFaltas4;
+	
+	@Transient
+	private Integer totalGeral;
+
+	@Transient
+	private boolean recuperacao;
+	
 	public Boletim() { }
 
 
@@ -50,10 +67,18 @@ public class Boletim extends AbstractEntity implements Serializable {
 	 */
 	public void atualizarBoletim(final Float mediaEscolar) {
 		
+		resetTotais();
+		
 		for(DetalheBoletim det : detalheBoletims ) {
 			det.calcularMedias();
 			det.calcularMediaFinal(mediaEscolar);
+			if (det.isRecuperacao()) {
+				recuperacao = true;
+			}
+			calcularFaltas(det);
 		}
+		
+		calcularTotalFaltas();
 		
 		// atualiza o status se o aluno esta aprovado ou reprovado no ano letivo
 		statusBoletim = StatusBoletim.APROVADO;
@@ -63,8 +88,33 @@ public class Boletim extends AbstractEntity implements Serializable {
 			}
 		}
 	}
+
+
+	private void resetTotais() {
+		totalFaltas1 = 0;
+		totalFaltas2 = 0;
+		totalFaltas3 = 0;
+		totalFaltas4 = 0;
+		totalGeral = 0;
+		recuperacao = false;
+	}
+
+
+	private void calcularFaltas(DetalheBoletim det) {
+		totalFaltas1 += det.getFaltasBimestre1();
+		totalFaltas2 += det.getFaltasBimestre2();
+		totalFaltas3 += det.getFaltasBimestre3();
+		totalFaltas4 += det.getFaltasBimestre4();
+	}
 	
 
+	private void calcularTotalFaltas() {
+		totalGeral = totalFaltas1 + totalFaltas2 + totalFaltas3 + totalFaltas4;
+	}
+
+	
+	
+	
 	/* -------- Gets/Sets ---------------- */
 	@Override
 	public Long getId() {
@@ -95,14 +145,36 @@ public class Boletim extends AbstractEntity implements Serializable {
 		this.detalheBoletims = detalheBoletims;
 	}
 
-
 	public StatusBoletim getStatusBoletim() {
 		return statusBoletim;
 	}
 
-
 	public void setStatusBoletim(StatusBoletim statusBoletim) {
 		this.statusBoletim = statusBoletim;
+	}
+
+	public Integer getTotalFaltas2() {
+		return totalFaltas2;
+	}
+
+	public Integer getTotalFaltas1() {
+		return totalFaltas1;
+	}
+
+	public Integer getTotalFaltas3() {
+		return totalFaltas3;
+	}
+
+	public Integer getTotalFaltas4() {
+		return totalFaltas4;
+	}
+
+	public Integer getTotalGeral() {
+		return totalGeral;
+	}
+
+	public boolean isRecuperacao() {
+		return recuperacao;
 	}
 
 }
