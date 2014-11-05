@@ -28,13 +28,23 @@
 
 	
 <ui:define name="register_region">
+
+	<h:panelGrid id="panelCadastro" columns="2">
+
+		<ss:input label="Aluno" value="#{boletimControlador.entidade.matricula.aluno.nome}" size="40" readonly="true" />
+		<ss:input label="Matrícula" value="#{boletimControlador.entidade.matricula.idMatricula}" size="20" readonly="true" />
+		<ss:input label="Turma" value="#{boletimControlador.entidade.matricula.turma.curso.nome} - #{boletimControlador.entidade.matricula.turma.turno.descricao}" size="20" readonly="true" />
+		<ss:input label="Ano Letivo" value="#{boletimControlador.entidade.matricula.turma.ano}" size="20" readonly="true" />
+	
+	
+	</h:panelGrid>
 	
 	<p:dataTable var="item" value="#{boletimControlador.entidade.detalheBoletims}" editable="true">
 		
 		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
 		
         <f:facet name="header">
-            Aluno(a):  #{boletimControlador.entidade.matricula.aluno.nome}
+            Componentes Curriculares
         </f:facet>
  
         <p:columnGroup type="header">
@@ -44,7 +54,7 @@
                 <p:column colspan="4" headerText="2º Bimestre" />
                 <p:column colspan="4" headerText="3º Bimestre" />
                 <p:column colspan="4" headerText="4º Bimestre" />
-                <p:column colspan="4" headerText="Resultado Final" width="280" />
+                <p:column colspan="#{not boletimControlador.entidade.recuperacao ? '4' : '5'}" headerText="Resultado Final" width="280" />
                 <p:column rowspan="2" headerText="Ação" width="35" />
             </p:row>
             <p:row>
@@ -69,6 +79,7 @@
                 <p:column headerText="Faltas" />
                 
                 <p:column headerText="Média Geral" />
+                <p:column rendered="#{boletimControlador.entidade.recuperacao}" headerText="Recuperação" />
                 <p:column headerText="Média Final" />
                 <p:column headerText="Total Faltas" />
                 <p:column headerText="Situação Disciplina" />
@@ -82,30 +93,42 @@
         <p:column styleClass="textRight">
             <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota1}" />
+					<h:outputText value="#{item.nota1}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota1}" />
+					<p:inputText value="#{item.nota1}" maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
 			<p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota2}" />
+					<h:outputText value="#{item.nota2}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota2}" />
+					<p:inputText value="#{item.nota2}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
            <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.media1}" />
+					<h:outputText value="#{item.media1}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<h:outputText value="#{item.media1}"  />
+					<h:outputText value="#{item.media1}"  >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
@@ -124,30 +147,42 @@
         <p:column styleClass="textRight">
             <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota3}" />
+					<h:outputText value="#{item.nota3}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota3}" />
+					<p:inputText value="#{item.nota3}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
 			<p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota4}" />
+					<h:outputText value="#{item.nota4}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota4}" />
+					<p:inputText value="#{item.nota4}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
            <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.media2}" />
+					<h:outputText value="#{item.media2}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<h:outputText value="#{item.media2}"  />
+					<h:outputText value="#{item.media2}"  >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
@@ -165,30 +200,42 @@
         <p:column styleClass="textRight">
             <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota5}" />
+					<h:outputText value="#{item.nota5}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota5}" />
+					<p:inputText value="#{item.nota5}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
 			<p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota6}" />
+					<h:outputText value="#{item.nota6}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota6}" />
+					<p:inputText value="#{item.nota6}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
            <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.media3}" />
+					<h:outputText value="#{item.media3}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<h:outputText value="#{item.media3}"  />
+					<h:outputText value="#{item.media3}"  >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
@@ -206,30 +253,42 @@
         <p:column styleClass="textRight">
             <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota7}" />
+					<h:outputText value="#{item.nota7}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota7}" />
+					<p:inputText value="#{item.nota7}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
 			<p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.nota8}" />
+					<h:outputText value="#{item.nota8}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<p:inputText value="#{item.nota8}" />
+					<p:inputText value="#{item.nota8}"  maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
         <p:column styleClass="textRight">
            <p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{item.media4}" />
+					<h:outputText value="#{item.media4}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 				<f:facet name="input">
-					<h:outputText value="#{item.media4}"  />
+					<h:outputText value="#{item.media4}"  >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
 				</f:facet>
 			</p:cellEditor>
         </p:column>
@@ -245,10 +304,30 @@
         </p:column>
  
  		<p:column styleClass="textRight">
- 			<h:outputText value="#{item.mediaGeral}" />
+ 			<h:outputText value="#{item.mediaGeral}" >
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
         </p:column>
+        
+        <p:column styleClass="textRight" rendered="#{boletimControlador.entidade.recuperacao}">
+        	<p:cellEditor rendered="#{item.recuperacao}">
+				<f:facet name="output">
+					<h:outputText value="#{item.notaRecuperacao}" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.notaRecuperacao}" maxlength="5" >
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:inputText>
+				</f:facet>
+			</p:cellEditor>
+        </p:column>
+        
  		<p:column styleClass="textRight">
- 			<h:outputText value="#{item.mediaFinal}" />
+ 			<h:outputText value="#{item.mediaFinal}" >
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
         </p:column>
  		<p:column styleClass="textRight">
  			<h:outputText value="#{item.totalFaltas}" />
@@ -265,11 +344,11 @@
         <p:columnGroup type="footer">
             <p:row>
                 <p:column style="text-align:right" footerText="Total de faltas" />
-                <p:column style="text-align:right" footerText="Tt1" colspan="4" />
-                <p:column style="text-align:right" footerText="Tt2" colspan="4" />
-                <p:column style="text-align:right" footerText="Tt3" colspan="4" />
-                <p:column style="text-align:right" footerText="Tt4" colspan="4" />
-                <p:column style="text-align:right" footerText="Tt5" colspan="3" />
+                <p:column style="text-align:right" footerText="#{boletimControlador.entidade.totalFaltas1}" colspan="4" />
+                <p:column style="text-align:right" footerText="#{boletimControlador.entidade.totalFaltas2}" colspan="4" />
+                <p:column style="text-align:right" footerText="#{boletimControlador.entidade.totalFaltas3}" colspan="4" />
+                <p:column style="text-align:right" footerText="#{boletimControlador.entidade.totalFaltas4}" colspan="4" />
+                <p:column style="text-align:right" footerText="#{boletimControlador.entidade.totalGeral}" colspan="#{not boletimControlador.entidade.recuperacao ? '3' : '4'}" />
                 <p:column style="text-align:right" footerText=" " colspan="2" />
             </p:row>
         </p:columnGroup>
