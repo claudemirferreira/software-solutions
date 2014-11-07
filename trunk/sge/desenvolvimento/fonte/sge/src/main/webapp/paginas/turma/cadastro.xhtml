@@ -25,7 +25,7 @@
 		
 			<ss:comboBox label="Curso" required="true" foreignKey="true" atributo="#{item.nome}" selectOne="true" value="#{turmaControlador.entidade.curso}" list="#{turmaControlador.cursos}" />
 			
-			<ss:input label="Sala" size="10" required="true" value="#{turmaControlador.entidade.sala}" />
+			<ss:input label="Sala" size="10" required="true" value="#{turmaControlador.entidade.sala}" maxlength="20" />
 			
 			<ss:input label="Número de Vagas" type="number" dir="rtl" size="3" decimalPlaces="0" required="true" value="#{turmaControlador.entidade.numeroVagas}" />
 			

@@ -295,6 +295,13 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 			
 			// reseta o combo qdo mudar a turma
 			entidade.setIntegral(false);
+			
+			// valida se a turma é para o prox ano - entao seleciona o mes de janeiro
+			Integer anoAtual = DateUtil.getAno(new Date());
+			if ( entidade.getTurma().getAno() > anoAtual ) {
+				mesSelecionado = Meses.JANEIRO;
+			}
+			
 		}
 
 		Long vagasDisponiveis = servicoMatricula.countVagasDisponiveis(entidade.getTurma());
