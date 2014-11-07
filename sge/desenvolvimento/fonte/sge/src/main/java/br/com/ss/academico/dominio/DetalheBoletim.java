@@ -66,20 +66,20 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	private Float mediaGeral;
 	
 	
-	@Column
+	@Column(name="faltas_bimestre_1")
 	private Integer faltasBimestre1;
 
-	@Column
-	private Integer faltasBimestre2 = 0;
+	@Column(name="faltas_bimestre_2")
+	private Integer faltasBimestre2;
+
+	@Column(name="faltas_bimestre_3")
+	private Integer faltasBimestre3;
+
+	@Column(name="faltas_bimestre_4")
+	private Integer faltasBimestre4;
 
 	@Column
-	private Integer faltasBimestre3 = 0;
-
-	@Column
-	private Integer faltasBimestre4 = 0;
-
-	@Column
-	private Integer totalFaltas = 0;
+	private Integer totalFaltas;
 	
 	
 	@Column

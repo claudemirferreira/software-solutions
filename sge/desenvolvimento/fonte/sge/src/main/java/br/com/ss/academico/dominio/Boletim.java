@@ -32,7 +32,7 @@ public class Boletim extends AbstractEntity implements Serializable {
 	private Long idBoletim;
 
 	@Enumerated
-	@Column
+	@Column(length = 1)
 	private StatusBoletim statusBoletim = StatusBoletim.LANCAMENTOS_PENDENTES;
 	
 	@ManyToOne
