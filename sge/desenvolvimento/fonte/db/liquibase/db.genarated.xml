@@ -51,48 +51,6 @@
             <column autoIncrement="true" name="id_boletim" type="BIGINT(19)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="media1" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="media2" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="media3" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="media4" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="media_final" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota1" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota2" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota3" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota4" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota5" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota6" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota7" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="nota8" type="FLOAT(12)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="id_disciplina" type="BIGINT(19)">
-                <constraints nullable="false"/>
-            </column>
             <column name="id_matricula" type="BIGINT(19)">
                 <constraints nullable="false"/>
             </column>

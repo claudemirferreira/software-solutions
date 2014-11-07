@@ -65,40 +65,73 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `acad_boletim`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acad_boletim` (
   `id_boletim` bigint(20) NOT NULL AUTO_INCREMENT,
-  `media1` float NOT NULL,
-  `media2` float NOT NULL,
-  `media3` float NOT NULL,
-  `media4` float NOT NULL,
-  `media_final` float NOT NULL,
-  `nota1` float NOT NULL,
-  `nota2` float NOT NULL,
-  `nota3` float NOT NULL,
-  `nota4` float NOT NULL,
-  `nota5` float NOT NULL,
-  `nota6` float NOT NULL,
-  `nota7` float NOT NULL,
-  `nota8` float NOT NULL,
-  `id_disciplina` bigint(20) NOT NULL,
   `id_matricula` bigint(20) NOT NULL,
+  `status_boletim` int(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_boletim`),
-  KEY `FK_p8d9kggflelbutgso6bn9mpek` (`id_disciplina`),
-  KEY `FK_mq5q6rbkuuuum3poa3ojvag6u` (`id_matricula`),
-  CONSTRAINT `FK_mq5q6rbkuuuum3poa3ojvag6u` FOREIGN KEY (`id_matricula`) REFERENCES `acad_matricula` (`id_matricula`),
-  CONSTRAINT `FK_p8d9kggflelbutgso6bn9mpek` FOREIGN KEY (`id_disciplina`) REFERENCES `acad_disciplina` (`id_disciplina`)
+  KEY `FK_matricula` (`id_matricula`),
+  CONSTRAINT `FK_matricula` FOREIGN KEY (`id_matricula`) REFERENCES `acad_matricula` (`id_matricula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `acad_boletim`
 --
 
+/*!40000 ALTER TABLE `acad_boletim` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acad_boletim` ENABLE KEYS */;
+
 LOCK TABLES `acad_boletim` WRITE;
 /*!40000 ALTER TABLE `acad_boletim` DISABLE KEYS */;
 /*!40000 ALTER TABLE `acad_boletim` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `acad_detalhe_boletim`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `acad_detalhe_boletim` (
+  `id_detalhe_boletim` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_disciplina` bigint(20) NOT NULL,
+  `id_boletim` bigint(20) NOT NULL,
+  `media1` float NULL,
+  `media2` float NULL,
+  `media3` float NULL,
+  `media4` float NULL,
+  `media_geral` float NULL,
+  `media_final` float NULL,
+  `nota1` float NULL,
+  `nota2` float NULL,
+  `nota3` float NULL,
+  `nota4` float NULL,
+  `nota5` float NULL,
+  `nota6` float NULL,
+  `nota7` float NULL,
+  `nota8` float NULL,
+  `recuperacao` boolean NULL,
+  `nota_recuperacao` float NULL,
+  `status_disciplina` int(1) unsigned NULL,
+  `faltas_bimestre_1` INTEGER UNSIGNED,
+  `faltas_bimestre_2` INTEGER UNSIGNED,
+  `faltas_bimestre_3` INTEGER UNSIGNED,
+  `faltas_bimestre_4` INTEGER UNSIGNED,
+  `total_faltas` INTEGER UNSIGNED,
+  PRIMARY KEY (`id_detalhe_boletim`),
+  KEY `FK_disciplina` (`id_disciplina`),
+  KEY `FK_boletim` (`id_boletim`),
+  CONSTRAINT `FK_boletim` FOREIGN KEY (`id_boletim`) REFERENCES `acad_boletim` (`id_boletim`),
+  CONSTRAINT `FK_disciplina` FOREIGN KEY (`id_disciplina`) REFERENCES `acad_disciplina` (`id_disciplina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `acad_detalhe_boletim`
+--
+
+LOCK TABLES `acad_detalhe_boletim` WRITE;
+/*!40000 ALTER TABLE `acad_detalhe_boletim` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acad_detalhe_boletim` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -111,6 +144,7 @@ DROP TABLE IF EXISTS `acad_configuracao`;
 CREATE TABLE `acad_configuracao` (
   `id_configuracao` bigint(20) NOT NULL AUTO_INCREMENT,
   `dia_vencimento` int(11) NOT NULL,
+  `media_escolar` float NOT NULL,
   `tema` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_configuracao`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -122,7 +156,7 @@ CREATE TABLE `acad_configuracao` (
 
 LOCK TABLES `acad_configuracao` WRITE;
 /*!40000 ALTER TABLE `acad_configuracao` DISABLE KEYS */;
-INSERT INTO `acad_configuracao` VALUES (1,10,'start');
+INSERT INTO `acad_configuracao` VALUES (1,10,5.0,'start');
 /*!40000 ALTER TABLE `acad_configuracao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,6 +223,7 @@ CREATE TABLE `acad_disciplina` (
   `id_disciplina` bigint(20) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(100) DEFAULT NULL,
   `nome` varchar(50) NOT NULL,
+  `maximo_faltas` INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY (`id_disciplina`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -213,7 +248,7 @@ CREATE TABLE `acad_matricula` (
   `id_matricula` bigint(20) NOT NULL AUTO_INCREMENT,
   `data` datetime NOT NULL,
   `integral` tinyint(1) NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(1) NOT NULL,
   `texto_relatorio` varchar(255) DEFAULT NULL,
   `valor` double NOT NULL,
   `id_aluno` bigint(20) NOT NULL,
@@ -360,6 +395,7 @@ CREATE TABLE `acad_responsavel` (
   `profissao` varchar(30) NOT NULL,
   `rg` varchar(10) NOT NULL,
   `sexo` int(1) NOT NULL,
+  `estado_civil` INT(1) UNSIGNED NULL,
   PRIMARY KEY (`id_responsavel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -386,6 +422,7 @@ CREATE TABLE `acad_turma` (
   `numero_vagas` int(11) NOT NULL,
   `situacao` int(11) NOT NULL,
   `turno` int(11) NOT NULL,
+  `sala` varchar(20) DEFAULT NULL,
   `id_curso` bigint(20) NOT NULL,
   PRIMARY KEY (`id_turma`),
   KEY `FK_2qed6ismnk8dlxohh3ie29tb5` (`id_curso`),
@@ -458,7 +495,7 @@ CREATE TABLE `saa_empresa` (
 
 LOCK TABLES `saa_empresa` WRITE;
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
-INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','10557321000145','sge@gmail.com','Rua Xxx','9999-9999','1234-5678');
+INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','12.345.678/0001-23','sge@gmail.com','Rua Xxx','9999-9999','1234-5678');
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
