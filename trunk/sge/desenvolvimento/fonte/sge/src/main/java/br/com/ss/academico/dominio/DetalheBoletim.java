@@ -25,41 +25,41 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -6438912749527248323L;
 
-	@Column
+	@Column(name="nota_1")
 	private Float nota1;
 
-	@Column
+	@Column(name="nota_2")
 	private Float nota2;
 
-	@Column
+	@Column(name="nota_3")
 	private Float nota3;
 
-	@Column
+	@Column(name="nota_4")
 	private Float nota4;
 
-	@Column
+	@Column(name="nota_5")
 	private Float nota5;
 
-	@Column
+	@Column(name="nota_6")
 	private Float nota6;
 
-	@Column
+	@Column(name="nota_7")
 	private Float nota7;
 
-	@Column
+	@Column(name="nota_8")
 	private Float nota8;
 	
 
-	@Column
+	@Column(name="media_1")
 	private Float media1;
 
-	@Column
+	@Column(name="media_2")
 	private Float media2;
 
-	@Column
+	@Column(name="media_3")
 	private Float media3;
 
-	@Column
+	@Column(name="media_4")
 	private Float media4;
 
 	@Column
