@@ -30,7 +30,11 @@ public class Configuracao extends AbstractEntity implements Serializable {
 	@Column(nullable = false)
 	private Float mediaEscolar;
 	
-	
+	@Column(nullable = false, length = 60)
+	private String contratoParte1;
+
+	@Column(nullable = false, length = 60)
+	private String contratoParte2;
 	
 	
 	@Override
@@ -70,5 +74,20 @@ public class Configuracao extends AbstractEntity implements Serializable {
 		this.mediaEscolar = mediaEscolar;
 	}
 
-	
+	public String getContratoParte1() {
+		return contratoParte1;
+	}
+
+	public void setContratoParte1(String contratoParte1) {
+		this.contratoParte1 = contratoParte1;
+	}
+
+	public String getContratoParte2() {
+		return contratoParte2;
+	}
+
+	public void setContratoParte2(String contratoParte2) {
+		this.contratoParte2 = contratoParte2;
+	}
+
 }
