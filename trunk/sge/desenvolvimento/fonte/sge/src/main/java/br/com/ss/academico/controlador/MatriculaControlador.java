@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.Curso;
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
@@ -138,10 +139,13 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		
 		ExternalContext econtext = FacesContext.getCurrentInstance().getExternalContext();
 		FacesContext context = FacesContext.getCurrentInstance();
+		
+		Configuracao configuracao = (Configuracao) FacesUtils.getApplicationParam("configuracao");
 
 		String webPath = context.getExternalContext().getRealPath("/");
-		String reportPath1 = webPath + PATH_REPORT + "contrato-parte1.jasper";
-		String reportPath2 = webPath + PATH_REPORT + "contrato-parte2.jasper";
+		// pega o nome do relatorio para cada empresa 
+		String reportPath1 = webPath + PATH_REPORT + configuracao.getContratoParte1();
+		String reportPath2 = webPath + PATH_REPORT + configuracao.getContratoParte2();
 
 		InputStream stream1 = new FileInputStream(reportPath1);
 		InputStream stream2 = new FileInputStream(reportPath2);
