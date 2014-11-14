@@ -48,7 +48,7 @@ public class Empresa extends AbstractEntity implements Serializable {
 	@Column(length = 9)
 	private String celular;
 	
-	@Column(length = 8)
+	@Column(length = 9)
 	private String cep;
 	
 
