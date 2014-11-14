@@ -6,6 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
 	template="/resources/layout/register_template.xhtml">
@@ -18,27 +19,38 @@
 
 	<ui:define name="register_region">
 	
+		<c:set var="isMaster" value="#{configuracaoControlador.usuarioLogado.login eq 'master'}" />
+	
 		<h:panelGrid id="panelCadastro" columns="2">
 			
 			<ss:input label="Dia de Vencimento" value="#{configuracaoControlador.entidade.diaVencimento}" type="number" maxlength="2" size="3" dir="rtl" decimalPlaces="0" />
+			
+			<ss:input label="Média Escolar" value="#{configuracaoControlador.entidade.mediaEscolar}" type="number" maxlength="4" size="3" dir="rtl" decimalPlaces="2" />
 				
-			<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required" rendered="#{configuracaoControlador.usuarioLogado.login eq 'master'}" >
-			 		
-			 		<p:column width="150px">
-						<h:outputLabel value="Tema" for="tema" />
-				 		<h:outputText value="  * " styleClass="input_required" />
-			 		</p:column>
-			 		
-			 		<p:column style="align:left">
-		               <p:themeSwitcher id="tema" value="#{configuracaoControlador.entidade.tema}" style="width:155px;float:left;margin:15px;" effect="fade">
-		                   <f:selectItem itemLabel="Escolha um tema" itemValue="" />
-		                   <f:selectItems value="#{configuracaoControlador.themes}" />
-		                   <p:ajax listener="#{configuracaoControlador.salvar}" />
-		               </p:themeSwitcher>
-		               
-			 		</p:column>
-			 		
-	 		</h:panelGrid>	
+ 			<ss:input label="Contrato 1ª pg" render="#{isMaster}" size="40" value="#{configuracaoControlador.entidade.contratoParte1}" />
+
+ 			<ss:input label="Contrato 2ª pg" render="#{isMaster}" size="40" value="#{configuracaoControlador.entidade.contratoParte2}" />
+	 		
+	 		<p:outputPanel>
+				<h:panelGrid columns="2" width="500" columnClasses="input_label, input_required" rendered="#{isMaster}" >
+				 	
+				 		<p:column width="150px" >
+							<h:outputLabel value="Tema" for="tema" style="input-label-bold-for-panels" />
+					 		<h:outputText value="  * " styleClass="input_required" />
+				 		</p:column>
+				 		
+				 		<p:column>
+			               <p:themeSwitcher id="tema" value="#{configuracaoControlador.entidade.tema}" style="width:155px;float:left;margin:15px;" effect="fade">
+			                   <f:selectItem itemLabel="Escolha um tema" itemValue="" />
+			                   <f:selectItems value="#{configuracaoControlador.themes}" />
+			                   <p:ajax listener="#{configuracaoControlador.salvar}" />
+			               </p:themeSwitcher>
+			               
+				 		</p:column>
+		 		</h:panelGrid>	
+	 		</p:outputPanel>
+	 		
+	 		
 		</h:panelGrid>
 
 	</ui:define>
