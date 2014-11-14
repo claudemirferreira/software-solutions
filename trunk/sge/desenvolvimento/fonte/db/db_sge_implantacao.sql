@@ -36,7 +36,7 @@ CREATE TABLE `acad_aluno` (
   `fone_mae` varchar(9) DEFAULT NULL,
   `fone_pai` varchar(9) DEFAULT NULL,
   `fone_residencial` varchar(9) DEFAULT NULL,
-  `grau_parentesco` int(11) NOT NULL,
+  `grau_parentesco` int(1) NOT NULL,
   `mae` varchar(60) DEFAULT NULL,
   `naturalidade` varchar(30) DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS `acad_boletim`;
 CREATE TABLE `acad_boletim` (
   `id_boletim` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_matricula` bigint(20) NOT NULL,
-  `status_boletim` int(1) unsigned DEFAULT NULL,
+  `status_boletim` INT(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_boletim`),
   KEY `FK_matricula` (`id_matricula`),
   CONSTRAINT `FK_matricula` FOREIGN KEY (`id_matricula`) REFERENCES `acad_matricula` (`id_matricula`)
@@ -109,9 +109,9 @@ CREATE TABLE `acad_detalhe_boletim` (
   `nota_6` float NULL,
   `nota_7` float NULL,
   `nota_8` float NULL,
-  `recuperacao` tinyint(1) NULL,
+  `recuperacao` BIT(1) NULL,
   `nota_recuperacao` float NULL,
-  `status_disciplina` int(1) unsigned NULL,
+  `status_disciplina` INT(1) unsigned NULL,
   `faltas_bimestre_1` INTEGER UNSIGNED,
   `faltas_bimestre_2` INTEGER UNSIGNED,
   `faltas_bimestre_3` INTEGER UNSIGNED,
@@ -247,8 +247,8 @@ DROP TABLE IF EXISTS `acad_matricula`;
 CREATE TABLE `acad_matricula` (
   `id_matricula` bigint(20) NOT NULL AUTO_INCREMENT,
   `data` datetime NOT NULL,
-  `integral` tinyint(1) NOT NULL,
-  `status` int(1) NOT NULL,
+  `integral` BIT(1) NOT NULL,
+  `status` INT(1) NOT NULL,
   `texto_relatorio` varchar(255) DEFAULT NULL,
   `valor` double NOT NULL,
   `id_aluno` bigint(20) NOT NULL,
@@ -655,8 +655,8 @@ CREATE TABLE `saa_usuario` (
   `login` varchar(30) DEFAULT NULL,
   `nome` varchar(30) NOT NULL,
   `senha` varchar(64) DEFAULT NULL,
-  `status` smallint(5) unsigned NOT NULL,
-  `tipo_usuario` int(11) NOT NULL,
+  `status` INT(1) unsigned NOT NULL,
+  `tipo_usuario` INT(1) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `UK_ckrgsi99ta2s36tkydejud4wy` (`login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

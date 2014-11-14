@@ -41,7 +41,7 @@
 	
 	<p:dataTable var="item" value="#{boletimControlador.entidade.detalheBoletims}" editable="true">
 		
-		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
+		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg :form" />
 		
         <f:facet name="header">
             Componentes Curriculares
@@ -79,10 +79,10 @@
                 <p:column headerText="Faltas" />
                 
                 <p:column headerText="Média Geral" />
-                <p:column rendered="#{boletimControlador.entidade.recuperacao}" headerText="Recuperação" />
+                <p:column rendered="#{boletimControlador.entidade.recuperacao}" headerText="Nota Recup." />
                 <p:column headerText="Média Final" />
                 <p:column headerText="Total Faltas" />
-                <p:column headerText="Situação Disciplina" />
+                <p:column headerText="Situação Disciplina" styleClass="textCenter" />
             </p:row>
         </p:columnGroup>
  
@@ -332,7 +332,7 @@
  		<p:column styleClass="textRight">
  			<h:outputText value="#{item.totalFaltas}" />
         </p:column>
- 		<p:column styleClass="textRight">
+ 		<p:column styleClass="textCenter">
  			<h:outputText value="#{item.statusDisciplina.descricao}" />
         </p:column>
         

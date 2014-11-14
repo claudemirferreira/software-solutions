@@ -33,7 +33,7 @@ public class Boletim extends AbstractEntity implements Serializable {
 
 	@Enumerated
 	@Column(length = 1)
-	private StatusBoletim statusBoletim = StatusBoletim.LANCAMENTOS_PENDENTES;
+	private StatusBoletim statusBoletim = StatusBoletim.LANCAMENTO_PENDENTE;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_matricula", nullable = false)
@@ -69,6 +69,38 @@ public class Boletim extends AbstractEntity implements Serializable {
 		
 		resetTotais();
 		
+		calcularMediasEFaltas(mediaEscolar);
+		
+		calcularTotalFaltas();
+		
+		atualizarStatusBoletim();
+		
+	}
+
+	/**
+	 * atualiza o status do boletim - se o aluno esta aprovado ou reprovado no ano letivo,
+	 */
+	private void atualizarStatusBoletim() {
+		boolean lancTodasNotas = true;
+		StatusBoletim statusTmp = StatusBoletim.APROVADO;
+		for(DetalheBoletim det : detalheBoletims ) {
+			if( !det.isLancadaNota4Bimestre() ) {
+				lancTodasNotas = false;
+			} else  {
+				// verifica se o aluno ficou reprovado em alguma disciplina
+				if(StatusBoletim.REPROVADO.equals( det.getStatusDisciplina()) ) { 
+					statusTmp = StatusBoletim.REPROVADO;
+				}
+			}
+		}
+		
+		if ( lancTodasNotas ) {
+			statusBoletim = statusTmp;
+		}
+	}
+
+
+	private void calcularMediasEFaltas(final Float mediaEscolar) {
 		for(DetalheBoletim det : detalheBoletims ) {
 			det.calcularMedias();
 			det.calcularMediaFinal(mediaEscolar);
@@ -76,16 +108,6 @@ public class Boletim extends AbstractEntity implements Serializable {
 				recuperacao = true;
 			}
 			calcularFaltas(det);
-		}
-		
-		calcularTotalFaltas();
-		
-		// atualiza o status se o aluno esta aprovado ou reprovado no ano letivo
-		statusBoletim = StatusBoletim.APROVADO;
-		for(DetalheBoletim det : detalheBoletims ) {
-			if(StatusBoletim.REPROVADO.equals( det.getStatusDisciplina()) ) { 
-				statusBoletim = StatusBoletim.REPROVADO;
-			}
 		}
 	}
 

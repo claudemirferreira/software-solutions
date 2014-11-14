@@ -92,10 +92,11 @@ public class MensalidadeRepositorioHqlImpl extends RepositorioGenerico implement
 		Date hoje = new Date();
 		
 		sb.append(" select men from Mensalidade men ");
+		
 		if(statusPagamento != null) {
 			condictions.add(" men.statusPagamento = :statusPagamento ");
 		}
-		condictions.add(" men.dataPagamento = null ");
+		
 		condictions.add(" men.dataVencimento < :hoje ");
 		
 		if (notEmpty(aluno)) {

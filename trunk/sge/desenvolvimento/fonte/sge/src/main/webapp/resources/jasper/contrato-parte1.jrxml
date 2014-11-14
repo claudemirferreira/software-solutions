@@ -57,7 +57,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CENTRO EDUCACIONAL BOM JESUS"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["SGE - " + $P{empresa}.getNomeFantasia()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="106" y="16" width="353" height="17" uuid="6dacf954-5781-4a9e-8f65-bb304bf89456"/>

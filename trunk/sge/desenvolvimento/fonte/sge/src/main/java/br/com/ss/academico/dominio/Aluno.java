@@ -84,7 +84,7 @@ public class Aluno extends AbstractEntity implements Serializable {
 
 	@Enumerated
 	@Column(nullable = false, length = 1)
-	private NaoSim alergia;
+	private NaoSim alergia = NaoSim.NAO;
 
 	@Column(length = 200)
 	private String descricaoAlegia;

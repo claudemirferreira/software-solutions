@@ -67,22 +67,21 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	
 	
 	@Column(name="faltas_bimestre_1")
-	private Integer faltasBimestre1;
+	private Integer faltasBimestre1 = 0;
 
 	@Column(name="faltas_bimestre_2")
-	private Integer faltasBimestre2;
+	private Integer faltasBimestre2 = 0;
 
 	@Column(name="faltas_bimestre_3")
-	private Integer faltasBimestre3;
+	private Integer faltasBimestre3 = 0;
 
 	@Column(name="faltas_bimestre_4")
-	private Integer faltasBimestre4;
+	private Integer faltasBimestre4 = 0;
 
 	@Column
-	private Integer totalFaltas;
+	private Integer totalFaltas = 0;
 	
-	
-	@Column
+	@Column( columnDefinition = "BIT" )
 	private boolean recuperacao;
 
 	@Column
@@ -93,8 +92,8 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	private Float mediaFinal;
 	
 	@Enumerated
-	@Column
-	private StatusBoletim statusDisciplina = StatusBoletim.LANCAMENTOS_PENDENTES;
+	@Column(length = 1)
+	private StatusBoletim statusDisciplina = StatusBoletim.LANCAMENTO_PENDENTE;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -113,10 +112,10 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	
 	public void calcularMedias() {
 		
-		this.setMedia1((this.nota1 + this.nota2) / 2);
-		this.setMedia2((this.nota3 + this.nota4) / 2);
-		this.setMedia3((this.nota5 + this.nota6) / 2);
-		this.setMedia4((this.nota7 + this.nota8) / 2);
+		this.setMedia1((NumeroUtil.getFloat( this.nota1 ) + NumeroUtil.getFloat( this.nota2) ) / 2);
+		this.setMedia2((NumeroUtil.getFloat( this.nota3 ) + NumeroUtil.getFloat( this.nota4) ) / 2);
+		this.setMedia3((NumeroUtil.getFloat( this.nota5 ) + NumeroUtil.getFloat( this.nota6) ) / 2);
+		this.setMedia4((NumeroUtil.getFloat( this.nota7 ) + NumeroUtil.getFloat( this.nota8) ) / 2);
 		
 		calcularMediaGeral();
 		calcularTotalFaltas();
@@ -130,14 +129,14 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void calcularMediaFinal( final Float mediaEscolar) {
 		
-		if (mediaGeral < mediaEscolar && (nota7 != null && nota8 != null) ) {
+		if (mediaGeral < mediaEscolar && isLancadaNota4Bimestre() ) {
 			// habilita a recuperacao se a nota do 4º bimestre estiver lancada e 
 			// a media geral for menor que a media escolar
 			recuperacao = true;
 		}
 		
 		if ( recuperacao ) {
-			mediaFinal = ( mediaGeral + notaRecuperacao ) / NumeroUtil.DOIS;
+			mediaFinal = ( mediaGeral + NumeroUtil.getFloat( notaRecuperacao ) ) / NumeroUtil.DOIS;
 		} else {
 			mediaFinal = mediaGeral;
 		}
@@ -149,24 +148,59 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	/** atualiza o status se o aluno esta aprovado ou reprovado na disciplina. */
 	private void atribuirStatusDisciplina(final Float mediaEscolar) {
-		statusDisciplina = StatusBoletim.APROVADO;
-		// valida as medias
-		if (mediaFinal < mediaEscolar
-				// valida as faltas
-				|| ( totalFaltas != null && totalFaltas > disciplina.getMaximoFaltas() ) ) {
-			statusDisciplina = StatusBoletim.REPROVADO;
+		// valida se já foram lançadas todas as notas - ate o 4 bim.
+		if ( isLancadaNota4Bimestre() ) {
+			// valida as medias
+			if ( mediaFinal < mediaEscolar
+					// valida as faltas
+					|| excedeMaximoFaltas() ) {
+				statusDisciplina = StatusBoletim.REPROVADO;
+			} else {
+				statusDisciplina = StatusBoletim.APROVADO;
+			}
 		}
+	}
+
+	/**
+	 * Valida se as notas do 4º bimestre ja foram lançadas
+	 * @return
+	 */
+	public boolean isLancadaNota4Bimestre() {
+		return nota7 != null && nota8 != null;
+	}
+
+	/**
+	 * Valida se o total de faltas excede o maximo de faltas.
+	 */
+	private boolean excedeMaximoFaltas() {
+		return totalFaltas != null && totalFaltas > disciplina.getMaximoFaltas();
 	}
 	
 
 	private void calcularTotalFaltas() {
-		totalFaltas = faltasBimestre1 + faltasBimestre2 + faltasBimestre3 + faltasBimestre4;
+		totalFaltas = NumeroUtil.getInteger( faltasBimestre1 ) 
+					+ NumeroUtil.getInteger( faltasBimestre2 )
+					+ NumeroUtil.getInteger( faltasBimestre3 )
+					+ NumeroUtil.getInteger( faltasBimestre4 );
 	}
 	
 	
 	
 	
 	/* -------- Gets/Sets ---------------- */
+
+	public boolean isRecuperacao() {
+		return recuperacao;
+	}
+
+	public void setRecuperacao(boolean recuperacao) {
+		this.recuperacao = recuperacao;
+		if ( !recuperacao ) {
+			setNotaRecuperacao(0f);
+		}
+	}
+
+
 	@Override
 	public Long getId() {
 		return idDetalheBoletim;
@@ -320,52 +354,33 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		return mediaGeral;
 	}
 
-	public boolean isRecuperacao() {
-		return recuperacao;
-	}
-
-	public void setRecuperacao(boolean recuperacao) {
-		this.recuperacao = recuperacao;
-		if ( !recuperacao ) {
-			setNotaRecuperacao(0f);
-		}
-	}
-
-
 	public Integer getFaltasBimestre1() {
 		return faltasBimestre1;
 	}
-
 
 	public void setFaltasBimestre1(Integer faltasBimestre1) {
 		this.faltasBimestre1 = faltasBimestre1;
 	}
 
-
 	public Integer getFaltasBimestre2() {
 		return faltasBimestre2;
 	}
-
 
 	public void setFaltasBimestre2(Integer faltasBimestre2) {
 		this.faltasBimestre2 = faltasBimestre2;
 	}
 
-
 	public Integer getFaltasBimestre3() {
 		return faltasBimestre3;
 	}
-
 
 	public void setFaltasBimestre3(Integer faltasBimestre3) {
 		this.faltasBimestre3 = faltasBimestre3;
 	}
 
-
 	public Integer getFaltasBimestre4() {
 		return faltasBimestre4;
 	}
-
 
 	public void setFaltasBimestre4(Integer faltasBimestre4) {
 		this.faltasBimestre4 = faltasBimestre4;
@@ -376,16 +391,13 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		return totalFaltas;
 	}
 
-
 	public void setTotalFaltas(Integer totalFaltas) {
 		this.totalFaltas = totalFaltas;
 	}
 
-
 	public Long getIdDetalheBoletim() {
 		return idDetalheBoletim;
 	}
-
 
 	public void setMediaGeral(Float mediaGeral) {
 		this.mediaGeral = mediaGeral;

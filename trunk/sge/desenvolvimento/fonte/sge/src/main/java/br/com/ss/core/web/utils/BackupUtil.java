@@ -20,6 +20,12 @@ public final class BackupUtil {
 		String fullBackupPath = appDir + File.separator + backupDir;
 		Integer numMaxBackups = new Integer(numMaxBkp);
 		
+		// cria o diretorio caso nao exista
+		File bkpDir = new File(fullBackupPath);
+		if ( !bkpDir.exists() ) {
+			bkpDir.mkdir();
+		}
+		
 		// lista os arquivos 
 		List<String> backupList = listarBackups(fullBackupPath);
 		
