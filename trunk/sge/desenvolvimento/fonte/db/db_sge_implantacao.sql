@@ -158,7 +158,7 @@ CREATE TABLE `acad_configuracao` (
 
 LOCK TABLES `acad_configuracao` WRITE;
 /*!40000 ALTER TABLE `acad_configuracao` DISABLE KEYS */;
-INSERT INTO `acad_configuracao` VALUES (1,10,5.0,'start', 'contrato-parte1.jasper', 'contrato-parte2.jasper');
+INSERT INTO `acad_configuracao` VALUES (1,10,5.0,'start', 'contrato-ce-shekinah-parte1.jasper', 'contrato-ce-shekinah-parte2.jasper');
 /*!40000 ALTER TABLE `acad_configuracao` ENABLE KEYS */;
 UNLOCK TABLES;
 
