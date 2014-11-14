@@ -146,6 +146,8 @@ CREATE TABLE `acad_configuracao` (
   `dia_vencimento` int(11) NOT NULL,
   `media_escolar` float NOT NULL,
   `tema` varchar(20) DEFAULT NULL,
+  `contrato_parte1` varchar(60) DEFAULT NULL,
+  `contrato_parte2` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id_configuracao`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -156,7 +158,7 @@ CREATE TABLE `acad_configuracao` (
 
 LOCK TABLES `acad_configuracao` WRITE;
 /*!40000 ALTER TABLE `acad_configuracao` DISABLE KEYS */;
-INSERT INTO `acad_configuracao` VALUES (1,10,5.0,'start');
+INSERT INTO `acad_configuracao` VALUES (1,10,5.0,'start', 'contrato-parte1.jasper', 'contrato-parte2.jasper');
 /*!40000 ALTER TABLE `acad_configuracao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +225,7 @@ CREATE TABLE `acad_disciplina` (
   `id_disciplina` bigint(20) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(100) DEFAULT NULL,
   `nome` varchar(50) NOT NULL,
-  `maximo_faltas` INTEGER UNSIGNED NOT NULL,
+  `maximo_faltas` INT(2) UNSIGNED NOT NULL,
   PRIMARY KEY (`id_disciplina`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -484,6 +486,7 @@ CREATE TABLE `saa_empresa` (
   `endereco` varchar(60) DEFAULT NULL,
   `celular` varchar(9) DEFAULT NULL,
   `fone` varchar(9) DEFAULT NULL,
+  `cep` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`id_empresa`),
   UNIQUE KEY `UK_80r8bcl23aucmghxjqt8ckfcc` (`cnpj`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -495,7 +498,7 @@ CREATE TABLE `saa_empresa` (
 
 LOCK TABLES `saa_empresa` WRITE;
 /*!40000 ALTER TABLE `saa_empresa` DISABLE KEYS */;
-INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','12.345.678/0001-23','sge@gmail.com','Rua Xxx','9999-9999','1234-5678');
+INSERT INTO `saa_empresa` VALUES (1,'C. E. Herdeiros do Rei','Centro Educacional Herdeiros do Rei','cidade nova','12.345.678/0001-23','sge@gmail.com','Rua Xxx','9999-9999','1234-5678','69000-000');
 /*!40000 ALTER TABLE `saa_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
