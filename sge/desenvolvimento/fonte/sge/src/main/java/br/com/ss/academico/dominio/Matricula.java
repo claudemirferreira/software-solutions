@@ -48,7 +48,7 @@ public class Matricula extends AbstractEntity implements Serializable {
 	@Column(length = 1, nullable = false)
 	private StatusMatricula status;
 
-	@Column(nullable = false)
+	@Column( nullable = false, columnDefinition = "BIT" )
 	private boolean integral;
 
 	@ManyToOne

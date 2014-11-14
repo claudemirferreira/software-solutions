@@ -601,7 +601,6 @@ public final class NumeroUtil {
         }
         return result;
     }
-
     
 
     /**
@@ -616,6 +615,29 @@ public final class NumeroUtil {
         return nb;
     }
     
-    
+
+    /**
+     * Retorna o valor do Float ou ZERO, quando o valor for null.
+     * @param value
+     * @return Float
+     */
+    public static Float getFloat( Float value ) {
+        if ( value == null ) {
+            return 0f;
+        }
+        return value;
+    }
+
+    /**
+     * Retorna o valor do integer ou ZERO, quando o valor for null.
+     * @param value
+     * @return Float
+     */
+    public static Integer getInteger( Integer value ) {
+        if ( value == null ) {
+            return 0;
+        }
+        return value;
+    }
     
 }

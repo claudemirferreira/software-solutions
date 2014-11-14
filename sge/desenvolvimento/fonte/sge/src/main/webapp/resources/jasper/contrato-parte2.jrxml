@@ -289,7 +289,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CENTRO EDUCACIONAL BOM JESUS"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{empresa}.getNomeFantasia()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="296" y="643" width="253" height="15" uuid="542b2824-0f3c-4323-b4ac-f47edf6331d5"/>

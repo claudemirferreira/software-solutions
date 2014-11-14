@@ -2,7 +2,7 @@ package br.com.ss.academico.enumerated;
 
 public enum StatusBoletim {
 
-	LANCAMENTOS_PENDENTES(0, "Lancamentos Pendentes"), 
+	LANCAMENTO_PENDENTE(0, "Lanç. Pendente"), 
 	APROVADO(1, "Aprovado"), 
 	REPROVADO(2, "Reprovado");
 

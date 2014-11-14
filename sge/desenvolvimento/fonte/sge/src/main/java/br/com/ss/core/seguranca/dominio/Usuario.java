@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private String senha;
 
 	@Enumerated
-	@Column(name = "status", length = 1, nullable = false)
+	@Column(name = "status", nullable = false)
 	private StatusUsuario status;
 	
 	@Enumerated
