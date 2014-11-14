@@ -80,6 +80,9 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 	private boolean novo;
 	/** Backup para retornar do modal de cadastro de matricula. */
 	private Aluno alunoTmp;
+
+	/** Indica se está na tela de Matricula ou o modal de Aluno -> Matricula. */
+	private boolean fromMatricula;
 	
 	/* --------- Overrides ------------------ */
 
@@ -88,6 +91,7 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 		naoSimList = createNaoSimList();
 		statusMatriculaList = createStatusMatriculaList();
 		mesesList = createMesesList();
+		fromMatricula = false;
 	}
 
 
@@ -349,11 +353,18 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 			
 			showMessage(Constants.MSG_SUCESSO, FacesMessage.SEVERITY_INFO);
 			observacaoMatricula = null;
+			
+			String retorno = PESQUISA;
+			if ( fromMatricula ) {
+				// redireciona para a tela de pesquisa quando estiver acessando da tela de Matricula.
+				retorno = redirect(PESQUISA);
+			}
 
 			setup();
 			// recupera o aluno pois faz o reset do aluno no init
 			alunoMatricula = alunoBkp;
-			return PESQUISA;
+			
+			return retorno;
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
@@ -549,6 +560,14 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 
 	public void setAlunoMatricula(Aluno alunoMatricula) {
 		this.alunoMatricula = alunoMatricula;
+	}
+
+	public boolean isFromMatricula() {
+		return fromMatricula;
+	}
+
+	public void setFromMatricula(boolean fromMatricula) {
+		this.fromMatricula = fromMatricula;
 	}
 
 }

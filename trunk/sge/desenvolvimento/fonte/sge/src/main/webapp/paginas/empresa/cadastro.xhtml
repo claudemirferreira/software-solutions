@@ -17,23 +17,23 @@
 
 	<ui:define name="register_region">
 	
-		<ss:input id="razao" label="Razão Social" required="true" value="#{empresaControlador.entidade.razaoSocial}" maxlength="60" size="40" />
+		<ss:input label="Razão Social" required="true" value="#{empresaControlador.entidade.razaoSocial}" maxlength="60" size="40" />
 		
-		<ss:input id="nomeFant" label="Nome Fantasia" required="true" value="#{empresaControlador.entidade.nomeFantasia}" maxlength="60" size="40"/>
+		<ss:input label="Nome Fantasia" required="true" value="#{empresaControlador.entidade.nomeFantasia}" maxlength="60" size="40"/>
 		
-		<ss:input id="endereco" label="Endereço" required="true" value="#{empresaControlador.entidade.endereco}" maxlength="60" size="40" />
+		<ss:input label="Endereço" required="true" value="#{empresaControlador.entidade.endereco}" maxlength="60" size="40" />
 		
-		<ss:input id="endereco" label="CEP" required="true" value="#{empresaControlador.entidade.cep}" maxlength="8" size="10" />
+		<ss:input label="CEP" value="#{empresaControlador.entidade.cep}" type="mask" mask="99999-999" watermark="99999-999" maxlength="9" />
 		
-		<ss:input id="bairro" label="Bairro" required="true" value="#{empresaControlador.entidade.bairro}" maxlength="60" size="40" />
+		<ss:input label="Bairro" required="true" value="#{empresaControlador.entidade.bairro}" maxlength="60" size="40" />
 		
-		<ss:input id="cnpj" label="CNPJ" required="true" value="#{empresaControlador.entidade.cnpj}" type="mask" mask="99.999.999/9999-99" watermark="99.999.999/9999-99" maxlength="18" />
+		<ss:input label="CNPJ" required="true" value="#{empresaControlador.entidade.cnpj}" type="mask" mask="99.999.999/9999-99" watermark="99.999.999/9999-99" maxlength="18" />
 		
-		<ss:input id="email" label="Email" required="true" value="#{empresaControlador.entidade.email}" email="true" maxlength="40" size="30" />
+		<ss:input label="Email" required="true" value="#{empresaControlador.entidade.email}" email="true" maxlength="40" size="30" />
 		
-		<ss:input id="fone" label="Fone" required="true" value="#{empresaControlador.entidade.fone}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9"  />
+		<ss:input label="Fone" required="true" value="#{empresaControlador.entidade.fone}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9"  />
 		
-		<ss:input id="celular" label="Celular" required="true" value="#{empresaControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9"  />
+		<ss:input label="Celular" required="true" value="#{empresaControlador.entidade.celular}" type="mask" mask="9999-9999" watermark="9999-9999" maxlength="9"  />
 		
 	</ui:define>
 	

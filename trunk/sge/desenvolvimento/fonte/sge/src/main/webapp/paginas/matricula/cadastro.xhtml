@@ -20,6 +20,8 @@
 	
 		<c:set var="isPersistent" value="#{alunoMatriculaControlador.entidade.isPersistent()}"/>
 		
+		#{alunoMatriculaControlador.setFromMatricula(true)}
+		
 		<h:panelGrid columns="2">
 			
 			<c:if test="#{isPersistent}">

@@ -168,12 +168,11 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 	}
 
 	public String salvar() {
-		this.entidade.setUsuario(getUsuarioLogado());
-		
-		if (!StatusPagamento.PENDENTE.equals(entidade.getStatusPagamento())) {
-		    // grava o usuario que está atualizando a mensalidade
-		    this.entidade.setUsuarioAtualizacao(getUsuarioLogado());
+		if (!entidade.isPersistent()) {
+			this.entidade.setUsuario(getUsuarioLogado());
 		}
+		// grava o usuario que está atualizando a mensalidade
+		this.entidade.setUsuarioAtualizacao(getUsuarioLogado());
 		
 		String page = null;
 		if (fromHome) {

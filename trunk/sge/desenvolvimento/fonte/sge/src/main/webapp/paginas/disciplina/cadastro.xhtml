@@ -20,6 +20,8 @@
 		
 			<ss:input label="Nome" required="true" value="#{disciplinaControlador.entidade.nome}" />
 			<ss:input label="Descrição"  value="#{disciplinaControlador.entidade.descricao}" />
+			<ss:input label="Nº Máximo de Faltas" style="width: 40px;" type="mask" watermark="99" maxlength="2" 
+						value="#{disciplinaControlador.entidade.maximoFaltas}" />
 			
 		</h:panelGrid>
 	</ui:define>

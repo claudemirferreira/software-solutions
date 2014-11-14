@@ -259,7 +259,7 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 		return redirect(CADASTRO);
 	}
 
-	private String redirect(String page) {
+	protected String redirect(String page) {
 		try {
 
 			ExternalContext context = FacesContext.getCurrentInstance()

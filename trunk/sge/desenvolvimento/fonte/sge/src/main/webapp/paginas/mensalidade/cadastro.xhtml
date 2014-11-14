@@ -39,11 +39,6 @@
 						list="#{mensalidadeControlador.statusList}" />
 			
 			<ss:input label="Mens. criada por" readonly="true" value="#{mensalidadeControlador.entidade.usuario.nome}" />
-			
-			<p:outputPanel autoUpdate="true">
-				<ss:input label="Valor Pago" required="true" render="#{mensalidadeControlador.entidade.statusPagamento.id eq 1}" value="#{mensalidadeControlador.entidade.valorPagamento}" type="number" style="width: 70px;" dir="rtl" />
-			
-			</p:outputPanel>
 
 			<p:outputPanel autoUpdate="true">			
 				<ss:input label="Pagamento" type="date" required="true" value="#{mensalidadeControlador.entidade.dataPagamento}"
@@ -51,10 +46,15 @@
 			</p:outputPanel>
 			
 			<p:outputPanel autoUpdate="true">
-				<ss:input label="Atualizado por" readonly="true" value="#{mensalidadeControlador.entidade.usuarioAtualizacao.nome}" 
-							render="#{mensalidadeControlador.statusInicial.id ne 0}" labelStyle="input-label-bold-for-panels" />
+				<ss:input label="Último a atualizar" readonly="true" value="#{mensalidadeControlador.entidade.usuarioAtualizacao.nome}" 
+							render="#{mensalidadeControlador.statusInicial.id ne 0 and mensalidadeControlador.entidade.isPersistent()}" 
+							labelStyle="input-label-bold-for-panels" />
 			</p:outputPanel>
 						
+			<p:outputPanel autoUpdate="true">
+				<ss:input label="Valor Pago" required="true" render="#{mensalidadeControlador.entidade.statusPagamento.id eq 1}" value="#{mensalidadeControlador.entidade.valorPagamento}" type="number" style="width: 70px;" dir="rtl" />
+			</p:outputPanel>
+			
 		</h:panelGrid>
 	        
 	        <p:outputPanel id="pnlObservacao">
