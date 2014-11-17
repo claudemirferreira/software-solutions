@@ -36,12 +36,12 @@
 		<ss:input label="Turma" value="#{boletimControlador.entidade.matricula.turma.curso.nome} - #{boletimControlador.entidade.matricula.turma.turno.descricao}" size="20" readonly="true" />
 		<ss:input label="Ano Letivo" value="#{boletimControlador.entidade.matricula.turma.ano}" size="20" readonly="true" />
 	
-	
 	</h:panelGrid>
 	
-	<p:dataTable var="item" value="#{boletimControlador.entidade.detalheBoletims}" editable="true">
+	
+	<p:dataTable id="gridBoletim" var="item" value="#{boletimControlador.entidade.detalheBoletims}" editable="true">
 		
-		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg :form" />
+		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg " />
 		
         <f:facet name="header">
             Componentes Curriculares

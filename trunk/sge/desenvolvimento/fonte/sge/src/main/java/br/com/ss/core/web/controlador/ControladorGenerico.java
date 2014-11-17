@@ -262,16 +262,12 @@ public abstract class ControladorGenerico<T extends AbstractEntity> implements
 	protected String redirect(String page) {
 		try {
 
-			ExternalContext context = FacesContext.getCurrentInstance()
-					.getExternalContext();
-			HttpServletRequest request = (HttpServletRequest) context
-					.getRequest();
+			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+			HttpServletRequest request = (HttpServletRequest) context.getRequest();
 
 			String fullUrl = request.getRequestURL().toString();
-			String path = fullUrl.substring(0,
-					fullUrl.lastIndexOf(Constants.BARRA));
-			String url = path + Constants.BARRA + page + Constants.EXTENSION
-					+ Constants.REDIRECT;
+			String path = fullUrl.substring(0, fullUrl.lastIndexOf(Constants.BARRA));
+			String url = path + Constants.BARRA + page + Constants.EXTENSION + Constants.REDIRECT;
 
 			context.redirect(url);
 			FacesContext.getCurrentInstance().responseComplete();

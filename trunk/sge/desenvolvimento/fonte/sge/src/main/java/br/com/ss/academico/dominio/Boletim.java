@@ -102,8 +102,7 @@ public class Boletim extends AbstractEntity implements Serializable {
 
 	private void calcularMediasEFaltas(final Float mediaEscolar) {
 		for(DetalheBoletim det : detalheBoletims ) {
-			det.calcularMedias();
-			det.calcularMediaFinal(mediaEscolar);
+			det.calcularMedias(mediaEscolar);
 			if (det.isRecuperacao()) {
 				recuperacao = true;
 			}

@@ -106,8 +106,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	}
 
 	
-	public void onEdit(RowEditEvent event) {
+	public String onEdit(RowEditEvent event) {
 		salvarBoletim();
+		return redirect("boletim");
 	}
 
 	public void onCancel(RowEditEvent event) {
