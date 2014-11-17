@@ -110,14 +110,20 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	public DetalheBoletim() { }
 
 	
-	public void calcularMedias() {
+	public void calcularMedias( final Float mediaEscolar) {
 		
 		this.setMedia1((NumeroUtil.getFloat( this.nota1 ) + NumeroUtil.getFloat( this.nota2) ) / 2);
 		this.setMedia2((NumeroUtil.getFloat( this.nota3 ) + NumeroUtil.getFloat( this.nota4) ) / 2);
 		this.setMedia3((NumeroUtil.getFloat( this.nota5 ) + NumeroUtil.getFloat( this.nota6) ) / 2);
 		this.setMedia4((NumeroUtil.getFloat( this.nota7 ) + NumeroUtil.getFloat( this.nota8) ) / 2);
 		
-		calcularMediaGeral();
+		if ( isLancadaNota4Bimestre() ) {
+			// so calcula a media geral depois do 4º bim.
+			calcularMediaGeral();
+			
+			calcularMediaFinal(mediaEscolar);
+			
+		}
 		calcularTotalFaltas();
 	}
 
@@ -127,7 +133,7 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	}
 	
 
-	public void calcularMediaFinal( final Float mediaEscolar) {
+	public void calcularMediaFinal( final Float mediaEscolar ) {
 		
 		if (mediaGeral < mediaEscolar && isLancadaNota4Bimestre() ) {
 			// habilita a recuperacao se a nota do 4º bimestre estiver lancada e 
