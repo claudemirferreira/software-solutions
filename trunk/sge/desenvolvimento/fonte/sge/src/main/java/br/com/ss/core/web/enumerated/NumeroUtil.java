@@ -601,7 +601,16 @@ public final class NumeroUtil {
         }
         return result;
     }
+
     
+    public static Float arredondarValor(Float value) {
+    	return arredondarValor(new Double(value) ).floatValue();
+    }
+    
+    public static Double arredondarValor(Double value) {
+    	BigDecimal bd = new BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN);
+		return bd.doubleValue();
+    }
 
     /**
      * Retorna o valor do Bigdecimal ou BigDecimal.ZERO, quando o valor for null.

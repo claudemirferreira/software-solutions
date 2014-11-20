@@ -39,9 +39,10 @@
 	</h:panelGrid>
 	
 	
-	<p:dataTable id="gridBoletim" var="item" value="#{boletimControlador.entidade.detalheBoletims}" editable="true">
+	<p:dataTable id="gridBoletim" var="item" value="#{boletimControlador.entidade.detalheBoletims}" 
+				editable="true" scrollable="false"  >
 		
-		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg " />
+		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg " />	<!-- :form:msg  -->
 		
         <f:facet name="header">
             Componentes Curriculares
@@ -304,7 +305,7 @@
         </p:column>
  
  		<p:column styleClass="textRight">
- 			<h:outputText value="#{item.mediaGeral}" >
+ 			<h:outputText value="#{item.mediaGeral}" styleClass="#{item.mediaGeral lt configuracao.mediaEscolar ? 'reprovado' : 'aprovado' }" >
 				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 			</h:outputText>
         </p:column>
@@ -312,7 +313,7 @@
         <p:column styleClass="textRight" rendered="#{boletimControlador.entidade.recuperacao}">
         	<p:cellEditor rendered="#{item.recuperacao}">
 				<f:facet name="output">
-					<h:outputText value="#{item.notaRecuperacao}" >
+					<h:outputText value="#{item.notaRecuperacao}" styleClass="#{item.notaRecuperacao lt configuracao.mediaEscolar ? 'reprovado' : 'aprovado' }" >
 						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 					</h:outputText>
 				</f:facet>
@@ -325,15 +326,15 @@
         </p:column>
         
  		<p:column styleClass="textRight">
- 			<h:outputText value="#{item.mediaFinal}" >
+ 			<h:outputText value="#{item.mediaFinal}" styleClass="#{item.mediaFinal lt configuracao.mediaEscolar ? 'reprovado' : 'aprovado'}">
 				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 			</h:outputText>
         </p:column>
  		<p:column styleClass="textRight">
- 			<h:outputText value="#{item.totalFaltas}" />
+ 			<h:outputText value="#{item.totalFaltas}" styleClass="#{item.totalFaltas gt item.disciplina.maximoFaltas ? 'reprovado' : 'aprovado' }"/>
         </p:column>
  		<p:column styleClass="textCenter">
- 			<h:outputText value="#{item.statusDisciplina.descricao}" />
+ 			<h:outputText value="#{item.statusDisciplina.descricao}" styleClass="#{item.statusDisciplina.id eq 0 ? 'lancamentoPendente':  (item.statusDisciplina.id eq 1 ? 'aprovado' : 'reprovado' ) }" />
         </p:column>
         
         
@@ -354,7 +355,11 @@
         </p:columnGroup>
  
         <f:facet name="footer">
-            <h:outputText value="Situação: #{boletimControlador.entidade.statusBoletim.descricao}" />
+            <h:outputText value="Situação: "  />
+        	<h:outputText value="  #{boletimControlador.entidade.statusBoletim.descricao}"
+        				styleClass="#{boletimControlador.entidade.statusBoletim.id eq 0 ? 'lancamentoPendente' 
+        																				:  (boletimControlador.entidade.statusBoletim.id eq 1 ? 'aprovado' 
+        																																	  : 'reprovado' ) }"/>
         </f:facet>
     </p:dataTable>
 
