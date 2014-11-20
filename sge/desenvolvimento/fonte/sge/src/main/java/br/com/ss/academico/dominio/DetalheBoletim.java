@@ -1,6 +1,8 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -107,6 +109,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_boletim", nullable = false)
 	private Boletim boletim;
 
+	
+	private static final Float ZERO = 0.0f;
+	
 	public DetalheBoletim() { }
 
 	
@@ -117,38 +122,73 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		this.setMedia3((NumeroUtil.getFloat( this.nota5 ) + NumeroUtil.getFloat( this.nota6) ) / 2);
 		this.setMedia4((NumeroUtil.getFloat( this.nota7 ) + NumeroUtil.getFloat( this.nota8) ) / 2);
 		
+		calcularTotalFaltas();
+		
 		if ( isLancadaNota4Bimestre() ) {
+			
 			// so calcula a media geral depois do 4º bim.
 			calcularMediaGeral();
 			
+			if ( ! isEmRecuperacaoMediaGeral(mediaEscolar) ) {
+				// se nao estiver de recuperacao reseta os dados finais de recuperacao
+				resetMediasFinais(false, false);
+			}
+			
 			calcularMediaFinal(mediaEscolar);
 			
+		} else {
+			
+			resetMediasFinais(true, true);
 		}
-		calcularTotalFaltas();
 	}
 
-	
+	/**
+	 * Rreseta: medias final, geral, recuperacao e status.
+	 */
+	private void resetMediasFinais(boolean resetMediaGeral, boolean resetStatus) {
+		if (resetMediaGeral) {
+			mediaGeral = null;
+		}
+		mediaFinal = null;
+		notaRecuperacao = null;
+		recuperacao = false;
+		if (resetStatus) {
+			statusDisciplina = StatusBoletim.LANCAMENTO_PENDENTE;
+		}
+	}
+
+
 	private void calcularMediaGeral() {
-		mediaGeral = ( getMedia1() + getMedia2() + getMedia3() + getMedia4() ) / NumeroUtil.QUATRO;
+		Float value = ( getMedia1() + getMedia2() + getMedia3() + getMedia4() ) / NumeroUtil.QUATRO;
+		mediaGeral = NumeroUtil.arredondarValor(value);
 	}
 	
 
-	public void calcularMediaFinal( final Float mediaEscolar ) {
+	private void calcularMediaFinal( final Float mediaEscolar ) {
 		
-		if (mediaGeral < mediaEscolar && isLancadaNota4Bimestre() ) {
-			// habilita a recuperacao se a nota do 4º bimestre estiver lancada e 
-			// a media geral for menor que a media escolar
+		if ( isEmRecuperacaoMediaGeral(mediaEscolar) ) {
+			// habilita a recuperacao se a media geral for menor que a media escolar
 			recuperacao = true;
 		}
 		
 		if ( recuperacao ) {
-			mediaFinal = ( mediaGeral + NumeroUtil.getFloat( notaRecuperacao ) ) / NumeroUtil.DOIS;
+			Float valor = ( mediaGeral + NumeroUtil.getFloat( notaRecuperacao ) ) / NumeroUtil.DOIS;
+			mediaFinal = NumeroUtil.arredondarValor(valor);
 		} else {
 			mediaFinal = mediaGeral;
 		}
 		
 		atribuirStatusDisciplina(mediaEscolar);
 		
+	}
+
+	/**
+	 * Valida se a media geral é menor que a média escolar.
+	 * @param mediaEscolar
+	 * @return
+	 */
+	private boolean isEmRecuperacaoMediaGeral( final Float mediaEscolar ) {
+		return mediaGeral < mediaEscolar;
 	}
 
 
@@ -192,7 +232,6 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	
 	
 	
-	
 	/* -------- Gets/Sets ---------------- */
 
 	public boolean isRecuperacao() {
@@ -226,6 +265,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota1(Float nota1) {
 		this.nota1 = nota1;
+		if (ZERO.equals(nota1)) {
+			this.nota1 = null;
+		}
 	}
 
 	public Float getNota2() {
@@ -234,6 +276,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota2(Float nota2) {
 		this.nota2 = nota2;
+		if (ZERO.equals(nota2)) {
+			this.nota2 = null;
+		}
 	}
 
 	public Float getNota3() {
@@ -242,6 +287,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota3(Float nota3) {
 		this.nota3 = nota3;
+		if (ZERO.equals(nota3)) {
+			this.nota3 = null;
+		}
 	}
 
 	public Float getNota4() {
@@ -250,6 +298,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota4(Float nota4) {
 		this.nota4 = nota4;
+		if (ZERO.equals(nota4)) {
+			this.nota4 = null;
+		}
 	}
 
 	public Float getNota5() {
@@ -258,6 +309,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota5(Float nota5) {
 		this.nota5 = nota5;
+		if (ZERO.equals(nota5)) {
+			this.nota5 = null;
+		}
 	}
 
 	public Float getNota6() {
@@ -266,6 +320,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota6(Float nota6) {
 		this.nota6 = nota6;
+		if (ZERO.equals(nota6)) {
+			this.nota6 = null;
+		}
 	}
 
 	public Float getNota7() {
@@ -274,6 +331,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota7(Float nota7) {
 		this.nota7 = nota7;
+		if (ZERO.equals(nota7)) {
+			this.nota7 = null;
+		}
 	}
 
 	public Float getNota8() {
@@ -282,6 +342,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setNota8(Float nota8) {
 		this.nota8 = nota8;
+		if (ZERO.equals(nota8)) {
+			this.nota8 = null;
+		}
 	}
 
 	public Float getMedia1() {

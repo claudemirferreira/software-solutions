@@ -869,3 +869,16 @@ a {
 .textCenter {
 	text-align: center;
 }
+
+.lancamentoPendente {
+	color: orange;   
+	font-weight: bold; 
+}
+.aprovado {
+	color: blue;   
+	font-weight: bold; 
+}
+.reprovado {
+	color: red;   
+	font-weight: bold; 
+}

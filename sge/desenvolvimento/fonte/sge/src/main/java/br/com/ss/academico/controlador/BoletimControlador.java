@@ -24,6 +24,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -105,7 +106,6 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		return "boletim?faces-redirect=true";
 	}
 
-	
 	public String onEdit(RowEditEvent event) {
 		salvarBoletim();
 		return redirect("boletim");

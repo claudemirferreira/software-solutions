@@ -81,8 +81,11 @@ public class Boletim extends AbstractEntity implements Serializable {
 	 * atualiza o status do boletim - se o aluno esta aprovado ou reprovado no ano letivo,
 	 */
 	private void atualizarStatusBoletim() {
-		boolean lancTodasNotas = true;
+		
 		StatusBoletim statusTmp = StatusBoletim.APROVADO;
+		
+		boolean lancTodasNotas = true;
+		
 		for(DetalheBoletim det : detalheBoletims ) {
 			if( !det.isLancadaNota4Bimestre() ) {
 				lancTodasNotas = false;
@@ -94,7 +97,9 @@ public class Boletim extends AbstractEntity implements Serializable {
 			}
 		}
 		
-		if ( lancTodasNotas ) {
+		if ( !lancTodasNotas ) {
+			statusBoletim = StatusBoletim.LANCAMENTO_PENDENTE;
+		} else {
 			statusBoletim = statusTmp;
 		}
 	}
