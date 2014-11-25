@@ -134,6 +134,7 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	
 	@Override
 	public String salvar() {
+		entidade.atualizarBoletim(configuracao.getMediaEscolar());
 		return super.salvar();
 	}
 	
