@@ -42,7 +42,9 @@ public class Boletim extends AbstractEntity implements Serializable {
 	@OneToMany(mappedBy = "boletim", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true )
 	private Set<DetalheBoletim> detalheBoletims = new HashSet<DetalheBoletim>();
 
-
+	@Column( name="tx_observacao", length = 255)
+	private String txObservacao;
+	
 	@Transient
 	private Integer totalFaltas1;
 	@Transient
@@ -201,6 +203,16 @@ public class Boletim extends AbstractEntity implements Serializable {
 
 	public boolean isRecuperacao() {
 		return recuperacao;
+	}
+
+
+	public String getTxObservacao() {
+		return txObservacao;
+	}
+
+
+	public void setTxObservacao(String txObservacao) {
+		this.txObservacao = txObservacao;
 	}
 
 }

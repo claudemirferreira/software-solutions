@@ -1,8 +1,6 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.StatusBoletim;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
@@ -112,6 +111,11 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	
 	private static final Float ZERO = 0.0f;
 	
+	/** Para controlar quando nao resetar o status. */
+	@Transient
+	public boolean statusChanged;
+	
+	
 	public DetalheBoletim() { }
 
 	
@@ -152,7 +156,7 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		mediaFinal = null;
 		notaRecuperacao = null;
 		recuperacao = false;
-		if (resetStatus) {
+		if (resetStatus && !statusChanged) {
 			statusDisciplina = StatusBoletim.LANCAMENTO_PENDENTE;
 		}
 	}
@@ -198,8 +202,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		if ( isLancadaNota4Bimestre() ) {
 			// valida as medias
 			if ( mediaFinal < mediaEscolar
-					// valida as faltas
-					|| excedeMaximoFaltas() ) {
+					// valida se excede o numero de faltas, mas nao muda pra reprovado 
+					// se houve mudança pelo usuario
+					|| ( excedeMaximoFaltas() && !statusChanged ) ) {
 				statusDisciplina = StatusBoletim.REPROVADO;
 			} else {
 				statusDisciplina = StatusBoletim.APROVADO;
@@ -230,6 +235,10 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 					+ NumeroUtil.getInteger( faltasBimestre4 );
 	}
 	
+	
+	public void changeStatusDisciplina() {
+		this.statusChanged = true;
+	}
 	
 	
 	/* -------- Gets/Sets ---------------- */

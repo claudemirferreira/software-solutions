@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -24,7 +25,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import br.com.ss.academico.dominio.Aluno;
@@ -34,6 +34,7 @@ import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.dominio.TurmaDisciplina;
+import br.com.ss.academico.enumerated.StatusBoletim;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.TurmaServico;
 import br.com.ss.core.seguranca.servico.IService;
@@ -65,7 +66,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	private List<Matricula> filteredTurmas;
 
 	private Configuracao configuracao;
-	
+
+	private List<SelectItem> statusList;
+
 
 	@PostConstruct
 	@Override
@@ -73,7 +76,10 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		super.setup();
 		this.turmas = turmaServico.listarTodos();
 		configuracao = (Configuracao) FacesUtils.getApplicationParam("configuracao");
-		
+		statusList = new ArrayList<SelectItem>();
+		for ( StatusBoletim status : StatusBoletim.values() ) {
+			statusList.add(new SelectItem(status, status.getDescricao()));
+		}
 	}
 
 
@@ -125,6 +131,11 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		
 	}
 	
+	
+	@Override
+	public String salvar() {
+		return super.salvar();
+	}
 	
 	public void imprimirBoletim() {
 
@@ -286,6 +297,10 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	public void setFilteredTurmas(List<Matricula> filteredTurmas) {
 		this.filteredTurmas = filteredTurmas;
+	}
+
+	public List<SelectItem> getStatusList() {
+		return statusList;
 	}
 
 }
