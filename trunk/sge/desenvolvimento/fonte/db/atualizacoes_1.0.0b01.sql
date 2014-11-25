@@ -1,5 +1,5 @@
 
-
+-- Boletim: medias da turma
 DROP TABLE IF EXISTS `acad_media_turma`;
 CREATE TABLE `acad_media_turma` (
   `id_media_turma` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -10,3 +10,6 @@ CREATE TABLE `acad_media_turma` (
   `disciplina` varchar(30) NOT NULL,
   PRIMARY KEY (`id_media_turma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Boletim: add campo observacao em boletim
+ALTER TABLE `sge`.`acad_boletim` ADD COLUMN `tx_observacao` VARCHAR(255) AFTER `status_boletim`;
