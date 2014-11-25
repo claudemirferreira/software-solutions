@@ -14,7 +14,6 @@
 	<ui:param name="pageTitle" value="Boletim" />
 	<ui:param name="pageHeader" value="Boletim" />
 	<ui:param name="managedBean" value="#{boletimControlador}" />
-	<ui:param name="disabledBtnSalvar" value="true" />
 
 
 <ui:define name="aditional_button_region">
@@ -330,13 +329,25 @@
 				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
 			</h:outputText>
         </p:column>
+        
  		<p:column styleClass="textRight">
  			<h:outputText value="#{item.totalFaltas}" styleClass="#{item.totalFaltas gt item.disciplina.maximoFaltas ? 'reprovado' : 'aprovado' }"/>
         </p:column>
- 		<p:column styleClass="textCenter">
- 			<h:outputText value="#{item.statusDisciplina.descricao}" styleClass="#{item.statusDisciplina.id eq 0 ? 'lancamentoPendente':  (item.statusDisciplina.id eq 1 ? 'aprovado' : 'reprovado' ) }" />
-        </p:column>
         
+        <p:column styleClass="textCenter">
+	        <p:cellEditor>
+	            <f:facet name="output">
+	            	<h:outputText value="#{item.statusDisciplina.descricao}" styleClass="#{item.statusDisciplina.id eq 0 ? 'lancamentoPendente':  (item.statusDisciplina.id eq 1 ? 'aprovado' : 'reprovado' ) }" />
+            	</f:facet>
+	            <f:facet name="input">
+	                <h:selectOneMenu value="#{item.statusDisciplina}" style="width:100%">
+	                    <f:selectItems value="#{boletimControlador.statusList}" 
+	                    				var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
+	                	<p:ajax  event="change" listener="#{item.changeStatusDisciplina}" />
+	                </h:selectOneMenu>
+	            </f:facet>
+	        </p:cellEditor>
+        </p:column>
         
  		<p:column exportable="false">
 			<p:rowEditor />
@@ -362,6 +373,12 @@
         																																	  : 'reprovado' ) }"/>
         </f:facet>
     </p:dataTable>
+    
+    
+    <ss:input label="Observação" 
+        			value="#{boletimControlador.entidade.txObservacao}" 
+       				type="textarea" width="900" cols="90" />
+    
 
 </ui:define>
 
