@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -25,21 +26,29 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.StreamedContent;
 
 import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Boletim;
 import br.com.ss.academico.dominio.Configuracao;
+import br.com.ss.academico.dominio.DetalheBoletim;
 import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.MediaTurma;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.dominio.TurmaDisciplina;
+import br.com.ss.academico.enumerated.Bimestre;
 import br.com.ss.academico.enumerated.StatusBoletim;
 import br.com.ss.academico.servico.BoletimServico;
+import br.com.ss.academico.servico.DetalheBoletimServico;
 import br.com.ss.academico.servico.TurmaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.ireport.Grafico;
 import br.com.ss.core.web.utils.FacesUtils;
 import br.com.ss.core.web.utils.Util;
 
@@ -57,6 +66,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico turmaServico;
 
+	@ManagedProperty(value = "#{detalheBoletimServicoImpl}")
+	private DetalheBoletimServico detalheBoletimServico;
+
 	private String nomeRelatorio = "boletim.jasper";
 
 	private Turma turma;
@@ -67,8 +79,19 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	private Configuracao configuracao;
 
-	private List<SelectItem> statusList;
+	private StreamedContent imagemGrafico;
 
+	private List<MediaTurma> medias;
+
+	private JFreeChart chart;
+
+	private Grafico grafico = new Grafico();
+
+	private List<SelectItem> bimestreList;
+
+	private Bimestre bimestre = Bimestre.PRIMEIRO;
+	
+	private List<SelectItem> statusList;
 
 	@PostConstruct
 	@Override
@@ -80,6 +103,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		for ( StatusBoletim status : StatusBoletim.values() ) {
 			statusList.add(new SelectItem(status, status.getDescricao()));
 		}
+
+		bimestreList = new ArrayList<SelectItem>();
+		for (Bimestre c : Bimestre.values()) {
+			bimestreList.add(new SelectItem(c, c.getDescricao()));
+		}
+
 	}
 
 
@@ -138,20 +167,33 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		return super.salvar();
 	}
 	
-	public void imprimirBoletim() {
-
+	public void imprimirBoletim() throws IOException {
 		try {
-			
+
 			Map<String, Object> param = new HashMap<String, Object>();
-			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
-	
+			Empresa empresa = (Empresa) FacesUtils
+					.getApplicationParam("empresa");
+
 			// parametros usados no relatorio
 			param.put(REPORT_TITLE, getTituloRelatorio());
 			param.put(EMPRESA, empresa);
+			param.put("boletim", this.entidade);
 			param.put(USUARIO, getUsuarioLogado());
-			
-			gerarRelatorioWeb(listaPesquisa, param, true);
-			
+			param.put(
+					"GRAFICO1",
+					pegarGraficoBimestre(bimestre, "Gráfico de Média do "
+							+ bimestre.getDescricao()));
+
+			param.put(
+					"GRAFICO2",
+					pegarGraficoMediaSomaBimestre(bimestre,
+							"Gráfico de Média dos Bimestres "));
+
+			List<DetalheBoletim> lista = new ArrayList<DetalheBoletim>(
+					this.entidade.getDetalheBoletims());
+
+			gerarRelatorioWeb(lista, param, true);
+
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
@@ -244,15 +286,72 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		context.responseComplete();
 	}
 
-	
+	public void imprimirBoletim(Set<DetalheBoletim> lista,
+			Map<String, Object> parametros, boolean boletim) throws JRException {
+
+		nomeRelatorio = "turma-aluno.jasper";
+
+		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+
+		BufferedOutputStream output = null;
+		BufferedInputStream input = null;
+
+		String webPath = context.getExternalContext().getRealPath("/");
+		String reportPath = webPath + PATH_REPORT + nomeRelatorio;
+
+		try {
+
+			input = new BufferedInputStream(new FileInputStream(reportPath),
+					DEFAULT_BUFFER_SIZE);
+
+			File fileReport = new File(reportPath);
+
+			response.reset();
+			response.setHeader("Content-Type", "application/pdf");
+			response.setHeader("Content-Length",
+					String.valueOf(fileReport.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\""
+					+ fileReport.getName() + "\"");
+
+			JasperRunManager.runReportToPdfStream(new FileInputStream(
+					fileReport), response.getOutputStream(), parametros, jrRS);
+
+			output = new BufferedOutputStream(response.getOutputStream(),
+					DEFAULT_BUFFER_SIZE);
+
+			// Write file contents to response.
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int length;
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);
+			}
+
+			// Finalize task.
+			output.flush();
+		} catch (FileNotFoundException e) {
+			System.out.println("Erro : Relatorio não foi encontrado: "
+					+ reportPath);
+			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			// Gently close streams.
+			close(output);
+			close(input);
+		}
+
+		context.renderResponse();
+		context.responseComplete();
+	}
 
 	public List<Double> getNotas() {
 		return Util.gerarNotas();
 	}
-	
-	
-	
-	
+
 	/* ----------- Gets/Sets ------------------ */
 
 	@Override
@@ -300,6 +399,106 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		this.filteredTurmas = filteredTurmas;
 	}
 
+	public String pegarGraficoMediaSomaBimestre(Bimestre bimestre,
+			String nomeGrafico) throws IOException {
+		imagemGrafico = null;
+
+		this.chart = this.grafico.criarGraficoMediaAcumulada(medias,
+				this.entidade.getDetalheBoletims(), bimestre);
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		String webPath = context.getExternalContext().getRealPath("/")
+				+ "MEDIA_SOMA_BIMESTRE.PNG";
+
+		File file1 = new File(webPath);
+		ChartUtilities.saveChartAsPNG(file1, this.chart, 555, 300);
+		System.out.println(webPath);
+		return webPath;
+	}
+
+	public String pegarGraficoBimestre(Bimestre bimestre, String nomeGrafico)
+			throws IOException {
+		imagemGrafico = null;
+
+		this.medias = detalheBoletimServico.listaMediaTurma(turma);
+		this.chart = this.grafico.criarGraficoMedia(this.medias,
+				this.entidade.getDetalheBoletims(), bimestre);
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		String webPath = context.getExternalContext().getRealPath("/")
+				+ "MEDIA_BIMESTRE.PNG";
+
+		File file1 = new File(webPath);
+		ChartUtilities.saveChartAsPNG(file1, this.chart, 555, 300);
+		System.out.println(webPath);
+		return webPath;
+	}
+
+	public DetalheBoletimServico getDetalheBoletimServico() {
+		return detalheBoletimServico;
+	}
+
+	public void setDetalheBoletimServico(
+			DetalheBoletimServico detalheBoletimServico) {
+		this.detalheBoletimServico = detalheBoletimServico;
+	}
+
+	public Configuracao getConfiguracao() {
+		return configuracao;
+	}
+
+	public void setConfiguracao(Configuracao configuracao) {
+		this.configuracao = configuracao;
+	}
+
+	public StreamedContent getImagemGrafico() {
+		return imagemGrafico;
+	}
+
+	public void setImagemGrafico(StreamedContent imagemGrafico) {
+		this.imagemGrafico = imagemGrafico;
+	}
+
+	public List<MediaTurma> getMedias() {
+		return medias;
+	}
+
+	public void setMedias(List<MediaTurma> medias) {
+		this.medias = medias;
+	}
+
+	public JFreeChart getChart() {
+		return chart;
+	}
+
+	public void setChart(JFreeChart chart) {
+		this.chart = chart;
+	}
+
+	public Grafico getGrafico() {
+		return grafico;
+	}
+
+	public void setGrafico(Grafico grafico) {
+		this.grafico = grafico;
+	}
+
+	public List<SelectItem> getBimestreList() {
+		return bimestreList;
+	}
+
+	public void setBimestreList(List<SelectItem> bimestreList) {
+		this.bimestreList = bimestreList;
+	}
+
+	public Bimestre getBimestre() {
+		return bimestre;
+	}
+
+	public void setBimestre(Bimestre bimestre) {
+		this.bimestre = bimestre;
+	}
+	
 	public List<SelectItem> getStatusList() {
 		return statusList;
 	}
