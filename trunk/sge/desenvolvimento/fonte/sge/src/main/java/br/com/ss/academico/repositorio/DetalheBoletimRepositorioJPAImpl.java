@@ -33,7 +33,7 @@ public class DetalheBoletimRepositorioJPAImpl extends RepositorioGenerico
 
 	@Override
 	public List<MediaTurma> listaMediaTurma(Turma turma) {
-		String SQL = " select id, disciplina, (media_1 / total) as media1 ,(media_2 / total) as media2 "
+		String SQL = " select id id_media_turma, disciplina, (media_1 / total) as media1 ,(media_2 / total) as media2 "
 				+ " ,(media_3 / total) as media3,(media_4 / total) as media4  "
 				+ " from ( select c.id_detalhe_boletim id, d.nome disciplina,  sum(media_1) as media_1, sum(media_2) as media_2, "
 				+ " sum(media_3)  as media_3, sum(media_4)  as media_4, "
