@@ -1,18 +1,22 @@
 package br.fpf.components.web.menu;
 
-public class ItemMenu {
+import java.io.Serializable;
+
+public class ItemMenu implements Serializable {
+
+	private static final long serialVersionUID = 5905034532737728279L;
 
 	private String id;
-	
+
 	private String descricao;
-	
+
 	private String link;
 
-    private static int count;
-    
+	private static int count;
+
 	public ItemMenu(String id, String descricao, String link) {
 		count++;
-        this.id = id != null ? id : count + "";
+		this.id = id != null ? id : count + "";
 		this.descricao = descricao;
 		this.link = link;
 	}
@@ -40,5 +44,5 @@ public class ItemMenu {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
+
 }
