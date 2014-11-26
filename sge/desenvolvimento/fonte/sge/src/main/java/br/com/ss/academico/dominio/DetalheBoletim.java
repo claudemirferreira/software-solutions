@@ -1,8 +1,6 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +15,7 @@ import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.Bimestre;
 import br.com.ss.academico.enumerated.StatusBoletim;
+import br.com.ss.academico.enumerated.TipoBoletim;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.web.enumerated.NumeroUtil;
 
@@ -111,6 +110,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_boletim", nullable = false)
 	private Boletim boletim;
 
+	@Enumerated
+	@Column(length = 1)
+	private TipoBoletim tipoBoletim;
 	
 	private static final Float ZERO = 0.0f;
 	
