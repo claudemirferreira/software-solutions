@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 
+import br.com.ss.academico.enumerated.Bimestre;
+
 @Entity
 @Table(name = "acad_media_turma")
 @Immutable
@@ -20,7 +22,7 @@ public class MediaTurma implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id_media_turma")
+	@Column(name = "id_media_turma")
 	private Long id;
 
 	private float media1;
@@ -93,6 +95,29 @@ public class MediaTurma implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public float pegarMediaAcumulada(Bimestre bimestre) {
+
+		if (bimestre == Bimestre.PRIMEIRO)
+			return getMedia1();
+		else if (bimestre == Bimestre.SEGUNDO)
+			return (getMedia1() + getMedia2()) / 2;
+		else if (bimestre == Bimestre.TERCEIRO)
+			return (getMedia1() + getMedia2() + getMedia3()) / 3;
+		else
+			return (getMedia1() + getMedia2() + getMedia2() + getMedia3() + getMedia4()) / 4;
+	}
+
+	public float pegarMedia(Bimestre bimestre) {
+		if (bimestre == Bimestre.PRIMEIRO)
+			return getMedia1();
+		else if (bimestre == Bimestre.SEGUNDO)
+			return getMedia2();
+		else if (bimestre == Bimestre.TERCEIRO)
+			return getMedia3();
+		else
+			return getMedia4();
 	}
 
 }

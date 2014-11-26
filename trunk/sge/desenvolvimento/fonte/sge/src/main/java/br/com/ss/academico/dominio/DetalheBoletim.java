@@ -1,6 +1,8 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.com.ss.academico.enumerated.Bimestre;
 import br.com.ss.academico.enumerated.StatusBoletim;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.web.enumerated.NumeroUtil;
@@ -479,6 +482,19 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 
 	public void setMediaGeral(Float mediaGeral) {
 		this.mediaGeral = mediaGeral;
+	}
+	
+	public float pegarMedia(Bimestre bimestre){
+		
+		if (bimestre == Bimestre.PRIMEIRO)
+			return getMedia1();
+		else if (bimestre == Bimestre.SEGUNDO)
+			return getMedia2();
+		else if (bimestre == Bimestre.TERCEIRO)
+			return getMedia3();
+		else
+			return getMedia4();
+		
 	}
 
 }
