@@ -151,7 +151,6 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	}
 
 	
-	// FIXME chamar na tela
 	public void salvarBoletim() {
 		
 		entidade.atualizarBoletim(configuracao.getMediaEscolar());
