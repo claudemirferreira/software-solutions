@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boletim" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98dc61e5-9ea7-40c8-adc5-a6ad575f7ba9">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boletim" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="98dc61e5-9ea7-40c8-adc5-a6ad575f7ba9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="3"/>
+	<property name="ireport.y" value="262"/>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
 	<parameter name="GRAFICO1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{GRAFICO1}]]></defaultValueExpression>
@@ -111,38 +111,36 @@
 		<band/>
 	</background>
 	<title>
-		<band height="75">
+		<band height="88">
 			<textField>
-				<reportElement x="2" y="30" width="208" height="20" uuid="4a87ca5d-fcf6-4150-a551-fd22973909d8"/>
+				<reportElement x="2" y="40" width="208" height="20" uuid="4a87ca5d-fcf6-4150-a551-fd22973909d8"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Aluno(a): " + $P{boletim}.getMatricula().getAluno().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="50" width="200" height="20" uuid="3d821218-cac9-46cb-ae53-b9cfc82ad5fd"/>
+				<reportElement x="2" y="60" width="200" height="20" uuid="3d821218-cac9-46cb-ae53-b9cfc82ad5fd"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Turma: " + $P{boletim}.getMatricula().getTurma().getCurso().getNome() + " - " + $P{boletim}.getMatricula().getTurma().getTurno().getDescricao()
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Turma: " + $P{boletim}.getMatricula().getTurma().getCurso().getNome() + " - " + $P{boletim}.getMatricula().getTurma().getTurno().getDescricao()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="91" y="4" width="350" height="20" uuid="e0c3f3cb-1946-4cb1-ba01-0df8fefd3b03"/>
+				<reportElement x="91" y="14" width="350" height="20" uuid="e0c3f3cb-1946-4cb1-ba01-0df8fefd3b03"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Boletim Escolar]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="267" y="30" width="152" height="20" uuid="f1a8ffe7-b39f-499a-b5d7-bf36f6b64428"/>
+				<reportElement x="267" y="40" width="152" height="20" uuid="f1a8ffe7-b39f-499a-b5d7-bf36f6b64428"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Matricula: " + $P{boletim}.getMatricula().getIdMatricula()
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Matricula: " + $P{boletim}.getMatricula().getIdMatricula()]]></textFieldExpression>
 			</textField>
 			<textField pattern="d/M/yyyy">
-				<reportElement x="342" y="50" width="181" height="20" uuid="fc233bc7-095c-46c0-a008-62cc0e0688b4"/>
+				<reportElement x="344" y="60" width="181" height="20" uuid="fc233bc7-095c-46c0-a008-62cc0e0688b4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="265" y="50" width="79" height="20" uuid="c40b64df-2a26-4e0e-be1e-445068400286"/>
+				<reportElement x="267" y="60" width="79" height="20" uuid="c40b64df-2a26-4e0e-be1e-445068400286"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Data Impressão:]]></text>
 			</staticText>
@@ -459,6 +457,7 @@
 			</image>
 			<image hAlign="Center" vAlign="Middle" isUsingCache="false">
 				<reportElement x="3" y="385" width="520" height="269" uuid="67d395df-f196-4dfc-81d2-598d6d9ed392"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
 				<imageExpression><![CDATA[$P{GRAFICO2}]]></imageExpression>
 			</image>
 		</band>
