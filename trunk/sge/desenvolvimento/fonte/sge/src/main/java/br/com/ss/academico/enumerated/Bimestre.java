@@ -2,10 +2,10 @@ package br.com.ss.academico.enumerated;
 
 public enum Bimestre {
 
-	PRIMEIRO(1, "1 Bimestre"), 
-	SEGUNDO(2, "2 Bimestre"), 
-	TERCEIRO(3,	"3 Bimestre"), 
-	QUARTO(4, "4 Bimestre");
+	PRIMEIRO(1, "1º Bimestre"), 
+	SEGUNDO(2, "2º Bimestre"), 
+	TERCEIRO(3,	"3º Bimestre"), 
+	QUARTO(4, "4º Bimestre");
 
 	private int id;
 	private String descricao;
