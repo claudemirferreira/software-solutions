@@ -89,7 +89,7 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	private List<SelectItem> bimestreList;
 
-	private Bimestre bimestre = Bimestre.PRIMEIRO;
+	private Bimestre bimestre;
 	
 	private List<SelectItem> statusList;
 
@@ -108,9 +108,8 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		for (Bimestre c : Bimestre.values()) {
 			bimestreList.add(new SelectItem(c, c.getDescricao()));
 		}
-
+		this.bimestre = Bimestre.PRIMEIRO;
 	}
-
 
 	protected String getNomeRelatorioJasper() {
 		return this.nomeRelatorio;
