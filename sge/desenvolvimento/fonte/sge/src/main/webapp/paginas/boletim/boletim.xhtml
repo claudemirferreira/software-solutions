@@ -408,17 +408,16 @@
 
 
 		<ss:input label="Observação"
-			value="#{boletimControlador.entidade.txObservacao}" type="textarea"
-			width="900" cols="90" />
+					value="#{boletimControlador.entidade.txObservacao}" 
+					type="textarea" width="900" cols="90" />
 
 	
-		<ss:comboBox selectOne="true"
-			required="true"
-			label="Bimestre"
-			immediate="true"
-			
-			value="#{boletimControlador.bimestre}"
-			list="#{boletimControlador.bimestreList}" />
+		<ss:comboBox label="Gráfico do Bimestre"
+					required="true" 
+					selectOne="true"
+					update="panelCadastro"
+					value="#{boletimControlador.bimestre}"
+					list="#{boletimControlador.bimestreList}" />
 		
 		
 
