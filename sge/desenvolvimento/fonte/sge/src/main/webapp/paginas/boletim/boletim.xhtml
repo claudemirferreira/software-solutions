@@ -23,11 +23,6 @@
 			action="#{boletimControlador.imprimirBoletim()}" icon="ui-icon-print"
 			styleClass="ui-priority-primary" immediate="true" />
 
-		<ss:comboBox selectOne="true"
-			immediate="true"
-			value="#{boletimControlador.bimestre}"
-			list="#{boletimControlador.bimestreList}" />
-
 	</ui:define>
 
 
@@ -416,6 +411,16 @@
 			value="#{boletimControlador.entidade.txObservacao}" type="textarea"
 			width="900" cols="90" />
 
+	
+		<ss:comboBox selectOne="true"
+			required="true"
+			label="Bimestre"
+			immediate="true"
+			
+			value="#{boletimControlador.bimestre}"
+			list="#{boletimControlador.bimestreList}" />
+		
+		
 
 	</ui:define>
 
