@@ -30,22 +30,24 @@ public class Grafico implements Serializable {
 
 	private DefaultCategoryDataset dataset;
 	private JFreeChart chart;
-	
-	public JFreeChart  criarGraficoMedia(List<MediaTurma> medias,
-			Set<DetalheBoletim> boletins, Bimestre bimestre){
-		createDataset(medias, boletins , bimestre);
-		criarGraficoBoletim(medias, boletins, bimestre, "Gráfico do " + bimestre.getDescricao());
-		
+
+	public JFreeChart criarGraficoMedia(List<MediaTurma> medias,
+			Set<DetalheBoletim> boletins, Bimestre bimestre) {
+		createDataset(medias, boletins, bimestre);
+		criarGraficoBoletim(medias, boletins, bimestre, "Gráfico do "
+				+ bimestre.getDescricao());
+
 		return chart;
 	}
-	
+
 	public JFreeChart criarGraficoMediaAcumulada(List<MediaTurma> medias,
-			Set<DetalheBoletim> boletins, Bimestre bimestre){
-		createDatasetAcumulado(medias, boletins , bimestre);
-		criarGraficoBoletim(medias, boletins, bimestre, "Gráfico de Média Acumulada até o  " + bimestre.getDescricao());
-		
+			Set<DetalheBoletim> boletins, Bimestre bimestre) {
+		createDatasetAcumulado(medias, boletins, bimestre);
+		criarGraficoBoletim(medias, boletins, bimestre,
+				"Gráfico de Média Acumulada até o  " + bimestre.getDescricao());
+
 		return chart;
-		
+
 	}
 
 	public JFreeChart criarGraficoBoletim(List<MediaTurma> medias,
@@ -72,13 +74,15 @@ public class Grafico implements Serializable {
 		// get a reference to the plot for further customisation...
 		final CategoryPlot plot = chart.getCategoryPlot();
 
-		CategoryItemRenderer itemRerender = plot.getRenderer();  
-		//Caso vc queira mudar a cor das barras  
-		itemRerender.setSeriesPaint(0, Color.blue);  
-		itemRerender.setSeriesPaint(1, Color.RED);  
-		//Aki fica o codigo para colocar o valor na barra  
-		itemRerender.setItemLabelGenerator(new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0.00")));  
-		itemRerender.setItemLabelsVisible(true);  
+		CategoryItemRenderer itemRerender = plot.getRenderer();
+		// Caso vc queira mudar a cor das barras
+		itemRerender.setSeriesPaint(0, Color.blue);
+		itemRerender.setSeriesPaint(1, Color.RED);
+		// Aki fica o codigo para colocar o valor na barra
+		itemRerender
+				.setItemLabelGenerator(new StandardCategoryItemLabelGenerator(
+						"{2}", new DecimalFormat("0.00")));
+		itemRerender.setItemLabelsVisible(true);
 
 		plot.getRangeAxis().setRange(0, 10);
 		plot.setBackgroundPaint(Color.lightGray);
@@ -116,33 +120,30 @@ public class Grafico implements Serializable {
 			Set<DetalheBoletim> boletins, Bimestre bimestre) {
 		this.dataset = new DefaultCategoryDataset();
 
+		for (DetalheBoletim detalheBoletim : boletins)
+			this.dataset.addValue(detalheBoletim.pegarMedia(bimestre), "ALUNO",
+					detalheBoletim.getDisciplina().getNome());
+
 		for (MediaTurma mediaTurma : medias)
 			this.dataset.addValue(mediaTurma.pegarMedia(bimestre), "SALA",
 					mediaTurma.getDisciplina());
-
-		for (DetalheBoletim detalheBoletim : boletins) {
-			this.dataset.addValue(detalheBoletim.pegarMedia(bimestre) , "ALUNO",
-					detalheBoletim.getDisciplina().getNome());
-		}
 
 		for (MediaTurma mediaTurma : medias)
 			this.dataset.addValue(6, "ESCOLA", mediaTurma.getDisciplina());
 
 	}
-	
+
 	private void createDatasetAcumulado(List<MediaTurma> medias,
 			Set<DetalheBoletim> boletins, Bimestre bimestre) {
 		this.dataset = new DefaultCategoryDataset();
 
+		for (DetalheBoletim detalheBoletim : boletins)
+			this.dataset.addValue(detalheBoletim.pegarMedia(bimestre), "ALUNO",
+					detalheBoletim.getDisciplina().getNome());
+
 		for (MediaTurma mediaTurma : medias)
 			this.dataset.addValue(mediaTurma.pegarMedia(bimestre), "SALA",
 					mediaTurma.getDisciplina());
-
-		for (DetalheBoletim detalheBoletim : boletins) {
-			this.dataset.addValue(detalheBoletim.pegarMedia(bimestre) , "ALUNO",
-					detalheBoletim.getDisciplina().getNome());
-		}
-
 		for (MediaTurma mediaTurma : medias)
 			this.dataset.addValue(6, "ESCOLA", mediaTurma.getDisciplina());
 
@@ -163,5 +164,5 @@ public class Grafico implements Serializable {
 	public void setChart(JFreeChart chart) {
 		this.chart = chart;
 	}
-	
+
 }

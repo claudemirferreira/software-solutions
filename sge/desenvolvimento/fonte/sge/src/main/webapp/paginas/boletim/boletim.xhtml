@@ -23,8 +23,8 @@
 			action="#{boletimControlador.imprimirBoletim()}" icon="ui-icon-print"
 			styleClass="ui-priority-primary" immediate="true" />
 
-		<ss:comboBox id="bimestre" label="" required="true" selectOne="true"
-			converter="bimestreConverter"
+		<ss:comboBox selectOne="true"
+			immediate="true"
 			value="#{boletimControlador.bimestre}"
 			list="#{boletimControlador.bimestreList}" />
 
