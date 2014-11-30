@@ -108,7 +108,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		for (Bimestre c : Bimestre.values()) {
 			bimestreList.add(new SelectItem(c, c.getDescricao()));
 		}
+		
 		this.bimestre = Bimestre.PRIMEIRO;
+		
 	}
 
 	protected String getNomeRelatorioJasper() {
