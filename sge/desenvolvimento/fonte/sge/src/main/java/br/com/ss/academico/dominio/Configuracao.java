@@ -36,6 +36,8 @@ public class Configuracao extends AbstractEntity implements Serializable {
 	@Column(nullable = false, length = 60)
 	private String contratoParte2;
 	
+	@Column(length = 10)
+	private String versao;
 	
 	@Override
 	public Long getId() {
@@ -88,6 +90,14 @@ public class Configuracao extends AbstractEntity implements Serializable {
 
 	public void setContratoParte2(String contratoParte2) {
 		this.contratoParte2 = contratoParte2;
+	}
+
+	public String getVersao() {
+		return versao;
+	}
+
+	public void setVersao(String versao) {
+		this.versao = versao;
 	}
 
 }

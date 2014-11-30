@@ -110,9 +110,9 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_boletim", nullable = false)
 	private Boletim boletim;
 
-	@Enumerated
-	@Column(length = 1)
-	private TipoBoletim tipoBoletim;
+//	@Enumerated
+//	@Column(length = 1)
+//	private TipoBoletim tipoBoletim;		// FIXME adicionar coluna
 	
 	private static final Float ZERO = 0.0f;
 	
