@@ -15,7 +15,6 @@
 	<ui:param name="pageHeader" value="Boletim" />
 	<ui:param name="managedBean" value="#{boletimControlador}" />
 
-
 	<ui:define name="aditional_button_region">
 
 		<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
@@ -23,8 +22,25 @@
 			action="#{boletimControlador.imprimirBoletim()}" icon="ui-icon-print"
 			styleClass="ui-priority-primary" immediate="true" />
 
-	</ui:define>
+		<p:commandButton ajax="false" value="Gráfico"
+			action="#{boletimControlador.telaGrafico()}" icon="ui-icon-print"
+			styleClass="ui-priority-primary" immediate="true"
+			/>
 
+		<!-- <p:commandButton value="Modal" type="button"
+			action="#{boletimControlador.telaGraficoPoup()}" 
+			icon="ui-icon-print"
+			oncomplete="PF('dlg2').show();" />
+
+
+		<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+			height="400" width="600">
+			<p:graphicImage value="#{boletimControlador.chart1}" />
+			<p:graphicImage value="#{boletimControlador.chart2}" />
+		</p:dialog>
+ -->
+
+	</ui:define>
 
 	<ui:define name="register_region">
 
@@ -408,18 +424,20 @@
 
 
 		<ss:input label="Observação"
-					value="#{boletimControlador.entidade.txObservacao}" 
-					type="textarea" width="900" cols="90" />
+			value="#{boletimControlador.entidade.txObservacao}" type="textarea"
+			width="900" cols="90" />
 
-	
-		<ss:comboBox label="Gráfico do Bimestre"
-					required="true" 
-					selectOne="true"
-					update="panelCadastro"
-					value="#{boletimControlador.bimestre}"
-					list="#{boletimControlador.bimestreList}" />
-		
-		
+
+		<ss:comboBox label="Gráfico do Bimestre" required="true"
+			selectOne="true" update="panelCadastro"
+			value="#{boletimControlador.bimestre}"
+			list="#{boletimControlador.bimestreList}" />
+
+	</ui:define>
+
+	<ui:define name="modal_region">
+
+		<ui:include src="modalGrafico.xhtml" />
 
 	</ui:define>
 
