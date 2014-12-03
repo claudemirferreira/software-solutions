@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98dc61e5-9ea7-40c8-adc5-a6ad575f7ba9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -27,9 +26,6 @@
 	</field>
 	<field name="class" class="java.lang.Class">
 		<fieldDescription><![CDATA[class]]></fieldDescription>
-	</field>
-	<field name="complemento" class="java.lang.String">
-		<fieldDescription><![CDATA[complemento]]></fieldDescription>
 	</field>
 	<field name="cpf" class="java.lang.String">
 		<fieldDescription><![CDATA[cpf]]></fieldDescription>
@@ -82,9 +78,6 @@
 	<field name="nome" class="java.lang.String">
 		<fieldDescription><![CDATA[nome]]></fieldDescription>
 	</field>
-	<field name="numero" class="java.lang.String">
-		<fieldDescription><![CDATA[numero]]></fieldDescription>
-	</field>
 	<field name="pai" class="java.lang.String">
 		<fieldDescription><![CDATA[pai]]></fieldDescription>
 	</field>
@@ -120,9 +113,6 @@
 	</field>
 	<field name="class_1" class="java.lang.Class">
 		<fieldDescription><![CDATA[class]]></fieldDescription>
-	</field>
-	<field name="complemento_1" class="java.lang.String">
-		<fieldDescription><![CDATA[complemento]]></fieldDescription>
 	</field>
 	<field name="cpf_1" class="java.lang.String">
 		<fieldDescription><![CDATA[cpf]]></fieldDescription>
@@ -174,9 +164,6 @@
 	</field>
 	<field name="nome_1" class="java.lang.String">
 		<fieldDescription><![CDATA[nome]]></fieldDescription>
-	</field>
-	<field name="numero_1" class="java.lang.String">
-		<fieldDescription><![CDATA[numero]]></fieldDescription>
 	</field>
 	<field name="pai_1" class="java.lang.String">
 		<fieldDescription><![CDATA[pai]]></fieldDescription>
