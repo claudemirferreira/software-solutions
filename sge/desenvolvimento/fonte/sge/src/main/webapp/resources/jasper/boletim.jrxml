@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boletim" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="98dc61e5-9ea7-40c8-adc5-a6ad575f7ba9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="206"/>
+	<property name="ireport.y" value="22"/>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
 	<parameter name="GRAFICO1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{GRAFICO1}]]></defaultValueExpression>
@@ -118,9 +118,11 @@
 				<textFieldExpression><![CDATA["Aluno(a): " + $P{boletim}.getMatricula().getAluno().getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="98" width="200" height="20" uuid="3d821218-cac9-46cb-ae53-b9cfc82ad5fd"/>
+				<reportElement x="2" y="98" width="256" height="20" uuid="3d821218-cac9-46cb-ae53-b9cfc82ad5fd"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Turma: " + $P{boletim}.getMatricula().getTurma().getCurso().getNome() + " - " + $P{boletim}.getMatricula().getTurma().getTurno().getDescricao()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Turma: " + $P{boletim}.getMatricula().getTurma().getCurso().getNome()
++ " / Turno: " + $P{boletim}.getMatricula().getTurma().getTurno().getDescricao()
++ " / Ano: " + $P{boletim}.getMatricula().getTurma().getAno()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="91" y="56" width="350" height="20" uuid="e0c3f3cb-1946-4cb1-ba01-0df8fefd3b03"/>
@@ -204,7 +206,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[1 B]]></text>
+				<text><![CDATA[1º B]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="16" y="-39" width="103" height="33" uuid="fb74c002-eba3-4398-860b-398d450c4454"/>
@@ -228,21 +230,21 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[2 B]]></text>
+				<text><![CDATA[2º B]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="184" y="-19" width="22" height="15" uuid="c81bb205-c5eb-41e7-b082-d518a306f29e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[3 B]]></text>
+				<text><![CDATA[3º B]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="212" y="-19" width="22" height="15" uuid="b376c2d1-05a5-4f91-a53b-e505aa8aa4ed"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[4 B]]></text>
+				<text><![CDATA[4º B]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="234" y="-21" width="26" height="20" uuid="9a467fee-fa88-4d37-8f19-2611ade44fde"/>
@@ -318,28 +320,28 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[1 B]]></text>
+				<text><![CDATA[1º B]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="471" y="-19" width="22" height="15" uuid="c2dc8cc0-a6a8-425e-a10f-c00d7a38d3ce"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[4 B]]></text>
+				<text><![CDATA[4º B]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="443" y="-19" width="22" height="15" uuid="b5cf66d9-c801-4a33-be83-529ca8ba0ecb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[3 B]]></text>
+				<text><![CDATA[3º B]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="417" y="-19" width="22" height="15" uuid="8ddb1f57-9ffb-42c1-a9b9-3f8ac249fdbd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[2 B]]></text>
+				<text><![CDATA[2º B]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="493" y="-21" width="30" height="20" uuid="39a0b278-7cb9-4411-8cd7-7e01f499928e"/>
