@@ -183,11 +183,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		chart1 = new DefaultStreamedContent(new FileInputStream(
 				this.MEDIA_BIMESTRE), "image/png");
 
-		this.MEDIA_SOMA_BIMESTRE = pegarGraficoMediaSomaBimestre(bimestre,
-				"Gráfico de Média dos Bimestres ");
-		
-		chart2 = new DefaultStreamedContent(new FileInputStream(
-				this.MEDIA_SOMA_BIMESTRE), "image/png");
+		if (bimestre.getDescricao() != Bimestre.PRIMEIRO.getDescricao()) {
+			this.MEDIA_SOMA_BIMESTRE = pegarGraficoMediaSomaBimestre(bimestre,
+					"Gráfico de Média dos Bimestres ");
+			chart2 = new DefaultStreamedContent(new FileInputStream(
+					this.MEDIA_SOMA_BIMESTRE), "image/png");
+		}
 	}
 
 	public String telaGrafico() throws IOException {
@@ -215,7 +216,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 			param.put("boletim", this.entidade);
 			param.put(USUARIO, getUsuarioLogado());
 			param.put("GRAFICO1", this.MEDIA_BIMESTRE);
-			param.put("GRAFICO2", this.MEDIA_SOMA_BIMESTRE);
+
+			if (bimestre.getDescricao() != Bimestre.PRIMEIRO.getDescricao())
+				param.put("GRAFICO2", this.MEDIA_SOMA_BIMESTRE);
 
 			List<DetalheBoletim> lista = new ArrayList<DetalheBoletim>(
 					this.entidade.getDetalheBoletims());
