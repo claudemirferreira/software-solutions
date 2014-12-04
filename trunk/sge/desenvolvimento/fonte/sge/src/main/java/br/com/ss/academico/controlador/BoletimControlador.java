@@ -247,12 +247,7 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 			param.put(EMPRESA, empresa);
 			param.put(USUARIO, getUsuarioLogado());
 
-			List<Aluno> alunos = new ArrayList<Aluno>();
-			for (Boletim bol : listaPesquisa) {
-				alunos.add(bol.getMatricula().getAluno());
-			}
-
-			gerarRelatorioWeb(alunos, param, false);
+			gerarRelatorioWeb(listaPesquisa, param, false);
 
 		} catch (Exception e) {
 			e.printStackTrace();
