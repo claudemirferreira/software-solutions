@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -176,12 +177,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		return super.salvar();
 	}
 
+	
 	public void gerarImagemGrafico() throws IOException {
-		this.MEDIA_BIMESTRE = pegarGraficoBimestre(bimestre,
-				"Gráfico de Média do " + bimestre.getDescricao());
+		
+		this.MEDIA_BIMESTRE = pegarGraficoBimestre(bimestre, "Gráfico de Média do " + bimestre.getDescricao());
 
-		chart1 = new DefaultStreamedContent(new FileInputStream(
-				this.MEDIA_BIMESTRE), "image/png");
+		chart1 = new DefaultStreamedContent(new FileInputStream( this.MEDIA_BIMESTRE), "image/png" );
 
 		if (bimestre.getDescricao() != Bimestre.PRIMEIRO.getDescricao()) {
 			this.MEDIA_SOMA_BIMESTRE = pegarGraficoMediaSomaBimestre(bimestre,
@@ -191,9 +192,10 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		}
 	}
 
-	public String telaGrafico() throws IOException {
+	public void showModalGrafico() throws IOException {
 		gerarImagemGrafico();
-		return "grafico?faces-redirect=true";
+		RequestContext rc = RequestContext.getCurrentInstance();
+	    rc.execute("PF('dlgGrafico').show()");
 	}
 	
 	public void telaGraficoPoup() throws IOException {

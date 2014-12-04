@@ -8,15 +8,23 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<p:dialog id="dialogGrafico" header="Grafico" widgetVar="dlgGrafico"
-		modal="true" appendToBody="true">
+	<p:dialog id="dialogGrafico" header="Gráfico" widgetVar="dlgGrafico"
+				closable="true" draggable="true"
+				modal="true" appendToBody="true" resizable="false" 
+				width="650" height="500" >
 
+		<p:growl id="msg" showDetail="false" escape="false" globalOnly="false" />
+		
 		<h:form id="formDlg">
-			<p:growl id="msg" showDetail="false" escape="false"
-				globalOnly="false" />
-
-			<p:commandButton value="Fechar" onclick="PF('dlgGrafico').hide();"
-				styleClass="ui-priority-primary" />
+		
+			<p:outputPanel autoUpdate="true">
+	
+				<p:graphicImage value="#{boletimControlador.chart1}" cache="false" />
+				<p:graphicImage value="#{boletimControlador.chart2}" cache="false" />
+			
+			</p:outputPanel>
+			
+			<p:commandButton value="Fechar" onclick="PF('dlgGrafico').hide();" styleClass="ui-priority-primary" />
 
 		</h:form>
 
