@@ -19,7 +19,7 @@ ALTER TABLE `sge`.`acad_configuracao` ADD COLUMN `versao` VARCHAR(10) AFTER `con
 
 -- INCLUIR UM CAMPO PARA GUARDA O VALOR COM DESCONTO
 ALTER TABLE `sge`.`acad_curso` 
-ADD COLUMN `valorComDesconto` DOUBLE NULL AFTER `valor`;
+ADD COLUMN `valor_com_desconto` DOUBLE NULL AFTER `valor`;
 
 update acad_configuracao set versao = '1.0.0b01';
 
