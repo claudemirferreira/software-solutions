@@ -414,7 +414,7 @@
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="106" y="83" width="111" height="18" isRemoveLineWhenBlank="true" uuid="a0d1e05c-4bc7-4e3d-a298-759e12d56571"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[""+$F{aluno}.getResponsavel().getDataNascimento()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{aluno}.getResponsavel().getDataNascimento()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="279" y="83" width="87" height="18" isRemoveLineWhenBlank="true" uuid="4a34aedd-c431-441b-80ba-0253981af18b"/>
@@ -429,7 +429,7 @@
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="126" y="164" width="111" height="18" isRemoveLineWhenBlank="true" uuid="3f005178-cb42-4eaf-9b8b-495942da1ec5"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[""+$F{aluno}.getDataNascimento()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{aluno}.getDataNascimento()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="127" y="143" width="401" height="18" uuid="8c26d502-c873-4ff3-9438-f6184a064142"/>
