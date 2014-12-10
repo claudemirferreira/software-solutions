@@ -32,6 +32,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import br.com.ss.academico.dominio.Aluno;
+import br.com.ss.academico.dominio.Empresa;
 import br.com.ss.academico.dominio.Matricula;
 import br.com.ss.academico.dominio.Mensalidade;
 import br.com.ss.academico.enumerated.StatusPagamento;
@@ -42,6 +43,7 @@ import br.com.ss.core.seguranca.servico.EmpresaServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
 import br.com.ss.core.web.enumerated.Constants;
+import br.com.ss.core.web.utils.FacesUtils;
 import br.com.ss.core.web.utils.PageUtils;
 
 @ManagedBean
@@ -294,9 +296,9 @@ public class MensalidadeControlador extends ControladorGenerico<Mensalidade> {
 
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("empresa", empresaServico.findOne(1l));
-			lista.add(JasperFillManager.fillReport(stream1, params,
-					new JRBeanCollectionDataSource(list)));
+			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
+			params.put("empresa", empresa);
+			lista.add(JasperFillManager.fillReport(stream1, params, new JRBeanCollectionDataSource(list)));
 
 			JRPdfExporter exporter = new JRPdfExporter();
 			HttpServletResponse response = (HttpServletResponse) econtext
