@@ -45,6 +45,8 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	private List<SelectItem> anos;
 
 	private List<SelectItem> situacoes;
+	
+	private Empresa empresa;
 
 	@ManagedProperty(value = "#{turmaServicoImpl}")
 	private TurmaServico servico;
@@ -80,6 +82,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 
 	@Override
 	public String novo() {
+		empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 		String page = super.novo();
 		entidade.setSituacao(Situacao.ATIVO);
 		return page;
@@ -215,6 +218,14 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 		
 		this.alunoControlador.imprimir(this.listaAluno, param, "turma-aluno.jasper");
 		
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 }
