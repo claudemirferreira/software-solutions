@@ -1,12 +1,11 @@
 
 -- Boletim: Questoes do boletim de Educ. Infantil
 CREATE TABLE `sge`.`acad_questao_avaliacao` (
-  `id_questao_avaliacao` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_questao_avaliacao` bigint(20) NOT NULL AUTO_INCREMENT,
   `tx_questao` VARCHAR(80) NOT NULL,
-  `tipo_fator` INT(1) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_questao`)
-)
-ENGINE = InnoDB
+  `fator_avaliacao` INT(1) NOT NULL,
+  PRIMARY KEY (`id_questao_avaliacao`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8,
 COMMENT = 'Questões da avaliação do boletim de Educação Infantil';
 
 -- inserts das questoes
@@ -33,4 +32,27 @@ INSERT INTO `sge`.`acad_questao_avaliacao` VALUES (20, 'Sou agressivo', 2);
 INSERT INTO `sge`.`acad_questao_avaliacao` VALUES (21, 'Exijo atenção constante', 2);
 INSERT INTO `sge`.`acad_questao_avaliacao` VALUES (22, 'Sei ouvir com atenção', 2);
 INSERT INTO `sge`.`acad_questao_avaliacao` VALUES (23, 'Faço muitas perguntas', 2);
+
+
+-- Add coluna tipo_curso
+ALTER TABLE `sge`.`acad_curso` ADD COLUMN `tipo_curso` INT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Educ Inf=0; Fundamental = 1.' AFTER `valor`;
+
+
+-- Add tabela para educacao infantil
+CREATE TABLE `acad_avaliacao_educ_infantil` (
+  `id_avaliacao_educacao_infantil` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_boletim` bigint(20) NOT NULL,
+  `id_questao_avaliacao` bigint(20) NOT NULL,
+  `status_disciplina` INT(1),
+  `conceito_avaliacao_1` INT(1),
+  `conceito_avaliacao_2` int(1),
+  `conceito_avaliacao_3` INT(1),
+  `conceito_avaliacao_4` INT(1),
+  `conceito_geral` INT(1),
+  PRIMARY KEY (`id_avaliacao_educacao_infantil`),
+  CONSTRAINT `FK_acad_avaliacao_boletim` FOREIGN KEY (`id_boletim`) REFERENCES `acad_boletim` (`id_boletim`),
+  CONSTRAINT `FK_acad_avaliacao_questao` FOREIGN KEY (`id_questao_avaliacao`) REFERENCES `acad_questao_avaliacao` (`id_questao_avaliacao`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
