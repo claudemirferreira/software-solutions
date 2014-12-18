@@ -1,6 +1,7 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -184,5 +185,13 @@ public class Mensalidade extends AbstractEntity implements Serializable {
 	public void setUsuarioAtualizacao(Usuario usuarioAtualizacao) {
 	    this.usuarioAtualizacao = usuarioAtualizacao;
 	}
+	
+	public String getValorVencimentoFormatado() {
+		DecimalFormat df = new DecimalFormat("0.##");
+	    String valorMensalidade = df.format(this.valorVencimento);
+		return valorMensalidade;
+	}
+	
+	
 
 }

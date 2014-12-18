@@ -1,6 +1,7 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +67,10 @@ public class Turma extends AbstractEntity implements Serializable {
 			fetch = FetchType.EAGER,
 			mappedBy = "turmaDisciplinaPk.turma")
 	private List<TurmaDisciplina> turmaDisciplina = new ArrayList<TurmaDisciplina>();
-
-
+	
+	@Column
+	private Float valorMensalidadeComDesconto;
+	
 	@Transient
 	private Integer vagasDisponiveis;
 	
@@ -154,6 +157,22 @@ public class Turma extends AbstractEntity implements Serializable {
 
 	public void setSala(String sala) {
 		this.sala = sala;
+	}
+
+	public Float getValorMensalidadeComDesconto() {
+		return valorMensalidadeComDesconto;
+	}
+
+	public void setValorMensalidadeComDesconto(Float valorMensalidadeComDesconto) {
+		this.valorMensalidadeComDesconto = valorMensalidadeComDesconto;
+	}
+	
+	public String getValorMensalidadeComDescontoFormatado() {
+		DecimalFormat df = new DecimalFormat("0.##");
+	    String valorMensalidade = df.format(this.valorMensalidadeComDesconto);
+		return valorMensalidade;
+		
+		
 	}
 
 }
