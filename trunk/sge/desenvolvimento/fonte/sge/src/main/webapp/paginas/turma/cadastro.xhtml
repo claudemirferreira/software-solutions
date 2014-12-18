@@ -30,7 +30,10 @@
 			<ss:input label="Número de Vagas" type="number" dir="rtl" size="3" decimalPlaces="0" required="true" value="#{turmaControlador.entidade.numeroVagas}" />
 			
 			<ss:comboBox label="Situação" required="true" value="#{turmaControlador.entidade.situacao}" selectOne="true" list="#{turmaControlador.situacoes}" filter="false" />
-		
+			
+			<ss:input label="Mensalidade Com Desconto" required="true" value="#{turmaControlador.entidade.valorMensalidadeComDesconto}" type="number" style="width: 70px;" dir="rtl"
+				rendered="#{turmaControlador.empresa.codigo eq 'CEMH'}" />
+				 
 		</h:panelGrid>
 	</ui:define>
 	

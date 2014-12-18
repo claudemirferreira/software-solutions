@@ -78,6 +78,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 		}
 
 		this.cursos = cursoServico.listarTodos();
+		this.empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 	}
 
 	@Override

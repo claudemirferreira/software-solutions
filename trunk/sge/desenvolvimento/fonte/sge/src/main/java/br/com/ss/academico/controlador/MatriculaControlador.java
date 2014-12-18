@@ -137,6 +137,8 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 		List<Mensalidade> mensalidades = servicoMensalidade.loadMensalidades(matricula.getIdMatricula());
 		matricula.setMensalidades(mensalidades);
 		
+		String valorMensalidade = ((Mensalidade) mensalidades.iterator().next()).getValorVencimentoFormatado();
+		
 		ExternalContext econtext = FacesContext.getCurrentInstance().getExternalContext();
 		FacesContext context = FacesContext.getCurrentInstance();
 		
@@ -160,6 +162,9 @@ public class MatriculaControlador extends ControladorGenerico<Matricula> {
 			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("empresa", empresa);
+			
+			params.put("valorMensalidade", valorMensalidade);
+			
 			lista.add(JasperFillManager.fillReport(stream1, params, new JRBeanCollectionDataSource(list)));
 
 			lista.add(JasperFillManager.fillReport(stream2, params, new JRBeanCollectionDataSource(list)));

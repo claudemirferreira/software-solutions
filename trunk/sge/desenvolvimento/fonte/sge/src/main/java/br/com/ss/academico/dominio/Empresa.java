@@ -51,6 +51,9 @@ public class Empresa extends AbstractEntity implements Serializable {
 	@Column(length = 9)
 	private String cep;
 	
+	@Column(length = 10)
+	private String codigo;
+	
 
 	public Empresa() {
 	}
@@ -142,6 +145,14 @@ public class Empresa extends AbstractEntity implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }
