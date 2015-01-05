@@ -3,8 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensalidade" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6052e703-5d4e-435d-8a7a-65006837a4c6">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="102"/>
+	<property name="ireport.y" value="904"/>
 	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
+	<parameter name="valorMensalidade" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -40,6 +41,9 @@
 	</field>
 	<field name="status" class="br.com.ss.academico.enumerated.StatusMatricula">
 		<fieldDescription><![CDATA[status]]></fieldDescription>
+	</field>
+	<field name="textoRelatorio" class="java.lang.String">
+		<fieldDescription><![CDATA[textoRelatorio]]></fieldDescription>
 	</field>
 	<field name="turma" class="br.com.ss.academico.dominio.Turma">
 		<fieldDescription><![CDATA[turma]]></fieldDescription>
@@ -345,11 +349,6 @@
 				<text><![CDATA[DA MATRICULA E DO PAGAMENTO DAS MENSALIDADES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="559" width="555" height="52" uuid="8b74343e-2599-4c42-90e1-d29a4fefe5a7"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top"/>
-				<text><![CDATA[CLÁUSULA QUARTA – Como contraprestação pelos serviços educacionais a serem prestados, a CONTRATANTE aceita os valores dos encargos educacionais propostos pela ESCOLA para o ano letivo de 2014, formulados com base nos planejamentos pedagógicos e econômico-financeiros da ESCOLA e procedendo a compatibilização dos preços com os custos, e valores expressos em reais para as mensalidades, observando-se o seguinte:]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="27" y="614" width="515" height="42" uuid="d645afe4-91ed-4562-b446-108819b26834"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top"/>
 				<text><![CDATA[a) No ato de matricula, o CONTRATANTE, se optar pelo pagamento parcelado pagará no ato da matrícula a 1º mensalidade do ano, em valores especificados pelo CONTRATADO, ficando o valor restante dividido em 11 (onze) parcelas mensais iguais, nos meses de FEVEREIRO a DEZEMBRO.]]></text>
@@ -358,11 +357,6 @@
 				<reportElement x="27" y="659" width="515" height="16" uuid="1ff226c2-22ff-4058-b363-215106f2fcbe"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top"/>
 				<text><![CDATA[CLÁUSULA QUINTA – os pagamentos mais parcelas deverão ser efetuados até o dia 15(quinze) de cada mês.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="27" y="678" width="515" height="28" uuid="aa312f0a-fe49-4d1a-bc15-924679a662ad"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top"/>
-				<text><![CDATA[Gozará o CONTRATANTE de desconto se efetuar suas mensalidades até 10 de cada mês, passado o valor da mensalidade: R$ 176,00 (cento setenta e seis reais) para R$ 165,00 (cento e sessenta e cinco reais).]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="27" y="709" width="515" height="42" uuid="cbd69503-c73b-4b8e-bff0-2c2c01ca626d"/>
@@ -464,6 +458,17 @@
 				<reportElement x="467" y="270" width="81" height="18" uuid="55818c4c-28c8-4793-8e17-0bcb1f8d1786"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[""+$P{empresa}.getCelular()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="677" width="522" height="32" uuid="98b5b809-8d0f-4a3e-9797-a8ea039f4f52"/>
+				<textFieldExpression><![CDATA["Gozará o CONTRATANTE de desconto se efetuar suas mensalidades até 10 de cada mês, passando o valor da mensalidade: R$ "
++ $P{valorMensalidade}
++ " para R$ "
++ $F{turma}.getValorMensalidadeComDescontoFormatado() +"."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="560" width="550" height="54" uuid="75023755-a6a1-4193-bb18-d47fdc1a691a"/>
+				<textFieldExpression><![CDATA["CLÁUSULA QUARTA – Como contraprestação pelos serviços educacionais a serem prestados, a CONTRATANTE aceita os valores dos encargos educacionais propostos pela ESCOLA para o ano letivo de " + $F{turma}.getAno()  +  ", formulados com base nos planejamentos pedagógicos e econômico-financeiros da ESCOLA e procedendo a compatibilização dos preços com os custos, e valores expressos em reais para as mensalidades, observando-se o seguinte:"]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
