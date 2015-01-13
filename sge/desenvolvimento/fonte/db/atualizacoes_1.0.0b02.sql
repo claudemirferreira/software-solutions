@@ -56,3 +56,16 @@ CREATE TABLE `acad_avaliacao_educ_infantil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+ALTER TABLE `sge`.`saa_empresa` 
+ADD COLUMN `codigo` VARCHAR(10) NULL AFTER `cep`;
+
+UPDATE `sge`.`saa_empresa` SET `codigo`='CEMH';
+
+ALTER TABLE `sge`.`acad_turma` 
+ADD COLUMN `valor_mensalidade_com_desconto` FLOAT NULL AFTER `id_curso`;
+
+UPDATE `sge`.`acad_turma` SET `valor_mensalidade_com_desconto`='0.0';
+
+
+update acad_configuracao set versao = '1.0.0b02';
+
