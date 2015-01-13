@@ -44,6 +44,8 @@
 			
 			<ss:input id="valor" label="Valor" required="true" value="#{alunoMatriculaControlador.entidade.valor}" type="number" style="width: 70px;" dir="rtl" />
 			
+			<ss:input label="Valor com Desconto" value="#{alunoMatriculaControlador.entidade.turma.valorMensalidadeComDesconto}" type="number" readonly="true" style="width: 70px;" dir="rtl" />
+			
 			<ss:input label="Data da Matrícula" type="date" required="true" value="#{alunoMatriculaControlador.entidade.data}" dir="rtl" size="40" />
 			
 			<ss:comboBox label="Mensalidades apartir de" required="true" selectOne="true" 

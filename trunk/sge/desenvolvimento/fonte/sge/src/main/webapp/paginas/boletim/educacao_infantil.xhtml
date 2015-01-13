@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ss2="http://www.3iti.com.br/jsf/componentes"
+	xmlns:ss="http://java.sun.com/jsf/composite/jsf2_component"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<p:outputPanel>
+
+	<p:dataTable id="gridBolEducInf" rendered="#{not boletimControlador.entidade.isEducacaoFundamental()}" 
+				value="#{boletimControlador.entidade.getAvaliacaoEducacaoInfantilAsList()}" var="item" editable="true" scrollable="false" >
+
+		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg" />
+
+		<f:facet name="header"> Componentes Curriculares </f:facet>
+		
+		<p:columnGroup type="header">
+			<p:row>
+				<p:column headerText="Fatores de avaliação" width="380" />
+				<p:column headerText="1º Bimestre" />
+				<p:column headerText="2º Bimestre" />
+				<p:column headerText="3º Bimestre" />
+				<p:column headerText="4º Bimestre" />
+				<p:column headerText="Média Geral" />
+				<p:column headerText="Situação Disciplina" styleClass="textCenter" />
+				<p:column headerText="Ação" width="35" />
+			</p:row>
+		</p:columnGroup>
+		
+		<p:column>
+			<h:outputText value="#{item.questaoAvaliacao.txQuestao}" styleClass="fator#{item.questaoAvaliacao.fatorAvaliacao.id}" />
+		</p:column>
+		
+		<p:column>
+			<p:cellEditor>
+				<f:facet name="output">
+					<center>
+						<h:outputText value="#{item.conceitoAvaliacao1.toString()}" />
+					</center>
+				</f:facet>
+				<f:facet name="input">
+					<ss:comboBox value="#{item.conceitoAvaliacao1}" selectOne="true" list="#{boletimControlador.conceitoAvaliacaoList}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column>
+			<p:cellEditor>
+				<f:facet name="output">
+					<center>
+						<h:outputText value="#{item.conceitoAvaliacao2.toString()}" />
+					</center>
+				</f:facet>
+				<f:facet name="input">
+					<ss:comboBox value="#{item.conceitoAvaliacao2}" selectOne="true" list="#{boletimControlador.conceitoAvaliacaoList}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column>
+			<p:cellEditor>
+				<f:facet name="output">
+					<center>
+						<h:outputText value="#{item.conceitoAvaliacao3.toString()}" />
+					</center>
+				</f:facet>
+				<f:facet name="input">
+					<ss:comboBox value="#{item.conceitoAvaliacao3}" selectOne="true" list="#{boletimControlador.conceitoAvaliacaoList}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column>
+			<p:cellEditor>
+				<f:facet name="output">
+					<center>
+						<h:outputText value="#{item.conceitoAvaliacao4.toString()}" />
+					</center>
+				</f:facet>
+				<f:facet name="input">
+					<ss:comboBox value="#{item.conceitoAvaliacao4}" selectOne="true" list="#{boletimControlador.conceitoAvaliacaoList}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column>
+			<p:cellEditor>
+				<f:facet name="output">
+					<center>
+						<h:outputText value="#{item.conceitoGeral.toString()}" />
+					</center>
+				</f:facet>
+				<f:facet name="input">
+					<ss:comboBox value="#{item.conceitoGeral}" selectOne="true" list="#{boletimControlador.conceitoAvaliacaoList}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column styleClass="textCenter">
+			<p:cellEditor>
+				<f:facet name="output">
+					<center>
+						<h:outputText value="#{item.statusDisciplina.descricao}"
+							styleClass="#{item.statusDisciplina.id eq 0 ? 'lancamentoPendente':  (item.statusDisciplina.id eq 1 ? 'aprovado' : 'reprovado' ) }" />
+					</center>
+				</f:facet>
+				<f:facet name="input">
+					<h:selectOneMenu value="#{item.statusDisciplina}" style="width:100%">
+						<f:selectItems value="#{boletimControlador.statusList}"
+									var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
+						<p:ajax event="change" listener="#{item.changeStatusDisciplina}" />
+					</h:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column exportable="false">
+			<p:rowEditor />
+		</p:column>
+		
+		<f:facet name="footer">
+			<h:outputText value="Situação: " />
+			<h:outputText value="  #{boletimControlador.entidade.statusBoletim.descricao}"
+				styleClass="#{boletimControlador.entidade.statusBoletim.id eq 0 ? 'lancamentoPendente' 
+       																			:  (boletimControlador.entidade.statusBoletim.id eq 1 ? 'aprovado' 
+       																																	  : 'reprovado' ) }" />
+		</f:facet>
+	</p:dataTable>
+	
+	
+	<p:outputPanel rendered="#{not boletimControlador.entidade.isEducacaoFundamental()}" >
+		<p:spacer height="2px" />
+		
+		<table style="color: #EAF5F7; border-collapse: collapse; border: 1px solid #4297D7;">
+			<thead style="font-weight: bold; 
+							background: url('/sge/javax.faces.resource/images/ui-bg_gloss-wave_75_2191c0_500x100.png.xhtml?ln=primefaces-start') repeat-x scroll 50% 50% #2191C0;
+							color: #EAF5F7;
+							font-weight: bold;">
+				<tr>
+					<th colspan="3">Fatores de Avaliação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td width="250" style="background-color: green;" align="center">Visomotores</td>
+					<td width="250" style="background-color: blue;" align="center">De Comportamento Escolar</td>
+					<td width="250" style="background-color: purple;" align="center">De Desenvolvimento Sócio-Emocional</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<p:spacer height="2px" />
+	</p:outputPanel>
+	
+</p:outputPanel>
+	
+</ui:component>

@@ -23,11 +23,17 @@ public enum ConceitoAvaliacao {
 	}
 
 	public static ConceitoAvaliacao getEnum(int id) {
-		for (ConceitoAvaliacao fat : ConceitoAvaliacao.values()) {
-			if (fat.id == id)
-				return fat;
+		for (ConceitoAvaliacao conc : ConceitoAvaliacao.values()) {
+			if (conc.id == id)
+				return conc;
 		}
 		return null;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return getDescricao();
 	}
 	
 	public int getId() {

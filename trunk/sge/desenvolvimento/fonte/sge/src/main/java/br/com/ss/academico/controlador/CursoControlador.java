@@ -1,10 +1,17 @@
 package br.com.ss.academico.controlador;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 import br.com.ss.academico.dominio.Curso;
+import br.com.ss.academico.enumerated.StatusBoletim;
+import br.com.ss.academico.enumerated.TipoCurso;
 import br.com.ss.academico.servico.CursoServico;
 import br.com.ss.core.seguranca.servico.IService;
 import br.com.ss.core.web.controlador.ControladorGenerico;
@@ -18,7 +25,23 @@ public class CursoControlador extends ControladorGenerico<Curso> {
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico servico;
 
+	private List<SelectItem> tipoCursoList;
+	
+
 	private String nomeRelatorio = "curso.jasper";
+	
+
+	@PostConstruct
+	@Override
+	public void setup() {
+		super.setup();
+		
+		tipoCursoList = new ArrayList<SelectItem>();
+		for (TipoCurso tc : TipoCurso.values()) {
+			tipoCursoList.add(new SelectItem(tc, tc.getDescricao()));
+		}
+	}
+	
 
 	@Override
 	protected String getNomeRelatorioJasper() {
@@ -45,6 +68,10 @@ public class CursoControlador extends ControladorGenerico<Curso> {
 
 	public void setNomeRelatorio(String nomeRelatorio) {
 		this.nomeRelatorio = nomeRelatorio;
+	}
+
+	public List<SelectItem> getTipoCursoList() {
+		return tipoCursoList;
 	}
 
 }

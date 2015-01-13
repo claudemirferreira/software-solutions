@@ -1,7 +1,11 @@
 package br.com.ss.academico.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.StatusBoletim;
+import br.com.ss.academico.enumerated.TipoCurso;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 
 @Entity
@@ -40,7 +45,14 @@ public class Boletim extends AbstractEntity implements Serializable {
 	private Matricula matricula;
 
 	@OneToMany(mappedBy = "boletim", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true )
+	// Avaliacao ensino Fundamental
 	private Set<DetalheBoletim> detalheBoletims = new HashSet<DetalheBoletim>();
+	
+	
+	@OneToMany(mappedBy = "boletim", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true )
+	// Avaliacao educ. infantil
+	private Set<AvaliacaoEducacaoInfantil> avaliacaoEducacaoInfantils = new HashSet<AvaliacaoEducacaoInfantil>();
+
 
 	@Column( name="tx_observacao", length = 255)
 	private String txObservacao;
@@ -69,13 +81,21 @@ public class Boletim extends AbstractEntity implements Serializable {
 	 */
 	public void atualizarBoletim(final Float mediaEscolar) {
 		
-		resetTotais();
-		
-		calcularMediasEFaltas(mediaEscolar);
-		
-		calcularTotalFaltas();
-		
-		atualizarStatusBoletim();
+		if (TipoCurso.ENSINO_FUNDAMENTAL.equals(matricula.getTurma().getCurso().getTipoCurso())) {
+			
+			resetTotais();
+			
+			calcularMediasEFaltas(mediaEscolar);
+			
+			calcularTotalFaltas();
+			
+			atualizarStatusBoletim();
+			
+		} else {
+			System.out.println("###### Continuar");
+			// FIXME calcular
+			
+		}
 		
 	}
 
@@ -141,9 +161,40 @@ public class Boletim extends AbstractEntity implements Serializable {
 	}
 
 	
+	/**
+	 * Returna o TipoCurso do curso.
+	 * @return
+	 */
+	public TipoCurso getTipoCurso() {
+		return getMatricula().getTurma().getCurso().getTipoCurso();
+	}
+	
+	/**
+	 * Verifica se o boletim é de curso do tipo TipoCurso.ENSINO_FUNDAMENTAL.
+	 * @return
+	 */
+	public boolean isEducacaoFundamental() {
+		return TipoCurso.ENSINO_FUNDAMENTAL.equals(getTipoCurso());
+	}
+	
+	
 	
 	
 	/* -------- Gets/Sets ---------------- */
+
+	@Transient
+	public List<AvaliacaoEducacaoInfantil> getAvaliacaoEducacaoInfantilAsList() {
+		List<AvaliacaoEducacaoInfantil> list = new ArrayList<AvaliacaoEducacaoInfantil>(getAvaliacaoEducacaoInfantils());
+
+		Collections.sort(list, new Comparator<AvaliacaoEducacaoInfantil>() {
+			@Override
+			public int compare(AvaliacaoEducacaoInfantil o1, AvaliacaoEducacaoInfantil o2) {
+				return o1.getQuestaoAvaliacao().getIdQuestaoAvaliacao().compareTo(o2.getQuestaoAvaliacao().getIdQuestaoAvaliacao());
+			}
+		});
+		return list;
+	}
+	
 	@Override
 	public Long getId() {
 		return idBoletim;
@@ -205,14 +256,21 @@ public class Boletim extends AbstractEntity implements Serializable {
 		return recuperacao;
 	}
 
-
 	public String getTxObservacao() {
 		return txObservacao;
 	}
 
-
 	public void setTxObservacao(String txObservacao) {
 		this.txObservacao = txObservacao;
 	}
+	
+	public Set<AvaliacaoEducacaoInfantil> getAvaliacaoEducacaoInfantils() {
+		return avaliacaoEducacaoInfantils;
+	}
 
+	public void setAvaliacaoEducacaoInfantils(
+			Set<AvaliacaoEducacaoInfantil> avaliacaoEducacaoInfantils) {
+		this.avaliacaoEducacaoInfantils = avaliacaoEducacaoInfantils;
+	}
+	
 }

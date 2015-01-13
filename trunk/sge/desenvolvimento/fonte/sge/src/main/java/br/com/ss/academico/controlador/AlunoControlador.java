@@ -137,15 +137,18 @@ public class AlunoControlador extends ControladorGenerico<Aluno> {
 	 */
 	public void grauParentescoChanged(ValueChangeEvent e) {
 		// seta o valor para o campo Pai ou Mae dependendo do grau de parentesco
-		GrauParentesco grauParentesco = (GrauParentesco) e.getNewValue();
-		if (GrauParentesco.PAI.equals(grauParentesco)) {
-			this.entidade.setPai(this.entidade.getResponsavel().getNome());
-			this.entidade.setFonePai(this.entidade.getResponsavel().getCelular());
-			this.entidade.setMae(null);
-		} else if (GrauParentesco.MAE.equals(grauParentesco)) {
-			this.entidade.setMae(this.entidade.getResponsavel().getNome());
-			this.entidade.setFoneMae(this.entidade.getResponsavel().getCelular());
-			this.entidade.setPai(null);
+		Responsavel responsavel = this.entidade.getResponsavel();
+		if(responsavel != null ) {
+			GrauParentesco grauParentesco = (GrauParentesco) e.getNewValue();
+			if (GrauParentesco.PAI.equals(grauParentesco)) {
+				this.entidade.setPai(responsavel.getNome());
+				this.entidade.setFonePai(responsavel.getCelular());
+				this.entidade.setMae(null);
+			} else if (GrauParentesco.MAE.equals(grauParentesco)) {
+				this.entidade.setMae(responsavel.getNome());
+				this.entidade.setFoneMae(responsavel.getCelular());
+				this.entidade.setPai(null);
+			}
 		}
 	}
 

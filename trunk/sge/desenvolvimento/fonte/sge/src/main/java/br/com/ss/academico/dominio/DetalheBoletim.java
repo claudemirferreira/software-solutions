@@ -15,11 +15,11 @@ import javax.persistence.Transient;
 
 import br.com.ss.academico.enumerated.Bimestre;
 import br.com.ss.academico.enumerated.StatusBoletim;
-import br.com.ss.academico.enumerated.TipoBoletim;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 import br.com.ss.core.web.enumerated.NumeroUtil;
 
 /**
+ * Detalhe das disciplinas e notas do boletim - Ensino Fundamental.
  * @author Robson
  */
 @Entity
@@ -110,15 +110,12 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_boletim", nullable = false)
 	private Boletim boletim;
 
-//	@Enumerated
-//	@Column(length = 1)
-//	private TipoBoletim tipoBoletim;		// FIXME adicionar coluna
 	
 	private static final Float ZERO = 0.0f;
 	
 	/** Para controlar quando nao resetar o status. */
 	@Transient
-	public boolean statusChanged;
+	private boolean statusChanged;
 	
 	
 	public DetalheBoletim() { }
@@ -244,6 +241,21 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	public void changeStatusDisciplina() {
 		this.statusChanged = true;
 	}
+	
+
+	public float pegarMedia(Bimestre bimestre){
+		
+		if (bimestre == Bimestre.PRIMEIRO)
+			return getMedia1();
+		else if (bimestre == Bimestre.SEGUNDO)
+			return getMedia2();
+		else if (bimestre == Bimestre.TERCEIRO)
+			return getMedia3();
+		else
+			return getMedia4();
+		
+	}
+
 	
 	
 	/* -------- Gets/Sets ---------------- */
@@ -469,7 +481,6 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 		this.faltasBimestre4 = faltasBimestre4;
 	}
 
-
 	public Integer getTotalFaltas() {
 		return totalFaltas;
 	}
@@ -485,18 +496,6 @@ public class DetalheBoletim extends AbstractEntity implements Serializable {
 	public void setMediaGeral(Float mediaGeral) {
 		this.mediaGeral = mediaGeral;
 	}
-	
-	public float pegarMedia(Bimestre bimestre){
-		
-		if (bimestre == Bimestre.PRIMEIRO)
-			return getMedia1();
-		else if (bimestre == Bimestre.SEGUNDO)
-			return getMedia2();
-		else if (bimestre == Bimestre.TERCEIRO)
-			return getMedia3();
-		else
-			return getMedia4();
-		
-	}
+
 
 }
