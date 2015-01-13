@@ -213,14 +213,21 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	}
 
 	public void imprimirBoletim() throws IOException {
+		if ( this.entidade.isEducacaoFundamental() ) {
+			imprimirBoletimEducFundamental();
+		} else {
+			imprimirBoletimEducInfantil();
+		}
+	}
+
+	private void imprimirBoletimEducFundamental() throws IOException {
 
 		gerarImagemGrafico();
 
 		try {
 
 			Map<String, Object> param = new HashMap<String, Object>();
-			Empresa empresa = (Empresa) FacesUtils
-					.getApplicationParam("empresa");
+			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 
 			// parametros usados no relatorio
 			param.put(REPORT_TITLE, getTituloRelatorio());
@@ -232,15 +239,19 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 			if (bimestre.getDescricao() != Bimestre.PRIMEIRO.getDescricao())
 				param.put("GRAFICO2", this.MEDIA_SOMA_BIMESTRE);
 
-			List<DetalheBoletim> lista = new ArrayList<DetalheBoletim>(
-					this.entidade.getDetalheBoletims());
+			List<DetalheBoletim> lista = new ArrayList<DetalheBoletim>( this.entidade.getDetalheBoletims() );
 
 			gerarRelatorioWeb(lista, param, true);
 
 		} catch (JRException e) {
 			e.printStackTrace();
-		}
+		}		
+	}
 
+	private void imprimirBoletimEducInfantil() {
+		
+		// FIXME #Peninha criar relatorio
+		
 	}
 
 	@Override
