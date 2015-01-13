@@ -9,5 +9,6 @@ public interface TurmaRepositorioHql {
 	public List<Turma> pesquisar(Turma entity);
 
 	public List<Turma> listarTurmasVigentes();
-	
+
+	List<Turma> listarTurmas();
 }

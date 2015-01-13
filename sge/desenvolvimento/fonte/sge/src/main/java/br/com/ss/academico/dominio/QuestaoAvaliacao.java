@@ -13,8 +13,8 @@ import javax.persistence.Table;
 import br.com.ss.academico.enumerated.FatorAvaliacao;
 import br.com.ss.core.seguranca.dominio.AbstractEntity;
 
-//@Entity
-//@Table(name = "acad_questao_avaliacao")
+@Entity
+@Table(name = "acad_questao_avaliacao")
 public class QuestaoAvaliacao extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -2007492808185341812L;

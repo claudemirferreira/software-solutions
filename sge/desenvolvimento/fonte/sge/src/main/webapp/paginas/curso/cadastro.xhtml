@@ -21,6 +21,8 @@
 		
 		<ss:input id="valor" label="Valor" type="number" required="true" value="#{cursoControlador.entidade.valor}" />
 		
+		<ss:comboBox label="Tipo de curso" required="true" value="#{cursoControlador.entidade.tipoCurso}" selectOne="true" list="#{cursoControlador.tipoCursoList}" filter="false" />
+		
 	</ui:define>
 	
 </ui:composition>

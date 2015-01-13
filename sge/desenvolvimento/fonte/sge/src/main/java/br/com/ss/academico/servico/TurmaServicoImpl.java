@@ -48,4 +48,9 @@ public class TurmaServicoImpl extends ServicoImpl<Turma, Long> implements TurmaS
 		return repositorioHql.listarTurmasVigentes();
 	}
 
+	@Override
+	public List<Turma> listarTurmas() {
+		return repositorioHql.listarTurmas();
+	}
+
 }

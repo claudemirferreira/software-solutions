@@ -27,12 +27,14 @@
 			
 			<ss2:column value="#{item.nome}" header="Nome" sortBy="nome"  />
 			<ss2:column value="#{item.valor}" header="Valor" sortBy="valor" convertNumber="true" textAlign="right" />
+			<ss2:column value="#{item.tipoCurso.descricao}" header="Tipo" sortBy="tipoCurso" textAlign="center" />
 			
 			<ss2:actionColumn managedBean="#{cursoControlador}" buttonsAdded="1">
 				<p:commandButton value="Disciplina" title="Disciplina"
 								action="#{cursoDisciplinaControlador.showModalDisciplina(item)}"
 								oncomplete="PF('dlgDisciplina').show();" 
 								update=":formDlg"
+								rendered="#{item.tipoCurso.id eq 1}"
 								styleClass="ui-priority-primary"
 								icon="ui-icon-document" />
 			</ss2:actionColumn>

@@ -168,11 +168,12 @@ public class Turma extends AbstractEntity implements Serializable {
 	}
 	
 	public String getValorMensalidadeComDescontoFormatado() {
-		DecimalFormat df = new DecimalFormat("0.##");
+		DecimalFormat df = new DecimalFormat("###,##");
+		df.setMinimumFractionDigits(2);
+		df.setGroupingSize(3);
 	    String valorMensalidade = df.format(this.valorMensalidadeComDesconto);
 		return valorMensalidade;
-		
-		
 	}
 
+	
 }

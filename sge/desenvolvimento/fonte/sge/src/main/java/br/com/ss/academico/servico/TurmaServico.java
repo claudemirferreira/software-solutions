@@ -14,4 +14,6 @@ public interface TurmaServico extends IService<Turma, Long>  {
 
 	List<Turma> listarTurmasVigentes();
 
+	List<Turma> listarTurmas();
+
 }

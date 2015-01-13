@@ -7,20 +7,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ss.academico.dominio.AvaliacaoEducacaoInfantil;
 import br.com.ss.academico.dominio.Boletim;
 import br.com.ss.academico.dominio.DetalheBoletim;
 import br.com.ss.academico.dominio.Disciplina;
 import br.com.ss.academico.dominio.Matricula;
+import br.com.ss.academico.dominio.QuestaoAvaliacao;
 import br.com.ss.academico.dominio.Turma;
+import br.com.ss.academico.enumerated.TipoCurso;
 import br.com.ss.academico.repositorio.BoletimRepositorio;
 import br.com.ss.academico.repositorio.BoletimRepositorioJPA;
 import br.com.ss.academico.repositorio.DisciplinaRepositorioSql;
+import br.com.ss.academico.repositorio.QuestaoAvaliacaoRepositorioJPA;
 import br.com.ss.core.seguranca.repositorio.ServicoImpl;
 
 @Service
 @Transactional
-public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements
-		BoletimServico {
+public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements BoletimServico {
 
 	private static final long serialVersionUID = -4305564891244729963L;
 
@@ -33,6 +36,10 @@ public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements
 	@Autowired
 	private DisciplinaRepositorioSql disciplinaRepositorioSql;
 
+	@Autowired
+	private QuestaoAvaliacaoRepositorioJPA questaoAvaliacaoRepositorioJPA;
+
+	
 	@Override
 	public List<Boletim> listarTodos() {
 		return this.repositorio.findAll();
@@ -56,20 +63,37 @@ public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements
 	@Override
 	public void gerarBoletim(Matricula matricula) {
 
-		List<Disciplina> disciplinas = disciplinaRepositorioSql
-				.listaDisciplinaPorCurso(matricula.getTurma().getCurso().getId());
-
 		Boletim boletim = new Boletim();
 		boletim.setMatricula(matricula);
 		
-		for (Disciplina disciplina : disciplinas) {
+		if (TipoCurso.ENSINO_FUNDAMENTAL.equals(matricula.getTurma().getCurso().getTipoCurso())) {
+			criarDetalhesBoletim(boletim);
+		} else {
+			criarAvaliacaoEducacaoInfantil(boletim);
+		}
+		
+		this.repositorio.save(boletim);
+	}
+	
+	
+
+	private void criarAvaliacaoEducacaoInfantil(Boletim boletim) {
+		for (QuestaoAvaliacao qa : questaoAvaliacaoRepositorioJPA.listarTodos() ) {
+			AvaliacaoEducacaoInfantil aei = new AvaliacaoEducacaoInfantil();
+			aei.setBoletim(boletim);
+			aei.setQuestaoAvaliacao(qa);
+			boletim.getAvaliacaoEducacaoInfantils().add(aei);
+		}
+	}
+	
+
+	private void criarDetalhesBoletim(Boletim boletim) {
+		for (Disciplina disciplina : disciplinaRepositorioSql.listaDisciplinaPorCurso(boletim.getMatricula().getTurma().getCurso().getId())) {
 			DetalheBoletim det = new DetalheBoletim();
 			det.setDisciplina(disciplina);
 			det.setBoletim(boletim);
 			boletim.getDetalheBoletims().add(det);
 		}
-		
-		this.repositorio.save(boletim);
 	}
 
 	@Override

@@ -94,6 +94,7 @@
 	}
 	.menu {
 /* 		width: 70%; */
+		letter-spacing: 0.15em;
 		margin: 0 auto;
 		padding: 0;
 		list-style: none;
@@ -871,7 +872,7 @@ a {
 }
 
 .lancamentoPendente {
-	color: orange;   
+	color: inactivecaption;   
 	font-weight: bold; 
 }
 .aprovado {
@@ -882,3 +883,14 @@ a {
 	color: red;   
 	font-weight: bold; 
 }
+
+.fator0 {
+	color: green;
+}
+.fator1 {
+	color: blue;
+}
+.fator2 {
+	color: purple;
+}
+

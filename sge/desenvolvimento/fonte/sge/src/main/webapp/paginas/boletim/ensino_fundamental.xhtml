@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<p:outputPanel>
+	<p:dataTable id="gridBolEducFundamental" rendered="#{boletimControlador.entidade.isEducacaoFundamental()}" 
+					value="#{boletimControlador.entidade.detalheBoletims}" var="item" editable="true" scrollable="false" >
+
+		<p:ajax event="rowEdit" listener="#{boletimControlador.onEdit}" update=":form:msg " />
+
+		<f:facet name="header"> Componentes Curriculares </f:facet>
+
+		<p:columnGroup type="header">
+			<p:row>
+				<p:column rowspan="2" headerText="Disciplina" width="90" />
+				<p:column colspan="4" headerText="1º Bimestre" />
+				<p:column colspan="4" headerText="2º Bimestre" />
+				<p:column colspan="4" headerText="3º Bimestre" />
+				<p:column colspan="4" headerText="4º Bimestre" />
+				<p:column
+					colspan="#{not boletimControlador.entidade.recuperacao ? '4' : '5'}"
+					headerText="Resultado Final" width="280" />
+				<p:column rowspan="2" headerText="Ação" width="35" />
+			</p:row>
+			<p:row>
+				<p:column headerText="Nota 1" width="40" />
+				<p:column headerText="Nota 2" width="40" />
+				<p:column headerText="Média" />
+				<p:column headerText="Faltas" />
+
+				<p:column headerText="Nota 3" />
+				<p:column headerText="Nota 4" />
+				<p:column headerText="Média" />
+				<p:column headerText="Faltas" />
+
+				<p:column headerText="Nota 5" />
+				<p:column headerText="Nota 6" />
+				<p:column headerText="Média" />
+				<p:column headerText="Faltas" />
+
+				<p:column headerText="Nota 7" />
+				<p:column headerText="Nota 8" />
+				<p:column headerText="Média" />
+				<p:column headerText="Faltas" />
+
+				<p:column headerText="Média Geral" />
+				<p:column rendered="#{boletimControlador.entidade.recuperacao}"
+					headerText="Nota Recup." />
+				<p:column headerText="Média Final" />
+				<p:column headerText="Total Faltas" />
+				<p:column headerText="Situação Disciplina" styleClass="textCenter" />
+			</p:row>
+		</p:columnGroup>
+
+		<p:column>
+			<h:outputText value="#{item.disciplina.nome}" />
+		</p:column>
+
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota1}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota1}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota2}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota2}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media1}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media1}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre1}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre1}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota3}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota3}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota4}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota4}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media2}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media2}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre2}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre2}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota5}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota5}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota6}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota6}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media3}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media3}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre3}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre3}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota7}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota7}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.nota8}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{item.nota8}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.media4}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<h:outputText value="#{item.media4}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="textRight">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.faltasBimestre4}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.faltasBimestre4}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column styleClass="textRight">
+			<h:outputText value="#{item.mediaGeral}"
+				styleClass="#{item.mediaGeral lt configuracao.mediaEscolar ? 'reprovado' : 'aprovado' }">
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
+		</p:column>
+
+		<p:column styleClass="textRight"
+			rendered="#{boletimControlador.entidade.recuperacao}">
+			<p:cellEditor rendered="#{item.recuperacao}">
+				<f:facet name="output">
+					<h:outputText value="#{item.notaRecuperacao}"
+						styleClass="#{item.notaRecuperacao lt configuracao.mediaEscolar ? 'reprovado' : 'aprovado' }">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{item.notaRecuperacao}" maxlength="5">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column styleClass="textRight">
+			<h:outputText value="#{item.mediaFinal}"
+				styleClass="#{item.mediaFinal lt configuracao.mediaEscolar ? 'reprovado' : 'aprovado'}">
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
+		</p:column>
+
+		<p:column styleClass="textRight">
+			<h:outputText value="#{item.totalFaltas}"
+				styleClass="#{item.totalFaltas gt item.disciplina.maximoFaltas ? 'reprovado' : 'aprovado' }" />
+		</p:column>
+
+		<p:column styleClass="textCenter">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{item.statusDisciplina.descricao}"
+						styleClass="#{item.statusDisciplina.id eq 0 ? 'lancamentoPendente':  (item.statusDisciplina.id eq 1 ? 'aprovado' : 'reprovado' ) }" />
+				</f:facet>
+				<f:facet name="input">
+					<h:selectOneMenu value="#{item.statusDisciplina}"
+						style="width:100%">
+						<f:selectItems value="#{boletimControlador.statusList}"
+							var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
+						<p:ajax event="change" listener="#{item.changeStatusDisciplina}" />
+					</h:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column exportable="false">
+			<p:rowEditor />
+		</p:column>
+
+		<p:columnGroup type="footer">
+			<p:row>
+				<p:column style="text-align:right" footerText="Total de faltas" />
+				<p:column style="text-align:right"
+					footerText="#{boletimControlador.entidade.totalFaltas1}"
+					colspan="4" />
+				<p:column style="text-align:right"
+					footerText="#{boletimControlador.entidade.totalFaltas2}"
+					colspan="4" />
+				<p:column style="text-align:right"
+					footerText="#{boletimControlador.entidade.totalFaltas3}"
+					colspan="4" />
+				<p:column style="text-align:right"
+					footerText="#{boletimControlador.entidade.totalFaltas4}"
+					colspan="4" />
+				<p:column style="text-align:right"
+					footerText="#{boletimControlador.entidade.totalGeral}"
+					colspan="#{not boletimControlador.entidade.recuperacao ? '3' : '4'}" />
+				<p:column style="text-align:right" footerText=" " colspan="2" />
+			</p:row>
+		</p:columnGroup>
+
+		<f:facet name="footer">
+			<h:outputText value="Situação: " />
+			<h:outputText value="  #{boletimControlador.entidade.statusBoletim.descricao}"
+				styleClass="#{boletimControlador.entidade.statusBoletim.id eq 0 ? 'lancamentoPendente' 
+       																			:  (boletimControlador.entidade.statusBoletim.id eq 1 ? 'aprovado' 
+       																																	  : 'reprovado' ) }" />
+		</f:facet>
+	</p:dataTable>
+</p:outputPanel>
+
+</ui:component>

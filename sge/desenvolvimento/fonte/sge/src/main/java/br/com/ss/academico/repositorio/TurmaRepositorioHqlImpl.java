@@ -52,7 +52,7 @@ public class TurmaRepositorioHqlImpl extends RepositorioGenerico implements Turm
 		StringBuilder sb = new StringBuilder();
 		sb.append(" select t from Turma t ");
 		sb.append(" where t.ano >= :ano ");
-		sb.append(" order by t.ano, t.curso.nome ");
+		sb.append(" order by t.ano desc, t.curso.nome ");
 		
 		Query query = entityManager.createQuery( sb.toString() );
 		query.setParameter("ano", DateUtil.getAno(new Date()));
@@ -60,4 +60,15 @@ public class TurmaRepositorioHqlImpl extends RepositorioGenerico implements Turm
 		return query.getResultList();
 	}
 
+	@Override
+	public List<Turma> listarTurmas() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" select t from Turma t ");
+		sb.append(" order by t.ano desc, t.curso.nome ");
+		
+		Query query = entityManager.createQuery( sb.toString() );
+		
+		return query.getResultList();
+	}
+	
 }

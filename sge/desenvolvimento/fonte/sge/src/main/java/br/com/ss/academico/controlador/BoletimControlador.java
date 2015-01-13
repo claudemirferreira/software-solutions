@@ -33,7 +33,6 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-import br.com.ss.academico.dominio.Aluno;
 import br.com.ss.academico.dominio.Boletim;
 import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.DetalheBoletim;
@@ -43,6 +42,7 @@ import br.com.ss.academico.dominio.MediaTurma;
 import br.com.ss.academico.dominio.Turma;
 import br.com.ss.academico.dominio.TurmaDisciplina;
 import br.com.ss.academico.enumerated.Bimestre;
+import br.com.ss.academico.enumerated.ConceitoAvaliacao;
 import br.com.ss.academico.enumerated.StatusBoletim;
 import br.com.ss.academico.servico.BoletimServico;
 import br.com.ss.academico.servico.DetalheBoletimServico;
@@ -103,13 +103,19 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	
 	private StreamedContent chart2;
 
+	private List<SelectItem> conceitoAvaliacaoList;
+	
+	
+	
 	@PostConstruct
 	@Override
 	public void setup() {
 		super.setup();
-		this.turmas = turmaServico.listarTodos();
-		configuracao = (Configuracao) FacesUtils
-				.getApplicationParam("configuracao");
+		
+		this.turmas = turmaServico.listarTurmas();
+
+		configuracao = (Configuracao) FacesUtils.getApplicationParam("configuracao");
+		
 		statusList = new ArrayList<SelectItem>();
 		for (StatusBoletim status : StatusBoletim.values()) {
 			statusList.add(new SelectItem(status, status.getDescricao()));
@@ -119,7 +125,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		for (Bimestre c : Bimestre.values()) {
 			bimestreList.add(new SelectItem(c, c.getDescricao()));
 		}
-
+		
+		conceitoAvaliacaoList = new ArrayList<SelectItem>();
+		for ( ConceitoAvaliacao ca : ConceitoAvaliacao.values() ) {
+			conceitoAvaliacaoList.add(new SelectItem(ca, ca.getDescricao()));
+		}
+		
 		this.bimestre = Bimestre.PRIMEIRO;
 
 	}
@@ -140,8 +151,7 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 			// fetch de disciplina
 			for (Boletim bol : listaPesquisa) {
-				for (TurmaDisciplina td : bol.getMatricula().getTurma()
-						.getTurmaDisciplina()) {
+				for (TurmaDisciplina td : bol.getMatricula().getTurma().getTurmaDisciplina()) {
 					td.getDisciplina();
 				}
 			}
@@ -566,6 +576,10 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	public void setChart2(StreamedContent chart2) {
 		this.chart2 = chart2;
+	}
+
+	public List<SelectItem> getConceitoAvaliacaoList() {
+		return conceitoAvaliacaoList;
 	}
 
 }

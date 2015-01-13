@@ -28,6 +28,13 @@
 			font-size: 80%;
 		}
 	</style>
+	
+	<script type="text/javascript"> 
+		function focusPassword() {
+			element = document.getElementById('form:password');
+			element.focus();
+		}
+	</script>
 
 </h:head>
 
@@ -37,22 +44,28 @@
 		<div class="login">
 	
 			<h1>Bem vindo</h1>
-			<h3>Informe seus dados de acesso</h3>
+			<center>
+				<h3>Informe seus dados de acesso</h3>
+			</center>
 
 			<h:form id="form">
-				<p:messages id="messages" closable="true" 
-					showSummary="false" showDetail="true"/>
+			
+				<p:messages id="messages" closable="true"  showSummary="false" showDetail="true"/>
 
 				<p>
 					<p:outputPanel autoUpdate="true">
 						<h:outputLabel value="Login: " />
-						<p:inputText id="username" label="Usuário" value="#{authenticatorController.username}" required="true" requiredMessage="Login obrigatório" >
+						<p:inputText id="username" label="Usuário" 
+									onblur="focusPassword();"
+									value="#{authenticatorController.username}" 
+									required="true" 
+									requiredMessage="Login obrigatório" >
 							<f:ajax event="blur" update="@this" />
 						</p:inputText>
 					</p:outputPanel>
 				</p>
 				<p>
-					<p:outputPanel autoUpdate="true">
+					<p:outputPanel autoUpdate="false">
 						<h:outputLabel value="Senha: " />
 						<p:password id="password" label="Senha" value="#{authenticatorController.password}" required="true" requiredMessage="Senha obrigatório" />
 					</p:outputPanel>
