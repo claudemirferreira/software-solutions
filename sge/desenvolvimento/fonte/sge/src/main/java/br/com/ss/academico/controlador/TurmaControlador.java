@@ -59,7 +59,7 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 
 	@ManagedProperty(value = "#{cursoServicoImpl}")
 	private CursoServico cursoServico;
-
+	
 	private Turma turmaSelecaoModal;
 
 	@Override
@@ -208,16 +208,21 @@ public class TurmaControlador extends ControladorGenerico<Turma> {
 	
 	public void imprimirAlunosTurma() throws FileNotFoundException, IOException, DocumentException, JRException{
 		
+		
 		this.alunoControlador.setAlunosTurma(this.listaAluno);
-//		this.alunoControlador.imprimir();
+		
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 
 		// parametros usados no relatorio
-		param.put("aa", getTituloRelatorio());
+		param.put(REPORT_TITLE, getTituloRelatorio());
+		param.put(EMPRESA, empresa);
+		param.put(USUARIO, getUsuarioLogado());
+		param.put("turma", this.turmaSelecaoModal);
 		
-		this.alunoControlador.imprimir(this.listaAluno, param, "turma-aluno.jasper");
+		this.alunoControlador.gerarRelatorioWeb(this.listaAluno, param, "turma-aluno.jasper");
+		
 		
 	}
 
