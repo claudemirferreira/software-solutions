@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boletim" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="98dc61e5-9ea7-40c8-adc5-a6ad575f7ba9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="20"/>
+	<parameter name="empresa" class="br.com.ss.academico.dominio.Empresa"/>
+	<parameter name="GRAFICO1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{GRAFICO1}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="GRAFICO2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{GRAFICO2}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="boletim" class="br.com.ss.academico.dominio.Boletim"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="boletim" class="br.com.ss.academico.dominio.Boletim">
+		<fieldDescription><![CDATA[boletim]]></fieldDescription>
+	</field>
+	<field name="checked" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checked]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="conceitoAvaliacao1" class="br.com.ss.academico.enumerated.ConceitoAvaliacao">
+		<fieldDescription><![CDATA[conceitoAvaliacao1]]></fieldDescription>
+	</field>
+	<field name="conceitoAvaliacao2" class="br.com.ss.academico.enumerated.ConceitoAvaliacao">
+		<fieldDescription><![CDATA[conceitoAvaliacao2]]></fieldDescription>
+	</field>
+	<field name="conceitoAvaliacao3" class="br.com.ss.academico.enumerated.ConceitoAvaliacao">
+		<fieldDescription><![CDATA[conceitoAvaliacao3]]></fieldDescription>
+	</field>
+	<field name="conceitoAvaliacao4" class="br.com.ss.academico.enumerated.ConceitoAvaliacao">
+		<fieldDescription><![CDATA[conceitoAvaliacao4]]></fieldDescription>
+	</field>
+	<field name="conceitoGeral" class="br.com.ss.academico.enumerated.ConceitoAvaliacao">
+		<fieldDescription><![CDATA[conceitoGeral]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="idAvaliacaoEducacaoInfantil" class="java.lang.Long">
+		<fieldDescription><![CDATA[idAvaliacaoEducacaoInfantil]]></fieldDescription>
+	</field>
+	<field name="persistent" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[persistent]]></fieldDescription>
+	</field>
+	<field name="questaoAvaliacao" class="br.com.ss.academico.dominio.QuestaoAvaliacao">
+		<fieldDescription><![CDATA[questaoAvaliacao]]></fieldDescription>
+	</field>
+	<field name="statusDisciplina" class="br.com.ss.academico.enumerated.StatusBoletim">
+		<fieldDescription><![CDATA[statusDisciplina]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="159">
+			<textField>
+				<reportElement x="2" y="78" width="208" height="20" isRemoveLineWhenBlank="true" uuid="4a87ca5d-fcf6-4150-a551-fd22973909d8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Aluno(a): " + $F{boletim}.getMatricula().getAluno().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="100" width="256" height="20" isRemoveLineWhenBlank="true" uuid="3d821218-cac9-46cb-ae53-b9cfc82ad5fd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Turma: " + $F{boletim}.getMatricula().getTurma().getCurso().getNome()
++ " / Turno: " + $F{boletim}.getMatricula().getTurma().getTurno().getDescricao()
++ " / Ano: " + $F{boletim}.getMatricula().getTurma().getAno()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="91" y="56" width="350" height="20" uuid="e0c3f3cb-1946-4cb1-ba01-0df8fefd3b03"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Boletim Escolar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="267" y="78" width="152" height="20" isRemoveLineWhenBlank="true" uuid="f1a8ffe7-b39f-499a-b5d7-bf36f6b64428"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Matricula: " + $F{boletim}.getMatricula().getIdMatricula()]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy">
+				<reportElement x="344" y="98" width="181" height="20" uuid="fc233bc7-095c-46c0-a008-62cc0e0688b4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="98" width="79" height="20" isRemoveLineWhenBlank="true" uuid="c40b64df-2a26-4e0e-be1e-445068400286"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data Impressão:]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="50" backcolor="#006699" uuid="209e0df7-8b82-4b73-b59e-ee9ea1390c7a">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement mode="Transparent" x="80" y="0" width="400" height="24" forecolor="#FFFFFF" uuid="95470fcf-6e03-4953-aa1e-bb245ffa7a2c">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["SGE - " + $P{empresa}.getNomeFantasia()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="0" y="25" width="555" height="20" forecolor="#FFFFFF" uuid="c24eba81-f406-4cdc-ae05-8439e61c06f1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Endereço: " + $P{empresa}.getEndereco() + " - " + $P{empresa}.getBairro() + ". Manaus - AM.  Cnpj: " + $P{empresa}.getCnpj() + "."]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement x="65" y="120" width="460" height="36" isRemoveLineWhenBlank="true" uuid="8b745e3c-fe04-43fe-85df-dbc9e4b423c9"/>
+				<textFieldExpression><![CDATA[($F{boletim}.getTxObservacao() != null) ?
+ $F{boletim}.getTxObservacao(): ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="120" width="62" height="20" uuid="023dcd84-d801-4863-a7d0-6a1c582a3efa"/>
+				<text><![CDATA[Observação:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23">
+			<rectangle>
+				<reportElement x="324" y="2" width="58" height="20" uuid="a36f37d4-d7ae-4c01-82ed-45fd7863ffd8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="497" y="2" width="58" height="20" uuid="e2e081d2-36ad-44d8-8114-8bc6757bf91e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="440" y="2" width="58" height="20" uuid="ff7889b1-cf9f-4cbd-9594-616758e63e3f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="324" y="5" width="58" height="15" uuid="80cb63c8-6491-4202-bd59-cca78dfc261a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[1º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="5" width="58" height="15" uuid="54c3eb00-a230-4a45-b6a3-2cc110ca65e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[3º B]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="382" y="2" width="58" height="20" uuid="de496261-32be-41f6-9744-06293c0d4fc6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="497" y="5" width="58" height="15" uuid="923a34da-4688-40d2-80f0-f6cbf7ccd379"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[4º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="5" width="58" height="15" uuid="47608909-1591-49c1-b7c2-d507374f8a00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[2º B]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band>
+			<rectangle>
+				<reportElement x="0" y="-21" width="324" height="20" uuid="72ed5aa7-a90a-4b54-baca-3a20bf032a07"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19">
+			<rectangle>
+				<reportElement x="324" y="-1" width="58" height="18" uuid="202592ae-264b-4751-b8c4-4f2ee1039906"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="-1" width="324" height="18" uuid="d0a56d14-b6e3-41d2-833e-a19544e790b7"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="330" y="1" width="52" height="16" isRemoveLineWhenBlank="true" uuid="62133346-96ff-42fc-8c36-1b09160cec09"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{conceitoAvaliacao1}.getSigla() != null) ?
+ $F{conceitoAvaliacao1}.getSigla(): ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="1" width="268" height="16" uuid="83479c04-021b-461f-98ce-f5d1f1891434"/>
+				<textFieldExpression><![CDATA[""+$F{questaoAvaliacao}.getTxQuestao()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="382" y="-1" width="58" height="18" uuid="85dcc2ca-8970-4f38-80ac-b02295add49f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="440" y="-1" width="58" height="18" uuid="42c5c151-d7e1-4f17-a584-f9f318c3da4a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="498" y="-1" width="57" height="18" uuid="508ddf0c-ac0b-41ab-bb8f-9149f4a3df12"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="386" y="1" width="52" height="16" isRemoveLineWhenBlank="true" uuid="db066f60-4eb6-492f-ac57-bb46e2e0767c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{conceitoAvaliacao2}.getSigla() != null) ?
+ $F{conceitoAvaliacao2}.getSigla(): ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="443" y="1" width="52" height="16" isRemoveLineWhenBlank="true" uuid="abe12e81-a2f6-4e97-aa5a-ec177edae9f5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{conceitoAvaliacao3}.getSigla() != null) ?
+ $F{conceitoAvaliacao3}.getSigla(): ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="501" y="1" width="52" height="16" isRemoveLineWhenBlank="true" uuid="3292f929-0279-40fd-a8ed-2ef715e1accb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{conceitoAvaliacao3}.getSigla() != null) ?
+ $F{conceitoAvaliacao3}.getSigla(): ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="164">
+			<staticText>
+				<reportElement x="396" y="39" width="157" height="68" uuid="05fdf904-18c9-4d35-8fb5-3160240c92c2"/>
+				<text><![CDATA[LEGENDA:
+S – Sim
+N – Não
+AV – As Vezes
+ED – Em desenvolvimento
+NT – Não trabalhamos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="42" y="47" width="273" height="1" uuid="6f0ccdcf-1122-42e7-bf0d-c77eacfff588"/>
+			</line>
+			<line>
+				<reportElement x="42" y="68" width="273" height="1" uuid="0b3c62a8-9808-4cf2-b8f8-4c5165dd8eb5"/>
+			</line>
+			<line>
+				<reportElement x="42" y="90" width="273" height="1" uuid="2295d8bc-5722-4518-a6f9-610fcdd098c1"/>
+			</line>
+			<line>
+				<reportElement x="42" y="110" width="273" height="1" uuid="a7de3f5f-19b7-465b-a417-46b2f91bc224"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="2" width="278" height="20" uuid="b72afe19-a8a4-4abd-bc4a-ad00754ed4e7"/>
+				<text><![CDATA[ASSINATURA DOS RESPONSÁVEIS ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="42" height="15" uuid="f683e7fa-edde-4157-852a-7fa991fd5112"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[1º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="54" width="42" height="15" uuid="b310af1a-7ea3-423b-8d83-454834d06a2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[2º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="42" height="15" uuid="9317fdad-2685-46e0-900f-6666c26fbd5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[3º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="42" height="15" uuid="cd4f2c0f-af70-4e8f-b03c-14924b48f25f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[4º B]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

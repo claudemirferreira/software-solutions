@@ -33,6 +33,7 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import br.com.ss.academico.dominio.AvaliacaoEducacaoInfantil;
 import br.com.ss.academico.dominio.Boletim;
 import br.com.ss.academico.dominio.Configuracao;
 import br.com.ss.academico.dominio.DetalheBoletim;
@@ -100,22 +101,21 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	private String MEDIA_SOMA_BIMESTRE = "MEDIA_SOMA_BIMESTRE.PNG";
 
 	private StreamedContent chart1;
-	
+
 	private StreamedContent chart2;
 
 	private List<SelectItem> conceitoAvaliacaoList;
-	
-	
-	
+
 	@PostConstruct
 	@Override
 	public void setup() {
 		super.setup();
-		
+
 		this.turmas = turmaServico.listarTurmas();
 
-		configuracao = (Configuracao) FacesUtils.getApplicationParam("configuracao");
-		
+		configuracao = (Configuracao) FacesUtils
+				.getApplicationParam("configuracao");
+
 		statusList = new ArrayList<SelectItem>();
 		for (StatusBoletim status : StatusBoletim.values()) {
 			statusList.add(new SelectItem(status, status.getDescricao()));
@@ -125,12 +125,12 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		for (Bimestre c : Bimestre.values()) {
 			bimestreList.add(new SelectItem(c, c.getDescricao()));
 		}
-		
+
 		conceitoAvaliacaoList = new ArrayList<SelectItem>();
-		for ( ConceitoAvaliacao ca : ConceitoAvaliacao.values() ) {
+		for (ConceitoAvaliacao ca : ConceitoAvaliacao.values()) {
 			conceitoAvaliacaoList.add(new SelectItem(ca, ca.getDescricao()));
 		}
-		
+
 		this.bimestre = Bimestre.PRIMEIRO;
 
 	}
@@ -151,7 +151,8 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 			// fetch de disciplina
 			for (Boletim bol : listaPesquisa) {
-				for (TurmaDisciplina td : bol.getMatricula().getTurma().getTurmaDisciplina()) {
+				for (TurmaDisciplina td : bol.getMatricula().getTurma()
+						.getTurmaDisciplina()) {
 					td.getDisciplina();
 				}
 			}
@@ -187,12 +188,13 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		return super.salvar();
 	}
 
-	
 	public void gerarImagemGrafico() throws IOException {
-		
-		this.MEDIA_BIMESTRE = pegarGraficoBimestre(bimestre, "Gráfico de Média do " + bimestre.getDescricao());
 
-		chart1 = new DefaultStreamedContent(new FileInputStream( this.MEDIA_BIMESTRE), "image/png" );
+		this.MEDIA_BIMESTRE = pegarGraficoBimestre(bimestre,
+				"Gráfico de Média do " + bimestre.getDescricao());
+
+		chart1 = new DefaultStreamedContent(new FileInputStream(
+				this.MEDIA_BIMESTRE), "image/png");
 
 		if (bimestre.getDescricao() != Bimestre.PRIMEIRO.getDescricao()) {
 			this.MEDIA_SOMA_BIMESTRE = pegarGraficoMediaSomaBimestre(bimestre,
@@ -205,15 +207,15 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 	public void showModalGrafico() throws IOException {
 		gerarImagemGrafico();
 		RequestContext rc = RequestContext.getCurrentInstance();
-	    rc.execute("PF('dlgGrafico').show()");
+		rc.execute("PF('dlgGrafico').show()");
 	}
-	
+
 	public void telaGraficoPoup() throws IOException {
 		gerarImagemGrafico();
 	}
 
 	public void imprimirBoletim() throws IOException {
-		if ( this.entidade.isEducacaoFundamental() ) {
+		if (this.entidade.isEducacaoFundamental()) {
 			imprimirBoletimEducFundamental();
 		} else {
 			imprimirBoletimEducInfantil();
@@ -227,7 +229,8 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		try {
 
 			Map<String, Object> param = new HashMap<String, Object>();
-			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
+			Empresa empresa = (Empresa) FacesUtils
+					.getApplicationParam("empresa");
 
 			// parametros usados no relatorio
 			param.put(REPORT_TITLE, getTituloRelatorio());
@@ -239,19 +242,20 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 			if (bimestre.getDescricao() != Bimestre.PRIMEIRO.getDescricao())
 				param.put("GRAFICO2", this.MEDIA_SOMA_BIMESTRE);
 
-			List<DetalheBoletim> lista = new ArrayList<DetalheBoletim>( this.entidade.getDetalheBoletims() );
+			List<DetalheBoletim> lista = new ArrayList<DetalheBoletim>(
+					this.entidade.getDetalheBoletims());
 
 			gerarRelatorioWeb(lista, param, true);
 
 		} catch (JRException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	private void imprimirBoletimEducInfantil() {
-		
+
 		// FIXME #Peninha criar relatorio
-		
+
 	}
 
 	@Override
@@ -344,6 +348,88 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 			Map<String, Object> parametros, boolean boletim) throws JRException {
 
 		nomeRelatorio = "turma-aluno.jasper";
+
+		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+
+		BufferedOutputStream output = null;
+		BufferedInputStream input = null;
+
+		String webPath = context.getExternalContext().getRealPath("/");
+		String reportPath = webPath + PATH_REPORT + nomeRelatorio;
+
+		try {
+
+			input = new BufferedInputStream(new FileInputStream(reportPath),
+					DEFAULT_BUFFER_SIZE);
+
+			File fileReport = new File(reportPath);
+
+			response.reset();
+			response.setHeader("Content-Type", "application/pdf");
+			response.setHeader("Content-Length",
+					String.valueOf(fileReport.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\""
+					+ fileReport.getName() + "\"");
+
+			JasperRunManager.runReportToPdfStream(new FileInputStream(
+					fileReport), response.getOutputStream(), parametros, jrRS);
+
+			output = new BufferedOutputStream(response.getOutputStream(),
+					DEFAULT_BUFFER_SIZE);
+
+			// Write file contents to response.
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int length;
+			while ((length = input.read(buffer)) > 0) {
+				output.write(buffer, 0, length);
+			}
+
+			// Finalize task.
+			output.flush();
+		} catch (FileNotFoundException e) {
+			System.out.println("Erro : Relatorio não foi encontrado: "
+					+ reportPath);
+			showMessage(Constants.MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			// Gently close streams.
+			close(output);
+			close(input);
+		}
+
+		context.renderResponse();
+		context.responseComplete();
+	}
+
+	public void imprimirBoletimInfantil() throws FileNotFoundException,
+			IOException, DocumentException, JRException {
+		try {
+
+			Map<String, Object> param = new HashMap<String, Object>();
+			Empresa empresa = (Empresa) FacesUtils
+					.getApplicationParam("empresa");
+
+			// parametros usados no relatorio
+			param.put(REPORT_TITLE, getTituloRelatorio());
+			param.put(EMPRESA, empresa);
+			param.put(USUARIO, getUsuarioLogado());
+
+			imprimirBoletimInfantil(this.entidade.getAvaliacaoEducacaoInfantilAsList(), param, false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void imprimirBoletimInfantil(List<AvaliacaoEducacaoInfantil> lista,
+			Map<String, Object> parametros, boolean boletim) throws JRException {
+
+		nomeRelatorio = "boletim-infantil.jasper";
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
 
