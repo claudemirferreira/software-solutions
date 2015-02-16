@@ -96,9 +96,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 
 	private List<SelectItem> statusList;
 
-	private String MEDIA_BIMESTRE = "MEDIA_BIMESTRE.PNG";
+	private String MEDIA_BIMESTRE;
 
-	private String MEDIA_SOMA_BIMESTRE = "MEDIA_SOMA_BIMESTRE.PNG";
+	private String MEDIA_SOMA_BIMESTRE;
 
 	private StreamedContent chart1;
 
@@ -531,21 +531,17 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		this.filteredTurmas = filteredTurmas;
 	}
 
-	public String pegarGraficoMediaSomaBimestre(Bimestre bimestre,
-			String nomeGrafico) throws IOException {
+	public String pegarGraficoMediaSomaBimestre(Bimestre bimestre, String nomeGrafico) throws IOException {
 		imagemGrafico = null;
 
-		this.chart = this.grafico.criarGraficoMediaAcumulada(medias,
-				this.entidade.getDetalheBoletims(), bimestre);
+		this.chart = this.grafico.criarGraficoMediaAcumulada(medias, this.entidade.getDetalheBoletims(), bimestre);
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		String webPath = context.getExternalContext().getRealPath("/")
-				+ "MEDIA_SOMA_BIMESTRE.PNG";
-
-		File file1 = new File(webPath);
-		ChartUtilities.saveChartAsPNG(file1, this.chart, 555, 300);
-		System.out.println(webPath);
-		return webPath;
+		MEDIA_SOMA_BIMESTRE = "MEDIA_SOMA_BIMESTRE.PNG";
+		File imgTmp = new File( System.getProperty("java.io.tmpdir") + "/" + MEDIA_SOMA_BIMESTRE);
+		
+		ChartUtilities.saveChartAsPNG(imgTmp, this.chart, 555, 300);
+		System.out.println(imgTmp.getAbsolutePath());
+		return imgTmp.getAbsolutePath();
 	}
 
 	public String pegarGraficoBimestre(Bimestre bimestre, String nomeGrafico)
@@ -553,17 +549,14 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		imagemGrafico = null;
 
 		this.medias = detalheBoletimServico.listaMediaTurma(turma);
-		this.chart = this.grafico.criarGraficoMedia(this.medias,
-				this.entidade.getDetalheBoletims(), bimestre);
-
-		FacesContext context = FacesContext.getCurrentInstance();
-		String webPath = context.getExternalContext().getRealPath("/")
-				+ "MEDIA_BIMESTRE.PNG";
-
-		File file1 = new File(webPath);
-		ChartUtilities.saveChartAsPNG(file1, this.chart, 555, 300);
-		System.out.println(webPath);
-		return webPath;
+		this.chart = this.grafico.criarGraficoMedia(this.medias, this.entidade.getDetalheBoletims(), bimestre);
+		
+		MEDIA_BIMESTRE = "MEDIA_BIMESTRE.PNG";
+		File imgTmp = new File( System.getProperty("java.io.tmpdir") + "/" + MEDIA_BIMESTRE);
+		
+		ChartUtilities.saveChartAsPNG(imgTmp, this.chart, 555, 300);
+		System.out.println(imgTmp.getAbsolutePath());
+		return imgTmp.getAbsolutePath();
 	}
 
 	public DetalheBoletimServico getDetalheBoletimServico() {
