@@ -214,11 +214,11 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		gerarImagemGrafico();
 	}
 
-	public void imprimirBoletim() throws IOException {
+	public void imprimirBoletim() throws IOException, DocumentException, JRException {
 		if (this.entidade.isEducacaoFundamental()) {
 			imprimirBoletimEducFundamental();
 		} else {
-			imprimirBoletimEducInfantil();
+			imprimirBoletimInfantil();
 		}
 	}
 
@@ -252,15 +252,9 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		}
 	}
 
-	private void imprimirBoletimEducInfantil() {
-
-		// FIXME #Peninha criar relatorio
-
-	}
 
 	@Override
-	public void imprimir() throws FileNotFoundException, IOException,
-			DocumentException, JRException {
+	public void imprimir() throws FileNotFoundException, IOException, DocumentException, JRException {
 		try {
 
 			Map<String, Object> param = new HashMap<String, Object>();
@@ -406,13 +400,11 @@ public class BoletimControlador extends ControladorGenerico<Boletim> {
 		context.responseComplete();
 	}
 
-	public void imprimirBoletimInfantil() throws FileNotFoundException,
-			IOException, DocumentException, JRException {
+	public void imprimirBoletimInfantil() throws FileNotFoundException, IOException, DocumentException, JRException {
 		try {
 
 			Map<String, Object> param = new HashMap<String, Object>();
-			Empresa empresa = (Empresa) FacesUtils
-					.getApplicationParam("empresa");
+			Empresa empresa = (Empresa) FacesUtils.getApplicationParam("empresa");
 
 			// parametros usados no relatorio
 			param.put(REPORT_TITLE, getTituloRelatorio());

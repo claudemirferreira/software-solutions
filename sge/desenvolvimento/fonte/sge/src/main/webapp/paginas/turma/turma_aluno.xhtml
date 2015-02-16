@@ -31,15 +31,18 @@
 
 				<f:facet name="footer">
 					<p:commandButton value="Fechar"
-						action="#{turmaControlador.closeModal()}"
-						styleClass="ui-priority-primary" icon="ui-icon-circle-close"
-						onclick="PF('dlgModal').hide();" immediate="true" />
+									action="#{turmaControlador.closeModal()}"
+									styleClass="ui-priority-primary" icon="ui-icon-circle-close"
+									onclick="PF('dlgModal').hide();" 
+									immediate="true" />
 
-					<p:commandButton id="btnImprimirr" onclick="form.target='_blank'"
-						ajax="false" value="Imprimir" action="#{turmaControlador.imprimirAlunosTurma()}"
-						disabled="false" icon="ui-icon-print"
-						styleClass="ui-priority-primary" immediate="true" />
-						
+					<p:commandButton id="btnImprimirr" 
+									onclick="form.target='_blank'"
+									ajax="false" value="Imprimir" 
+									action="#{turmaControlador.imprimirAlunosTurma()}"
+									disabled="#{empty turmaControlador.listaAluno}" 
+									icon="ui-icon-print" styleClass="ui-priority-primary" 
+									immediate="true" />
 				</f:facet>
 			</p:panel>
 
