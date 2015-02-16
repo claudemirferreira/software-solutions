@@ -17,10 +17,13 @@
 
 	<ui:define name="aditional_button_region">
 
-		<p:commandButton id="btnImprimir" onclick="form.target='_blank'"
-						ajax="false" value="Imprimir"
-						action="#{boletimControlador.imprimirBoletim()}" icon="ui-icon-print"
-						styleClass="ui-priority-primary" immediate="true" />
+		<p:commandButton id="btnImprimir" 
+						value="Imprimir"
+						onclick="form.target='_blank'"
+						ajax="false" 
+						action="#{boletimControlador.imprimirBoletim()}" 
+						icon="ui-icon-print" styleClass="ui-priority-primary" 
+						immediate="true" />
 
 		<p:commandButton value="Gráfico"
 						icon="ui-icon-print" styleClass="ui-priority-primary" 
