@@ -54,7 +54,7 @@ public class Boletim extends AbstractEntity implements Serializable {
 	private Set<AvaliacaoEducacaoInfantil> avaliacaoEducacaoInfantils = new HashSet<AvaliacaoEducacaoInfantil>();
 
 
-	@Column( name="tx_observacao", length = 255)
+	@Column( name="tx_observacao", length = 700)
 	private String txObservacao;
 	
 	@Transient

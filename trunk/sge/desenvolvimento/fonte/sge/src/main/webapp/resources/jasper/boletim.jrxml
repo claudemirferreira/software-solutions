@@ -112,7 +112,9 @@
 		<band/>
 	</background>
 	<title>
-		<band height="166">
+		<band height="120">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
 				<reportElement x="2" y="78" width="208" height="20" uuid="4a87ca5d-fcf6-4150-a551-fd22973909d8"/>
 				<textElement verticalAlignment="Middle"/>
@@ -128,9 +130,9 @@
 			<staticText>
 				<reportElement x="91" y="56" width="350" height="20" uuid="e0c3f3cb-1946-4cb1-ba01-0df8fefd3b03"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Boletim Escolar]]></text>
+				<text><![CDATA[BOLETIM ESCOLAR]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="267" y="78" width="152" height="20" uuid="f1a8ffe7-b39f-499a-b5d7-bf36f6b64428"/>
@@ -172,11 +174,6 @@
 					<textFieldExpression><![CDATA["Endereço: " + $P{empresa}.getEndereco() + " - " + $P{empresa}.getBairro() + ". Manaus - AM.  Cnpj: " + $P{empresa}.getCnpj() + "."]]></textFieldExpression>
 				</textField>
 			</frame>
-			<textField>
-				<reportElement x="2" y="118" width="523" height="48" uuid="3350c2ec-f057-4596-b422-d58786445221"/>
-				<textElement verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA["Observação: " + $F{boletim}.getTxObservacao()]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -230,16 +227,25 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1º B]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="-39" width="103" height="33" uuid="fb74c002-eba3-4398-860b-398d450c4454"/>
+				<reportElement x="0" y="-40" width="129" height="39" uuid="fb74c002-eba3-4398-860b-398d450c4454">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Compoenentes Curriculares]]></text>
+				<text><![CDATA[Componentes Curriculares]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="130" y="-40" width="156" height="20" uuid="5168cfff-ee27-4fb5-aba2-5c9ae2693fea">
@@ -253,7 +259,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Notas de Aproveitamento]]></text>
 			</staticText>
@@ -263,7 +269,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2º B]]></text>
 			</staticText>
@@ -273,7 +279,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3º B]]></text>
 			</staticText>
@@ -283,7 +289,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4º B]]></text>
 			</staticText>
@@ -299,7 +305,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Méd.]]></text>
 			</staticText>
@@ -315,7 +321,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Rec]]></text>
 			</staticText>
@@ -328,7 +334,7 @@
 			<staticText>
 				<reportElement x="290" y="-39" width="99" height="15" uuid="1af44d47-475a-4115-83ea-d24226e1eb1d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Resultado Final]]></text>
 			</staticText>
@@ -344,7 +350,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[M F]]></text>
 			</staticText>
@@ -354,7 +360,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Resultado]]></text>
 			</staticText>
@@ -367,7 +373,7 @@
 			<staticText>
 				<reportElement x="394" y="-39" width="124" height="15" uuid="4e346d6d-f1b3-430e-9dcb-0431f12a579e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Faltas]]></text>
 			</staticText>
@@ -401,7 +407,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1º B]]></text>
 			</staticText>
@@ -411,7 +417,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4º B]]></text>
 			</staticText>
@@ -421,7 +427,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3º B]]></text>
 			</staticText>
@@ -431,7 +437,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2º B]]></text>
 			</staticText>
@@ -447,7 +453,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
@@ -603,15 +609,36 @@
 	<summary>
 		<band height="659">
 			<image hAlign="Center" vAlign="Middle" isUsingCache="false">
-				<reportElement x="3" y="385" width="520" height="269" uuid="67d395df-f196-4dfc-81d2-598d6d9ed392"/>
+				<reportElement x="0" y="432" width="520" height="200" uuid="67d395df-f196-4dfc-81d2-598d6d9ed392">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
 				<imageExpression><![CDATA[$P{GRAFICO2}]]></imageExpression>
 			</image>
 			<image hAlign="Center" vAlign="Middle" isUsingCache="false">
-				<reportElement x="3" y="65" width="520" height="269" uuid="b94ac96e-ce1d-42d5-8e86-5eb3d7eb6dd4"/>
+				<reportElement x="0" y="222" width="520" height="200" uuid="b94ac96e-ce1d-42d5-8e86-5eb3d7eb6dd4">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
 				<imageExpression><![CDATA[$P{GRAFICO1}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="1" y="10" width="553" height="112" uuid="c4394ec2-efe3-4f34-bab5-d65713d8699d">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Observação: " + ($F{boletim}.getTxObservacao() != null) ?
+ $F{boletim}.getTxObservacao(): ""]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
