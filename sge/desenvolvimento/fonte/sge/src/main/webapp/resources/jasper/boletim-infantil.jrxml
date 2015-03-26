@@ -58,7 +58,9 @@
 		<band/>
 	</background>
 	<title>
-		<band height="159">
+		<band height="125">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
 				<reportElement x="2" y="78" width="208" height="20" isRemoveLineWhenBlank="true" uuid="4a87ca5d-fcf6-4150-a551-fd22973909d8"/>
 				<textElement verticalAlignment="Middle"/>
@@ -118,15 +120,6 @@
 					<textFieldExpression><![CDATA["Endereço: " + $P{empresa}.getEndereco() + " - " + $P{empresa}.getBairro() + ". Manaus - AM.  Cnpj: " + $P{empresa}.getCnpj() + "."]]></textFieldExpression>
 				</textField>
 			</frame>
-			<textField>
-				<reportElement x="65" y="120" width="460" height="36" isRemoveLineWhenBlank="true" uuid="8b745e3c-fe04-43fe-85df-dbc9e4b423c9"/>
-				<textFieldExpression><![CDATA[($F{boletim}.getTxObservacao() != null) ?
- $F{boletim}.getTxObservacao(): ""]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="2" y="120" width="62" height="20" uuid="023dcd84-d801-4863-a7d0-6a1c582a3efa"/>
-				<text><![CDATA[Observação:]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -390,9 +383,69 @@
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="164">
+		<band height="5">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="220">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="396" y="39" width="157" height="68" uuid="05fdf904-18c9-4d35-8fb5-3160240c92c2"/>
+				<reportElement x="2" y="7" width="62" height="20" uuid="023dcd84-d801-4863-a7d0-6a1c582a3efa"/>
+				<text><![CDATA[Observação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="204" width="42" height="15" uuid="cd4f2c0f-af70-4e8f-b03c-14924b48f25f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[4º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="184" width="42" height="15" uuid="9317fdad-2685-46e0-900f-6666c26fbd5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[3º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="163" width="42" height="15" uuid="b310af1a-7ea3-423b-8d83-454834d06a2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[2º B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="141" width="42" height="15" uuid="f683e7fa-edde-4157-852a-7fa991fd5112"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[1º B]]></text>
+			</staticText>
+			<line>
+				<reportElement x="42" y="219" width="273" height="1" uuid="a7de3f5f-19b7-465b-a417-46b2f91bc224"/>
+			</line>
+			<line>
+				<reportElement x="42" y="199" width="273" height="1" uuid="2295d8bc-5722-4518-a6f9-610fcdd098c1"/>
+			</line>
+			<line>
+				<reportElement x="42" y="177" width="273" height="1" uuid="0b3c62a8-9808-4cf2-b8f8-4c5165dd8eb5"/>
+			</line>
+			<line>
+				<reportElement x="42" y="156" width="273" height="1" uuid="6f0ccdcf-1122-42e7-bf0d-c77eacfff588"/>
+			</line>
+			<textField>
+				<reportElement x="60" y="7" width="493" height="111" isRemoveLineWhenBlank="true" uuid="8b745e3c-fe04-43fe-85df-dbc9e4b423c9">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[($F{boletim}.getTxObservacao() != null) ?
+ $F{boletim}.getTxObservacao(): ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="396" y="148" width="157" height="68" uuid="05fdf904-18c9-4d35-8fb5-3160240c92c2"/>
 				<text><![CDATA[LEGENDA:
 S – Sim
 N – Não
@@ -400,53 +453,10 @@ AV – As Vezes
 ED – Em desenvolvimento
 NT – Não trabalhamos]]></text>
 			</staticText>
-			<line>
-				<reportElement x="42" y="47" width="273" height="1" uuid="6f0ccdcf-1122-42e7-bf0d-c77eacfff588"/>
-			</line>
-			<line>
-				<reportElement x="42" y="68" width="273" height="1" uuid="0b3c62a8-9808-4cf2-b8f8-4c5165dd8eb5"/>
-			</line>
-			<line>
-				<reportElement x="42" y="90" width="273" height="1" uuid="2295d8bc-5722-4518-a6f9-610fcdd098c1"/>
-			</line>
-			<line>
-				<reportElement x="42" y="110" width="273" height="1" uuid="a7de3f5f-19b7-465b-a417-46b2f91bc224"/>
-			</line>
 			<staticText>
-				<reportElement x="2" y="2" width="278" height="20" uuid="b72afe19-a8a4-4abd-bc4a-ad00754ed4e7"/>
+				<reportElement x="2" y="118" width="278" height="20" uuid="b72afe19-a8a4-4abd-bc4a-ad00754ed4e7"/>
 				<text><![CDATA[ASSINATURA DOS RESPONSÁVEIS ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="32" width="42" height="15" uuid="f683e7fa-edde-4157-852a-7fa991fd5112"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[1º B]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="54" width="42" height="15" uuid="b310af1a-7ea3-423b-8d83-454834d06a2f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[2º B]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="75" width="42" height="15" uuid="9317fdad-2685-46e0-900f-6666c26fbd5f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[3º B]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="95" width="42" height="15" uuid="cd4f2c0f-af70-4e8f-b03c-14924b48f25f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[4º B]]></text>
-			</staticText>
 		</band>
-	</pageFooter>
-	<summary>
-		<band/>
 	</summary>
 </jasperReport>

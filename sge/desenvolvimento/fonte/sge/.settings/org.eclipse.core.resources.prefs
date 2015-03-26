@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/resources/jasper/aluno.jrxml=UTF-8
+encoding//src/main/webapp/resources/jasper/boletim-infantil.jrxml=UTF-8
 encoding//src/main/webapp/resources/jasper/boletim.jrxml=UTF-8
 encoding//src/main/webapp/resources/jasper/contrato-ce-shekinah-parte1.jrxml=UTF-8
 encoding//src/main/webapp/resources/jasper/contrato-ce-shekinah-parte2.jrxml=UTF-8
