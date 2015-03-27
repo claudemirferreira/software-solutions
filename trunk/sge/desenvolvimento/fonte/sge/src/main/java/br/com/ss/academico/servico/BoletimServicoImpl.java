@@ -1,6 +1,8 @@
 package br.com.ss.academico.servico;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -62,17 +64,53 @@ public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements Bo
 
 	@Override
 	public void gerarBoletim(Matricula matricula) {
-
-		Boletim boletim = new Boletim();
-		boletim.setMatricula(matricula);
-		
-		if (TipoCurso.ENSINO_FUNDAMENTAL.equals(matricula.getTurma().getCurso().getTipoCurso())) {
-			criarDetalhesBoletim(boletim);
+		Boletim boletim;
+		List<Boletim> boletinsMatricula = this.repositorio.pesquisarBoletim(matricula);
+		if (!boletinsMatricula.isEmpty()) {
+			// atualiza o boletim adicionando novas materias caso exista
+			boletim = boletinsMatricula.get(0);
+			
+			atualizarDisciplinasBoletim(matricula, boletim);
+			
 		} else {
-			criarAvaliacaoEducacaoInfantil(boletim);
+			// cria o boletim
+			boletim = new Boletim();
+			
+			boletim.setMatricula(matricula);
+			
+			if (TipoCurso.ENSINO_FUNDAMENTAL.equals(matricula.getTurma().getCurso().getTipoCurso())) {
+				criarDetalhesBoletim(boletim);
+			} else {
+				criarAvaliacaoEducacaoInfantil(boletim);
+			}
+			
 		}
 		
 		this.repositorio.save(boletim);
+	}
+
+	private void atualizarDisciplinasBoletim(Matricula matricula, Boletim boletim) {
+		List<Disciplina> listaDisciplinaPorCurso = disciplinaRepositorioSql.listaDisciplinaPorCurso(matricula.getTurma().getCurso().getId());
+		
+		for (Disciplina disciplina : listaDisciplinaPorCurso) {
+			boolean contains = false;
+			
+			List<DetalheBoletim> detalhesBol = new ArrayList<DetalheBoletim>( boletim.getDetalheBoletims() );
+			for (DetalheBoletim detalhe : detalhesBol ) {
+				if (detalhe.getDisciplina().equals(disciplina)) {
+					contains = true;
+				}
+			}
+			
+			if (!contains) {
+				// add a nova disciplina no boletim
+				DetalheBoletim det = new DetalheBoletim();
+				det.setDisciplina(disciplina);
+				det.setBoletim(boletim);
+				boletim.getDetalheBoletims().add(det);
+			}
+			
+		}
 	}
 	
 	
@@ -88,7 +126,8 @@ public class BoletimServicoImpl extends ServicoImpl<Boletim, Long> implements Bo
 	
 
 	private void criarDetalhesBoletim(Boletim boletim) {
-		for (Disciplina disciplina : disciplinaRepositorioSql.listaDisciplinaPorCurso(boletim.getMatricula().getTurma().getCurso().getId())) {
+		List<Disciplina> listaDisciplinaPorCurso = disciplinaRepositorioSql.listaDisciplinaPorCurso(boletim.getMatricula().getTurma().getCurso().getId());
+		for (Disciplina disciplina : listaDisciplinaPorCurso) {
 			DetalheBoletim det = new DetalheBoletim();
 			det.setDisciplina(disciplina);
 			det.setBoletim(boletim);
