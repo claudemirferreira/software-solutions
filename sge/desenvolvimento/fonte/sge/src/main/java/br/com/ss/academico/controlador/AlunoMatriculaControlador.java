@@ -343,10 +343,8 @@ public class AlunoMatriculaControlador extends ControladorGenerico<Matricula> {
 			entidade.setAluno(alunoMatricula);
 			servicoMatricula.salvar(entidade);
 			
-			if (!persistent ) {
-				// No cadastro, gera o boletim para o aluno matriculado
-				this.boletimServico.gerarBoletim(entidade);
-			}
+			// gera/atualiza o boletim para o aluno matriculado
+			this.boletimServico.gerarBoletim(entidade);
 
 			showModalPesquisaMatricula();
 			Aluno alunoBkp = alunoMatricula;
